@@ -123,31 +123,31 @@
     <script src="/static/js/jquery-3.6.0.min.js"></script>
 
     <script>
-    function send_mail_test(){
-        var email = $('#testEmail').val();
-        var url  = $('#testUrl').data('url');
-        if(email == ''){
-            alert("please input email value.");
-            return false;
-        }
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {email:email},
-            cache: false,
-            dataType: "json",
-            success: function(json) {
-                if(json.code == '000000'){
-                    alert('send success');
-                }else{
-                    alert('send fail');
-                }
-            },
-            error: function() {
-                alert('server error');
+        function send_mail_test(){
+            var email = $('#testEmail').val();
+            var url  = $('#testUrl').data('url');
+            if(email == ''){
+                alert("please input email value.");
+                return false;
             }
-        });
-    }
-</script>
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {email:email},
+                cache: false,
+                dataType: "json",
+                success: function(json) {
+                    if(json.code == '000000'){
+                        alert('send success');
+                    }else{
+                        alert('send fail');
+                    }
+                },
+                error: function() {
+                    alert('server error');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
