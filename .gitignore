@@ -21,3 +21,11 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+.DS_Store
+
+# R&D Documents
+push.sh
+push_ignore.sh
+setup.sh
+composer.lock
