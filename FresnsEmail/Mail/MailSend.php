@@ -1,8 +1,12 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
 
 namespace App\Plugins\FresnsEmail\Mail;
-
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -20,7 +24,7 @@ class MailSend extends Mailable
      *
      * @return void
      */
-    public function __construct($title='fresns title',$content='fresns content')
+    public function __construct($title = 'fresns title', $content = 'fresns content')
     {
         $this->title = $title;
         $this->content = $content;
