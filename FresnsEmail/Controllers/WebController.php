@@ -51,6 +51,7 @@ class WebController extends BaseController
             $fresnsConfigs->item_tag = 'fresnsemail';
             $fresnsConfigs->saveOrFail();
         });
+
         return back()->with('success', __('success!'));
     }
 
@@ -67,8 +68,9 @@ class WebController extends BaseController
         ];
         $resp = CmdRpcHelper::call(Plugin::class, PluginConfig::PLG_CMD_SEND_EMAIL, $input);
         if (CmdRpcHelper::isErrorCmdResp($resp)) {
-			return response()->json(['code'=>'500000'], Response::HTTP_OK);
+            return response()->json(['code'=>'500000'], Response::HTTP_OK);
         }
-	    return response()->json(['code'=>'000000'], Response::HTTP_OK);
+
+        return response()->json(['code'=>'000000'], Response::HTTP_OK);
     }
 }
