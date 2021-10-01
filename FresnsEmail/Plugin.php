@@ -45,34 +45,35 @@ class Plugin extends BasePlugin
     protected function sendCodeHandler($input)
     {
         try {
-            $codeRes = MailService::makeMailCode($input['account'],$input['templateId']);
-            if($codeRes['code'] != '000000'){
+            $codeRes = MailService::makeMailCode($input['account'], $input['templateId']);
+            if ($codeRes['code'] != '000000') {
                 return $this->pluginError(BasePluginConfig::CODE_NOT_EXIST);
             }
             $code = $codeRes['mailCode'];
             $expired = $codeRes['expired'];
             $sitename = FresnsLanguagesService::getLanguageByTableKey(FresnsConfigsConfig::CFG_TABLE, 'item_value', 'site_name', $input['langTag']);
-            $template = MailService::getTemplateValue($input['templateId'],$input['langTag']);
-            if(empty($template) || empty($template['title']) || empty($template['content'])){
+            $template = MailService::getTemplateValue($input['templateId'], $input['langTag']);
+            if (empty($template) || empty($template['title']) || empty($template['content'])) {
                 return $this->pluginError(BasePluginConfig::CODE_NOT_EXIST);
             }
 
-            $title   = MailService::getTitle($template['title'],$sitename);
-            $content = MailService::getContent($template['content'],$sitename,$code,$expired);
+            $title = MailService::getTitle($template['title'], $sitename);
+            $content = MailService::getContent($template['content'], $sitename, $code, $expired);
 
-            LogService::info('Email Params: ', [$input,$title,$content]);
+            LogService::info('Email Params: ', [$input, $title, $content]);
 
             MailService::initMailSetting();
-            Mail::to($input['account'])->send(new MailSend($title,$content));
+            Mail::to($input['account'])->send(new MailSend($title, $content));
 
             return $this->pluginSuccess();
         } catch (\Error $error) {
-            return $this->pluginError(50000,[],$error->getMessage());
+            return $this->pluginError(50000, [], $error->getMessage());
         }
     }
 
     /**
-     * Send email
+     * Send email.
+     *
      * @param $input
      *  email
      *  title
@@ -85,12 +86,13 @@ class Plugin extends BasePlugin
             LogService::info('Email Params: ', $input);
 
             MailService::initMailSetting();
-            Mail::to($input['email'])->send(new MailSend($input['title'],$input['content']));
+            Mail::to($input['email'])->send(new MailSend($input['title'], $input['content']));
+
             return $this->pluginSuccess();
         } catch (\Error $error) {
             $return = ['code' => 4, 'msg' => $error->getMessage()];
+
             return $this->pluginSuccess($return);
         }
     }
-
 }
