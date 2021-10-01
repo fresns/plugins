@@ -25,9 +25,9 @@ class PluginConfig extends BasePluginConfig
     public $type = 2;
     public $uniKey = 'FresnsEmail';
     public $name = 'Fresns Email';
-    public $description = 'Fresns 官方开发的 SMTP 发信方式的邮件插件。';
+    public $description = 'Fresns official development of the SMTP sending method of mail plugin.';
     public $author = 'Fresns';
-    public $authorLink = 'https://fresns.cn';
+    public $authorLink = 'https://fresns.org';
     public $currVersion = '1.0';
     public $currVersionInt = 1;
     public $settingPath = '/fresnsemail/settings';

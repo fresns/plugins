@@ -21,12 +21,4 @@ class PluginConfig extends BasePluginConfig
     public $currVersion = '1.0';
     public $currVersionInt = 1;
     public $settingPath = '/viewLog';
-
-    // Plugin default command word, any plugin must have
-    public const PLG_CMD_DEFAULT = 'plg_cmd_default';
-
-    // Plugin command word callback mapping
-    const PLG_CMD_HANDLE_MAP = [
-        self::PLG_CMD_DEFAULT => 'defaultHandler',
-    ];
 }
