@@ -61,20 +61,20 @@
                             <div class="col-lg-5">
                                 <select class="form-select" name="fresnsemail_verify_type">
                                     <option value="" @if($content['fresnsemail_verify_type'] == '') selected @endif>Null</option>
-                                    <option value="tls" @if($content['fresnsemail_verify_type'] == 'TLS') selected @endif>TLS</option>
-                                    <option value="ssl" @if($content['fresnsemail_verify_type'] == 'SSL') selected @endif>SSL</option>
+                                    <option value="tls" @if($content['fresnsemail_verify_type'] == 'tls') selected @endif>tls</option>
+                                    <option value="ssl" @if($content['fresnsemail_verify_type'] == 'ssl') selected @endif>ssl</option>
                                 </select>
                             </div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('FresnsEmail/fresns.smtpVerifyTypeIntro')</div>
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">@lang('FresnsEmail/fresns.smtpFromMail'):</label>
-                            <div class="col-lg-5"><input type="email" class="form-control" name="send_email_from_mail" placeholder="name@example.com" value="{{ old("send_email_from_mail", $content['send_email_from_mail'] ?? '') }}" ></div>
+                            <div class="col-lg-5"><input type="email" class="form-control" name="fresnsemail_from_mail" placeholder="name@example.com" value="{{ old("fresnsemail_from_mail", $content['fresnsemail_from_mail'] ?? '') }}" ></div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('FresnsEmail/fresns.smtpFromMailIntro')</div>
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">@lang('FresnsEmail/fresns.smtpFromName'):</label>
-                            <div class="col-lg-5"><input type="text" class="form-control" name="send_email_from_name" placeholder="Fresns" value="{{ old("send_email_from_name", $content['send_email_from_name'] ?? '') }}" ></div>
+                            <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_from_name" placeholder="Fresns" value="{{ old("fresnsemail_from_name", $content['fresnsemail_from_name'] ?? '') }}" ></div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('FresnsEmail/fresns.smtpFromNameIntro')</div>
                         </div>
                         <div class="row mb-4">
@@ -149,5 +149,6 @@
             });
         }
     </script>
+
 </body>
 </html>

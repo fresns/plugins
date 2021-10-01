@@ -28,8 +28,8 @@ class WebController extends BaseController
             'fresnsemail_smtp_user',
             'fresnsemail_smtp_password',
             'fresnsemail_verify_type',
-            'send_email_from_name',
-            'send_email_from_mail',
+            'fresnsemail_from_mail',
+            'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
 
         return view('plugins.FresnsEmail.setting', compact('content'));
@@ -47,11 +47,10 @@ class WebController extends BaseController
             $fresnsConfigs = FresnsConfigs::query()->firstWhere('item_key', $key) ?: FresnsConfigs::query()->newModelInstance();
             $fresnsConfigs->item_key = $key;
             $fresnsConfigs->item_value = $value ?: '';
-            $fresnsConfigs->item_type = 'plugin';
+            $fresnsConfigs->item_type = 'string';
             $fresnsConfigs->item_tag = 'fresnsemail';
             $fresnsConfigs->saveOrFail();
         });
-
         return back()->with('success', __('success!'));
     }
 
@@ -66,11 +65,10 @@ class WebController extends BaseController
             'title' => 'Fresns test email',
             'content' => 'This is a Fresns software testing email',
         ];
-        $resp = CmdRpcHelper::call(Plugin::class, FresnsCmdWordsConfig::PLG_CMD_SEND_EMAIL, $input);
+        $resp = CmdRpcHelper::call(Plugin::class, PluginConfig::PLG_CMD_SEND_EMAIL, $input);
         if (CmdRpcHelper::isErrorCmdResp($resp)) {
-            return response()->json(['code'=>'0'], Response::HTTP_OK);
+			return response()->json(['code'=>'500000'], Response::HTTP_OK);
         }
-
-        return response()->json(['code'=>'50000'], Response::HTTP_OK);
+	    return response()->json(['code'=>'000000'], Response::HTTP_OK);
     }
 }

@@ -21,6 +21,8 @@ class Installer extends BaseInstaller
         'fresnsemail_smtp_user',
         'fresnsemail_smtp_password',
         'fresnsemail_verify_type',
+        'fresnsemail_from_mail',
+        'fresnsemail_from_name',
     ];
 
     // Initialization
