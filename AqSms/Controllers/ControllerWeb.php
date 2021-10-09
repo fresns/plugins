@@ -14,20 +14,17 @@ use Illuminate\Http\Request;
 
 class ControllerWeb extends BaseFrontendController
 {
-
     /**
-     * 设置页
+     * 设置页.
      */
     public function setting(Request $request)
     {
-
         $data = [];
 
-        $aqsmsType = ApiConfigHelper::getConfigByItemKey('aqsms_type','','number');
+        $aqsmsType = ApiConfigHelper::getConfigByItemKey('aqsms_type', '', 'number');
         $keyId = ApiConfigHelper::getConfigByItemKey('aqsms_keyid');
         $keySecret = ApiConfigHelper::getConfigByItemKey('aqsms_keysecret');
         $sdkAppId = ApiConfigHelper::getConfigByItemKey('aqsms_appid');
-
 
         $data['aqsms_type'] = $aqsmsType;
         $data['key_id'] = $keyId;
@@ -36,8 +33,4 @@ class ControllerWeb extends BaseFrontendController
 
         return view('plugins.AqSms.setting', $data);
     }
-
-
-
-
 }

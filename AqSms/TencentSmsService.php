@@ -9,87 +9,85 @@
 namespace App\Plugins\AqSms;
 
 use App\Http\Center\Base\BasePlugin;
+use App\Http\Center\Common\ErrorCodeService;
+use App\Http\FresnsApi\Helpers\ApiConfigHelper;
 use Illuminate\Http\Request;
 use TencentCloud\Common\Credential;
+use TencentCloud\Common\Exception\TencentCloudSDKException;
 use TencentCloud\Common\Profile\ClientProfile;
 use TencentCloud\Common\Profile\HttpProfile;
-use TencentCloud\Common\Exception\TencentCloudSDKException;
-use TencentCloud\Sms\V20210111\SmsClient;
 use TencentCloud\Sms\V20210111\Models\SendSmsRequest;
-use App\Http\FresnsApi\Helpers\ApiConfigHelper;
-use App\Http\Center\Common\ErrorCodeService;
+use TencentCloud\Sms\V20210111\SmsClient;
 
 // 腾讯短信 SDK 加载开始
-require_once (__DIR__ . "/tencentcloud/autoload.php");
+require_once __DIR__.'/tencentcloud/autoload.php';
 
 class TencentSmsService
 {
     // 发送验证码短信
-    public function sendCodeSms($input){
-        try{
+    public function sendCodeSms($input)
+    {
+        try {
             $cred = new Credential($input['keyId'], $input['keySecret']);
             $httpProfile = new HttpProfile();
-            $httpProfile->setEndpoint("sms.tencentcloudapi.com");
-    
+            $httpProfile->setEndpoint('sms.tencentcloudapi.com');
+
             $clientProfile = new ClientProfile();
             $clientProfile->setHttpProfile($httpProfile);
-            $client = new SmsClient($cred, "ap-beijing", $clientProfile);
-    
+            $client = new SmsClient($cred, 'ap-beijing', $clientProfile);
+
             $req = new SendSmsRequest();
             $smsCode = $input['codeSms'];
-            $params = array(
-                "PhoneNumberSet" => array( '+' . $input['countryCode'] . $input['account']),
-                "SmsSdkAppId" => $input['appid'],
-                "SignName" => $input['signName'],
-                "TemplateId" => $input['templateCode'],
-                "TemplateParamSet" => array( "{$smsCode}" )
-            );
+            $params = [
+                'PhoneNumberSet' => ['+'.$input['countryCode'].$input['account']],
+                'SmsSdkAppId' => $input['appid'],
+                'SignName' => $input['signName'],
+                'TemplateId' => $input['templateCode'],
+                'TemplateParamSet' => ["{$smsCode}"],
+            ];
             // dd($params);
             $req->fromJsonString(json_encode($params));
-    
-            $resp = $client->SendSms($req);
-    
-            $data = $resp->toJsonString();
 
-        }catch(TencentCloudSDKException $e) {
+            $resp = $client->SendSms($req);
+
+            $data = $resp->toJsonString();
+        } catch (TencentCloudSDKException $e) {
             return false;
         }
-        
 
         return $data;
     }
 
     // 发送自定义短信
-    public function sendSms($input){
-        try{
+    public function sendSms($input)
+    {
+        try {
             $cred = new Credential($input['keyId'], $input['keySecret']);
             $httpProfile = new HttpProfile();
-            $httpProfile->setEndpoint("sms.tencentcloudapi.com");
-    
+            $httpProfile->setEndpoint('sms.tencentcloudapi.com');
+
             $clientProfile = new ClientProfile();
             $clientProfile->setHttpProfile($httpProfile);
-            $client = new SmsClient($cred, "ap-beijing", $clientProfile);
-    
+            $client = new SmsClient($cred, 'ap-beijing', $clientProfile);
+
             $req = new SendSmsRequest();
             $templateParam = $input['templateParam'];
-            $params = array(
-                "PhoneNumberSet" => array( '+' . $input['countryCode'] . $input['phoneNumber']),
-                "SmsSdkAppId" => $input['appid'],
-                "SignName" => $input['signName'],
-                "TemplateId" => $input['templateCode'],
-                "TemplateParamSet" => explode(',',$templateParam)
-            );
+            $params = [
+                'PhoneNumberSet' => ['+'.$input['countryCode'].$input['phoneNumber']],
+                'SmsSdkAppId' => $input['appid'],
+                'SignName' => $input['signName'],
+                'TemplateId' => $input['templateCode'],
+                'TemplateParamSet' => explode(',', $templateParam),
+            ];
             // dd($params);
             $req->fromJsonString(json_encode($params));
-    
-            $resp = $client->SendSms($req);
-    
-            $data = $resp->toJsonString();
 
-        }catch(TencentCloudSDKException $e) {
+            $resp = $client->SendSms($req);
+
+            $data = $resp->toJsonString();
+        } catch (TencentCloudSDKException $e) {
             return false;
         }
-        
 
         return $data;
     }
