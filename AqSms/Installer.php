@@ -22,26 +22,29 @@ class Installer extends BaseInstaller
     }
 
     // 插件安装
-    public function install(){
+    public function install()
+    {
         parent::install();
         // 插入字段
-        AqSmsHelper::insertConfigs('aqsms_type','1','number');
+        AqSmsHelper::insertConfigs('aqsms_type', '1', 'number');
         AqSmsHelper::insertConfigs('aqsms_keyid');
         AqSmsHelper::insertConfigs('aqsms_keysecret');
         AqSmsHelper::insertConfigs('aqsms_appid');
     }
 
     // 插件升级
-    public function upgrade(){
+    public function upgrade()
+    {
         //code
     }
 
     // 插件卸载
-    public function uninstall(){
+    public function uninstall()
+    {
         $request = request();
         $clear_plugin_data = $request->input('clear_plugin_data');
         // 如果 clear_plugin_data 为 1 则删除插件的数据
-        if($clear_plugin_data == 1){
+        if ($clear_plugin_data == 1) {
             AqSmsHelper::deleteConfigItem('aqsms_type');
             AqSmsHelper::deleteConfigItem('aqsms_keyid');
             AqSmsHelper::deleteConfigItem('aqsms_keysecret');
@@ -50,5 +53,4 @@ class Installer extends BaseInstaller
 
         parent::uninstall();
     }
-
 }

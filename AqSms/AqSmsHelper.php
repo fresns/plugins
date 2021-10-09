@@ -12,34 +12,36 @@ use Illuminate\Support\Facades\DB;
 
 class AqSmsHelper
 {
-
     // 新增或者更新值
-    public static function insertOrUpdateConfigItem($itemKey, $itemValue = ""){
+    public static function insertOrUpdateConfigItem($itemKey, $itemValue = '')
+    {
         $cond = [
             'item_key'   => $itemKey,
         ];
         $upInfo = [
             'item_value'   => $itemValue,
         ];
-        DB::table("configs")->updateOrInsert($cond, $upInfo);
+        DB::table('configs')->updateOrInsert($cond, $upInfo);
     }
 
     // 删除配置
-    public static function deleteConfigItem($itemKey){
+    public static function deleteConfigItem($itemKey)
+    {
         $cond = [
             'item_key'   => $itemKey,
         ];
-        DB::table("configs")->where($cond)->delete();
+        DB::table('configs')->where($cond)->delete();
     }
 
     // 新增
-    public static function insertConfigs($itemKey,$itemValue = "",$itemType = "string",$itemTag = 'aqsms'){
+    public static function insertConfigs($itemKey, $itemValue = '', $itemType = 'string', $itemTag = 'aqsms')
+    {
         $cond = [
             'item_key'   => $itemKey,
         ];
-        $count = DB::table("configs")->where($cond)->count();
-        if($count > 0){
-            return ;
+        $count = DB::table('configs')->where($cond)->count();
+        if ($count > 0) {
+            return;
         }
         $cond = [
             'item_key'   => $itemKey,
@@ -47,6 +49,6 @@ class AqSmsHelper
             'item_type'   => $itemType,
             'item_tag'   => $itemTag,
         ];
-        DB::table("configs")->insert($cond);
+        DB::table('configs')->insert($cond);
     }
 }

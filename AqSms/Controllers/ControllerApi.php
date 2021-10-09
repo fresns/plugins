@@ -38,9 +38,6 @@ class ControllerApi extends BaseApiController
             $data[$dbKey] = $formFieldValue;
         }
 
-
         $this->success($data);
     }
-
-
 }
