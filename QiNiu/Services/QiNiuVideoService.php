@@ -14,14 +14,15 @@ use App\Plugins\QiNiu\QiNiuConfig;
 class QiNiuVideoService extends QiNiuService
 {
     // 获取视频防盗链地址
-    public function getVideoDownloadUrl($url, $options = []){
+    public function getVideoDownloadUrl($url, $options = [])
+    {
 
         // 获取防盗链配置
         $videoUrlStatus = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::VIDEO_URL_STATUS);
         $videoUrlExpire = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::VIDEO_URL_EXPIRE);
 
         // 判断防盗链状态
-        if($videoUrlStatus === false){
+        if ($videoUrlStatus === false) {
             return $url;
         }
 

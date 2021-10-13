@@ -16,7 +16,7 @@ require_once __DIR__.'/alibabacloud/sdk/autoload.php';
 
 require_once __DIR__.'/misc/Dot.php';
 require_once __DIR__.'/misc/helpers.php';
-require_once (__DIR__ . "/misc/danielstjules/stringy/autoload.php");
+require_once __DIR__.'/misc/danielstjules/stringy/autoload.php';
 
 require_once __DIR__.'/guzzlehttp/guzzle/autoload.php';
 require_once __DIR__.'/guzzlehttp/psr7/autoload.php';
@@ -70,8 +70,10 @@ class AliSmsService
             $data = [
                 'info' => $e->getMessage(),
             ];
+
             return false;
         }
+
         return $resultCode;
     }
 
