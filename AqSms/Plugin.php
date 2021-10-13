@@ -40,12 +40,14 @@ class Plugin extends BasePlugin
         $templateId = $input['templateId'];
         $langTag = $input['langTag'];
         $data = $this->getCodeTeamplate($templateId, $langTag);
+        // 未找到模板
         if (empty($data)) {
             return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
         }
         $appid = ApiConfigHelper::getConfigByItemKey('aqsms_appid');
         $keyId = ApiConfigHelper::getConfigByItemKey('aqsms_keyid');
         $keySecret = ApiConfigHelper::getConfigByItemKey('aqsms_keysecret');
+        // 缺少配置信息
         if (empty($keyId) || empty($keySecret)) {
             return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
         }
@@ -60,10 +62,18 @@ class Plugin extends BasePlugin
             // 发送阿里云短信
             $this->service = new AliSmsService();
             $date = $this->service->sendCodeSms($data);
+            // 未发送成功
+            if($date != 'OK'){
+                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            }
         } else {
             // 发送腾讯云短信
             $this->service = new TencentSmsService();
             $date = $this->service->sendCodeSms($data);
+            // 未发送成功
+            if($date != 'Ok'){
+                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            }
         }
         if (! $date) {
             return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
@@ -102,7 +112,7 @@ class Plugin extends BasePlugin
         $data['appid'] = $appid;
         $data['keyId'] = $keyId;
         $data['keySecret'] = $keySecret;
-
+        // 缺少配置信息
         if (empty($aqSmsType) || empty($keyId) || empty($keySecret)) {
             return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
         }
@@ -110,10 +120,18 @@ class Plugin extends BasePlugin
             // 发送阿里云短信
             $this->service = new AliSmsService();
             $date = $this->service->sendSms($data);
+            // 未发送成功
+            if($date != 'OK'){
+                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            }
         } else {
             // 发送腾讯云短信
             $this->service = new TencentSmsService();
             $date = $this->service->sendSms($data);
+            // 未发送成功
+            if($date != 'Ok'){
+                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            }
         }
         if (! $date) {
             return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);

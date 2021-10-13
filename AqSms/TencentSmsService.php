@@ -51,11 +51,12 @@ class TencentSmsService
             $resp = $client->SendSms($req);
 
             $data = $resp->toJsonString();
+            $data = json_decode($data,true);
+            $resultCode = $data['SendStatusSet'][0]['Code'];
         } catch (TencentCloudSDKException $e) {
             return false;
         }
-
-        return $data;
+        return $resultCode;
     }
 
     // 发送自定义短信
@@ -85,10 +86,11 @@ class TencentSmsService
             $resp = $client->SendSms($req);
 
             $data = $resp->toJsonString();
+            $data = json_decode($data,true);
+            $resultCode = $data['SendStatusSet'][0]['Code'];
         } catch (TencentCloudSDKException $e) {
             return false;
         }
-
-        return $data;
+        return $resultCode;
     }
 }

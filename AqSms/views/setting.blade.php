@@ -29,7 +29,7 @@
                 <div class="mb-3">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <button class="nav-link active">Key 配置</button>
+                            <button class="nav-link active">短信服务商配置</button>
                         </li>
                     </ul>
                 </div>
@@ -49,17 +49,17 @@
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">Key ID:</label>
                             <div class="col-lg-5"><input type="text" class="form-control" id="aqsms_keyid" name="aqsms_keyid" placeholder="Key ID" value="{{$key_id}}"></div>
-                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> AccessKeyId 或 SDK AppID</div>
+                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> Access Key ID 或 Secret ID</div>
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">Key Secret:</label>
                             <div class="col-lg-5"><input type="text" class="form-control" id="aqsms_keysecret" name="aqsms_keysecret" placeholder="Key Secret" value="{{$key_secret}}"></div>
-                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> AccessKeySecret 或 App Key</div>
+                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> Access Key Secret 或 Secret Key</div>
                         </div>
                         <div class="row mb-4">
-                            <label class="col-lg-2 col-form-label text-lg-end">Sdk AppId:</label>
+                            <label class="col-lg-2 col-form-label text-lg-end">SDK App ID:</label>
                             <div class="col-lg-5"><input type="text" class="form-control" id="aqsms_sdk_appid" name="aqsms_sdk_appid" placeholder="Sdk AppId" value="{{$sdk_appid}}"></div>
-                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 仅腾讯云使用，阿里云留空</div>
+                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 仅腾讯云使用，阿里云忽略</div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-lg-2"></div>
@@ -80,45 +80,59 @@
         </div>
     </footer>
 
+    <!--Toast-->
+    <div id="fresnsToast" class="toast align-items-center position-absolute top-50 start-50 translate-middle" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="save_msg">操作结果信息</div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
     <script src="/static/js/jquery-3.6.0.min.js"></script>
     <script src="/static/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $("#save_btn").click(function (event) {
-            //stop submit the form, we will post it manually.
-            event.preventDefault();
+    <script>
+        $(document).ready(function () {
+            $("#save_btn").click(function (event) {
+                //stop submit the form, we will post it manually.
+                event.preventDefault();
 
-            // Get form
-            var form = $('#aqsms_form')[0];
-            console.log(form)
-            var data = new FormData(form);
-            data.append("custom1", "custom test");
+                // Get form
+                var form = $('#aqsms_form')[0];
+                console.log(form)
+                var data = new FormData(form);
+                data.append("custom1", "custom test");
 
-            $("#save_btn").prop("disabled", true);
-            $.ajax({
-                url: '/api/aqsms/saveSetting',
-                type: 'post',
-                enctype: 'multipart/form-data',
-                data: data,
-                processData: false,  // Important!
-                contentType: false,
-                cache: false,
-                timeout: 600000,
-                beforeSend: function (request) {
-                    // return request.setRequestHeader('Content-Type', "application/json");
-                },
-                success: function (res) {
-                    console.log("success ", res)
-                    $("#save_btn").prop("disabled", false);
-                },
-                error: function (e){
-                    console.log("error", e)
-                }
+                $("#save_btn").prop("disabled", true);
+                $.ajax({
+                    url: '/aqsms/saveSetting',
+                    type: 'post',
+                    enctype: 'multipart/form-data',
+                    data: data,
+                    processData: false,  // Important!
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    beforeSend: function (request) {
+                        return request.setRequestHeader('X-CSRF-Token', "{{ csrf_token() }}");
+                    },
+                    success: function (res) {
+                        console.log("success ", res)
+                        $("#save_btn").prop("disabled", false);
+                        // 显示 toast
+                        // $("#fresnsToast").show().delay(3000).fadeOut();
+                        $("#save_msg").text("保存成功");
+                        $("#fresnsToast").addClass("show");
+                    },
+                    error: function (e){
+                        $("#save_msg").text("保存失败");
+                        $("#fresnsToast").addClass("show");
+                        console.log("error", e)
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>

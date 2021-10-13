@@ -13,5 +13,7 @@ if (PluginHelper::pluginCanUse('AqSms')) {
     Route::group(['prefix' => 'aqsms', 'middleware' => ['web', 'auth'], 'namespace' => '\App\Plugins\AqSms\Controllers'], function () {
         // 设置页
         Route::get('/setting', 'ControllerWeb@setting')->name('aqsms.setting');
+        // 设置插件配置项
+        Route::post('/saveSetting', 'ControllerApi@saveSetting')->name('aqsms.saveSetting');
     });
 }

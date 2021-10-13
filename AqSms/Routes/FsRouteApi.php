@@ -12,6 +12,6 @@ use App\Http\Center\Helper\PluginHelper;
 if (PluginHelper::pluginCanUse('AqSms')) {
     Route::group(['prefix' => 'aqsms', 'middleware' => ['web', 'auth'], 'namespace' => '\App\Plugins\AqSms\Controllers'], function () {
         // 设置插件配置项
-        Route::post('/saveSetting', 'ControllerApi@saveSetting')->name('aqsms.saveSetting');
+        // Route::post('/saveSetting', 'ControllerApi@saveSetting')->name('aqsms.saveSetting');
     });
 }
