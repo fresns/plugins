@@ -9,15 +9,16 @@
 namespace App\Plugins\QiNiu;
 
 use App\Http\Center\Base\BaseInstaller;
-use App\Http\FresnsCmd\FresnsCrontabPluginConfig;
-use App\Http\FresnsCmd\FresnsCrontabPlugin;
 use App\Http\Center\Helper\CmdRpcHelper;
+use App\Http\FresnsCmd\FresnsCrontabPlugin;
+use App\Http\FresnsCmd\FresnsCrontabPluginConfig;
 
 class Installer extends BaseInstaller
 {
     protected $pluginConfig;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->pluginConfig = new PluginConfig();
     }
 

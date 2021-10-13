@@ -14,14 +14,15 @@ use App\Plugins\QiNiu\QiNiuConfig;
 class QiNiuAudioService extends QiNiuService
 {
     // 获取音频防盗链地址
-    public function getAudioDownloadUrl($url, $options = []){
+    public function getAudioDownloadUrl($url, $options = [])
+    {
 
         // 获取防盗链配置
         $audioUrlStatus = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::AUDIO_URL_STATUS);
         $audioUrlExpire = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::AUDIO_URL_EXPIRE);
 
         // 判断防盗链状态
-        if($audioUrlStatus === false){
+        if ($audioUrlStatus === false) {
             return $url;
         }
 

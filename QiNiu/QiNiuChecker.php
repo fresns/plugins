@@ -10,5 +10,4 @@ namespace App\Plugins\QiNiu;
 
 class QiNiuChecker
 {
-
 }

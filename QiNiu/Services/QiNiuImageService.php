@@ -14,14 +14,15 @@ use App\Plugins\QiNiu\QiNiuConfig;
 class QiNiuImageService extends QiNiuService
 {
     // 获取图片防盗链地址
-    public function getImageDownloadUrl($url, $options = []){
+    public function getImageDownloadUrl($url, $options = [])
+    {
 
         // 获取防盗链配置
         $imageUrlStatus = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::IMAGE_URL_STATUS);
         $imageUrlExpire = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::IMAGE_URL_EXPIRE);
 
         // 判断防盗链状态
-        if($imageUrlStatus === false){
+        if ($imageUrlStatus === false) {
             return $url;
         }
 
@@ -36,7 +37,8 @@ class QiNiuImageService extends QiNiuService
     }
 
     // 上传策略
-    public function getPolicy($options = []){
+    public function getPolicy($options = [])
+    {
         $returnBody = '{
                 "name": $(fname),
                 "size": $(fsize),
@@ -51,6 +53,7 @@ class QiNiuImageService extends QiNiuService
         $policy = [
             'returnBody'    => $returnBody,
         ];
+
         return $policy;
     }
 }

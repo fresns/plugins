@@ -20,10 +20,8 @@ use Illuminate\Http\Request;
 
 class QiNiuControllerTrans extends BaseApiController
 {
-
     public function __construct()
     {
-
     }
 
     // 音视频转码回调
@@ -33,66 +31,65 @@ class QiNiuControllerTrans extends BaseApiController
     public function transNotify(Request $request)
     {
         $callback = $request->input('callback');
-        LogService::info("qiniu transNotify callback info", $request);
-        if($callback){
-            $itemArr = json_decode(base64_decode($callback),true);
+        LogService::info('qiniu transNotify callback info', $request);
+        if ($callback) {
+            $itemArr = json_decode(base64_decode($callback), true);
 
-            $files = FresnsFiles::where('uuid',$itemArr['fileId'])->first();
-            FresnsFiles::where('uuid',$itemArr['fileId'])->update(['file_path' => '/' . $itemArr['saveAsKey']]);
+            $files = FresnsFiles::where('uuid', $itemArr['fileId'])->first();
+            FresnsFiles::where('uuid', $itemArr['fileId'])->update(['file_path' => '/'.$itemArr['saveAsKey']]);
             $input = [
                 'transcoding_state' => 3,
-                'file_original_path' => $files['file_path']
+                'file_original_path' => $files['file_path'],
             ];
-            FresnsFileAppends::where('file_id',$files['id'])->update($input);
+            FresnsFileAppends::where('file_id', $files['id'])->update($input);
             //修改帖子或者评论内容
             $videosBucketDomain = ApiConfigHelper::getConfigByItemKey('videos_bucket_domain');
             $audiosBucketDomain = ApiConfigHelper::getConfigByItemKey('audios_bucket_domain');
-            if($itemArr['tableName'] == 'posts'){
-                $moreJson = FresnsPosts::where('id',$itemArr['tableId'])->value('more_json');
-                $moreJsonArr = json_decode($moreJson,true);
+            if ($itemArr['tableName'] == 'posts') {
+                $moreJson = FresnsPosts::where('id', $itemArr['tableId'])->value('more_json');
+                $moreJsonArr = json_decode($moreJson, true);
                 $fileArr = [];
-                foreach($moreJsonArr['files'] as $v){
-                    if($v['fid'] == $itemArr['fileId']){
-                        if($v['type'] == 2){
-                            $v['videoUrl'] = $videosBucketDomain . '/' . $itemArr['saveAsKey'];
+                foreach ($moreJsonArr['files'] as $v) {
+                    if ($v['fid'] == $itemArr['fileId']) {
+                        if ($v['type'] == 2) {
+                            $v['videoUrl'] = $videosBucketDomain.'/'.$itemArr['saveAsKey'];
                         }
-                        if($v['type'] == 3){
-                            $v['audioUrl'] = $audiosBucketDomain . '/' . $itemArr['saveAsKey'];
+                        if ($v['type'] == 3) {
+                            $v['audioUrl'] = $audiosBucketDomain.'/'.$itemArr['saveAsKey'];
                         }
                     }
                     $fileArr[] = $v;
                 }
                 $data['files'] = $fileArr;
-                if(!empty($moreJsonArr['icons'])){
+                if (! empty($moreJsonArr['icons'])) {
                     $data['icons'] = $moreJsonArr['icons'];
                 }
                 $json = json_encode($data);
-                FresnsPosts::where('id',$itemArr['tableId'])->update(['more_json' => $json]);
+                FresnsPosts::where('id', $itemArr['tableId'])->update(['more_json' => $json]);
             }
-            if($itemArr['tableName'] == 'comments'){
-                $moreJson = FresnsComments::where('id',$itemArr['tableId'])->value('more_json');
-                $moreJsonArr = json_decode($moreJson,true);
+            if ($itemArr['tableName'] == 'comments') {
+                $moreJson = FresnsComments::where('id', $itemArr['tableId'])->value('more_json');
+                $moreJsonArr = json_decode($moreJson, true);
                 $fileArr = [];
-                foreach($moreJsonArr['files'] as $v){
-                    if($v['fid'] == $itemArr['fileId']){
-                        if($v['type'] == 2){
-                            $v['videoUrl'] = $videosBucketDomain . '/' . $itemArr['saveAsKey'];
+                foreach ($moreJsonArr['files'] as $v) {
+                    if ($v['fid'] == $itemArr['fileId']) {
+                        if ($v['type'] == 2) {
+                            $v['videoUrl'] = $videosBucketDomain.'/'.$itemArr['saveAsKey'];
                         }
-                        if($v['type'] == 3){
-                            $v['audioUrl'] = $audiosBucketDomain . '/' . $itemArr['saveAsKey'];
+                        if ($v['type'] == 3) {
+                            $v['audioUrl'] = $audiosBucketDomain.'/'.$itemArr['saveAsKey'];
                         }
                     }
                     $fileArr[] = $v;
                 }
                 $data['files'] = $fileArr;
-                if(!empty($moreJsonArr['icons'])){
+                if (! empty($moreJsonArr['icons'])) {
                     $data['icons'] = $moreJsonArr['icons'];
                 }
                 $json = json_encode($data);
-                FresnsComments::where('id',$itemArr['tableId'])->update(['more_json' => $json]);
+                FresnsComments::where('id', $itemArr['tableId'])->update(['more_json' => $json]);
             }
         }
         $this->success();
     }
-
 }

@@ -14,41 +14,38 @@ use App\Http\Center\Common\ErrorCodeService;
 use App\Http\Center\Common\LogService;
 use App\Http\Center\Helper\CmdRpcHelper;
 use App\Http\Center\Helper\PluginHelper;
+use App\Http\Center\Scene\FileSceneService;
 use App\Http\FresnsApi\Helpers\ApiConfigHelper;
+use App\Http\FresnsCmd\FresnsCmdWords;
+use App\Http\FresnsCmd\FresnsCmdWordsConfig;
 use App\Http\FresnsDb\FresnsFileAppends\FresnsFileAppends;
 use App\Http\FresnsDb\FresnsFiles\FresnsFiles;
+use App\Http\FresnsDb\FresnsMembers\FresnsMembers;
 use App\Http\FresnsDb\FresnsPluginCallbacks\FresnsPluginCallbacks;
 use App\Plugins\QiNiu\Services\QiNiuService;
 use App\Plugins\QiNiu\Services\QiNiuTransService;
-use App\Http\Center\Scene\FileSceneService;
-use App\Http\FresnsCmd\FresnsCmdWords;
-use App\Http\FresnsCmd\FresnsCmdWordsConfig;
-use App\Http\FresnsDb\FresnsMembers\FresnsMembers;
 use Illuminate\Http\Request;
 
 class QiNiuControllerApi extends BaseApiController
 {
-
     public function __construct()
     {
-
     }
 
     // 网页功能：上传文件
     // https://gitee.com/fresns/extensions/tree/master/QiNiu#%E7%BD%91%E9%A1%B5%E5%8A%9F%E8%83%BD
     public function uploadCallback(Request $request)
     {
-        $qiNiuUploadResult = $request->input("qiNiuUploadResult");
-        $appendParams = $request->input("appendParams");
-        LogService::info("callback params", $qiNiuUploadResult);
+        $qiNiuUploadResult = $request->input('qiNiuUploadResult');
+        $appendParams = $request->input('appendParams');
+        LogService::info('callback params', $qiNiuUploadResult);
 
-
-        $qiNiuUploadResult = $request->input("qiNiuUploadResult");
-        $appendParams = $request->input("appendParams");
-        LogService::info("callback params", $qiNiuUploadResult);
+        $qiNiuUploadResult = $request->input('qiNiuUploadResult');
+        $appendParams = $request->input('appendParams');
+        LogService::info('callback params', $qiNiuUploadResult);
 
         // 网页功能第 4 步, 将文件信息存储到 plugin_callbacks 数据表中。
-        $path = '/' . $appendParams['key'];
+        $path = '/'.$appendParams['key'];
         $uuid = StrHelper::createUuid();
         $item = [];
         //将数据存入表中
@@ -71,20 +68,20 @@ class QiNiuControllerApi extends BaseApiController
         $append['user_id'] = 0;
         $append['member_id'] = 0;
         $append['file_original_path'] = $item['file_path'];
-        if($appendParams['file_type'] == 1){
-            $append['file_mime'] = 'images/' . $appendParams['fil_suffix'];
+        if ($appendParams['file_type'] == 1) {
+            $append['file_mime'] = 'images/'.$appendParams['fil_suffix'];
         }
-        if($appendParams['file_type'] == 2){
-            $append['file_mime'] = 'video/' . $appendParams['fil_suffix'];
+        if ($appendParams['file_type'] == 2) {
+            $append['file_mime'] = 'video/'.$appendParams['fil_suffix'];
         }
-        if($appendParams['file_type'] == 3){
-            $append['file_mime'] = 'audio/' . $appendParams['fil_suffix'];
+        if ($appendParams['file_type'] == 3) {
+            $append['file_mime'] = 'audio/'.$appendParams['fil_suffix'];
         }
-        if($appendParams['file_type'] == 4){
-            $append['file_mime'] = 'doc/' . $appendParams['fil_suffix'];
+        if ($appendParams['file_type'] == 4) {
+            $append['file_mime'] = 'doc/'.$appendParams['fil_suffix'];
         }
         $append['file_size'] = $qiNiuUploadResult['size'];
-        $append['image_width'] = $qiNiuUploadResult['width'] ?? null ;
+        $append['image_width'] = $qiNiuUploadResult['width'] ?? null;
         $append['image_height'] = $qiNiuUploadResult['height'] ?? null;
         $imageLong = 0;
         if (! empty($fileInfo['imageLong'])) {
@@ -95,36 +92,36 @@ class QiNiuControllerApi extends BaseApiController
         }
         $append['image_is_long'] = $imageLong;
         $append['platform_id'] = 1;
-        if($appendParams['file_type'] == 2){
+        if ($appendParams['file_type'] == 2) {
             $transService = new QiNiuTransService($appendParams['file_type']);
-            $dateStr = date("YmdHis", time());
+            $dateStr = date('YmdHis', time());
             $options = [];
             $options['file_type'] = $appendParams['file_type'] ?? 1;
             $options['table_type'] = $appendParams['table_type'];
             $newFilePath = FileSceneService::getFormalEditorPath($options);
             // 视频缩略图，转码参数来自配置表 videos_screenshot
             $transAudioParams = ApiConfigHelper::getConfigByItemKey('videos_screenshot');
-            $saveAsKey = "$newFilePath" . "/{$dateStr}.jpg";
+            $saveAsKey = "$newFilePath"."/{$dateStr}.jpg";
             $id = $transService->vframe($appendParams['key'], $saveAsKey, $transAudioParams);
-            $append['video_cover'] = '/' . $saveAsKey;
+            $append['video_cover'] = '/'.$saveAsKey;
         }
 
         FresnsFileAppends::insert($append);
 
         $callback['callbackType'] = 4;
-        $callback['dataType'] = "array";
+        $callback['dataType'] = 'array';
         $dataValue['fid'] = $uuid;
         $dataValue['type'] = $appendParams['file_type'] ?? 1;
         $dataValue['name'] = $qiNiuUploadResult['name'];
         $dataValue['extension'] = $appendParams['fil_suffix'];
         $dataValue['size'] = $qiNiuUploadResult['size'];
         $dataValue['rankNum'] = 9;
-        if($appendParams['file_type'] == 1){
+        if ($appendParams['file_type'] == 1) {
             $dataValue['imageWidth'] = $qiNiuUploadResult['width'] ?? null;
             $dataValue['imageHeight'] = $qiNiuUploadResult['height'] ?? null;
             $imageLong = 0;
             if (! empty($dataValue['imageWidth']) && ! empty($dataValue['imageHeight'])) {
-                if($dataValue['imageWidth'] >= 700){
+                if ($dataValue['imageWidth'] >= 700) {
                     if ($dataValue['imageHeight'] >= $dataValue['imageWidth'] * 4) {
                         $imageLong = 1;
                     }
@@ -142,7 +139,7 @@ class QiNiuControllerApi extends BaseApiController
             $dataValue['imageSquareUrl'] = $output['imageSquareUrl'];
             $dataValue['imageBigUrl'] = $output['imageBigUrl'];
         }
-        if($appendParams['file_type'] == 2){
+        if ($appendParams['file_type'] == 2) {
             $dataValue['videoTime'] = 0;
             $cmd = FresnsCmdWordsConfig::FRESNS_CMD_ANTI_LINK_VIDEO;
             $input['fid'] = $uuid;
@@ -155,7 +152,7 @@ class QiNiuControllerApi extends BaseApiController
             $dataValue['videoGif'] = $output['videoGif'];
             $dataValue['videoUrl'] = $output['videoUrl'];
         }
-        if($appendParams['file_type'] == 3){
+        if ($appendParams['file_type'] == 3) {
             $dataValue['audioTime'] = 0;
             $cmd = FresnsCmdWordsConfig::FRESNS_CMD_ANTI_LINK_VIDEO;
             $input['fid'] = $uuid;
@@ -167,13 +164,11 @@ class QiNiuControllerApi extends BaseApiController
             $dataValue['audioUrl'] = $output['audioUrl'];
             $dataValue['transcodingStatus'] = 1;
         }
-        if($appendParams['file_type'] == 4){
+        if ($appendParams['file_type'] == 4) {
         }
-        
-        
-        
+
         $dataValue['moreJson'] = json_encode([]);
-        
+
         $callback['dataValue'] = json_encode([$dataValue]);
 
         $data['plugin_unikey'] = 'QiNiu';
@@ -183,10 +178,9 @@ class QiNiuControllerApi extends BaseApiController
         $data['content'] = json_encode($callback);
         FresnsPluginCallbacks::insert($data);
 
-
         //网页功能第 5 步, 返回文件信息供页面显示
         $fileResultInfo = [];
-        if($dataValue['type'] == 1){
+        if ($dataValue['type'] == 1) {
             $fileResultInfo['name'] = $dataValue['name'];
             $fileResultInfo['extension'] = $dataValue['extension'];
             $fileResultInfo['mime'] = $append['file_mime'];
@@ -197,7 +191,7 @@ class QiNiuControllerApi extends BaseApiController
             $fileResultInfo['imageBigUrl'] = $dataValue['imageBigUrl'];
             $fileResultInfo['imageLong'] = $dataValue['imageLong'];
         }
-        if($dataValue['type'] == 2){
+        if ($dataValue['type'] == 2) {
             $fileResultInfo['name'] = $dataValue['name'];
             $fileResultInfo['extension'] = $dataValue['extension'];
             $fileResultInfo['mime'] = $append['file_mime'];
@@ -208,7 +202,7 @@ class QiNiuControllerApi extends BaseApiController
             $fileResultInfo['videoGif'] = $dataValue['videoGif'];
             $fileResultInfo['videoUrl'] = $dataValue['videoUrl'];
         }
-        if($dataValue['type'] == 3){
+        if ($dataValue['type'] == 3) {
             $fileResultInfo['name'] = $dataValue['name'];
             $fileResultInfo['extension'] = $dataValue['extension'];
             $fileResultInfo['mime'] = $append['file_mime'];
@@ -217,14 +211,13 @@ class QiNiuControllerApi extends BaseApiController
             $fileResultInfo['audioTime'] = $dataValue['audioTime'];
             $fileResultInfo['audioUrl'] = $dataValue['audioUrl'];
         }
-        if($dataValue['type'] == 4){
+        if ($dataValue['type'] == 4) {
             $fileResultInfo['name'] = $dataValue['name'];
             $fileResultInfo['extension'] = $dataValue['extension'];
             $fileResultInfo['mime'] = $append['file_mime'];
             $fileResultInfo['size'] = $dataValue['size'];
             $fileResultInfo['rankNum'] = 9;
         }
-        
 
         $data = [
             'qiNiuUploadResult'  => $qiNiuUploadResult,
