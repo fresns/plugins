@@ -14,14 +14,15 @@ use App\Plugins\QiNiu\QiNiuConfig;
 class QiNiuDocService extends QiNiuService
 {
     // 获取文档防盗链地址
-    public function getDocDownloadUrl($url, $options = []){
+    public function getDocDownloadUrl($url, $options = [])
+    {
 
         // 获取防盗链配置
         $docUrlStatus = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::DOC_URL_STATUS);
         $docUrlExpire = ApiConfigHelper::getConfigByItemKey(QiNiuConfig::DOC_URL_EXPIRE);
 
         // 判断防盗链状态
-        if($docUrlStatus === false){
+        if ($docUrlStatus === false) {
             return $url;
         }
 

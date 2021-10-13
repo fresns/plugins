@@ -63,7 +63,7 @@ class Plugin extends BasePlugin
             $this->service = new AliSmsService();
             $date = $this->service->sendCodeSms($data);
             // 未发送成功
-            if($date != 'OK'){
+            if ($date != 'OK') {
                 return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
             }
         } else {
@@ -71,7 +71,7 @@ class Plugin extends BasePlugin
             $this->service = new TencentSmsService();
             $date = $this->service->sendCodeSms($data);
             // 未发送成功
-            if($date != 'Ok'){
+            if ($date != 'Ok') {
                 return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
             }
         }
@@ -121,7 +121,7 @@ class Plugin extends BasePlugin
             $this->service = new AliSmsService();
             $date = $this->service->sendSms($data);
             // 未发送成功
-            if($date != 'OK'){
+            if ($date != 'OK') {
                 return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
             }
         } else {
@@ -129,7 +129,7 @@ class Plugin extends BasePlugin
             $this->service = new TencentSmsService();
             $date = $this->service->sendSms($data);
             // 未发送成功
-            if($date != 'Ok'){
+            if ($date != 'Ok') {
                 return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
             }
         }

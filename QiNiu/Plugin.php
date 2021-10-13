@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace App\Plugins\QiNiu;
 
 use App\Http\Center\Base\BasePlugin;
@@ -22,22 +28,24 @@ use App\Plugins\QiNiu\Services\QiNiuTransService;
 use App\Plugins\QiNiu\Services\QiNiuVideoService;
 
 // 加载七牛云 SDK
-require_once (__DIR__ . "/QiNiuSdk/autoload.php");
+require_once __DIR__.'/QiNiuSdk/autoload.php';
 
 class Plugin extends BasePlugin
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->pluginConfig = new PluginConfig();
         $this->pluginCmdHandlerMap = PluginConfig::FRESNS_CMD_HANDLE_MAP;
     }
 
-    public function getCodeMap(){
+    public function getCodeMap()
+    {
         return PluginConfig::CODE_MAP;
     }
 
     // 获取上传凭证
-    public function plgCmdGetUploadTokenHandler($input){
-
+    public function plgCmdGetUploadTokenHandler($input)
+    {
         $type = $input['type'];
         $scene = $input['scene'];
 
@@ -70,56 +78,56 @@ class Plugin extends BasePlugin
     }
 
     // 上传文件
-    public function plgCmdUploadFileHandler($input){
+    public function plgCmdUploadFileHandler($input)
+    {
         $mode = $input['mode'];
         $fid = $input['fid'];
-        $fidArr = json_decode($fid,true);
+        $fidArr = json_decode($fid, true);
         $output = $input;
-        foreach($fidArr as $v){
-            $files = FresnsFiles::where('uuid',$v)->first();
+        foreach ($fidArr as $v) {
+            $files = FresnsFiles::where('uuid', $v)->first();
             $qiNiuService = new QiNiuService($files['file_type']);
             $path = base_path();
-            $path = $path . '/storage/app/public';
+            $path = $path.'/storage/app/public';
             $options = [];
             $options['file_type'] = $files['file_type'];
             $options['table_type'] = $files['table_type'];
             $newFilePath = FileSceneService::getFormalEditorPath($options);
             //获取最新的文件名
-            $fileNameArr = explode('/',$files['file_path']);
+            $fileNameArr = explode('/', $files['file_path']);
             $fileName = end($fileNameArr);
-            $newFile = '/' . $newFilePath . '/' . $fileName;
-            $newPath = $path . $newFile;
-            copy($path . $files['file_path'],$newPath);
-            unlink($path . $files['file_path']);
-            $qiNiuService->uploadLocalFile($newPath,$newFilePath . '/' . $fileName);
-            FresnsFiles::where('uuid',$v)->update(['file_path' => $newFile]);
+            $newFile = '/'.$newFilePath.'/'.$fileName;
+            $newPath = $path.$newFile;
+            copy($path.$files['file_path'], $newPath);
+            unlink($path.$files['file_path']);
+            $qiNiuService->uploadLocalFile($newPath, $newFilePath.'/'.$fileName);
+            FresnsFiles::where('uuid', $v)->update(['file_path' => $newFile]);
 
             //如果是视频文件，则需要生成一张封面图
-            if($files['file_type'] == 2){
+            if ($files['file_type'] == 2) {
                 $transService = new QiNiuTransService($files['file_type']);
-                $dateStr = date("YmdHis", time());
+                $dateStr = date('YmdHis', time());
                 // 视频缩略图，转码参数来自配置表 videos_screenshot
                 $transAudioParams = ApiConfigHelper::getConfigByItemKey('videos_screenshot');
-                $key = $newFilePath . '/' . $fileName;
-                $saveAsKey = "$newFilePath" . "/{$dateStr}.jpg";
+                $key = $newFilePath.'/'.$fileName;
+                $saveAsKey = "$newFilePath"."/{$dateStr}.jpg";
                 $id = $transService->vframe($key, $saveAsKey, $transAudioParams);
-                if($mode == 1){
+                if ($mode == 1) {
                     //生成一条视频封面图并存入 file_appends > video_cover 字段
-                    FresnsFileAppends::where('file_id',$files['id'])->update(['video_cover' => '/' . $saveAsKey]);
+                    FresnsFileAppends::where('file_id', $files['id'])->update(['video_cover' => '/'.$saveAsKey]);
                 } else {
                     //查询 file_appends > video_cover 是否有封面图（字段为空则没有），没有则执行配置表 videos_screenshot 键值，生成一条视频封面图并存入 file_appends > video_cover 字段
-                    $videoCover = FresnsFileAppends::where('file_id',$files['id'])->value('video_cover');
-                    if(empty($videoCover)){
-                        FresnsFileAppends::where('file_id',$files['id'])->update(['video_cover' => '/' . $saveAsKey]);
+                    $videoCover = FresnsFileAppends::where('file_id', $files['id'])->value('video_cover');
+                    if (empty($videoCover)) {
+                        FresnsFileAppends::where('file_id', $files['id'])->update(['video_cover' => '/'.$saveAsKey]);
                     }
                 }
             }
-            
+
             //删除本地临时文件
             $cmd = FresnsCmdWordsConfig::FRESNS_CMD_PHYSICAL_DELETION_TEMP_FILE;
             $input['fid'] = $v;
             $resp = CmdRpcHelper::call(FresnsCmdWords::class, $cmd, $input);
-            
         }
 
         return $this->pluginSuccess($output);
@@ -130,11 +138,11 @@ class Plugin extends BasePlugin
     //命令字：plg_cmd_anti_link_video
     //命令字：plg_cmd_anti_link_audio
     //命令字：plg_cmd_anti_link_doc
-    public function plgCmdAntiLinkImageHandler($input){
-
+    public function plgCmdAntiLinkImageHandler($input)
+    {
         $imagesBucketDomain = ApiConfigHelper::getConfigByItemKey('images_bucket_domain');
         $fid = $input['fid'];
-        $files = FresnsFiles::where('uuid',$fid)->first();
+        $files = FresnsFiles::where('uuid', $fid)->first();
 
         $append = FresnsFileAppends::where('file_id', $files['id'])->first();
 
@@ -158,7 +166,7 @@ class Plugin extends BasePlugin
         $imageSquareUrl = $qiNiuImageService->getImageDownloadUrl($imageSquareUrl);
         $imageBigUrl = $qiNiuImageService->getImageDownloadUrl($imageBigUrl);
         $originalUrl = $qiNiuImageService->getImageDownloadUrl($originalUrl);
-        
+
         $output['imageDefaultUrl'] = $imageDefaultUrl;
         $output['imageAvatarUrl'] = $imageAvatarUrl;
         $output['imageRatioUrl'] = $imageRatioUrl;
@@ -167,13 +175,12 @@ class Plugin extends BasePlugin
         $output['originalUrl'] = $originalUrl;
 
         return $this->pluginSuccess($output);
-
     }
 
-    public function plgCmdAntiLinkVideoHandler($input){
-
+    public function plgCmdAntiLinkVideoHandler($input)
+    {
         $fid = $input['fid'];
-        $files = FresnsFiles::where('uuid',$fid)->first();
+        $files = FresnsFiles::where('uuid', $fid)->first();
         $append = FresnsFileAppends::where('file_id', $files['id'])->first();
 
         $videosBucketDomain = ApiConfigHelper::getConfigByItemKey('videos_bucket_domain');
@@ -195,13 +202,12 @@ class Plugin extends BasePlugin
         $output['originalUrl'] = $originalUrl;
 
         return $this->pluginSuccess($output);
-
     }
 
-    public function plgCmdAntiLinkAudioHandler($input){
-
+    public function plgCmdAntiLinkAudioHandler($input)
+    {
         $fid = $input['fid'];
-        $files = FresnsFiles::where('uuid',$fid)->first();
+        $files = FresnsFiles::where('uuid', $fid)->first();
         $append = FresnsFileAppends::where('file_id', $files['id'])->first();
 
         $audiosBucketDomain = ApiConfigHelper::getConfigByItemKey('audios_bucket_domain');
@@ -217,13 +223,12 @@ class Plugin extends BasePlugin
         $output['originalUrl'] = $originalUrl;
 
         return $this->pluginSuccess($output);
-
     }
 
-    public function plgCmdAntiLinkDocHandler($input){
-
+    public function plgCmdAntiLinkDocHandler($input)
+    {
         $fid = $input['fid'];
-        $files = FresnsFiles::where('uuid',$fid)->first();
+        $files = FresnsFiles::where('uuid', $fid)->first();
         $append = FresnsFileAppends::where('file_id', $files['id'])->first();
 
         $docsBucketDomain = ApiConfigHelper::getConfigByItemKey('docs_bucket_domain');
@@ -239,33 +244,33 @@ class Plugin extends BasePlugin
         $output['originalUrl'] = $originalUrl;
 
         return $this->pluginSuccess($output);
-
     }
 
     //
     /**
      *  凭 fid 在七牛云物理删除该文件，并将数据表 deleted_at 逻辑删除。
      *  https://developer.qiniu.com/kodo/1257/delete
-     *  https://developer.qiniu.com/kodo/1276/data-format
+     *  https://developer.qiniu.com/kodo/1276/data-format.
      */
-    public function plgCmdPhysicalDeletionFileHandler($input){
+    public function plgCmdPhysicalDeletionFileHandler($input)
+    {
         $fid = $input['fid'];
-        $files = FresnsFiles::where('uuid',$fid)->first();
-        FresnsFiles::where('uuid',$fid)->delete();
-        if($files['file_type'] == 1){
+        $files = FresnsFiles::where('uuid', $fid)->first();
+        FresnsFiles::where('uuid', $fid)->delete();
+        if ($files['file_type'] == 1) {
             $qiNiuBucketName = ApiConfigHelper::getConfigByItemKey('images_bucket_name');
         }
-        if($files['file_type'] == 2){
+        if ($files['file_type'] == 2) {
             $qiNiuBucketName = ApiConfigHelper::getConfigByItemKey('videos_bucket_name');
         }
-        if($files['file_type'] == 3){
+        if ($files['file_type'] == 3) {
             $qiNiuBucketName = ApiConfigHelper::getConfigByItemKey('audios_bucket_name');
         }
-        if($files['file_type'] == 4){
+        if ($files['file_type'] == 4) {
             $qiNiuBucketName = ApiConfigHelper::getConfigByItemKey('docs_bucket_name');
         }
         $qiNiuService = new QiNiuService($files['file_type']);
-        $key = substr($files['file_path'],1);
+        $key = substr($files['file_path'], 1);
         $res = $qiNiuService->deleteResource($qiNiuBucketName, $key);
 
         return $this->pluginSuccess();
@@ -278,58 +283,58 @@ class Plugin extends BasePlugin
     {
         $tableName = $input['tableName'];
         $id = $input['insertId'];
-        if($tableName == 'posts'){
-            $postMoreJson = FresnsPosts::where('id',$id)->value('more_json');
-            if(empty($postMoreJson)){
+        if ($tableName == 'posts') {
+            $postMoreJson = FresnsPosts::where('id', $id)->value('more_json');
+            if (empty($postMoreJson)) {
                 return $this->pluginError(ErrorCodeService::POST_EXIST_ERROR);
             }
-            $postMoreArr = json_decode($postMoreJson,true);
-            if(!empty($postMoreArr['files'])){
+            $postMoreArr = json_decode($postMoreJson, true);
+            if (! empty($postMoreArr['files'])) {
                 $videos_transcode = ApiConfigHelper::getConfigByItemKey('videos_transcode');
                 $audios_transcode = ApiConfigHelper::getConfigByItemKey('audios_transcode');
-                
+
                 //1、根据主键 ID 查询 more_json > files 是否有文件，如果文件类型为 2 和 3，则执行下一步；
-                foreach($postMoreArr['files'] as $v){
-                    if($v['type'] == 2){
+                foreach ($postMoreArr['files'] as $v) {
+                    if ($v['type'] == 2) {
                         $transService = new QiNiuTransService(2);
-                        $files = FresnsFiles::where('uuid',$v['fid'])->first();
-                        if(empty($files)){
+                        $files = FresnsFiles::where('uuid', $v['fid'])->first();
+                        if (empty($files)) {
                             continue;
                         }
                         //2、查询文件 file_appends > transcoding_state 是否已经转码，已经转码则流程中止，未转码则下一步
-                        $fileAppend = FresnsFileAppends::where('file_id',$files['id'])->first();
-                        if($fileAppend['transcoding_state'] != 1){
+                        $fileAppend = FresnsFileAppends::where('file_id', $files['id'])->first();
+                        if ($fileAppend['transcoding_state'] != 1) {
                             continue;
                         }
-                        $dateStr = date("YmdHis", time());
-                        $key = substr($files['file_path'],1);
+                        $dateStr = date('YmdHis', time());
+                        $key = substr($files['file_path'], 1);
 
-                        $saveAsKey = "qiniu_trans_audio_{$dateStr}." . $v['extension'];
-                        
+                        $saveAsKey = "qiniu_trans_audio_{$dateStr}.".$v['extension'];
+
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['id'];
                         $base64Data['saveAsKey'] = $saveAsKey;
-                        request()->offsetSet('callback_param',base64_encode(json_encode($base64Data)));
+                        request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
                         $id = $transService->transVideo($key, $saveAsKey, $videos_transcode);
-                        if(!empty($id)){
-                            FresnsFileAppends::where('file_id',$files['id'])->update(['transcoding_state' => 2]);
+                        if (! empty($id)) {
+                            FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
-                    if($v['type'] == 3){
+                    if ($v['type'] == 3) {
                         $transService = new QiNiuTransService(3);
-                        $files = FresnsFiles::where('uuid',$v['fid'])->first();
-                        if(empty($files)){
+                        $files = FresnsFiles::where('uuid', $v['fid'])->first();
+                        if (empty($files)) {
                             continue;
                         }
                         //2、查询文件 file_appends > transcoding_state 是否已经转码，已经转码则流程中止，未转码则下一步
-                        $fileAppend = FresnsFileAppends::where('file_id',$files['id'])->first();
-                        if($fileAppend['transcoding_state'] != 1){
+                        $fileAppend = FresnsFileAppends::where('file_id', $files['id'])->first();
+                        if ($fileAppend['transcoding_state'] != 1) {
                             continue;
                         }
-                        $dateStr = date("YmdHis", time());
-                        $key = substr($files['file_path'],1);
+                        $dateStr = date('YmdHis', time());
+                        $key = substr($files['file_path'], 1);
 
                         $saveAsKey = "qiniu_trans_audio_{$dateStr}.mp3";
                         $base64Data = [];
@@ -337,65 +342,65 @@ class Plugin extends BasePlugin
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
-                        request()->offsetSet('callback_param',base64_encode(json_encode($base64Data)));
+                        request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
                         $id = $transService->transAudio($key, $saveAsKey, $audios_transcode);
-                        if(!empty($id)){
-                            FresnsFileAppends::where('file_id',$files['id'])->update(['transcoding_state' => 2]);
+                        if (! empty($id)) {
+                            FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
                 }
             }
         }
-        if($tableName == 'comments'){
-            $commentsMoreJson = FresnsComments::where('id',$id)->value('more_json');
-            if(empty($commentsMoreJson)){
+        if ($tableName == 'comments') {
+            $commentsMoreJson = FresnsComments::where('id', $id)->value('more_json');
+            if (empty($commentsMoreJson)) {
                 return $this->pluginError(ErrorCodeService::COMMENT_EXIST_ERROR);
             }
-            $commentsMoreJsonArr = json_decode($commentsMoreJson,true);
-            if(!empty($commentsMoreJsonArr['files'])){
+            $commentsMoreJsonArr = json_decode($commentsMoreJson, true);
+            if (! empty($commentsMoreJsonArr['files'])) {
                 $videos_transcode = ApiConfigHelper::getConfigByItemKey('videos_transcode');
                 $audios_transcode = ApiConfigHelper::getConfigByItemKey('audios_transcode');
                 //1、根据主键 ID 查询 more_json > files 是否有文件，如果文件类型为 2 和 3，则执行下一步；
-                foreach($commentsMoreJsonArr['files'] as $v){
-                    if($v['type'] == 2){
+                foreach ($commentsMoreJsonArr['files'] as $v) {
+                    if ($v['type'] == 2) {
                         $transService = new QiNiuTransService(2);
-                        $files = FresnsFiles::where('uuid',$v['fid'])->first();
-                        if(empty($files)){
+                        $files = FresnsFiles::where('uuid', $v['fid'])->first();
+                        if (empty($files)) {
                             continue;
                         }
                         //2、查询文件 file_appends > transcoding_state 是否已经转码，已经转码则流程中止，未转码则下一步
-                        $fileAppend = FresnsFileAppends::where('file_id',$files['id'])->first();
-                        if($fileAppend['transcoding_state'] != 1){
+                        $fileAppend = FresnsFileAppends::where('file_id', $files['id'])->first();
+                        if ($fileAppend['transcoding_state'] != 1) {
                             continue;
                         }
-                        $dateStr = date("YmdHis", time());
-                        $key = substr($files['file_path'],1);
+                        $dateStr = date('YmdHis', time());
+                        $key = substr($files['file_path'], 1);
 
-                        $saveAsKey = "qiniu_trans_audio_{$dateStr}." . $v['extension'];
+                        $saveAsKey = "qiniu_trans_audio_{$dateStr}.".$v['extension'];
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['id'];
                         $base64Data['saveAsKey'] = $saveAsKey;
-                        request()->offsetSet('callback_param',base64_encode(json_encode($base64Data)));
+                        request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
                         $id = $transService->transVideo($key, $saveAsKey, $videos_transcode);
-                        if(!empty($id)){
-                            FresnsFileAppends::where('file_id',$files['id'])->update(['transcoding_state' => 2]);
+                        if (! empty($id)) {
+                            FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
-                    if($v['type'] == 3){
+                    if ($v['type'] == 3) {
                         $transService = new QiNiuTransService(3);
-                        $files = FresnsFiles::where('uuid',$v['fid'])->first();
-                        if(empty($files)){
+                        $files = FresnsFiles::where('uuid', $v['fid'])->first();
+                        if (empty($files)) {
                             continue;
                         }
                         //2、查询文件 file_appends > transcoding_state 是否已经转码，已经转码则流程中止，未转码则下一步
-                        $fileAppend = FresnsFileAppends::where('file_id',$files['id'])->first();
-                        if($fileAppend['transcoding_state'] != 1){
+                        $fileAppend = FresnsFileAppends::where('file_id', $files['id'])->first();
+                        if ($fileAppend['transcoding_state'] != 1) {
                             continue;
                         }
-                        $dateStr = date("YmdHis", time());
-                        $key = substr($files['file_path'],1);
+                        $dateStr = date('YmdHis', time());
+                        $key = substr($files['file_path'], 1);
 
                         $saveAsKey = "qiniu_trans_audio_{$dateStr}.mp3";
                         $base64Data = [];
@@ -403,23 +408,22 @@ class Plugin extends BasePlugin
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['id'];
                         $base64Data['saveAsKey'] = $saveAsKey;
-                        request()->offsetSet('callback_param',base64_encode(json_encode($base64Data)));
+                        request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
                         $id = $transService->transAudio($key, $saveAsKey, $audios_transcode);
-                        
-                        if(!empty($id)){
-                            FresnsFileAppends::where('file_id',$files['id'])->update(['transcoding_state' => 2]);
+
+                        if (! empty($id)) {
+                            FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
                 }
-
             }
         }
 
         return $this->pluginSuccess();
-
     }
 
-    public function generateUuid($length = 16, $range = '0123456789abcdef'){
+    public function generateUuid($length = 16, $range = '0123456789abcdef')
+    {
         $chars = str_shuffle($range);
 
         $str = '';
@@ -428,7 +432,7 @@ class Plugin extends BasePlugin
         for ($i = 0; $i < $length; $i++) {
             $str .= $chars[mt_rand(0, $size - 1)];
         }
+
         return $str;
     }
-
 }
