@@ -232,6 +232,36 @@ class QiNiuControllerApi extends BaseApiController
     {
         $fileType = $request->input('file_type');
         $key = $request->input('key');
+        $fileToken = $request->input('fileToken');
+        $fileSign = $request->input('fileSign');
+        $sign = base64_decode(urldecode($fileSign));
+        parse_str($sign, $signArr);
+        // 1 : 解析并判断 sign 是否正确, 封装方法
+        $cmd = FresnsCmdWordsConfig::FRESNS_CMD_VERIFY_SIGN;
+        $input = [];
+        $input['platform'] = $signArr['platform'] ?? null;
+        $input['version'] = $signArr['version'] ?? null;
+        $input['versionInt'] = $signArr['versionInt'] ?? null;
+        $input['appId'] = $signArr['appId'] ?? null;
+        $input['timestamp'] = $signArr['timestamp'] ?? null;
+        $input['uid'] = $signArr['uid'] ?? null;
+        $input['mid'] = $signArr['mid'] ?? null;
+        $input['token'] = $signArr['token'] ?? null;
+        $input['sign'] = $signArr['sign'] ?? null;
+        $resp = CmdRpcHelper::call(FresnsCmdWords::class, $cmd, $input);
+        if (CmdRpcHelper::isErrorCmdResp($resp)) {
+            $this->errorCheckInfo($resp, [], $resp['output']);
+        }
+        //解析并校验token
+        $token = base64_decode(urldecode($fileToken));
+        $start = date('Y-m-d H:i:s', strtotime('-10 min'));
+        $end = date('Y-m-d H:i:s', time());
+        $pluginCallBacks = FresnsPluginCallbacks::where('plugin_unikey', 'QiNiu')->where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('content', 'LIKE', "%$token%")->first();
+        if (empty($pluginCallBacks)) {
+            $this->error(ErrorCodeService::HEADER_SIGN_EXPIRED);
+        }
+        
+
         $qiNiuService = new QiNiuService($fileType);
         $uploadToken = $qiNiuService->getUploadToken($fileType, $key);
 
@@ -241,29 +271,5 @@ class QiNiuControllerApi extends BaseApiController
         $this->success($data);
     }
 
-    //测试插件转码命令字
-    public function testTrans(Request $request)
-    {
-        $unikey = ApiConfigHelper::getConfigByItemKey('images_service');
-        $pluginUniKey = $unikey;
-
-        $pluginClass = PluginHelper::findPluginClass($pluginUniKey);
-        if (empty($pluginClass)) {
-            LogService::error('Plugin Class Not Found');
-
-            return $this->pluginError(ErrorCodeService::PLUGINS_CONFIG_ERROR);
-        }
-        $tableName = $request->input('table_name');
-        $id = $request->input('id');
-        $cmd = 'fresns_cmd_qiniu_transcoding';
-        $input = [];
-        $input['table_name'] = $tableName;
-        $input['id'] = $id;
-        $resp = CmdRpcHelper::call($pluginClass, $cmd, $input);
-        if (CmdRpcHelper::isErrorCmdResp($resp)) {
-            return $this->error($resp['code']);
-        }
-
-        $this->success();
-    }
+     
 }

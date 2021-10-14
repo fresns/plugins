@@ -33,12 +33,14 @@ class QiNiuControllerWeb extends BaseFrontendController
     public function upload(Request $request)
     {
         $callback = $request->input('callback');
-        $sign = $request->input('sign');
-        $token = $request->input('token');
-        $uploadInfo = $request->input('uploadInfo');
-        $sign = base64_decode(urldecode($sign));
+        $base64DecodeSign = $request->input('sign');
+        $base64DecodeToken = $request->input('token');
+        $base64DecodeUploadInfo = $request->input('uploadInfo');
+        $sign = base64_decode(urldecode($base64DecodeSign));
         parse_str($sign, $signArr);
-
+        //解析token
+        $token = base64_decode(urldecode($base64DecodeToken));
+        // dd($token);
         // 1 : 解析并判断 sign 是否正确, 封装方法
         $cmd = FresnsCmdWordsConfig::FRESNS_CMD_VERIFY_SIGN;
         $input = [];
@@ -62,15 +64,16 @@ class QiNiuControllerWeb extends BaseFrontendController
         $start = date('Y-m-d H:i:s', strtotime('-10 min'));
         $end = date('Y-m-d H:i:s', time());
         $pluginCallBacks = FresnsPluginCallbacks::where('plugin_unikey', 'QiNiu')->where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('content', 'LIKE', "%$token%")->first();
+
         if (empty($pluginCallBacks)) {
             $this->error(ErrorCodeService::HEADER_SIGN_EXPIRED);
         }
         // 3 : 解析 uploadInfo 参数
-        if (empty($uploadInfo)) {
+        if (empty($base64DecodeUploadInfo)) {
             $this->error(ErrorCodeService::CODE_PARAM_ERROR);
         }
         //解析，并校验必传
-        $uploadInfo = base64_decode(urldecode($uploadInfo));
+        $uploadInfo = base64_decode(urldecode($base64DecodeUploadInfo));
         $uploadInfoArr = json_decode($uploadInfo, true);
 
         $requiredArr = ['fileType', 'tableType', 'tableName', 'tableField'];
@@ -124,16 +127,16 @@ class QiNiuControllerWeb extends BaseFrontendController
             'table_type' => $uploadInfoArr['tableType'] ?? 1,
             'table_name' => $uploadInfoArr['tableName'] ?? 1,
             'table_field' => $uploadInfoArr['tableField'] ?? 'id',
+            'file_token' => $base64DecodeToken,
+            'file_sign' => $base64DecodeSign,
         ];
 
         // 文件列表
         $fileArr = $qiNiuService->listFiles();
         $data['file_arr'] = $fileArr;
 
-        $testData = $this->test($qiNiuService);
-
-        $data = array_merge($data, $testData);
-
         return view('plugins.QiNiu.upload', $data);
     }
+
+
 }

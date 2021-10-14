@@ -1,6 +1,6 @@
 # 七牛云存储插件
 
-Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链接](https://s.qiniu.com/YNJrYv)注册七牛云账号，不仅是对 Fresns 研发支持，还能获得额外优惠和服务支持。
+Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链接](https://s.qiniu.com/YNJrYv)注册七牛云账号，不仅是对 Fresns 研发支持，注册后凭关联账号还能获得额外优惠和服务支持。
 
 - 七牛云账号注册链接：[https://s.qiniu.com/YNJrYv](https://s.qiniu.com/YNJrYv)
 - 配置信息：[https://fresns.cn/database/keyname/storages.html](https://fresns.cn/database/keyname/storages.html)

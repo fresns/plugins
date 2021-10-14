@@ -18,24 +18,21 @@
             <input id="file_type" name="file_type" type="hidden" value="{{ $file_type }}">
             <input id="x_var_1" name="x:var_1" type="hidden" value="我是自定义变量演示">
             <input id="file" class="form-control" name="file" type="file" accept="*/*" onchange="loadImage(this)"/>
-            <input id="submitButton" class="btn btn-outline-secondary" type="submit"  value="上传" />
+            <input id="submitButton" name="submitButton" class="btn btn-outline-secondary" type="submit"  value="上传" />
             <input id="ext" name="ext" type="hidden" value="{{ $file_ext }}"/>
             <input id="size" name="size" type="hidden" value="{{ $file_size }}"/>
             <input id="table_type" name="table_type" type="hidden" value="{{ $table_type }}"/>
             <input id="table_name" name="table_name" type="hidden" value="{{ $table_name }}"/>
             <input id="table_field" name="table_field" type="hidden" value="{{ $table_field }}"/>
             <input id="fil_suffix" name="fil_suffix" type="hidden" value=""/>
+            <input id="file_token" name="file_token" type="hidden" value="{{ $file_token }}"/>
+            <input id="file_sign" name="file_sign" type="hidden" value="{{ $file_sign }}"/>
         </div>
         <label class="form-label">
             支持的扩展名：{{ $file_ext }}
             <br>支持的最大尺寸：{{ $file_size }} MB
         </label>
     </form>
-    <br>
-    上传token: {{$upload_token}}
-    <br>
-    测试防盗链链接: {{$download_url}}
-    <br>
 
     <!-- table 测试使用 -->
     <table class="table table-striped" style="margin-top: 30px">
@@ -138,12 +135,16 @@
     function getToken(name){
         var type = $('#file_type').val();
         var newKey = $('#key').val() + '/' + name;
+        var fileToken = $('#file_token').val();
+        var fileSign = $('#file_sign').val();
         $.ajax({
             url: "/api/qiniu/getToken",
             type: 'get',
             data: {
                 file_type: type,
                 key: newKey,
+                fileToken: fileToken,
+                fileSign: fileSign,
             },
             beforeSend: function (request) {
                 //预加载动作
@@ -153,7 +154,9 @@
                     $('#key').val(newKey);
                     $('#token').val(res.data.token);
                 } else {
-                    
+                    alert(res.message);
+                    $('#submitButton').hide()
+                    location.reload();
                 }
             }
         });
