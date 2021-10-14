@@ -137,6 +137,4 @@ class QiNiuControllerWeb extends BaseFrontendController
 
         return view('plugins.QiNiu.upload', $data);
     }
-
-
 }

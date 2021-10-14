@@ -260,7 +260,6 @@ class QiNiuControllerApi extends BaseApiController
         if (empty($pluginCallBacks)) {
             $this->error(ErrorCodeService::HEADER_SIGN_EXPIRED);
         }
-        
 
         $qiNiuService = new QiNiuService($fileType);
         $uploadToken = $qiNiuService->getUploadToken($fileType, $key);
@@ -270,6 +269,4 @@ class QiNiuControllerApi extends BaseApiController
 
         $this->success($data);
     }
-
-     
 }
