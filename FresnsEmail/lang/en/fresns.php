@@ -20,7 +20,7 @@ return [
     'smtpHost' => 'SMTP Host',
     'smtpHostIntro' => 'Incorrectly configured sending emails can cause server timeouts',
     'smtpPort' => 'SMTP Port',
-    'smtpPortIntro' => 'Unencrypted default 25; SSL default 465; TLS default 587',
+    'smtpPortIntro' => 'Your server security group "Outbound Rules" needs to open this TCP port',
     'smtpUser' => 'SMTP Username',
     'smtpUserIntro' => 'Fill in the complete user name',
     'smtpPassword' => 'SMTP Password',

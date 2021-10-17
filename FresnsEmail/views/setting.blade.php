@@ -9,7 +9,7 @@
     <title>Fresns Email</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
-    <link rel="stylesheet" href="/static/css/backend.css">
+    <link rel="stylesheet" href="/static/css/console.css">
 </head>
 
 <body>

@@ -20,7 +20,7 @@ return [
     'smtpHost' => 'SMTP 服务器',
     'smtpHostIntro' => '错误的配置发送邮件会导致服务器超时',
     'smtpPort' => 'SMTP 端口',
-    'smtpPortIntro' => '不加密默认 25；SSL 默认 465；TLS 默认 587',
+    'smtpPortIntro' => '你的服务器安全组“出站规则”需开放该 TCP 端口',
     'smtpUser' => 'SMTP 用户名',
     'smtpUserIntro' => '填写完整用户名',
     'smtpPassword' => 'SMTP 密码',
