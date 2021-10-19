@@ -59,7 +59,7 @@ class Plugin extends BasePlugin
         $output['expireTime'] = null;
 
         // 生成后，不仅输出，还要保存到 plugin_callbacks 数据表中，主要字段介绍如下：
-        // https://gitee.com/fresns/extensions/tree/master/QiNiu
+        // https://github.com/fresns/extensions/tree/main/QiNiu
         $uuid = $this->generateUuid();
         $data['plugin_unikey'] = 'QiNiu';
         $data['member_id'] = 0;

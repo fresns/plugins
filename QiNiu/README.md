@@ -13,8 +13,17 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 - 2、解压后把 `QiNiu` 文件夹上传到主程序根目录 `extensions` 文件夹；
 - 3、登录 Fresns 控制台，在控制台仪表盘选择「本地安装」，输入文件夹名 `QiNiu` 执行安装；
 - 4、安装完成后到控制台「插件」频道“启用”插件；
-- 5、确保你的服务器安全组“出站规则”开放了 `TCP:80,443` 两个端口；
+- 5、确保你的服务器安全组“出站规则”开放了 `TCP:443` 端口；
 - 6、启用后可在「[控制面板 > 存储设置](https://fresns.cn/prototype/control-panel/system-storage-image.html)」配置存储服务商参数。
+
+| 存储设置 | 介绍 |
+| --- | --- |
+| Secret ID | [七牛云 AK(AccessKey)](https://portal.qiniu.com/user/key) |
+| Secret Key | [七牛云 SK(SecretKey)](https://portal.qiniu.com/user/key) |
+| 存储配置名称 | 空间名称 |
+| 存储配置地域 | 华东 `z0`<br>华北 `z1`<br>华南 `z2`<br>北美 `na0`<br>东南亚 `as0`<br>华东-浙江2 `cn-east-2` |
+| 存储配置域名 | 空间绑定的域名 |
+| 图片处理功能配置 | 图片样式名包含样式分隔符 |
 
 ## 插件开发说明
 

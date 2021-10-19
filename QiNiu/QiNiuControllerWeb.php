@@ -29,7 +29,7 @@ class QiNiuControllerWeb extends BaseFrontendController
     }
 
     // 网页功能：上传文件
-    // https://gitee.com/fresns/extensions/tree/master/QiNiu#%E7%BD%91%E9%A1%B5%E5%8A%9F%E8%83%BD
+    // https://github.com/fresns/extensions/tree/main/QiNiu#%E7%BD%91%E9%A1%B5%E5%8A%9F%E8%83%BD
     public function upload(Request $request)
     {
         $callback = $request->input('callback');
