@@ -99,9 +99,9 @@ class Plugin extends BasePlugin
             $newFile = '/'.$newFilePath.'/'.$fileName;
             $newPath = $path.$newFile;
             copy($path.$files['file_path'], $newPath);
-            unlink($path.$files['file_path']);
             $qiNiuService->uploadLocalFile($newPath, $newFilePath.'/'.$fileName);
             FresnsFiles::where('uuid', $v)->update(['file_path' => $newFile]);
+            unlink($path.$files['file_path']);
 
             //如果是视频文件，则需要生成一张封面图
             if ($files['file_type'] == 2) {

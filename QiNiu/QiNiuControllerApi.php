@@ -68,18 +68,7 @@ class QiNiuControllerApi extends BaseApiController
         $append['user_id'] = 0;
         $append['member_id'] = 0;
         $append['file_original_path'] = $item['file_path'];
-        if ($appendParams['file_type'] == 1) {
-            $append['file_mime'] = 'images/'.$appendParams['fil_suffix'];
-        }
-        if ($appendParams['file_type'] == 2) {
-            $append['file_mime'] = 'video/'.$appendParams['fil_suffix'];
-        }
-        if ($appendParams['file_type'] == 3) {
-            $append['file_mime'] = 'audio/'.$appendParams['fil_suffix'];
-        }
-        if ($appendParams['file_type'] == 4) {
-            $append['file_mime'] = 'doc/'.$appendParams['fil_suffix'];
-        }
+        $append['file_mime'] = $appendParams['file_mime'];
         $append['file_size'] = $qiNiuUploadResult['size'];
         $append['image_width'] = $qiNiuUploadResult['width'] ?? null;
         $append['image_height'] = $qiNiuUploadResult['height'] ?? null;

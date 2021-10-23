@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form id="upload_form" method="post" action="http://upload.qiniup.com/" enctype="multipart/form-data">
+    <form id="upload_form" method="post" action="https://upload.qiniup.com/" enctype="multipart/form-data">
         <div class="input-group mb-2">
             <input id="key" name="key" type="hidden" value="{{$resource_key}}">
             <input id="token" name="token" type="hidden" value="{{$upload_token}}">
@@ -27,6 +27,7 @@
             <input id="fil_suffix" name="fil_suffix" type="hidden" value=""/>
             <input id="file_token" name="file_token" type="hidden" value="{{ $file_token }}"/>
             <input id="file_sign" name="file_sign" type="hidden" value="{{ $file_sign }}"/>
+            <input id="file_mime" name="file_mime" type="hidden" value=""/>
         </div>
         <label class="form-label">
             支持的扩展名：{{ $file_ext }}
@@ -48,7 +49,7 @@
         @foreach($file_arr as $idx => $file)
             <tr>
                 <th scope="row">{{$idx + 1}}</th>
-                <td><a href="http://file.fresns.org/{{$file['key']}}" target="_blank">{{$file['key']}}</a></td>
+                <td><a href="{{ $file_domain }}/{{ $file['key'] }}" target="_blank">{{ $file['key'] }}</a></td>
                 <td>{{$file['hash']}}</td>
                 <td>{{$file['mimeType']}}</td>
             </tr>
@@ -77,7 +78,19 @@
 
             $("#submitButton").prop("disabled", true);
             $.ajax({
-                url: 'http://upload.qiniup.com/',
+                @if($file_area === 'z0')
+                    url: 'https://upload.qiniup.com/',
+                @elseif($file_area === 'z1')
+                    url: 'https://upload-z1.qiniup.com/',
+                @elseif($file_area === 'z2')
+                    url: 'https://upload-z2.qiniup.com/',
+                @elseif($file_area === 'na0')
+                    url: 'https://upload-na0.qiniup.com/',
+                @elseif($file_area === 'as0')
+                    url: 'https://upload-as0.qiniup.com/',
+                @elseif($file_area === 'cn-east-2')
+                    url: 'https://upload-cn-east-2.qiniup.com/',
+                @endif
                 type: 'post',
                 enctype: 'multipart/form-data',
                 data: data,
@@ -127,6 +140,7 @@
             
         }
         console.log(img.files[0]);
+        $("#file_mime").val(img.files[0].type)
         var fileName = img.files[0].name;
         getToken(fileName);
 
@@ -198,6 +212,7 @@
         var table_name = $("#table_name").val()
         var table_field = $("#table_field").val()
         var fil_suffix = $("#fil_suffix").val()
+        var file_mime = $("#file_mime").val()
         var callbackUuid = getQueryString("callback");
 
         var appendParams = {
@@ -210,6 +225,7 @@
             table_name: table_name,
             table_field: table_field,
             fil_suffix: fil_suffix,
+            file_mime: file_mime,
         }
 
         var params = {

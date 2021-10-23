@@ -96,18 +96,26 @@ class QiNiuControllerWeb extends BaseFrontendController
         $uploadToken = $qiNiuService->getUploadToken($type, $key);
         switch ($type) {
             case 1:
+                $fileArea = ApiConfigHelper::getConfigByItemKey('images_bucket_area');
+                $fileDomain = ApiConfigHelper::getConfigByItemKey('images_bucket_domain');
                 $fileExt = ApiConfigHelper::getConfigByItemKey('images_ext');
                 $fileSize = ApiConfigHelper::getConfigByItemKey('images_max_size');
                 break;
             case 2:
+                $fileArea = ApiConfigHelper::getConfigByItemKey('videos_bucket_area');
+                $fileDomain = ApiConfigHelper::getConfigByItemKey('videos_bucket_domain');
                 $fileExt = ApiConfigHelper::getConfigByItemKey('videos_ext');
                 $fileSize = ApiConfigHelper::getConfigByItemKey('videos_max_size');
                 break;
             case 3:
+                $fileArea = ApiConfigHelper::getConfigByItemKey('audios_bucket_area');
+                $fileDomain = ApiConfigHelper::getConfigByItemKey('audios_bucket_domain');
                 $fileExt = ApiConfigHelper::getConfigByItemKey('audios_ext');
                 $fileSize = ApiConfigHelper::getConfigByItemKey('audios_max_size');
                 break;
             default:
+                $fileArea = ApiConfigHelper::getConfigByItemKey('docs_bucket_area');
+                $fileDomain = ApiConfigHelper::getConfigByItemKey('docs_bucket_domain');
                 $fileExt = ApiConfigHelper::getConfigByItemKey('docs_ext');
                 $fileSize = ApiConfigHelper::getConfigByItemKey('docs_max_size');
                 break;
@@ -120,6 +128,8 @@ class QiNiuControllerWeb extends BaseFrontendController
             'resource_key'  => $key,
             'custom_name_1'  => $customName1,
             'custom_value_1'  => $customValue1,
+            'file_domain'  => $fileDomain,
+            'file_area'  => $fileArea,
             'file_ext'  => $fileExt,
             'file_size'  => $fileSize,
             'callback' => $callback,

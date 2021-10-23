@@ -3,9 +3,9 @@
 Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链接](https://s.qiniu.com/YNJrYv)注册七牛云账号，不仅是对 Fresns 研发支持，注册后凭关联账号还能获得额外优惠和服务支持。
 
 - 七牛云账号注册链接：[https://s.qiniu.com/YNJrYv](https://s.qiniu.com/YNJrYv)
-- 配置信息：[https://fresns.cn/database/keyname/storages.html](https://fresns.cn/database/keyname/storages.html)
-- 命令字信息：[https://fresns.cn/extensions/command.html](https://fresns.cn/extensions/command.html)
-- 回调返参表：[https://fresns.cn/database/plugin/plugin-callbacks.html](https://fresns.cn/database/plugin/plugin-callbacks.html)
+- 配置信息：[https://fresns.org/database/keyname/storages.html](https://fresns.org/database/keyname/storages.html)
+- 命令字信息：[https://fresns.org/extensions/command.html](https://fresns.org/extensions/command.html)
+- 回调返参表：[https://fresns.org/database/plugin/plugin-callbacks.html](https://fresns.org/database/plugin/plugin-callbacks.html)
 
 ## 插件安装教程
 
@@ -14,7 +14,7 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 - 3、登录 Fresns 控制台，在控制台仪表盘选择「本地安装」，输入文件夹名 `QiNiu` 执行安装；
 - 4、安装完成后到控制台「插件」频道“启用”插件；
 - 5、确保你的服务器安全组“出站规则”开放了 `TCP:443` 端口；
-- 6、启用后可在「[控制面板 > 存储设置](https://fresns.cn/prototype/control-panel/system-storage-image.html)」配置存储服务商参数。
+- 6、启用后可在「[控制面板 > 存储设置](https://fresns.org/prototype/control-panel/system-storage-image.html)」配置存储服务商参数。
 
 | 存储设置 | 介绍 |
 | --- | --- |
@@ -54,10 +54,10 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
     - 2、按类型和 table_type 编号，将文件上传到七牛云，并更新 `files > file_path` 为七牛云路径；
     - 3、如果是视频文件，则执行配置表 `videos_screenshot` 键值，生成一条视频封面图并存入 `file_appends > video_cover` 字段；
     - 4、删除本地临时文件；
-    - 5、输出完整的 fileInfo 文件信息，格式为数组，详情见 [https://fresns.cn/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C](https://fresns.cn/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C)
+    - 5、输出完整的 fileInfo 文件信息，格式为数组，详情见 [https://fresns.org/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C](https://fresns.org/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C)
 - 模式 2 逻辑流程：
     - 1、凭文件 fid 查询文件类型，如果是视频，查询 `file_appends > video_cover` 是否有封面图（字段为空则没有），没有则执行配置表 `videos_screenshot` 键值，生成一条视频封面图并存入 `file_appends > video_cover` 字段；
-    - 2、无论是哪种类型文件，都需要输出完整的 fileInfo 文件信息，格式为数组，详情见 [https://fresns.cn/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C](https://fresns.cn/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C)
+    - 2、无论是哪种类型文件，都需要输出完整的 fileInfo 文件信息，格式为数组，详情见 [https://fresns.org/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C](https://fresns.org/api/editor/upload.html#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C)
 - **使用场景：**
     - 1、客户端直接用主程序接口上传了文件，主程序通过该命令字告之插件，插件做后续操作，比如转存位置、转码等。
     - 2、客户端通过 SDK 直接上传到云服务商，通过接口将上传后的文件信息存档，主程序会通过该命令字告之插件有文件存储，插件可执行自定义功能，比如转码。
@@ -88,10 +88,10 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 - 访问路径 /qiniu/upload?sign={sign}&token={uploadToken}&uploadInfo={uploadInfo}&callback={uuid}&lang={langtag}
 - 七牛文档：[https://developer.qiniu.com/kodo/1272/form-upload](https://developer.qiniu.com/kodo/1272/form-upload)
 - 1、解析并判断 sign 是否正确。
-    - 参见 https://fresns.cn/api/sign.html
+    - 参见 https://fresns.org/api/sign.html
     - 解析后请求命令字 `fresns_cmd_verify_sign` 判断是否有效
 - 2、解析并判断 uploadToken 是否正确。
-    - 参见 https://fresns.cn/database/plugin/plugin-callbacks.html
+    - 参见 https://fresns.org/database/plugin/plugin-callbacks.html
     - 该值是由「获取上传凭证」`fresns_cmd_get_upload_token` 的时候生成的。
     - 凭 plugin_unikey 查询近 10 分钟内生成的记录，查询是否有记录并且 token 正确。
     - 参数值解析：
@@ -102,7 +102,7 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
     - uploadInfo 是经过 base64_encode 和 url_encode 处理过的一组参数
     - 参数分别是 fileType、tableType、tableName、tableField、tableId、tableKey
     - 格式为 `{"fileType":1,"tableType":1,"tableName":"post_logs","tableField":"id","tableId":1,"tableKey":"key"}`
-    - tableId 和 tableKey 可空，逻辑同 [API](https://fresns.cn/api/editor/upload.html) 一致。
+    - tableId 和 tableKey 可空，逻辑同 [API](https://fresns.org/api/editor/upload.html) 一致。
     - 参数值解析：
         - 假如 uploadToken 传参值为：`eyJmaWxlVHlwZSI6MSwidGFibGVUeXBlIjoxLCJ0YWJsZU5hbWUiOiJwb3N0X2xvZ3MiLCJ0YWJsZUZpZWxkIjoiaWQiLCJ0YWJsZUlkIjoxLCJ0YWJsZUtleSI6ImtleSJ9`
         - 1、先将参数通过 url_encode 解码，得到 `eyJmaWxlVHlwZSI6MSwidGFibGVUeXBlIjoxLCJ0YWJsZU5hbWUiOiJwb3N0X2xvZ3MiLCJ0YWJsZUZpZWxkIjoiaWQiLCJ0YWJsZUlkIjoxLCJ0YWJsZUtleSI6ImtleSJ9`
@@ -133,7 +133,7 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 
 **订阅命令字 fresns_cmd_direct_release_content**
 
-- 通过[订阅正式发表命令字](https://fresns.cn/extensions/basis.html#%E8%AE%A2%E9%98%85%E5%91%BD%E4%BB%A4%E5%AD%97%E8%A1%8C%E4%B8%BA)，获知内容主表有新内容 posts 或 comments
+- 通过[订阅正式发表命令字](https://fresns.org/extensions/basis.html#%E8%AE%A2%E9%98%85%E5%91%BD%E4%BB%A4%E5%AD%97%E8%A1%8C%E4%B8%BA)，获知内容主表有新内容 posts 或 comments
 - 回调 URL：`/qiniu/transcode` 用于接收七牛云反馈。
 - 七牛文档：[https://developer.qiniu.com/dora/3685/directions-for-use-av](https://developer.qiniu.com/dora/3685/directions-for-use-av)
 - 转码流程：
