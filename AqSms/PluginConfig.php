@@ -18,8 +18,8 @@ class PluginConfig extends BasePluginConfig
     public $description = 'Fresns 官方开发的「阿里云」和「腾讯云」二合一短信服务插件。';
     public $author = 'Fresns';
     public $authorLink = 'https://fresns.org';
-    public $currVersion = '1.0';
-    public $currVersionInt = 1;
+    public $currVersion = '1.1.0';
+    public $currVersionInt = 2;
     public $settingPath = '/aqsms/setting';
     public $sceneArr = [
         'sms', // 短信服务商

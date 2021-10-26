@@ -31,6 +31,7 @@ class ControllerApi extends BaseApiController
             'aqsms_keyid'   => 'aqsms_keyid',
             'aqsms_keysecret'   => 'aqsms_keysecret',
             'aqsms_appid'   => 'aqsms_sdk_appid',
+            'aqsms_linked'   => 'aqsms_linked',
         ];
         foreach ($keyAndFormFieldMap as $dbKey => $formField) {
             $formFieldValue = $request->input($formField);

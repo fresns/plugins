@@ -25,11 +25,13 @@ class ControllerWeb extends BaseFrontendController
         $keyId = ApiConfigHelper::getConfigByItemKey('aqsms_keyid');
         $keySecret = ApiConfigHelper::getConfigByItemKey('aqsms_keysecret');
         $sdkAppId = ApiConfigHelper::getConfigByItemKey('aqsms_appid');
+        $smsLinked = ApiConfigHelper::getConfigByItemKey('aqsms_linked');
 
         $data['aqsms_type'] = $aqsmsType;
         $data['key_id'] = $keyId;
         $data['key_secret'] = $keySecret;
         $data['sdk_appid'] = $sdkAppId;
+        $data['sms_linked'] = $smsLinked;
 
         return view('plugins.AqSms.setting', $data);
     }

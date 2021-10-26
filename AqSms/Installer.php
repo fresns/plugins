@@ -30,6 +30,7 @@ class Installer extends BaseInstaller
         AqSmsHelper::insertConfigs('aqsms_keyid');
         AqSmsHelper::insertConfigs('aqsms_keysecret');
         AqSmsHelper::insertConfigs('aqsms_appid');
+        AqSmsHelper::insertConfigs('aqsms_linked', '{"86":"zh-Hans","other":"en"}', 'object');
     }
 
     // 插件升级
@@ -49,6 +50,7 @@ class Installer extends BaseInstaller
             AqSmsHelper::deleteConfigItem('aqsms_keyid');
             AqSmsHelper::deleteConfigItem('aqsms_keysecret');
             AqSmsHelper::deleteConfigItem('aqsms_appid');
+            AqSmsHelper::deleteConfigItem('aqsms_linked');
         }
 
         parent::uninstall();

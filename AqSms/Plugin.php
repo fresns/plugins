@@ -39,6 +39,8 @@ class Plugin extends BasePlugin
         $countryCode = $input['countryCode'];
         $templateId = $input['templateId'];
         $langTag = $input['langTag'];
+        // 根据传参国际区号去匹配模板语言标签
+        $langTag = $this->getLangTagByContryCode($countryCode);
         $data = $this->getCodeTeamplate($templateId, $langTag);
         // 未找到模板
         if (empty($data)) {
@@ -140,6 +142,20 @@ class Plugin extends BasePlugin
         return $this->pluginSuccess($date);
     }
 
+    // 根据传参国际区号去匹配模板语言标签
+    public function getLangTagByContryCode($contryCode){
+        $aqsmsLinked = ApiConfigHelper::getConfigByItemKey('aqsms_linked');
+        $aqsmsLinkedArr = json_decode($aqsmsLinked,true);
+        $langTag = $aqsmsLinkedArr['other'];
+        if($contryCode){
+            foreach($aqsmsLinkedArr as $key => $value){
+                if($key == $contryCode){
+                    $langTag = $aqsmsLinkedArr[$key];
+                }
+            }
+        }
+        return $langTag;
+    }
     // 根据 teamplateId 和 langTag 匹配需要发信的验证码模板
     public function getCodeTeamplate($templateId, $langTag)
     {

@@ -62,6 +62,11 @@
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 仅腾讯云使用，阿里云忽略</div>
                         </div>
                         <div class="row mb-4">
+                            <label class="col-lg-2 col-form-label text-lg-end">匹配验证码模板:</label>
+                            <div class="col-lg-5"><textarea class="form-control" id="aqsms_linked" name="aqsms_linked" rows="5">{{$sms_linked}}</textarea></div>
+                            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> JSON Object 格式，以国际区号匹配验证码语言标签模板<br><code class="ms-3">{"国际区号":"验证码模板语言标签","other":"其他区号使用该模板"}</code><br><code class="ms-3">{"86":"zh-Hans","other":"en"}</code></div>
+                        </div>
+                        <div class="row mb-4">
                             <div class="col-lg-2"></div>
                             <div class="col-lg-10">
                                 <button type="submit" class="btn btn-primary" id="save_btn">保存</button>
