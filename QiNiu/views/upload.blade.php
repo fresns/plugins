@@ -28,6 +28,7 @@
             <input id="file_token" name="file_token" type="hidden" value="{{ $file_token }}"/>
             <input id="file_sign" name="file_sign" type="hidden" value="{{ $file_sign }}"/>
             <input id="file_mime" name="file_mime" type="hidden" value=""/>
+            <input id="file_area" name="file_area" type="hidden" value="{{ $file_area }}"/>
         </div>
         <label class="form-label">
             支持的扩展名：{{ $file_ext }}
@@ -75,22 +76,28 @@
             var form = $('#upload_form')[0];
             var data = new FormData(form);
             data.append("custom1", "custom test");
-
+            var file_area = $('#file_area').val();
+            if (file_area == 'z0'){
+                var url = 'https://upload.qiniup.com/',
+            }
+            if (file_area == 'z1'){
+                var url = 'https://upload-z1.qiniup.com/',
+            }
+            if (file_area == 'z2'){
+                var url = 'https://upload-z2.qiniup.com/',
+            }
+            if (file_area == 'na0'){
+                var url = 'https://upload-na0.qiniup.com/',
+            }
+            if (file_area == 'as0'){
+                var url = 'https://upload-as0.qiniup.com/',
+            }
+            if (file_area == 'cn-east-2'){
+                var url = 'https://upload-cn-east-2.qiniup.com/',
+            }
             $("#submitButton").prop("disabled", true);
             $.ajax({
-                @if($file_area === 'z0')
-                    url: 'https://upload.qiniup.com/',
-                @elseif($file_area === 'z1')
-                    url: 'https://upload-z1.qiniup.com/',
-                @elseif($file_area === 'z2')
-                    url: 'https://upload-z2.qiniup.com/',
-                @elseif($file_area === 'na0')
-                    url: 'https://upload-na0.qiniup.com/',
-                @elseif($file_area === 'as0')
-                    url: 'https://upload-as0.qiniup.com/',
-                @elseif($file_area === 'cn-east-2')
-                    url: 'https://upload-cn-east-2.qiniup.com/',
-                @endif
+                url : url,
                 type: 'post',
                 enctype: 'multipart/form-data',
                 data: data,
