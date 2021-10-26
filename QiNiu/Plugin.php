@@ -133,11 +133,7 @@ class Plugin extends BasePlugin
         return $this->pluginSuccess($output);
     }
 
-    // todo 获取带防盗链签名的地址
-    // 命令字：plg_cmd_anti_link_image
-    //命令字：plg_cmd_anti_link_video
-    //命令字：plg_cmd_anti_link_audio
-    //命令字：plg_cmd_anti_link_doc
+    // 图片：获取带防盗链签名的地址
     public function plgCmdAntiLinkImageHandler($input)
     {
         $imagesBucketDomain = ApiConfigHelper::getConfigByItemKey('images_bucket_domain');
@@ -147,6 +143,7 @@ class Plugin extends BasePlugin
         $append = FresnsFileAppends::where('file_id', $files['id'])->first();
 
         $imagesBucketDomain = ApiConfigHelper::getConfigByItemKey('images_bucket_domain');
+        $imagesThumbConfig = ApiConfigHelper::getConfigByItemKey('images_thumb_config');
         $imagesThumbAvatar = ApiConfigHelper::getConfigByItemKey('images_thumb_avatar');
         $imagesThumbRatio = ApiConfigHelper::getConfigByItemKey('images_thumb_ratio');
         $imagesThumbSquare = ApiConfigHelper::getConfigByItemKey('images_thumb_square');
@@ -154,6 +151,7 @@ class Plugin extends BasePlugin
 
         $qiNiuImageService = new QiNiuImageService(1);
         $imageDefaultUrl = $imagesBucketDomain.$files['file_path'];
+        $imageConfigUrl = $imagesBucketDomain.$files['file_path'].$imagesThumbConfig;
         $imageAvatarUrl = $imagesBucketDomain.$files['file_path'].$imagesThumbAvatar;
         $imageRatioUrl = $imagesBucketDomain.$files['file_path'].$imagesThumbRatio;
         $imageSquareUrl = $imagesBucketDomain.$files['file_path'].$imagesThumbSquare;
@@ -161,6 +159,7 @@ class Plugin extends BasePlugin
         $originalUrl = $imagesBucketDomain.$append['file_original_path'];
 
         $imageDefaultUrl = $qiNiuImageService->getImageDownloadUrl($imageDefaultUrl);
+        $imageConfigUrl = $qiNiuImageService->getImageDownloadUrl($imageConfigUrl);
         $imageAvatarUrl = $qiNiuImageService->getImageDownloadUrl($imageAvatarUrl);
         $imageRatioUrl = $qiNiuImageService->getImageDownloadUrl($imageRatioUrl);
         $imageSquareUrl = $qiNiuImageService->getImageDownloadUrl($imageSquareUrl);
@@ -168,6 +167,7 @@ class Plugin extends BasePlugin
         $originalUrl = $qiNiuImageService->getImageDownloadUrl($originalUrl);
 
         $output['imageDefaultUrl'] = $imageDefaultUrl;
+        $output['imageConfigUrl'] = $imageConfigUrl;
         $output['imageAvatarUrl'] = $imageAvatarUrl;
         $output['imageRatioUrl'] = $imageRatioUrl;
         $output['imageSquareUrl'] = $imageSquareUrl;
@@ -177,6 +177,7 @@ class Plugin extends BasePlugin
         return $this->pluginSuccess($output);
     }
 
+    // 视频：获取带防盗链签名的地址
     public function plgCmdAntiLinkVideoHandler($input)
     {
         $fid = $input['fid'];
@@ -204,6 +205,7 @@ class Plugin extends BasePlugin
         return $this->pluginSuccess($output);
     }
 
+    // 音频：获取带防盗链签名的地址
     public function plgCmdAntiLinkAudioHandler($input)
     {
         $fid = $input['fid'];
@@ -225,6 +227,7 @@ class Plugin extends BasePlugin
         return $this->pluginSuccess($output);
     }
 
+    // 文档：获取带防盗链签名的地址
     public function plgCmdAntiLinkDocHandler($input)
     {
         $fid = $input['fid'];
@@ -308,17 +311,18 @@ class Plugin extends BasePlugin
                         }
                         $dateStr = date('YmdHis', time());
                         $key = substr($files['file_path'], 1);
-
+                        
                         $saveAsKey = "qiniu_trans_audio_{$dateStr}.".$v['extension'];
 
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $id;
-                        $base64Data['fileId'] = $files['id'];
+                        $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
+                        $transId = $transService->transVideo($key, $saveAsKey, $videos_transcode);
+                        $base64Data['transId'] = $transId;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $id = $transService->transVideo($key, $saveAsKey, $videos_transcode);
-                        if (! empty($id)) {
+                        if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
@@ -342,9 +346,10 @@ class Plugin extends BasePlugin
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
+                        $transId = $transService->transAudio($key, $saveAsKey, $audios_transcode);
+                        $base64Data['transId'] = $transId;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $id = $transService->transAudio($key, $saveAsKey, $audios_transcode);
-                        if (! empty($id)) {
+                        if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
@@ -382,9 +387,10 @@ class Plugin extends BasePlugin
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['id'];
                         $base64Data['saveAsKey'] = $saveAsKey;
+                        $transId = $transService->transVideo($key, $saveAsKey, $videos_transcode);
+                        $base64Data['transId'] = $transId;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $id = $transService->transVideo($key, $saveAsKey, $videos_transcode);
-                        if (! empty($id)) {
+                        if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }
@@ -408,10 +414,11 @@ class Plugin extends BasePlugin
                         $base64Data['tableId'] = $id;
                         $base64Data['fileId'] = $files['id'];
                         $base64Data['saveAsKey'] = $saveAsKey;
+                        $transId = $transService->transAudio($key, $saveAsKey, $audios_transcode);
+                        $base64Data['transId'] = $transId;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $id = $transService->transAudio($key, $saveAsKey, $audios_transcode);
 
-                        if (! empty($id)) {
+                        if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
                     }

@@ -151,9 +151,18 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
         - 4.4、`transcoding_state = 4` 转码失败，流程中止；
     - 5、执行转码，同时修改文件附属表字段 `transcoding_state = 2`
     - 6、七牛回调
-        6.1、转码成功：将转码后的文件名填入 `files > file_path`；将转码前的源文件路径填入 `file_appends > file_original_path`；修改转码状态 `file_appends > transcoding_state = 3`
-        6.3、转码失败：修改转码状态 `file_appends > transcoding_state = 4`；如果有转码失败其他参数或备注，填入 `file_appends > transcoding_reason` 字段中。
-    - 7、以新的 `files > file_path` 参数拼接地址，替换内容记录 `more_json` 字段中 `files` 数组对应的 URL 参数。
+        6.1、转码成功：
+            6.1.1、将转码后的文件名填入 `files > file_path`；
+            6.1.2、将转码前的源文件路径填入 `file_appends > file_original_path`；
+            6.1.3、将新的 mime 类型替换 `file_appends > file_mime`；
+            6.1.4、修改转码状态 `file_appends > transcoding_state = 3`。
+        6.2、转码失败：
+            6.2.1、修改转码状态 `file_appends > transcoding_state = 4`；
+            6.2.2、如果有转码失败其他参数或备注，填入 `file_appends > transcoding_reason` 字段中。
+    - 7、更新内容文件 JSON 信息（日志表 files_json 字段和主表 more_json 字段）
+        - 7.1、以新的 `files > file_path` 参数拼接地址，替换 `videoUrl` 或 `audioUrl` 参数；
+        - 7.2、以新的 `file_appends > file_mime` 参数替换 `mime` 参数；
+        - 7.3、修改 `transcodingState` 参数为 `3`。
 - 转码配置：
     - 类型 2 视频，根据配置表 `videos_transcode` 键值（七牛云转码样式名），执行七牛云转码。
     - 类型 3 音频，根据配置表 `audios_transcode` 键值（七牛云转码样式名），执行七牛云转码。

@@ -138,4 +138,20 @@ class QiNiuTransService extends QiNiuService
 
         return $notifyUrl;
     }
+
+    //通过转码id去查询进度
+    public function searchStatus($id)
+    {
+        $this->initTrans();
+
+        // 查询转码的进度和状态
+        [$ret, $err] = $this->pfop->status($id);
+        LogService::info('pfop avthumb status result', $ret);
+        
+        $data = [];
+        $data['ret'] = $ret;
+        $data['err'] = $err;
+
+        return $data;
+    }
 }
