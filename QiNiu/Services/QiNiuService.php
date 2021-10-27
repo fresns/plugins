@@ -120,10 +120,11 @@ class QiNiuService
         return $res;
     }
 
-    public function stat($key, $bucket = null){
+    public function stat($key, $bucket = null)
+    {
         $config = new Config();
         $bucketManager = new BucketManager($this->qiNiuAuth, $config);
-        if(empty($bucket)){
+        if (empty($bucket)) {
             $bucket = $this->qiNiuBucketName;
         }
 

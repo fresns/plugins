@@ -311,7 +311,7 @@ class Plugin extends BasePlugin
                         }
                         $dateStr = date('YmdHis', time());
                         $key = substr($files['file_path'], 1);
-                        
+
                         $saveAsKey = "qiniu_trans_video_{$dateStr}.".$v['extension'];
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
@@ -319,12 +319,11 @@ class Plugin extends BasePlugin
                         $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $transId = $transService->transVideo($key, $saveAsKey, $videos_transcode,$tableName,$insertId);
+                        $transId = $transService->transVideo($key, $saveAsKey, $videos_transcode, $tableName, $insertId);
 
-                        if(!empty($transId)){
-                            FresnsFileAppends::where('file_id',$files['id'])->update(['transcoding_state' => 2]);
+                        if (! empty($transId)) {
+                            FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
-
                     }
                     if ($v['type'] == 3) {
                         $transService = new QiNiuTransService(3);
@@ -347,7 +346,7 @@ class Plugin extends BasePlugin
                         $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $transId = $transService->transAudio($key, $saveAsKey, $audios_transcode,$tableName,$insertId);
+                        $transId = $transService->transAudio($key, $saveAsKey, $audios_transcode, $tableName, $insertId);
                         if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
@@ -387,7 +386,7 @@ class Plugin extends BasePlugin
                         $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $transId = $transService->transVideo($key, $saveAsKey, $videos_transcode,$tableName,$insertId);
+                        $transId = $transService->transVideo($key, $saveAsKey, $videos_transcode, $tableName, $insertId);
                         if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
@@ -413,7 +412,7 @@ class Plugin extends BasePlugin
                         $base64Data['fileId'] = $files['uuid'];
                         $base64Data['saveAsKey'] = $saveAsKey;
                         request()->offsetSet('callback_param', base64_encode(json_encode($base64Data)));
-                        $transId = $transService->transAudio($key, $saveAsKey, $audios_transcode,$tableName,$insertId);
+                        $transId = $transService->transAudio($key, $saveAsKey, $audios_transcode, $tableName, $insertId);
                         if (! empty($transId)) {
                             FresnsFileAppends::where('file_id', $files['id'])->update(['transcoding_state' => 2]);
                         }
