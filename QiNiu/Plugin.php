@@ -311,7 +311,7 @@ class Plugin extends BasePlugin
                         }
                         $dateStr = date('YmdHis', time());
                         $key = substr($files['file_path'], 1);
-                        
+
                         $saveAsKey = "qiniu_trans_audio_{$dateStr}.".$v['extension'];
 
                         $base64Data = [];

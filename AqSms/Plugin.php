@@ -143,19 +143,22 @@ class Plugin extends BasePlugin
     }
 
     // 根据传参国际区号去匹配模板语言标签
-    public function getLangTagByContryCode($contryCode){
+    public function getLangTagByContryCode($contryCode)
+    {
         $aqsmsLinked = ApiConfigHelper::getConfigByItemKey('aqsms_linked');
-        $aqsmsLinkedArr = json_decode($aqsmsLinked,true);
+        $aqsmsLinkedArr = json_decode($aqsmsLinked, true);
         $langTag = $aqsmsLinkedArr['other'];
-        if($contryCode){
-            foreach($aqsmsLinkedArr as $key => $value){
-                if($key == $contryCode){
+        if ($contryCode) {
+            foreach ($aqsmsLinkedArr as $key => $value) {
+                if ($key == $contryCode) {
                     $langTag = $aqsmsLinkedArr[$key];
                 }
             }
         }
+
         return $langTag;
     }
+
     // 根据 teamplateId 和 langTag 匹配需要发信的验证码模板
     public function getCodeTeamplate($templateId, $langTag)
     {
