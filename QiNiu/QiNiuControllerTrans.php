@@ -34,33 +34,32 @@ class QiNiuControllerTrans extends BaseApiController
     // 3、修改文件转码状态 file_appends > transcoding_state
     public function transNotify(Request $request)
     {
-      
         $callback = $request->input('callback_param');
         LogService::info('qiniu transNotify callback info', $request);
         if ($callback) {
             $itemArr = json_decode(base64_decode($callback), true);
-            $transId = Cache::get($itemArr['tableName'] . '_' . $itemArr['tableId']);
+            $transId = Cache::get($itemArr['tableName'].'_'.$itemArr['tableId']);
             $files = FresnsFiles::where('uuid', $itemArr['fileId'])->first();
             $transService = new QiNiuTransService($files['file_type']);
             $transArr = $transService->searchStatus($transId);
-            if(!empty($transArr['error'])){
+            if (! empty($transArr['error'])) {
                 $input = [
                     'transcoding_state' => 4,
                 ];
                 FresnsFileAppends::where('file_id', $files['id'])->update($input);
             } else {
-                if(!empty($transArr['ret'])){
-                    $filesAppend = FresnsFileAppends::where('file_id',$files['id'])->first();
+                if (! empty($transArr['ret'])) {
+                    $filesAppend = FresnsFileAppends::where('file_id', $files['id'])->first();
                     $ret = $transArr['ret'];
-                    if($ret['code'] == 0){
-                        $qiNiuService = new QiNiuService($files['file_type']); 
+                    if ($ret['code'] == 0) {
+                        $qiNiuService = new QiNiuService($files['file_type']);
                         $key = null;
-                        foreach($ret['items'] as $v){
+                        foreach ($ret['items'] as $v) {
                             $key = $v['key'];
                         }
                         $statRes = $qiNiuService->stat($key);
                         $file_mime = $filesAppend['file_mime'];
-                        if(!empty($statRes['ret'])){
+                        if (! empty($statRes['ret'])) {
                             $file_mime = $statRes['ret']['mimeType'];
                         }
                         FresnsFiles::where('uuid', $itemArr['fileId'])->update(['file_path' => '/'.$itemArr['saveAsKey']]);
@@ -68,7 +67,7 @@ class QiNiuControllerTrans extends BaseApiController
                         $input = [
                             'transcoding_state' => 3,
                             'file_original_path' => $files['file_path'],
-                            'file_mime' => $file_mime
+                            'file_mime' => $file_mime,
                         ];
                         FresnsFileAppends::where('file_id', $files['id'])->update($input);
                         //修改帖子或者评论内容
@@ -127,18 +126,16 @@ class QiNiuControllerTrans extends BaseApiController
                             FresnsComments::where('id', $itemArr['tableId'])->update(['more_json' => $json]);
                         }
                     } else {
-                        foreach($ret['items'] as $v){
+                        foreach ($ret['items'] as $v) {
                             $input = [
                                 'transcoding_state' => 4,
-                                'transcoding_reason' => $v['error'] ?? null
+                                'transcoding_reason' => $v['error'] ?? null,
                             ];
                             FresnsFileAppends::where('file_id', $files['id'])->update($input);
                         }
-                        
                     }
                 }
             }
-            
         }
         $this->success();
     }

@@ -86,10 +86,10 @@ class QiNiuTransService extends QiNiuService
      * @param  string  $pipeline
      * @return mixed
      */
-    public function transAudio($key, $saveAsKey, $transParams,$tableName = null,$insertId = null)
+    public function transAudio($key, $saveAsKey, $transParams, $tableName = null, $insertId = null)
     {
         $id = $this->trans($key, $saveAsKey, $transParams);
-        Cache::put($tableName . '_' . $insertId,$id);
+        Cache::put($tableName.'_'.$insertId, $id);
 
         return $id;
     }
@@ -103,10 +103,11 @@ class QiNiuTransService extends QiNiuService
      * @param  string  $pipeline
      * @return mixed
      */
-    public function transVideo($key, $saveAsKey, $transParams,$tableName = null,$insertId = null)
+    public function transVideo($key, $saveAsKey, $transParams, $tableName = null, $insertId = null)
     {
         $id = $this->trans($key, $saveAsKey, $transParams);
-        Cache::put($tableName . '_' . $insertId,$id);
+        Cache::put($tableName.'_'.$insertId, $id);
+
         return $id;
     }
 
@@ -117,7 +118,7 @@ class QiNiuTransService extends QiNiuService
      * @param $key
      * @param $saveAsKey : 视频处理完毕后保存到空间中的名称
      * @param  string  $pipeline
-     * https://developer.qiniu.com/dora/api/1313/video-frame-thumbnails-vframe
+     *                            https://developer.qiniu.com/dora/api/1313/video-frame-thumbnails-vframe
      * @return mixed
      */
     public function vframe($key, $saveAsKey, $transParams)
@@ -148,7 +149,7 @@ class QiNiuTransService extends QiNiuService
         // 查询转码的进度和状态
         [$ret, $err] = $this->pfop->status($id);
         LogService::info('pfop avthumb status result', $ret);
-        
+
         $data = [];
         $data['ret'] = $ret;
         $data['err'] = $err;
