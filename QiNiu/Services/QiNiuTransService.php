@@ -11,6 +11,7 @@ namespace App\Plugins\QiNiu\Services;
 use App\Helpers\CommonHelper;
 use App\Http\Center\Common\LogService;
 use App\Http\FresnsApi\Helpers\ApiConfigHelper;
+use Illuminate\Support\Facades\Cache;
 use Qiniu\Config;
 use Qiniu\Processing\PersistentFop;
 
@@ -63,7 +64,6 @@ class QiNiuTransService extends QiNiuService
         $fops = $transParams.'|saveas/'.\Qiniu\base64_urlSafeEncode("$bucket:$saveAsKey");
         // dd($this->notifyUrl);
         [$id, $err] = $this->pfop->execute($bucket, $key, $fops, $this->pipeline, $this->notifyUrl, $this->force);
-
         if ($err != null) {
             LogService::info('pfop avthumb error ', $err);
         } else {
@@ -86,9 +86,10 @@ class QiNiuTransService extends QiNiuService
      * @param  string  $pipeline
      * @return mixed
      */
-    public function transAudio($key, $saveAsKey, $transParams)
+    public function transAudio($key, $saveAsKey, $transParams,$tableName = null,$insertId = null)
     {
         $id = $this->trans($key, $saveAsKey, $transParams);
+        Cache::put($tableName . '_' . $insertId,$id);
 
         return $id;
     }
@@ -102,10 +103,10 @@ class QiNiuTransService extends QiNiuService
      * @param  string  $pipeline
      * @return mixed
      */
-    public function transVideo($key, $saveAsKey, $transParams, $pipeline = 'fresns')
+    public function transVideo($key, $saveAsKey, $transParams,$tableName = null,$insertId = null)
     {
         $id = $this->trans($key, $saveAsKey, $transParams);
-
+        Cache::put($tableName . '_' . $insertId,$id);
         return $id;
     }
 
@@ -116,7 +117,7 @@ class QiNiuTransService extends QiNiuService
      * @param $key
      * @param $saveAsKey : 视频处理完毕后保存到空间中的名称
      * @param  string  $pipeline
-     *                            https://developer.qiniu.com/dora/api/1313/video-frame-thumbnails-vframe
+     * https://developer.qiniu.com/dora/api/1313/video-frame-thumbnails-vframe
      * @return mixed
      */
     public function vframe($key, $saveAsKey, $transParams)
@@ -147,7 +148,7 @@ class QiNiuTransService extends QiNiuService
         // 查询转码的进度和状态
         [$ret, $err] = $this->pfop->status($id);
         LogService::info('pfop avthumb status result', $ret);
-
+        
         $data = [];
         $data['ret'] = $ret;
         $data['err'] = $err;

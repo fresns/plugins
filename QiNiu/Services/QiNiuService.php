@@ -120,6 +120,22 @@ class QiNiuService
         return $res;
     }
 
+    public function stat($key, $bucket = null){
+        $config = new Config();
+        $bucketManager = new BucketManager($this->qiNiuAuth, $config);
+        if(empty($bucket)){
+            $bucket = $this->qiNiuBucketName;
+        }
+
+        [$ret,$err] = $bucketManager->stat($bucket, $key);
+
+        $data = [];
+        $data['ret'] = $ret;
+        $data['err'] = $err;
+
+        return $data;
+    }
+
     /**
      * 列举资源文件
      * https://developer.qiniu.com/kodo/api/1284/list.
