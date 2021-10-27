@@ -41,7 +41,7 @@ class QiNiuControllerTrans extends BaseApiController
             $transService = new QiNiuTransService($files['file_type']);
             $transId = $itemArr['transId'];
             $transArr = $transService->searchStatus($transId);
-            if(!empty($transArr['error'])){
+            if (! empty($transArr['error'])) {
                 $input = [
                     'transcoding_state' => 4,
                 ];
@@ -105,7 +105,6 @@ class QiNiuControllerTrans extends BaseApiController
                     FresnsComments::where('id', $itemArr['tableId'])->update(['more_json' => $json]);
                 }
             }
-            
         }
         $this->success();
     }

@@ -147,7 +147,7 @@ class QiNiuTransService extends QiNiuService
         // 查询转码的进度和状态
         [$ret, $err] = $this->pfop->status($id);
         LogService::info('pfop avthumb status result', $ret);
-        
+
         $data = [];
         $data['ret'] = $ret;
         $data['err'] = $err;
