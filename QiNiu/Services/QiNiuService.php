@@ -215,7 +215,7 @@ class QiNiuService
     }
 
     //json 主表文件格式替换
-    public static function updateJsonFiles($filesJson,$fid,$saveAsKey,$videosBucketDomain,$audiosBucketDomain,$mime)
+    public static function updateJsonFiles($filesJson, $fid, $saveAsKey, $videosBucketDomain, $audiosBucketDomain, $mime)
     {
         $moreJsonArr = json_decode($filesJson, true);
         $fileArr = [];
@@ -244,7 +244,7 @@ class QiNiuService
     }
 
     //json log表文件格式替换
-    public static function updateLogsJsonFiles($filesJson,$fid,$saveAsKey,$videosBucketDomain,$audiosBucketDomain,$mime)
+    public static function updateLogsJsonFiles($filesJson, $fid, $saveAsKey, $videosBucketDomain, $audiosBucketDomain, $mime)
     {
         $moreJsonArr = json_decode($filesJson, true);
         $fileArr = [];
