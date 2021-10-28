@@ -28,7 +28,7 @@ class PluginConfig extends BasePluginConfig
     public $description = 'Fresns official development of the SMTP sending method of mail plugin.';
     public $author = 'Fresns';
     public $authorLink = 'https://fresns.org';
-    public $currVersion = '1.0';
+    public $currVersion = '1.0.0';
     public $currVersionInt = 1;
     public $settingPath = '/fresnsemail/settings';
     public $sceneArr = [
