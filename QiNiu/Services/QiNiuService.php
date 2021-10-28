@@ -214,13 +214,58 @@ class QiNiuService
         return $infoArr;
     }
 
-    // todo 此处 key 的规则同文件目录存储规则, 需要提供规则
-    public function generatQiNiuKey($type)
+    //json 主表文件格式替换
+    public static function updateJsonFiles($filesJson,$fid,$saveAsKey,$videosBucketDomain,$audiosBucketDomain,$mime)
     {
-        $randString = StrHelper::randString(10);
-        $key = 'test/'.$randString;
-        $key = $randString;
+        $moreJsonArr = json_decode($filesJson, true);
+        $fileArr = [];
+        foreach ($moreJsonArr['files'] as $v) {
+            if ($v['fid'] == $fid) {
+                if ($v['type'] == 2) {
+                    $v['videoUrl'] = $videosBucketDomain.'/'.$saveAsKey;
+                    $v['mime'] = $mime;
+                    $v['transcodingState'] = 3;
+                }
+                if ($v['type'] == 3) {
+                    $v['audioUrl'] = $audiosBucketDomain.'/'.$saveAsKey;
+                    $v['mime'] = $mime;
+                    $v['transcodingState'] = 3;
+                }
+            }
+            $fileArr[] = $v;
+        }
+        $data['files'] = $fileArr;
+        if (! empty($moreJsonArr['icons'])) {
+            $data['icons'] = $moreJsonArr['icons'];
+        }
+        $json = json_encode($data);
 
-        return $key;
+        return $json;
+    }
+
+    //json log表文件格式替换
+    public static function updateLogsJsonFiles($filesJson,$fid,$saveAsKey,$videosBucketDomain,$audiosBucketDomain,$mime)
+    {
+        $moreJsonArr = json_decode($filesJson, true);
+        $fileArr = [];
+        foreach ($moreJsonArr as $v) {
+            if ($v['fid'] == $fid) {
+                if ($v['type'] == 2) {
+                    $v['videoUrl'] = $videosBucketDomain.'/'.$saveAsKey;
+                    $v['mime'] = $mime;
+                    $v['transcodingState'] = 3;
+                }
+                if ($v['type'] == 3) {
+                    $v['audioUrl'] = $audiosBucketDomain.'/'.$saveAsKey;
+                    $v['mime'] = $mime;
+                    $v['transcodingState'] = 3;
+                }
+            }
+            $fileArr[] = $v;
+        }
+
+        $json = json_encode($fileArr);
+
+        return $json;
     }
 }
