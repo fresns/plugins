@@ -65,7 +65,7 @@ class WebController extends BaseController
 
         $validator = Validator::make($request->post(), ['email' => 'required|email']);
         if ($validator->fails()) {
-            return response()->json(['code'=>'200000','message'=>$validator->errors()->all()[0]]);
+            return response()->json(['code'=>'200000', 'message'=>$validator->errors()->all()[0]]);
         }
 
         try {
@@ -78,10 +78,9 @@ class WebController extends BaseController
             if (CmdRpcHelper::isErrorCmdResp($resp)) {
                 return response()->json(['code'=>'500000']);
             }
-        }catch (\Exception $exception){
-            return response()->json(['code'=>'500500','message'=>$exception->getMessage()]);
+        } catch (\Exception $exception) {
+            return response()->json(['code'=>'500500', 'message'=>$exception->getMessage()]);
         }
-
 
         return response()->json(['code'=>'000000']);
     }

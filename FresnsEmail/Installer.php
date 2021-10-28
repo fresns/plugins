@@ -40,7 +40,7 @@ class Installer extends BaseInstaller
     }
 
     /**
-     * uninstall, example:execute some sql delete
+     * uninstall, example:execute some sql delete.
      */
     public function uninstall()
     {
@@ -70,7 +70,7 @@ class Installer extends BaseInstaller
         });
     }
 
-    public function deletePluginItemKey():void
+    public function deletePluginItemKey(): void
     {
         FresnsConfigs::query()->whereIn('item_key', $this->installItemKey)->delete();
     }
