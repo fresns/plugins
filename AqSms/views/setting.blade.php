@@ -20,7 +20,7 @@
                 <!-- top -->
                 <div class="row mb-2">
                     <div class="col-7">
-                        <h3>阿 Q 短信插件 <span class="badge bg-secondary fs-9">v1.0</span></h3>
+                        <h3>阿 Q 短信插件 <span class="badge bg-secondary fs-9">v1.1.0</span></h3>
                         <p class="text-secondary">Fresns 官方开发的「阿里云」和「腾讯云」二合一短信服务插件。</p>
                     </div>
                     <div class="col-5 text-end"></div>
