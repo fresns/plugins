@@ -20,7 +20,7 @@
                 <!-- top -->
                 <div class="row mb-2">
                     <div class="col-7">
-                        <h3>@lang('FresnsEmail/fresns.name') <span class="badge bg-secondary fs-9">v1.0</span></h3>
+                        <h3>@lang('FresnsEmail/fresns.name') <span class="badge bg-secondary fs-9">v1.1.0</span></h3>
                         <p class="text-secondary">@lang('FresnsEmail/fresns.description')</p>
                     </div>
                     <div class="col-5 text-end"></div>
@@ -113,7 +113,10 @@
                 <!-- footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('FresnsEmail/fresns.testMailClose')</button>
-                    <button type="button" class="btn btn-primary" id="testUrl" data-url="{{ route('fresnsemail.settings.test') }}" onclick="send_mail_test()">@lang('FresnsEmail/fresns.testMailSend')</button>
+                    <button type="button" class="btn btn-primary" id="testUrl" data-url="{{ route('fresnsemail.settings.test') }}" onclick="send_mail_test()">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        @lang('FresnsEmail/fresns.testMailSend')
+                    </button>
                 </div>
             </div>
         </div>
@@ -130,6 +133,9 @@
                 alert("please input email value.");
                 return false;
             }
+            $('#testUrl').attr('disabled',"true");
+            $('#testUrl').find(".spinner-border").show();
+
             $.ajax({
                 type: "POST",
                 url: url,
@@ -138,16 +144,23 @@
                 dataType: "json",
                 success: function(json) {
                     if(json.code == '000000'){
+                        $('#testUrl').removeAttr("disabled");
+                        $('#testUrl').find(".spinner-border").hide();
                         alert('send success');
                     }else{
+                        $('#testUrl').removeAttr("disabled");
+                        $('#testUrl').find(".spinner-border").hide();
                         alert('send fail');
                     }
                 },
                 error: function() {
+                    $('#testUrl').removeAttr("disabled");
+                    $('#testUrl').find(".spinner-border").hide();
                     alert('server error');
                 }
             });
         }
+
     </script>
 
 </body>

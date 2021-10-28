@@ -14,6 +14,7 @@ use App\Http\FresnsDb\FresnsConfigs\FresnsConfigs;
 use App\Plugins\FresnsEmail\Plugin;
 use App\Plugins\FresnsEmail\PluginConfig;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WebController extends BaseController
 {
@@ -61,16 +62,27 @@ class WebController extends BaseController
     public function sendTest(Request $request)
     {
         $email = $request->input('email');
-        $input = [
-            'email' => $email,
-            'title' => 'Fresns test email',
-            'content' => 'This is a Fresns software testing email',
-        ];
-        $resp = CmdRpcHelper::call(Plugin::class, PluginConfig::PLG_CMD_SEND_EMAIL, $input);
-        if (CmdRpcHelper::isErrorCmdResp($resp)) {
-            return response()->json(['code'=>'500000'], Response::HTTP_OK);
+
+        $validator = Validator::make($request->post(), ['email' => 'required|email']);
+        if ($validator->fails()) {
+            return response()->json(['code'=>'200000','message'=>$validator->errors()->all()[0]]);
         }
 
-        return response()->json(['code'=>'000000'], Response::HTTP_OK);
+        try {
+            $input = [
+                'email' => $email,
+                'title' => 'Fresns test email',
+                'content' => 'This is a Fresns software testing email',
+            ];
+            $resp = CmdRpcHelper::call(Plugin::class, PluginConfig::FRESNS_CMD_SEND_EMAIL, $input);
+            if (CmdRpcHelper::isErrorCmdResp($resp)) {
+                return response()->json(['code'=>'500000']);
+            }
+        }catch (\Exception $exception){
+            return response()->json(['code'=>'500500','message'=>$exception->getMessage()]);
+        }
+
+
+        return response()->json(['code'=>'000000']);
     }
 }

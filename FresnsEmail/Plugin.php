@@ -23,7 +23,7 @@ class Plugin extends BasePlugin
     public function __construct()
     {
         $this->pluginConfig = new PluginConfig();
-        $this->pluginCmdHandlerMap = PluginConfig::PLG_CMD_HANDLE_MAP;
+        $this->pluginCmdHandlerMap = PluginConfig::FRESNS_CMD_HANDLE_MAP;
     }
 
     // Get Error Code
@@ -90,9 +90,7 @@ class Plugin extends BasePlugin
 
             return $this->pluginSuccess();
         } catch (\Error $error) {
-            $return = ['code' => 4, 'msg' => $error->getMessage()];
-
-            return $this->pluginSuccess($return);
+            return $this->pluginError(50000, [], $error->getMessage());
         }
     }
 }

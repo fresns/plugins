@@ -40,6 +40,20 @@ class Installer extends BaseInstaller
     }
 
     /**
+     * uninstall, example:execute some sql delete
+     */
+    public function uninstall()
+    {
+        $request = request();
+        $clear_plugin_data = $request->input('clear_plugin_data');
+        if ($clear_plugin_data == 1) {
+            $this->deletePluginItemKey();
+        }
+
+        parent::uninstall();
+    }
+
+    /**
      * @throws \Throwable
      */
     public function installItemKey(): void
@@ -54,5 +68,10 @@ class Installer extends BaseInstaller
             $fresnsConfigs->item_tag = 'fresnsemail';
             $fresnsConfigs->saveOrFail();
         });
+    }
+
+    public function deletePluginItemKey():void
+    {
+        FresnsConfigs::query()->whereIn('item_key', $this->installItemKey)->delete();
     }
 }
