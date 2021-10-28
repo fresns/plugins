@@ -78,20 +78,20 @@ class QiNiuControllerTrans extends BaseApiController
                         if ($itemArr['tableName'] == 'posts') {
                             //主表文件json替换
                             $moreJson = FresnsPosts::where('id', $itemArr['tableId'])->value('more_json');
-                            $json = $qiNiuService->updateJsonFiles($moreJson,$itemArr['fileId'],$itemArr['saveAsKey'],$videosBucketDomain,$audiosBucketDomain,$file_mime);
+                            $json = $qiNiuService->updateJsonFiles($moreJson, $itemArr['fileId'], $itemArr['saveAsKey'], $videosBucketDomain, $audiosBucketDomain, $file_mime);
                             FresnsPosts::where('id', $itemArr['tableId'])->update(['more_json' => $json]);
                             //logs表json替换
                             $logsMoreJson = FresnsPostLogs::where('id', $files['table_id'])->value('files_json');
-                            $logsJson = $qiNiuService->updateLogsJsonFiles($logsMoreJson,$itemArr['fileId'],$itemArr['saveAsKey'],$videosBucketDomain,$audiosBucketDomain,$file_mime);
+                            $logsJson = $qiNiuService->updateLogsJsonFiles($logsMoreJson, $itemArr['fileId'], $itemArr['saveAsKey'], $videosBucketDomain, $audiosBucketDomain, $file_mime);
                             FresnsPostLogs::where('id', $files['table_id'])->update(['files_json' => $logsJson]);
                         }
                         if ($itemArr['tableName'] == 'comments') {
                             $moreJson = FresnsComments::where('id', $itemArr['tableId'])->value('more_json');
-                            $json = $qiNiuService->updateJsonFiles($moreJson,$itemArr['fileId'],$itemArr['saveAsKey'],$videosBucketDomain,$audiosBucketDomain,$file_mime);
+                            $json = $qiNiuService->updateJsonFiles($moreJson, $itemArr['fileId'], $itemArr['saveAsKey'], $videosBucketDomain, $audiosBucketDomain, $file_mime);
                             FresnsComments::where('id', $itemArr['tableId'])->update(['more_json' => $json]);
                             //log表替换
                             $logsMoreJson = FresnsCommentLogs::where('id', $files['table_id'])->value('files_json');
-                            $logsJson = $qiNiuService->updateLogsJsonFiles($logsMoreJson,$itemArr['fileId'],$itemArr['saveAsKey'],$videosBucketDomain,$audiosBucketDomain,$file_mime);
+                            $logsJson = $qiNiuService->updateLogsJsonFiles($logsMoreJson, $itemArr['fileId'], $itemArr['saveAsKey'], $videosBucketDomain, $audiosBucketDomain, $file_mime);
                             FresnsCommentLogs::where('id', $files['table_id'])->update(['files_json' => $logsJson]);
                         }
                     } else {
