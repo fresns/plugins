@@ -18,8 +18,8 @@ class PluginConfig extends BasePluginConfig
     public $description = 'Fresns 官方开发的「七牛云」存储服务插件。';
     public $author = 'Fresns';
     public $authorLink = 'https://fresns.org';
-    public $currVersion = '1.1.0';
-    public $currVersionInt = 2;
+    public $currVersion = '1.2.0';
+    public $currVersionInt = 3;
     public $accessPath = '/qiniu/upload?sign={sign}&token={uploadToken}&uploadInfo={uploadInfo}&callback={uuid}&lang={langtag}';
     public $sceneArr = [
         'storage', // 存储服务商
