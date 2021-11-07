@@ -316,7 +316,7 @@ class Plugin extends BasePlugin
                         $options['file_type'] = $files['file_type'];
                         $options['table_type'] = $files['table_type'];
                         $newFilePath = FileSceneService::getFormalEditorPath($options);
-                        $saveAsKey = $newFilePath . "/fresns-video-{$dateStr}.".$v['extension'];
+                        $saveAsKey = $newFilePath."/fresns-video-{$dateStr}.".$v['extension'];
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $insertId;
@@ -347,7 +347,7 @@ class Plugin extends BasePlugin
                         $options['file_type'] = $files['file_type'];
                         $options['table_type'] = $files['table_type'];
                         $newFilePath = FileSceneService::getFormalEditorPath($options);
-                        $saveAsKey = $newFilePath . "/fresns-audio-{$dateStr}.".$v['extension'];
+                        $saveAsKey = $newFilePath."/fresns-audio-{$dateStr}.".$v['extension'];
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $insertId;
@@ -391,7 +391,7 @@ class Plugin extends BasePlugin
                         $options['file_type'] = $files['file_type'];
                         $options['table_type'] = $files['table_type'];
                         $newFilePath = FileSceneService::getFormalEditorPath($options);
-                        $saveAsKey = $newFilePath . "/fresns-video-{$dateStr}.".$v['extension'];
+                        $saveAsKey = $newFilePath."/fresns-video-{$dateStr}.".$v['extension'];
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $insertId;
@@ -421,7 +421,7 @@ class Plugin extends BasePlugin
                         $options['file_type'] = $files['file_type'];
                         $options['table_type'] = $files['table_type'];
                         $newFilePath = FileSceneService::getFormalEditorPath($options);
-                        $saveAsKey = $newFilePath . "/fresns-audio-{$dateStr}.".$v['extension'];
+                        $saveAsKey = $newFilePath."/fresns-audio-{$dateStr}.".$v['extension'];
                         $base64Data = [];
                         $base64Data['tableName'] = $tableName;
                         $base64Data['tableId'] = $insertId;
