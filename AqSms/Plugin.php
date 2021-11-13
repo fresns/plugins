@@ -34,7 +34,7 @@ class Plugin extends BasePlugin
     {
         $type = $input['type'];
         if ($type == 1) {
-            return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            return $this->pluginError(PluginConfig::SEND_TYPE_ERROR);
         }
         $countryCode = $input['countryCode'];
         $templateId = $input['templateId'];
@@ -44,14 +44,14 @@ class Plugin extends BasePlugin
         $data = $this->getCodeTeamplate($templateId, $langTag);
         // 未找到模板
         if (empty($data)) {
-            return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            return $this->pluginError(PluginConfig::TEMPLATE_ERROR);
         }
         $appid = ApiConfigHelper::getConfigByItemKey('aqsms_appid');
         $keyId = ApiConfigHelper::getConfigByItemKey('aqsms_keyid');
         $keySecret = ApiConfigHelper::getConfigByItemKey('aqsms_keysecret');
         // 缺少配置信息
         if (empty($keyId) || empty($keySecret)) {
-            return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            return $this->pluginError(PluginConfig::CONFIG_ERROR);
         }
         $data['countryCode'] = $countryCode;
         $data['account'] = $input['account'];
@@ -66,7 +66,7 @@ class Plugin extends BasePlugin
             $date = $this->service->sendCodeSms($data);
             // 未发送成功
             if ($date != 'OK') {
-                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+                return $this->pluginError(PluginConfig::SEND_ERROR);
             }
         } else {
             // 发送腾讯云短信
@@ -74,11 +74,11 @@ class Plugin extends BasePlugin
             $date = $this->service->sendCodeSms($data);
             // 未发送成功
             if ($date != 'Ok') {
-                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+                return $this->pluginError(PluginConfig::SEND_ERROR);
             }
         }
         if (! $date) {
-            return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            return $this->pluginError(PluginConfig::CODE_PARAM_ERROR);
         }
         // 数据库插入验证码
         $input = [
@@ -116,7 +116,7 @@ class Plugin extends BasePlugin
         $data['keySecret'] = $keySecret;
         // 缺少配置信息
         if (empty($aqSmsType) || empty($keyId) || empty($keySecret)) {
-            return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            return $this->pluginError(PluginConfig::CONFIG_ERROR);
         }
         if ($aqSmsType == 1) {
             // 发送阿里云短信
@@ -124,7 +124,7 @@ class Plugin extends BasePlugin
             $date = $this->service->sendSms($data);
             // 未发送成功
             if ($date != 'OK') {
-                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+                return $this->pluginError(PluginConfig::SEND_ERROR);
             }
         } else {
             // 发送腾讯云短信
@@ -132,11 +132,11 @@ class Plugin extends BasePlugin
             $date = $this->service->sendSms($data);
             // 未发送成功
             if ($date != 'Ok') {
-                return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+                return $this->pluginError(PluginConfig::SEND_ERROR);
             }
         }
         if (! $date) {
-            return $this->pluginError(ErrorCodeService::CODE_PARAM_ERROR);
+            return $this->pluginError(PluginConfig::CODE_PARAM_ERROR);
         }
 
         return $this->pluginSuccess($date);
