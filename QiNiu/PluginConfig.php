@@ -18,8 +18,8 @@ class PluginConfig extends BasePluginConfig
     public $description = 'Fresns 官方开发的「七牛云」存储服务插件。';
     public $author = 'Fresns';
     public $authorLink = 'https://fresns.org';
-    public $currVersion = '1.2.0';
-    public $currVersionInt = 3;
+    public $currVersion = '1.3.0';
+    public $currVersionInt = 4;
     public $accessPath = '/qiniu/upload?sign={sign}&token={uploadToken}&uploadInfo={uploadInfo}&callback={uuid}&lang={langtag}';
     public $sceneArr = [
         'storage', // 存储服务商
@@ -38,7 +38,7 @@ class PluginConfig extends BasePluginConfig
     public const FRESNS_CMD_ANTI_LINK_DOC = 'fresns_cmd_anti_link_doc';
     // 删除文件
     public const FRESNS_CMD_PHYSICAL_DELETION_FILE = 'fresns_cmd_physical_deletion_file';
-    //转码命令字
+    // 转码命令字
     public const FRESNS_CMD_QINIU_TRANSCODING = 'fresns_cmd_qiniu_transcoding';
     // 插件命令字回调映射
     const FRESNS_CMD_HANDLE_MAP = [

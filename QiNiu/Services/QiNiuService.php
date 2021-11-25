@@ -268,4 +268,25 @@ class QiNiuService
 
         return $json;
     }
+
+    public function generatQiNiuKey($type){
+        $randString = StrHelper::randString(10);
+        switch ($type) {
+            case 1:
+                $key = 'images/';
+                break;
+            case 2:
+                $key = 'video/';
+                break;
+            case 3:
+                $key = 'audio/';
+                break;
+            default:
+                $key = 'docs/';
+                break;
+        }
+        $key = $key . $randString;
+        $key = $randString;
+        return $key;
+    }
 }

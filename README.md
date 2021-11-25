@@ -17,14 +17,6 @@ Fresns is a free and open source social network service software, a general-purp
 
 ## Repository Introduction
 
-### AdminApi
-
-API interface plugin for basic management functions developed by Fresns official.
-
-### ControlPanel
-
-The official control panel plugin developed by Fresns, integrated to run in the main program.
-
 ### FresnsEmail
 
 Fresns official development of the SMTP sending method of mail plugin.

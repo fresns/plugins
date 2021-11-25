@@ -60,7 +60,7 @@ class Plugin extends BasePlugin
 
         // 生成后，不仅输出，还要保存到 plugin_callbacks 数据表中，主要字段介绍如下：
         // https://github.com/fresns/extensions/tree/main/QiNiu
-        $uuid = $this->generateUuid();
+        $uuid = $this->generateUuid(32);
         $data['plugin_unikey'] = 'QiNiu';
         $data['member_id'] = 0;
         $data['uuid'] = $uuid;
