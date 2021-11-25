@@ -269,7 +269,8 @@ class QiNiuService
         return $json;
     }
 
-    public function generatQiNiuKey($type){
+    public function generatQiNiuKey($type)
+    {
         $randString = StrHelper::randString(10);
         switch ($type) {
             case 1:
@@ -285,8 +286,9 @@ class QiNiuService
                 $key = 'docs/';
                 break;
         }
-        $key = $key . $randString;
+        $key = $key.$randString;
         $key = $randString;
+
         return $key;
     }
 }
