@@ -51,7 +51,7 @@ In order to ensure that the Fresns community is welcoming to all, please review 
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Fresns, please send an e-mail to Taylor Otwell via [jarvis.okay@gmail.com](mailto:jarvis.okay@gmail.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Fresns, please send an e-mail to Taylor Otwell via [support@fresns.org](mailto:support@fresns.org). All security vulnerabilities will be promptly addressed.
 
 ## License
 
