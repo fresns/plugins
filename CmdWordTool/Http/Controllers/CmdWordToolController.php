@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\CmdWordTool\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -11,6 +17,7 @@ class CmdWordToolController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index(Request $request)
@@ -22,7 +29,7 @@ class CmdWordToolController extends Controller
             $params = json_decode($params, true);
         }
         $commandList = \FresnsCmdWord::all();
-        $controller = Arr::get($commandList, $unikey . '.' . $wordName . '.provider.0');
+        $controller = Arr::get($commandList, $unikey.'.'.$wordName.'.provider.0');
         if (empty($controller)) {
             return ['code' => 500, 'message' => 'empty wordName'];
         }
@@ -35,7 +42,6 @@ class CmdWordToolController extends Controller
                 $params[$name] = json_decode($params[$name], true);
             }
             if (empty($className)) {
-
                 $data[$name] = $params[$name];
             } else {
                 $class = $parameter->getClass();
@@ -43,23 +49,23 @@ class CmdWordToolController extends Controller
                 $data[$name] = $class;
             }
         }
-        if ($request->hasFile('file'))
-        {
+        if ($request->hasFile('file')) {
             $data['wordBody']['file'] = $request->file('file');
         }
+
         return \FresnsCmdWord::plugin($unikey)->$wordName(...$data);
-
     }
-
 
     public function isJson($string)
     {
         json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
+
+        return json_last_error() == JSON_ERROR_NONE;
     }
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -69,7 +75,8 @@ class CmdWordToolController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @return Renderable
      */
     public function store(Request $request)
@@ -79,7 +86,8 @@ class CmdWordToolController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return Renderable
      */
     public function show($id)
@@ -89,7 +97,8 @@ class CmdWordToolController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return Renderable
      */
     public function edit($id)
@@ -99,8 +108,9 @@ class CmdWordToolController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     *
+     * @param  Request  $request
+     * @param  int  $id
      * @return Renderable
      */
     public function update(Request $request, $id)
@@ -110,7 +120,8 @@ class CmdWordToolController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return Renderable
      */
     public function destroy($id)
