@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 use Illuminate\Support\Facades\Route;
 use Plugins\HelperTool\Http\Controllers as ApiController;
 
@@ -14,6 +20,6 @@ use Plugins\HelperTool\Http\Controllers as ApiController;
 |
 */
 
-Route::prefix('helper-tool')->group(function() {
+Route::prefix('helper-tool')->group(function () {
     Route::get('/', [ApiController\HelperToolController::class, 'index']);
 });
