@@ -1,0 +1,24 @@
+{
+    "unikey": "HelperTool",
+    "type": 1,
+    "name": "Helper Tool",
+    "description": "Fresns official helper function test tool",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "tool"
+    ],
+    "accessPath": null,
+    "settingPath": null,
+    "priority": 0,
+    "composer": {
+        "require": {},
+        "require-dev": {}
+    },
+    "providers": [
+        "Plugins\\HelperTool\\Providers\\HelperToolServiceProvider"
+    ],
+    "aliases": {},
+    "requires": {}
+}
