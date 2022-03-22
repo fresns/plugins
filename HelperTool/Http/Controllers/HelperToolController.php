@@ -8,7 +8,6 @@
 
 namespace Plugins\HelperTool\Http\Controllers;
 
-use App\Support\Helpers\ConfigHelper;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -22,7 +21,7 @@ class HelperToolController extends Controller
      */
     public function index(Request $request)
     {
-        $namespace = '\App\Support\Helpers\\';
+        $namespace = '\App\Helpers\\';
         $helperClass = $request->get('helperClass');
         $helperName = $request->get('helperName');
         $params = $request->get('params');
