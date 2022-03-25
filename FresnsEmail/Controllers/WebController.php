@@ -8,10 +8,10 @@
 
 namespace Plugins\FresnsEmail\Controllers;
 
-use Illuminate\Routing\Controller;
-use Plugins\FresnsEmail\Models\Config;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
+use Plugins\FresnsEmail\Models\Config;
 
 class WebController extends Controller
 {
@@ -76,9 +76,9 @@ class WebController extends Controller
                 return $fresnsResp->errorResponse();
             }
         } catch (\Exception $exception) {
-            return ['code'=>'500500', 'message'=>$exception->getMessage(),'data'=>[]];
+            return ['code'=>'500500', 'message'=>$exception->getMessage(), 'data'=>[]];
         }
 
-        return ['code'=>'000000','message'=>'','data'=>[]];
+        return ['code'=>'000000', 'message'=>'', 'data'=>[]];
     }
 }

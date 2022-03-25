@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\FresnsEmail\Providers;
 
-use Plugins\FresnsEmail\Mail\MailCmdService;
 use Illuminate\Support\ServiceProvider;
+use Plugins\FresnsEmail\Mail\MailCmdService;
 
 class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordManager\Contracts\CmdWordProviderContract
 {

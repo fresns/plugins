@@ -17,7 +17,6 @@ class FresnsEmailServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
     }
 
     /**

@@ -8,8 +8,8 @@
 
 use Plugins\FresnsEmail\Controllers;
 
-Route::group(['prefix' => 'fresnsemail','middleware' => ['web', 'panelAuth']], function () {
-    Route::get('/settings',[Controllers\WebController::class,'settings'])->name('fresnsemail.settings.show');
-    Route::post('/settings', [Controllers\WebController::class,'postSettings'])->name('fresnsemail.settings.store');
-    Route::post('/test', [Controllers\WebController::class,'sendTest'])->name('fresnsemail.settings.test');
+Route::group(['prefix' => 'fresnsemail', 'middleware' => ['web', 'panelAuth']], function () {
+    Route::get('/settings', [Controllers\WebController::class, 'settings'])->name('fresnsemail.settings.show');
+    Route::post('/settings', [Controllers\WebController::class, 'postSettings'])->name('fresnsemail.settings.store');
+    Route::post('/test', [Controllers\WebController::class, 'sendTest'])->name('fresnsemail.settings.test');
 });

@@ -9,10 +9,10 @@
 namespace Plugins\FresnsEmail\Mail;
 
 use App\Helpers\ConfigHelper;
-use Plugins\FresnsEmail\Mail\MailSend;
-use Plugins\FresnsEmail\Mail\MailService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Plugins\FresnsEmail\Mail\MailSend;
+use Plugins\FresnsEmail\Mail\MailService;
 
 class MailCmdService
 {
@@ -41,7 +41,6 @@ class MailCmdService
 
             return ['code' => 0, 'message' => 'ok', 'data' => []];
         } catch (\Error $error) {
-
             return ['code' => 50000, 'message' => $error->getMessage(), 'data' => []];
         }
     }
@@ -56,9 +55,7 @@ class MailCmdService
 
             return ['code' => 0, 'message' => 'ok', 'data' => []];
         } catch (\Error $error) {
-
             return ['code' => 50000, 'message' => $error->getMessage(), 'data' => []];
         }
     }
-
 }

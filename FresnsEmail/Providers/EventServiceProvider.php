@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\FresnsEmail\Providers;
 
-use Plugins\FresnsSms\Listeners\CliearPluginDataListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Plugins\FresnsSms\Listeners\CliearPluginDataListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -13,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        "plugins.cleandata" => [
+        'plugins.cleandata' => [
             CliearPluginDataListener::class,
         ],
     ];
