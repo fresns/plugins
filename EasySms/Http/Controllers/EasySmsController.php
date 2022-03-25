@@ -1,11 +1,17 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\Http\Controllers;
 
-use Plugins\EasySms\Models\Config;
-use Plugins\EasySms\DTO\SettingDTO;
-use Plugins\EasySms\Services\SmsConfig;
 use Illuminate\Routing\Controller;
+use Plugins\EasySms\DTO\SettingDTO;
+use Plugins\EasySms\Models\Config;
+use Plugins\EasySms\Services\SmsConfig;
 
 class EasySmsController extends Controller
 {
@@ -39,7 +45,7 @@ class EasySmsController extends Controller
             if ($key === 'easysms_linked') {
                 $value = json_decode($value, true);
             }
-            
+
             $config = Config::updateOrCreate([
                 'item_key' => $key,
             ], [

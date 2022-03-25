@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -7,12 +13,12 @@ use Illuminate\Support\ServiceProvider;
 class EasySmsServiceProvider extends ServiceProvider
 {
     /**
-     * @var string $pluginName
+     * @var string
      */
     protected string $pluginName = 'EasySms';
 
     /**
-     * @var string $pluginNameKebab
+     * @var string
      */
     protected string $pluginNameKebab = 'EasySms';
 
@@ -45,7 +51,7 @@ class EasySmsServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            plugin_path($this->pluginName, 'Config/config.php') => config_path($this->pluginNameKebab . '.php'),
+            plugin_path($this->pluginName, 'Config/config.php') => config_path($this->pluginNameKebab.'.php'),
         ], 'config');
         $this->mergeConfigFrom(
             plugin_path($this->pluginName, 'Config/config.php'), $this->pluginNameKebab
@@ -59,13 +65,13 @@ class EasySmsServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/plugins/' . $this->pluginNameKebab);
+        $viewPath = resource_path('views/plugins/'.$this->pluginNameKebab);
 
         $sourcePath = plugin_path($this->pluginName, 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath
-        ], ['views', $this->pluginNameKebab . '-plugin-views']);
+            $sourcePath => $viewPath,
+        ], ['views', $this->pluginNameKebab.'-plugin-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->pluginNameKebab);
     }
@@ -77,7 +83,7 @@ class EasySmsServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/plugins/' . $this->pluginNameKebab);
+        $langPath = resource_path('lang/plugins/'.$this->pluginNameKebab);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->pluginNameKebab);
@@ -100,10 +106,11 @@ class EasySmsServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach (config('view.paths') as $path) {
-            if (is_dir($path . '/plugins/' . $this->pluginNameKebab)) {
-                $paths[] = $path . '/plugins/' . $this->pluginNameKebab;
+            if (is_dir($path.'/plugins/'.$this->pluginNameKebab)) {
+                $paths[] = $path.'/plugins/'.$this->pluginNameKebab;
             }
         }
+
         return $paths;
     }
 }

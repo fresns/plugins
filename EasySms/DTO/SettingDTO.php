@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\DTO;
 
 use Fresns\DTO\DTO;
@@ -15,8 +21,8 @@ use Fresns\DTO\DTO;
 class SettingDTO extends DTO
 {
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function rules(): array
     {
         return [

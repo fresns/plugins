@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\Support;
 
 use Plugins\EasySms\Models\Config;
 
 class Installer
 {
-    protected $fresnsConfigItems =  [
+    protected $fresnsConfigItems = [
         [
             'item_key' => 'easysms_type',
             'item_value' => '1',

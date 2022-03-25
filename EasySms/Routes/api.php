@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Plugins\EasySms\Http\Controllers as ApiController;
@@ -15,6 +21,6 @@ use Plugins\EasySms\Http\Controllers as ApiController;
 |
 */
 
-Route::prefix('EasySms')->middleware(['api', 'auth'])->group(function() {
+Route::prefix('EasySms')->middleware(['api', 'auth'])->group(function () {
     Route::get('/', [ApiController\EasySmsController::class, 'index']);
 });

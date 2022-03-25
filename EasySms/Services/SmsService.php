@@ -1,13 +1,19 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\Services;
 
+use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
 use Overtrue\EasySms\EasySms;
 use Overtrue\EasySms\PhoneNumber;
 use Plugins\EasySms\DTO\SmsDTO;
-use Plugins\EasySms\Models\VerifyCode;
 use Plugins\EasySms\DTO\SmsSendCodeDTO;
-use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
+use Plugins\EasySms\Models\VerifyCode;
 
 class SmsService
 {
@@ -30,7 +36,7 @@ class SmsService
         $gateway = $this->smsSystemConfig->getEasySmsGatewayName();
 
         if ($gateway !== 'errorlog') {
-            $formatConfigMethod = sprintf("format%sGatewayConfig", ucfirst($gateway));
+            $formatConfigMethod = sprintf('format%sGatewayConfig', ucfirst($gateway));
 
             $userConfig = $this->configFormatter->$formatConfigMethod($signName);
 
@@ -85,14 +91,13 @@ class SmsService
         }
 
         $this->saveCodeToDatabase($code, $to, $smsDTO->templateId);
-        
+
         return $this->success($response);
     }
 
     public function saveCodeToDatabase(string $code, PhoneNumber $to, string $templateId)
     {
-        $phone = $to->getIDDCode() . $to->getNumber();
-
+        $phone = $to->getIDDCode().$to->getNumber();
 
         $data = [
             'account'     => $phone,
@@ -131,7 +136,7 @@ class SmsService
 
             ExceptionConstant::getHandleClassByCode(ExceptionConstant::ERROR_CODE_20005)::throw($message);
         }
-        
+
         return $this->success($response);
     }
 
@@ -147,8 +152,8 @@ class SmsService
         if (! $exception instanceof \Overtrue\EasySms\Exceptions\NoGatewayAvailableException) {
             return $exception->getMessage();
         }
-        
-        foreach($exception->getExceptions() as $gatewayName => $gatewayResult) {
+
+        foreach ($exception->getExceptions() as $gatewayName => $gatewayResult) {
             $message .= sprintf('%s: %s\n', $gatewayName, $gatewayResult->getMessage());
         }
 

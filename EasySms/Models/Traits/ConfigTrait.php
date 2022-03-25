@@ -1,14 +1,20 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\Models\Traits;
 
 trait ConfigTrait
 {
     public function getItemValueAttribute($value)
     {
-        if (in_array($this->item_type,  ['array', 'plugins', 'object'])) {
+        if (in_array($this->item_type, ['array', 'plugins', 'object'])) {
             $value = json_decode($value, true) ?: [];
-        } else if ($this->item_type == 'boolean') {
+        } elseif ($this->item_type == 'boolean') {
             $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
         }
 

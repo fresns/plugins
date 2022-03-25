@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\EasySms\Services;
 
 use Plugins\EasySms\Models\Config;
@@ -20,7 +26,7 @@ class SmsConfig
     }
 
     /**
-     * 获取国际区号匹配语言标签配置
+     * 获取国际区号匹配语言标签配置.
      *
      * @return array|null
      */
@@ -62,7 +68,7 @@ class SmsConfig
     public function getCodeTeamplate(string $templateId, string $langTag)
     {
         $templateBlade = $this->getValueByConfigItemKey('verifycode_template'.$templateId);
-        
+
         $templateData = json_decode($templateBlade, true);
 
         $sms = [];
@@ -100,7 +106,7 @@ class SmsConfig
                         return $item['isEnable'] ?? false;
                     })
                     ->all();
-    
+
                 // 筛选语言标签
                 $template = collect($data)
                     ->pluck('template')
@@ -108,7 +114,7 @@ class SmsConfig
                     ->where('templateCode', $templateCode)
                     ->where('langTag', $langTag)
                     ->first();
-                
+
                 $carry[] = [
                     'sence' => $item->item_key,
                     'template_type' => 'sms',
@@ -119,16 +125,15 @@ class SmsConfig
                 return $carry;
             }, []);
 
-
         $template = collect($enableTemplates)->first();
 
         return $template;
     }
 
     /**
-     * 国际区号匹配语言标签 easysms_linked
+     * 国际区号匹配语言标签 easysms_linked.
      *
-     * @param int|null $countryCode
+     * @param  int|null  $countryCode
      * @return string
      */
     public function getLangTagOfEasySmsLinked(?int $countryCode = null): string
@@ -141,7 +146,7 @@ class SmsConfig
     }
 
     /**
-     * 获取发送短信的网关
+     * 获取发送短信的网关.
      *
      * @return string|null
      */
@@ -151,7 +156,7 @@ class SmsConfig
     }
 
     /**
-     * 获取发送短信的网关
+     * 获取发送短信的网关.
      *
      * @return string|null
      */
@@ -162,7 +167,7 @@ class SmsConfig
         $name = str_replace(['Overtrue\\EasySms\\Gateways\\', 'Gateway'], '', $gateway);
 
         $name = lcfirst($name);
-        
-        return $name; 
+
+        return $name;
     }
 }
