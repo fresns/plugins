@@ -6,12 +6,11 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace App\Plugins\FresnsEmail\Mail;
+namespace Plugins\FresnsEmail\Mail;
 
+use App\Helpers\ConfigHelper;
 use App\Helpers\StrHelper;
-use App\Http\FresnsApi\Helpers\ApiConfigHelper;
-use App\Http\FresnsDb\FresnsConfigs\FresnsConfigs;
-use App\Http\FresnsDb\FresnsVerifyCodes\FresnsVerifyCodes;
+use Plugins\FresnsEmail\Models\VerifyCode;
 
 class MailService
 {
@@ -25,8 +24,8 @@ class MailService
     public static function makeMailCode($account, $templateId)
     {
         try {
-            $model = new FresnsVerifyCodes();
-            $code = StrHelper::randSmsCode();
+            $model = new VerifyCode();
+            $code = StrHelper::generateDigital();
             $expired = date('Y-m-d H:i:s', time() + 300);
             $data = [
                 'type'          => 1,
@@ -35,7 +34,7 @@ class MailService
                 'code'          => $code,
                 'expired_at'    => $expired,
             ];
-            $id = $model->store($data);
+            $id = $model->insert($data);
 
             return $id ? ['code'=>'000000', 'mailCode'=>$code, 'expired'=>$expired] : ['code'=>'51000', 'message'=>'insert error'];
         } catch (\Error $error) {
@@ -46,13 +45,13 @@ class MailService
     // replace config from db setting
     public static function initMailSetting()
     {
-        $host = ApiConfigHelper::getConfigByItemKey('fresnsemail_smtp_host');
-        $port = ApiConfigHelper::getConfigByItemKey('fresnsemail_smtp_port');
-        $user = ApiConfigHelper::getConfigByItemKey('fresnsemail_smtp_user');
-        $pass = ApiConfigHelper::getConfigByItemKey('fresnsemail_smtp_password');
-        $type = ApiConfigHelper::getConfigByItemKey('fresnsemail_verify_type');
-        $from_name = ApiConfigHelper::getConfigByItemKey('fresnsemail_from_name');
-        $from_addr = ApiConfigHelper::getConfigByItemKey('fresnsemail_from_mail');
+        $host = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_host');
+        $port = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_port');
+        $user = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_user');
+        $pass = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_password');
+        $type = ConfigHelper::fresnsConfigByItemKey('fresnsemail_verify_type');
+        $from_name = ConfigHelper::fresnsConfigByItemKey('fresnsemail_from_name');
+        $from_addr = ConfigHelper::fresnsConfigByItemKey('fresnsemail_from_mail');
         $smtp = [
             'transport' => 'smtp',
             'host' => $host,
@@ -80,8 +79,7 @@ class MailService
      */
     public static function getTemplateValue($templateId, $langTag)
     {
-        $templateValue = ApiConfigHelper::getConfigByItemKey('verifycode_template'.$templateId);
-        $templateValue = json_decode($templateValue, true);
+        $templateValue = ConfigHelper::fresnsConfigByItemKey('verifycode_template'.$templateId);
         if ($templateValue) {
             foreach ($templateValue as $template) {
                 if ($template['type'] == 'email' && $template['isEnable']) {

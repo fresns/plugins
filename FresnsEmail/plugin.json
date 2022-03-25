@@ -1,0 +1,28 @@
+{
+    "unikey": "FresnsEmail",
+    "type": 1,
+    "name": "Fresns Email",
+    "description": "Fresns official development of the SMTP sending method of mail plugin.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.2.0",
+    "scene": [
+        "sendEmail"
+    ],
+    "accessPath": null,
+    "settingPath": "/fresnsemail/settings",
+    "priority": 0,
+    "composer": {
+        "require": {},
+        "require-dev": {}
+    },
+    "providers": [
+        "Plugins\\FresnsEmail\\Providers\\FresnsEmailServiceProvider",
+        "Plugins\\FresnsEmail\\Providers\\RouteServiceProvider",
+        "Plugins\\FresnsEmail\\Providers\\EventServiceProvider",
+        "Plugins\\FresnsEmail\\Providers\\CmdWordServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

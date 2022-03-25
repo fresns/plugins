@@ -6,24 +6,21 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace App\Plugins\FresnsEmail\Controllers;
+namespace Plugins\FresnsEmail\Controllers;
 
-use App\Base\Controllers\BaseController;
-use App\Http\Center\Helper\CmdRpcHelper;
-use App\Http\FresnsDb\FresnsConfigs\FresnsConfigs;
-use App\Plugins\FresnsEmail\Plugin;
-use App\Plugins\FresnsEmail\PluginConfig;
+use Illuminate\Routing\Controller;
+use Plugins\FresnsEmail\Models\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WebController extends BaseController
+class WebController extends Controller
 {
     /**
      *  mail setting.
      */
     public function settings()
     {
-        $content = FresnsConfigs::query()->whereIn('item_key', [
+        $content = Config::query()->whereIn('item_key', [
             'fresnsemail_smtp_host',
             'fresnsemail_smtp_port',
             'fresnsemail_smtp_user',
@@ -33,7 +30,7 @@ class WebController extends BaseController
             'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
 
-        return view('plugins.FresnsEmail.setting', compact('content'));
+        return view('FresnsEmail::setting', compact('content'));
     }
 
     /**
@@ -45,7 +42,7 @@ class WebController extends BaseController
     public function postSettings(Request $request)
     {
         collect($request->post())->each(function (?string $value, string $key) {
-            $fresnsConfigs = FresnsConfigs::query()->firstWhere('item_key', $key) ?: FresnsConfigs::query()->newModelInstance();
+            $fresnsConfigs = Config::query()->firstWhere('item_key', $key) ?: Config::query()->newModelInstance();
             $fresnsConfigs->item_key = $key;
             $fresnsConfigs->item_value = $value ?: '';
             $fresnsConfigs->item_type = 'string';
@@ -74,14 +71,14 @@ class WebController extends BaseController
                 'title' => 'Fresns test email',
                 'content' => 'This is a Fresns software testing email',
             ];
-            $resp = CmdRpcHelper::call(Plugin::class, PluginConfig::FRESNS_CMD_SEND_EMAIL, $input);
-            if (CmdRpcHelper::isErrorCmdResp($resp)) {
-                return response()->json(['code'=>'500000']);
+            $fresnsResp = \FresnsCmdWord::plugin('FresnsEmail')->sendEmail($input);
+            if ($fresnsResp->isErrorResponse()) {
+                return $fresnsResp->errorResponse();
             }
         } catch (\Exception $exception) {
-            return response()->json(['code'=>'500500', 'message'=>$exception->getMessage()]);
+            return ['code'=>'500500', 'message'=>$exception->getMessage(),'data'=>[]];
         }
 
-        return response()->json(['code'=>'000000']);
+        return ['code'=>'000000','message'=>'','data'=>[]];
     }
 }
