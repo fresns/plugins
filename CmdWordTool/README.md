@@ -1,22 +1,22 @@
-# 命令字测试工具
+# Cmd Word Test Tool
 
-Fresns 官方开发的命令字测试工具。
+Fresns official helper function test tool.
 
-## 插件安装
+## Installation
 
-- 在官方应用市场搜索 `CmdWordTool` 并点击安装。
+- Search for `CmdWordTool` in the official app store market and click Install.
 
-## 使用说明
+## Using
 
-- 接口地址： `/api/cmd-word-tool`
-- 请求方式： `POST`
-- 请求格式： `Form-data`
+- Endpoint Path: `/api/cmd-word-tool`
+- Get Cakes: `POST`
+- Request: `Form-data`
 
-### body 参数：
+### body Arguments:
 
-| 参数名 | 类型 | 是否必传 | 说明 |
+| Parameters Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| unikey | text | YES | 插件名 |
-| wordName | text | YES | 命令字 |
-| param[...] | text | NO | 命令字参数名 |
-| param[account] | text | NO | 参数名 `account` |
+| unikey | text | required | plugin name |
+| wordName | text | required | command word name |
+| param[...] | text | *optional* | param name |
+| param[account] | text | *optional* | param name |
