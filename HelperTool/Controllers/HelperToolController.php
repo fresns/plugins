@@ -28,12 +28,12 @@ class HelperToolController extends Controller
         if (gettype($param) == 'string') {
             $param = json_decode($param, true);
         }
-        $reflectionMethod = new \ReflectionMethod($namespace . $helperClass, $helperName);
+        $reflectionMethod = new \ReflectionMethod($namespace.$helperClass, $helperName);
         foreach ($reflectionMethod->getParameters() as $parameter) {
-            $type = (string)$parameter->getType();
+            $type = (string) $parameter->getType();
             $name = $parameter->getName();
             if (isset($param[$name])) {
-                if (gettype($param[$name]) != $type && !$parameter->isDefaultValueAvailable()) {
+                if (gettype($param[$name]) != $type && ! $parameter->isDefaultValueAvailable()) {
                     settype($param[$name], $type);
                 }
                 $data[$name] = $param[$name] ?? '';
