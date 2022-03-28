@@ -16,7 +16,10 @@ return [
 
     'name' => 'Fresns 邮件插件',
     'description' => 'Fresns 官方开发的 SMTP 发信方式的邮件插件。',
-    'menu' => '邮件配置',
+
+    'menuConfig' => '邮箱配置',
+    'menuTest' => '发信测试',
+
     'smtpHost' => 'SMTP 服务器',
     'smtpHostIntro' => '错误的配置发送邮件会导致服务器超时',
     'smtpPort' => 'SMTP 端口',
@@ -33,8 +36,6 @@ return [
     'smtpFromNameIntro' => '品牌名或者公司名',
     'settingButton' => '保存',
 
-    'testMailModal' => '发送测试邮件',
-    'testMailTitle' => '请输入测试接收者邮箱',
-    'testMailClose' => '取消',
+    'testMailDesc' => '填写邮箱配置后，在此输入收件邮箱，测试发送。',
     'testMailSend' => '确认发送',
 ];

@@ -16,7 +16,10 @@ return [
 
     'name' => 'Fresns Email Plugin',
     'description' => 'Fresns official development of the SMTP sending method of mail plugin.',
-    'menu' => 'Mail Config',
+
+    'menuConfig' => 'Mail Config',
+    'menuTest' => 'Test Send',
+
     'smtpHost' => 'SMTP Host',
     'smtpHostIntro' => 'Incorrectly configured sending emails can cause server timeouts',
     'smtpPort' => 'SMTP Port',
@@ -33,8 +36,6 @@ return [
     'smtpFromNameIntro' => 'Brand name or company name',
     'settingButton' => 'Save',
 
-    'testMailModal' => 'Send test email',
-    'testMailTitle' => 'Please enter the test recipient email',
-    'testMailClose' => 'Cancel',
-    'testMailSend' => 'Confirm sending',
+    'testMailDesc' => 'After filling in the mailbox configuration, enter the incoming mailbox here and test sending.',
+    'testMailSend' => 'Cancel Send',
 ];

@@ -10,7 +10,7 @@
         "sendEmail"
     ],
     "accessPath": null,
-    "settingPath": "/fresnsemail/settings",
+    "settingsPath": "/fresns-email/settings",
     "priority": 0,
     "composer": {
         "require": {},

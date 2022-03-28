@@ -16,7 +16,10 @@ return [
 
     'name' => 'Fresns 郵件外掛',
     'description' => 'Fresns 官方開發的 SMTP 發信方式的郵件外掛。',
-    'menu' => '郵件配置',
+
+    'menuConfig' => '郵箱配置',
+    'menuTest' => '发信测试',
+
     'smtpHost' => 'SMTP 服務器',
     'smtpHostIntro' => '錯誤的配置發送郵件會導致服務器超時',
     'smtpPort' => 'SMTP 端口',
@@ -33,8 +36,6 @@ return [
     'smtpFromNameIntro' => '品牌名或者公司名',
     'settingButton' => '保存',
 
-    'testMailModal' => '發送測試郵件',
-    'testMailTitle' => '請輸入測試接收者郵箱',
-    'testMailClose' => '取消',
+    'testMailDesc' => '填寫郵箱配置後，在此輸入收件郵箱，測試發送。',
     'testMailSend' => '確認發送',
 ];
