@@ -16,6 +16,7 @@ use Illuminate\Routing\Controller;
 class CmdWordToolController extends Controller
 {
     use CmdWordResponseTrait;
+
     /**
      * Display a listing of the resource.
      *
