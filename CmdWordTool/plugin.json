@@ -10,7 +10,7 @@
         "tool"
     ],
     "accessPath": null,
-    "settingPath": null,
+    "settingsPath": null,
     "priority": 0,
     "composer": {
         "require": {},

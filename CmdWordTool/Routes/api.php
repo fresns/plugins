@@ -6,9 +6,8 @@
  * Released under the Apache-2.0 License.
  */
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Plugins\CmdWordTool\Http\Controllers as ApiController;
+use Plugins\CmdWordTool\Controllers as ApiController;
 
 /*
 |--------------------------------------------------------------------------

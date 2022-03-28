@@ -7,7 +7,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
-use Plugins\CmdWordTool\Http\Controllers as ApiController;
+use Plugins\CmdWordTool\Controllers as ApiController;
 
 /*
 |--------------------------------------------------------------------------
