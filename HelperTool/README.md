@@ -1,22 +1,23 @@
-# Helper Test Tool
+# 辅助函数测试工具
 
-Fresns official helper function test tool.
+Fresns 官方开发的辅助函数测试工具。
 
-## Installation
+## 插件安装
 
-- Search for `HelperTool` in the official app store market and click Install.
+- 在官方应用市场搜索 `HelperTool` 并点击安装。
 
-## Using
+## 使用说明
 
-- Endpoint Path: `/api/helper-tool`
-- Get Cakes: `POST`
-- Request: `JSON`
+- 接口地址： `/api/helper-tool`
+- 请求方式： `POST`
+- 请求格式： `Form-data`
 
-### body Arguments:
+### body 参数：
 
-| Parameters Name | Type | Required | Description |
+| 参数名 | 类型 | 是否必传 | 说明 |
 | --- | --- | --- | --- |
-| helperClass | String | required | class name |
-| helperName | String | required | helper name |
-| params[...] | String | *optional* | param name |
-| params[site_name] | String | *optional* | param name |
+| helperClass | text | YES | 辅助类名 |
+| helperName | text | YES | 辅助功能名 |
+| param[...] | text | NO | 参数名 |
+| param[itemKey] | text | NO | 参数名 `itemKey` |
+| param[langTag] | text | NO | 参数名 `langTag` |

@@ -7,7 +7,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
-use Plugins\HelperTool\Http\Controllers as ApiController;
+use Plugins\HelperTool\Controllers as ApiController;
 
 /*
 |--------------------------------------------------------------------------
