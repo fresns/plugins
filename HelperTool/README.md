@@ -12,12 +12,21 @@ Fresns official helper function test tool.
 - Get Cakes: `POST`
 - Request: `Form-data`
 
-### body Arguments:
+### Body Arguments:
 
-| Parameters Name | Type | Required | Description |
+| Parameter Name | Type | Required | Description |
 | --- | --- | --- | --- |
 | helperClass | text | required | class name |
 | helperName | text | required | helper name |
 | param[...] | text | *optional* | param name |
 | param[itemKey] | text | *optional* | param name |
 | param[langTag] | text | *optional* | param name |
+
+**Body Example:**
+
+| Parameter Name | Parameter Value |
+| --- | --- |
+| helperClass | `ConfigHelper` |
+| helperName | `fresnsConfigByItemKey` |
+| param[0] | itemKey Param |
+| param[1] | langTag Param |

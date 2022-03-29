@@ -24,22 +24,10 @@ class HelperToolController extends Controller
         $namespace = '\App\Helpers\\';
         $helperClass = $request->get('helperClass');
         $helperName = $request->get('helperName');
-        $param = $request->get('param');
-        if (gettype($param) == 'string') {
-            $param = json_decode($param, true);
-        }
-        $reflectionMethod = new \ReflectionMethod($namespace.$helperClass, $helperName);
-        foreach ($reflectionMethod->getParameters() as $parameter) {
-            $type = (string) $parameter->getType();
-            $name = $parameter->getName();
-            if (isset($param[$name])) {
-                if (gettype($param[$name]) != $type && ! $parameter->isDefaultValueAvailable()) {
-                    settype($param[$name], $type);
-                }
-                $data[$name] = $param[$name] ?? '';
-            }
-        }
+        $param = $request->get('param',[]);
+        $class = new ($namespace . $helperClass);
 
-        return $reflectionMethod->invoke(null, ...$data);
+        return $class->$helperName(...$param);
+
     }
 }
