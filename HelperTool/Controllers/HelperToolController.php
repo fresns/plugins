@@ -24,10 +24,9 @@ class HelperToolController extends Controller
         $namespace = '\App\Helpers\\';
         $helperClass = $request->get('helperClass');
         $helperName = $request->get('helperName');
-        $param = $request->get('param',[]);
-        $class = new ($namespace . $helperClass);
+        $param = $request->get('param', []);
+        $class = new ($namespace.$helperClass);
 
         return $class->$helperName(...$param);
-
     }
 }
