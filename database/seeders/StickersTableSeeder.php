@@ -12,84 +12,77 @@ use Illuminate\Database\Seeder;
 
 class StickersTableSeeder extends Seeder
 {
-
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
     public function run()
     {
-
         \DB::table('stickers')->delete();
-        
-        \DB::table('stickers')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('stickers')->insert([
+            0 => [
                 'id' => 1,
                 'code' => 'default',
                 'name' => 'default',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/smile.gif',
                 'type' => 2,
-                'parent_id' => NULL,
+                'parent_id' => null,
                 'rank_num' => 1,
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            1 => 
-            array (
+                'deleted_at' => null,
+            ],
+            1 => [
                 'id' => 2,
                 'code' => 'coolmonkey',
                 'name' => 'coolmonkey',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/01.gif',
                 'type' => 2,
-                'parent_id' => NULL,
+                'parent_id' => null,
                 'rank_num' => 2,
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            2 => 
-            array (
+                'deleted_at' => null,
+            ],
+            2 => [
                 'id' => 3,
                 'code' => 'grapeman',
                 'name' => 'grapeman',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/01.gif',
                 'type' => 2,
-                'parent_id' => NULL,
+                'parent_id' => null,
                 'rank_num' => 3,
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            3 => 
-            array (
+                'deleted_at' => null,
+            ],
+            3 => [
                 'id' => 4,
                 'code' => 'face',
                 'name' => 'Face',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/1.gif',
                 'type' => 2,
-                'parent_id' => NULL,
+                'parent_id' => null,
                 'rank_num' => 4,
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            4 => 
-            array (
+                'deleted_at' => null,
+            ],
+            4 => [
                 'id' => 5,
                 'code' => 'smile',
                 'name' => 'smile',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/smile.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -97,14 +90,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            5 => 
-            array (
+                'deleted_at' => null,
+            ],
+            5 => [
                 'id' => 6,
                 'code' => 'sad',
                 'name' => 'sad',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/sad.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -112,14 +104,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            6 => 
-            array (
+                'deleted_at' => null,
+            ],
+            6 => [
                 'id' => 7,
                 'code' => 'biggrin',
                 'name' => 'biggrin',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/biggrin.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -127,14 +118,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            7 => 
-            array (
+                'deleted_at' => null,
+            ],
+            7 => [
                 'id' => 8,
                 'code' => 'cry',
                 'name' => 'cry',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/cry.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -142,14 +132,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            8 => 
-            array (
+                'deleted_at' => null,
+            ],
+            8 => [
                 'id' => 9,
                 'code' => 'huffy',
                 'name' => 'huffy',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/huffy.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -157,14 +146,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            9 => 
-            array (
+                'deleted_at' => null,
+            ],
+            9 => [
                 'id' => 10,
                 'code' => 'shocked',
                 'name' => 'shocked',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/shocked.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -172,14 +160,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            10 => 
-            array (
+                'deleted_at' => null,
+            ],
+            10 => [
                 'id' => 11,
                 'code' => 'tongue',
                 'name' => 'tongue',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/tongue.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -187,14 +174,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            11 => 
-            array (
+                'deleted_at' => null,
+            ],
+            11 => [
                 'id' => 12,
                 'code' => 'shy',
                 'name' => 'shy',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/shy.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -202,14 +188,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            12 => 
-            array (
+                'deleted_at' => null,
+            ],
+            12 => [
                 'id' => 13,
                 'code' => 'titter',
                 'name' => 'titter',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/titter.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -217,14 +202,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            13 => 
-            array (
+                'deleted_at' => null,
+            ],
+            13 => [
                 'id' => 14,
                 'code' => 'sweat',
                 'name' => 'sweat',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/sweat.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -232,14 +216,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            14 => 
-            array (
+                'deleted_at' => null,
+            ],
+            14 => [
                 'id' => 15,
                 'code' => 'mad',
                 'name' => 'mad',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/mad.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -247,14 +230,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            15 => 
-            array (
+                'deleted_at' => null,
+            ],
+            15 => [
                 'id' => 16,
                 'code' => 'lol',
                 'name' => 'lol',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/lol.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -262,14 +244,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            16 => 
-            array (
+                'deleted_at' => null,
+            ],
+            16 => [
                 'id' => 17,
                 'code' => 'loveliness',
                 'name' => 'loveliness',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/loveliness.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -277,14 +258,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            17 => 
-            array (
+                'deleted_at' => null,
+            ],
+            17 => [
                 'id' => 18,
                 'code' => 'funk',
                 'name' => 'funk',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/funk.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -292,14 +272,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            18 => 
-            array (
+                'deleted_at' => null,
+            ],
+            18 => [
                 'id' => 19,
                 'code' => 'curse',
                 'name' => 'curse',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/curse.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -307,14 +286,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            19 => 
-            array (
+                'deleted_at' => null,
+            ],
+            19 => [
                 'id' => 20,
                 'code' => 'dizzy',
                 'name' => 'dizzy',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/dizzy.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -322,14 +300,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            20 => 
-            array (
+                'deleted_at' => null,
+            ],
+            20 => [
                 'id' => 21,
                 'code' => 'shutup',
                 'name' => 'shutup',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/shutup.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -337,14 +314,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            21 => 
-            array (
+                'deleted_at' => null,
+            ],
+            21 => [
                 'id' => 22,
                 'code' => 'sleepy',
                 'name' => 'sleepy',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/sleepy.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -352,14 +328,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            22 => 
-            array (
+                'deleted_at' => null,
+            ],
+            22 => [
                 'id' => 23,
                 'code' => 'hug',
                 'name' => 'hug',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/hug.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -367,14 +342,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            23 => 
-            array (
+                'deleted_at' => null,
+            ],
+            23 => [
                 'id' => 24,
                 'code' => 'victory',
                 'name' => 'victory',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/victory.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -382,14 +356,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            24 => 
-            array (
+                'deleted_at' => null,
+            ],
+            24 => [
                 'id' => 25,
                 'code' => 'time',
                 'name' => 'time',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/time.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -397,14 +370,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            25 => 
-            array (
+                'deleted_at' => null,
+            ],
+            25 => [
                 'id' => 26,
                 'code' => 'kiss',
                 'name' => 'kiss',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/kiss.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -412,14 +384,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            26 => 
-            array (
+                'deleted_at' => null,
+            ],
+            26 => [
                 'id' => 27,
                 'code' => 'handshake',
                 'name' => 'handshake',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/handshake.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -427,14 +398,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            27 => 
-            array (
+                'deleted_at' => null,
+            ],
+            27 => [
                 'id' => 28,
                 'code' => 'call',
                 'name' => 'call',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/default/call.gif',
                 'type' => 1,
                 'parent_id' => 1,
@@ -442,14 +412,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            28 => 
-            array (
+                'deleted_at' => null,
+            ],
+            28 => [
                 'id' => 29,
                 'code' => ':2_25:',
                 'name' => ':2_25:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/01.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -457,14 +426,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            29 => 
-            array (
+                'deleted_at' => null,
+            ],
+            29 => [
                 'id' => 30,
                 'code' => ':2_26:',
                 'name' => ':2_26:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/02.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -472,14 +440,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            30 => 
-            array (
+                'deleted_at' => null,
+            ],
+            30 => [
                 'id' => 31,
                 'code' => ':2_27:',
                 'name' => ':2_27:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/03.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -487,14 +454,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            31 => 
-            array (
+                'deleted_at' => null,
+            ],
+            31 => [
                 'id' => 32,
                 'code' => ':2_28:',
                 'name' => ':2_28:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/04.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -502,14 +468,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            32 => 
-            array (
+                'deleted_at' => null,
+            ],
+            32 => [
                 'id' => 33,
                 'code' => ':2_29:',
                 'name' => ':2_29:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/05.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -517,14 +482,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            33 => 
-            array (
+                'deleted_at' => null,
+            ],
+            33 => [
                 'id' => 34,
                 'code' => ':2_30:',
                 'name' => ':2_30:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/06.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -532,14 +496,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            34 => 
-            array (
+                'deleted_at' => null,
+            ],
+            34 => [
                 'id' => 35,
                 'code' => ':2_31:',
                 'name' => ':2_31:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/07.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -547,14 +510,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            35 => 
-            array (
+                'deleted_at' => null,
+            ],
+            35 => [
                 'id' => 36,
                 'code' => ':2_32:',
                 'name' => ':2_32:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/08.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -562,14 +524,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            36 => 
-            array (
+                'deleted_at' => null,
+            ],
+            36 => [
                 'id' => 37,
                 'code' => ':2_33:',
                 'name' => ':2_33:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/09.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -577,14 +538,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            37 => 
-            array (
+                'deleted_at' => null,
+            ],
+            37 => [
                 'id' => 38,
                 'code' => ':2_34:',
                 'name' => ':2_34:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/10.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -592,14 +552,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            38 => 
-            array (
+                'deleted_at' => null,
+            ],
+            38 => [
                 'id' => 39,
                 'code' => ':2_35:',
                 'name' => ':2_35:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/11.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -607,14 +566,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            39 => 
-            array (
+                'deleted_at' => null,
+            ],
+            39 => [
                 'id' => 40,
                 'code' => ':2_36:',
                 'name' => ':2_36:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/12.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -622,14 +580,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            40 => 
-            array (
+                'deleted_at' => null,
+            ],
+            40 => [
                 'id' => 41,
                 'code' => ':2_37:',
                 'name' => ':2_37:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/13.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -637,14 +594,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            41 => 
-            array (
+                'deleted_at' => null,
+            ],
+            41 => [
                 'id' => 42,
                 'code' => ':2_38:',
                 'name' => ':2_38:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/14.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -652,14 +608,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            42 => 
-            array (
+                'deleted_at' => null,
+            ],
+            42 => [
                 'id' => 43,
                 'code' => ':2_39:',
                 'name' => ':2_39:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/15.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -667,14 +622,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            43 => 
-            array (
+                'deleted_at' => null,
+            ],
+            43 => [
                 'id' => 44,
                 'code' => ':2_40:',
                 'name' => ':2_40:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/coolmonkey/16.gif',
                 'type' => 1,
                 'parent_id' => 2,
@@ -682,14 +636,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            44 => 
-            array (
+                'deleted_at' => null,
+            ],
+            44 => [
                 'id' => 45,
                 'code' => ':3_41:',
                 'name' => ':3_41:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/01.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -697,14 +650,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            45 => 
-            array (
+                'deleted_at' => null,
+            ],
+            45 => [
                 'id' => 46,
                 'code' => ':3_42:',
                 'name' => ':3_42:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/02.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -712,14 +664,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            46 => 
-            array (
+                'deleted_at' => null,
+            ],
+            46 => [
                 'id' => 47,
                 'code' => ':3_43:',
                 'name' => ':3_43:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/03.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -727,14 +678,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            47 => 
-            array (
+                'deleted_at' => null,
+            ],
+            47 => [
                 'id' => 48,
                 'code' => ':3_44:',
                 'name' => ':3_44:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/04.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -742,14 +692,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            48 => 
-            array (
+                'deleted_at' => null,
+            ],
+            48 => [
                 'id' => 49,
                 'code' => ':3_45:',
                 'name' => ':3_45:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/05.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -757,14 +706,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            49 => 
-            array (
+                'deleted_at' => null,
+            ],
+            49 => [
                 'id' => 50,
                 'code' => ':3_46:',
                 'name' => ':3_46:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/06.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -772,14 +720,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            50 => 
-            array (
+                'deleted_at' => null,
+            ],
+            50 => [
                 'id' => 51,
                 'code' => ':3_47:',
                 'name' => ':3_47:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/07.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -787,14 +734,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            51 => 
-            array (
+                'deleted_at' => null,
+            ],
+            51 => [
                 'id' => 52,
                 'code' => ':3_48:',
                 'name' => ':3_48:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/08.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -802,14 +748,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            52 => 
-            array (
+                'deleted_at' => null,
+            ],
+            52 => [
                 'id' => 53,
                 'code' => ':3_49:',
                 'name' => ':3_49:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/09.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -817,14 +762,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            53 => 
-            array (
+                'deleted_at' => null,
+            ],
+            53 => [
                 'id' => 54,
                 'code' => ':3_50:',
                 'name' => ':3_50:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/10.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -832,14 +776,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            54 => 
-            array (
+                'deleted_at' => null,
+            ],
+            54 => [
                 'id' => 55,
                 'code' => ':3_51:',
                 'name' => ':3_51:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/11.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -847,14 +790,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            55 => 
-            array (
+                'deleted_at' => null,
+            ],
+            55 => [
                 'id' => 56,
                 'code' => ':3_52:',
                 'name' => ':3_52:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/12.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -862,14 +804,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            56 => 
-            array (
+                'deleted_at' => null,
+            ],
+            56 => [
                 'id' => 57,
                 'code' => ':3_53:',
                 'name' => ':3_53:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/13.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -877,14 +818,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            57 => 
-            array (
+                'deleted_at' => null,
+            ],
+            57 => [
                 'id' => 58,
                 'code' => ':3_54:',
                 'name' => ':3_54:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/14.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -892,14 +832,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            58 => 
-            array (
+                'deleted_at' => null,
+            ],
+            58 => [
                 'id' => 59,
                 'code' => ':3_55:',
                 'name' => ':3_55:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/15.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -907,14 +846,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            59 => 
-            array (
+                'deleted_at' => null,
+            ],
+            59 => [
                 'id' => 60,
                 'code' => ':3_56:',
                 'name' => ':3_56:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/16.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -922,14 +860,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            60 => 
-            array (
+                'deleted_at' => null,
+            ],
+            60 => [
                 'id' => 61,
                 'code' => ':3_57:',
                 'name' => ':3_57:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/17.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -937,14 +874,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            61 => 
-            array (
+                'deleted_at' => null,
+            ],
+            61 => [
                 'id' => 62,
                 'code' => ':3_58:',
                 'name' => ':3_58:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/18.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -952,14 +888,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            62 => 
-            array (
+                'deleted_at' => null,
+            ],
+            62 => [
                 'id' => 63,
                 'code' => ':3_59:',
                 'name' => ':3_59:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/19.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -967,14 +902,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            63 => 
-            array (
+                'deleted_at' => null,
+            ],
+            63 => [
                 'id' => 64,
                 'code' => ':3_60:',
                 'name' => ':3_60:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/20.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -982,14 +916,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            64 => 
-            array (
+                'deleted_at' => null,
+            ],
+            64 => [
                 'id' => 65,
                 'code' => ':3_61:',
                 'name' => ':3_61:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/21.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -997,14 +930,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            65 => 
-            array (
+                'deleted_at' => null,
+            ],
+            65 => [
                 'id' => 66,
                 'code' => ':3_62:',
                 'name' => ':3_62:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/22.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -1012,14 +944,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            66 => 
-            array (
+                'deleted_at' => null,
+            ],
+            66 => [
                 'id' => 67,
                 'code' => ':3_63:',
                 'name' => ':3_63:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/23.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -1027,14 +958,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            67 => 
-            array (
+                'deleted_at' => null,
+            ],
+            67 => [
                 'id' => 68,
                 'code' => ':3_64:',
                 'name' => ':3_64:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/grapeman/24.gif',
                 'type' => 1,
                 'parent_id' => 3,
@@ -1042,14 +972,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            68 => 
-            array (
+                'deleted_at' => null,
+            ],
+            68 => [
                 'id' => 69,
                 'code' => ':4_86:',
                 'name' => ':4_86:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/1.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1057,14 +986,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            69 => 
-            array (
+                'deleted_at' => null,
+            ],
+            69 => [
                 'id' => 70,
                 'code' => ':4_97:',
                 'name' => ':4_97:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/2.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1072,14 +1000,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            70 => 
-            array (
+                'deleted_at' => null,
+            ],
+            70 => [
                 'id' => 71,
                 'code' => ':4_108:',
                 'name' => ':4_108:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/3.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1087,14 +1014,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            71 => 
-            array (
+                'deleted_at' => null,
+            ],
+            71 => [
                 'id' => 72,
                 'code' => ':4_110:',
                 'name' => ':4_110:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/4.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1102,14 +1028,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            72 => 
-            array (
+                'deleted_at' => null,
+            ],
+            72 => [
                 'id' => 73,
                 'code' => ':4_111:',
                 'name' => ':4_111:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/5.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1117,14 +1042,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            73 => 
-            array (
+                'deleted_at' => null,
+            ],
+            73 => [
                 'id' => 74,
                 'code' => ':4_112:',
                 'name' => ':4_112:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/6.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1132,14 +1056,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            74 => 
-            array (
+                'deleted_at' => null,
+            ],
+            74 => [
                 'id' => 75,
                 'code' => ':4_113:',
                 'name' => ':4_113:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/7.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1147,14 +1070,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            75 => 
-            array (
+                'deleted_at' => null,
+            ],
+            75 => [
                 'id' => 76,
                 'code' => ':4_114:',
                 'name' => ':4_114:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/8.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1162,14 +1084,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            76 => 
-            array (
+                'deleted_at' => null,
+            ],
+            76 => [
                 'id' => 77,
                 'code' => ':4_115:',
                 'name' => ':4_115:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/9.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1177,14 +1098,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            77 => 
-            array (
+                'deleted_at' => null,
+            ],
+            77 => [
                 'id' => 78,
                 'code' => ':4_87:',
                 'name' => ':4_87:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/10.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1192,14 +1112,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            78 => 
-            array (
+                'deleted_at' => null,
+            ],
+            78 => [
                 'id' => 79,
                 'code' => ':4_88:',
                 'name' => ':4_88:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/11.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1207,14 +1126,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            79 => 
-            array (
+                'deleted_at' => null,
+            ],
+            79 => [
                 'id' => 80,
                 'code' => ':4_89:',
                 'name' => ':4_89:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/12.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1222,14 +1140,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            80 => 
-            array (
+                'deleted_at' => null,
+            ],
+            80 => [
                 'id' => 81,
                 'code' => ':4_90:',
                 'name' => ':4_90:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/13.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1237,14 +1154,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            81 => 
-            array (
+                'deleted_at' => null,
+            ],
+            81 => [
                 'id' => 82,
                 'code' => ':4_91:',
                 'name' => ':4_91:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/14.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1252,14 +1168,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            82 => 
-            array (
+                'deleted_at' => null,
+            ],
+            82 => [
                 'id' => 83,
                 'code' => ':4_92:',
                 'name' => ':4_92:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/15.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1267,14 +1182,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            83 => 
-            array (
+                'deleted_at' => null,
+            ],
+            83 => [
                 'id' => 84,
                 'code' => ':4_93:',
                 'name' => ':4_93:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/16.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1282,14 +1196,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            84 => 
-            array (
+                'deleted_at' => null,
+            ],
+            84 => [
                 'id' => 85,
                 'code' => ':4_94:',
                 'name' => ':4_94:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/17.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1297,14 +1210,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            85 => 
-            array (
+                'deleted_at' => null,
+            ],
+            85 => [
                 'id' => 86,
                 'code' => ':4_95:',
                 'name' => ':4_95:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/18.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1312,14 +1224,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            86 => 
-            array (
+                'deleted_at' => null,
+            ],
+            86 => [
                 'id' => 87,
                 'code' => ':4_96:',
                 'name' => ':4_96:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/19.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1327,14 +1238,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            87 => 
-            array (
+                'deleted_at' => null,
+            ],
+            87 => [
                 'id' => 88,
                 'code' => ':4_98:',
                 'name' => ':4_98:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/20.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1342,14 +1252,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            88 => 
-            array (
+                'deleted_at' => null,
+            ],
+            88 => [
                 'id' => 89,
                 'code' => ':4_99:',
                 'name' => ':4_99:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/21.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1357,14 +1266,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            89 => 
-            array (
+                'deleted_at' => null,
+            ],
+            89 => [
                 'id' => 90,
                 'code' => ':4_100:',
                 'name' => ':4_100:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/22.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1372,14 +1280,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            90 => 
-            array (
+                'deleted_at' => null,
+            ],
+            90 => [
                 'id' => 91,
                 'code' => ':4_101:',
                 'name' => ':4_101:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/23.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1387,14 +1294,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            91 => 
-            array (
+                'deleted_at' => null,
+            ],
+            91 => [
                 'id' => 92,
                 'code' => ':4_102:',
                 'name' => ':4_102:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/24.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1402,14 +1308,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            92 => 
-            array (
+                'deleted_at' => null,
+            ],
+            92 => [
                 'id' => 93,
                 'code' => ':4_103:',
                 'name' => ':4_103:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/25.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1417,14 +1322,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            93 => 
-            array (
+                'deleted_at' => null,
+            ],
+            93 => [
                 'id' => 94,
                 'code' => ':4_104:',
                 'name' => ':4_104:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/26.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1432,14 +1336,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            94 => 
-            array (
+                'deleted_at' => null,
+            ],
+            94 => [
                 'id' => 95,
                 'code' => ':4_105:',
                 'name' => ':4_105:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/27.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1447,14 +1350,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            95 => 
-            array (
+                'deleted_at' => null,
+            ],
+            95 => [
                 'id' => 96,
                 'code' => ':4_106:',
                 'name' => ':4_106:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/28.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1462,14 +1364,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            96 => 
-            array (
+                'deleted_at' => null,
+            ],
+            96 => [
                 'id' => 97,
                 'code' => ':4_107:',
                 'name' => ':4_107:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/29.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1477,14 +1378,13 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-            97 => 
-            array (
+                'deleted_at' => null,
+            ],
+            97 => [
                 'id' => 98,
                 'code' => ':4_109:',
                 'name' => ':4_109:',
-                'image_file_id' => NULL,
+                'image_file_id' => null,
                 'image_file_url' => 'https://cdn.fresns.cn/smiley/face/30.gif',
                 'type' => 1,
                 'parent_id' => 4,
@@ -1492,10 +1392,8 @@ class StickersTableSeeder extends Seeder
                 'is_enable' => 1,
                 'created_at' => '2021-10-08 10:00:00',
                 'updated_at' => '2021-10-08 10:00:00',
-                'deleted_at' => NULL,
-            ),
-        ));
-        
-        
+                'deleted_at' => null,
+            ],
+        ]);
     }
 }
