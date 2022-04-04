@@ -1,23 +1,23 @@
-# Fresns 短信插件
+# Easy SMS Plugin
 
-Fresns 官方开发的支持多家服务商的短信插件。
+Fresns official development for the Chinese market to support multiple service providers SMS plugin.
 
-## 插件安装
+## Installation
 
-- 在 Fresns 应用市场搜索 `EasySms` 并点击安装。
+- Search for `EasySms` in the Fresns App Marketplace and click Install.
 
-## 开发说明
+## Dev Notes
 
 ### 配置项键名
 
 - 服务商类型 `easysms_type`
     - 1.阿里云
     - 2.腾讯云
-- App ID `easysms_appid`
-    - 腾讯云 SmsSdkAppId
-    - 阿里云留空
 - Key ID `easysms_keyid`
 - Key Secret `easysms_keysecret`
+- SDK App ID `easysms_sdk_appid`
+    - 腾讯云 SmsSdkAppId
+    - 阿里云留空
 - 国际区号匹配语言标签 `easysms_linked`
 
 ```json
