@@ -29,8 +29,8 @@ class WebController extends Controller
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
-
-        return view('FresnsEmail::setting', compact('content'));
+        $locale = request()->input('lang', 'en');
+        return view('FresnsEmail::setting', compact('content','locale'));
     }
 
     /**

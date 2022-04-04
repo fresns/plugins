@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ App::getLocale() }}">
+<html lang="{{ App::setLocale($locale) }}">
 
 <head>
     <meta charset="utf-8">

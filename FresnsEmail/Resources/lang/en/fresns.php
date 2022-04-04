@@ -36,6 +36,6 @@ return [
     'smtpFromNameIntro' => 'Brand name or company name',
     'settingButton' => 'Save',
 
-    'testMailDesc' => 'After filling in the mailbox configuration, enter the incoming mailbox here and test sending.',
-    'testMailSend' => 'Cancel Send',
+    'testMailDesc' => 'After saving the mailbox configuration, enter the incoming mailbox here and test sending.',
+    'testMailSend' => 'Confirm Send',
 ];

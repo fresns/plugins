@@ -36,6 +36,6 @@ return [
     'smtpFromNameIntro' => '品牌名或者公司名',
     'settingButton' => '保存',
 
-    'testMailDesc' => '填写邮箱配置后，在此输入收件邮箱，测试发送。',
+    'testMailDesc' => '保存邮箱配置后，在此输入收件邮箱，测试发送。',
     'testMailSend' => '确认发送',
 ];

@@ -36,6 +36,6 @@ return [
     'smtpFromNameIntro' => '品牌名或者公司名',
     'settingButton' => '保存',
 
-    'testMailDesc' => '填寫郵箱配置後，在此輸入收件郵箱，測試發送。',
+    'testMailDesc' => '保存郵箱配置後，在此輸入收件郵箱，測試發送。',
     'testMailSend' => '確認發送',
 ];
