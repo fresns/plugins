@@ -7,9 +7,9 @@
     <meta name="author" content="Fresns" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Easy SMS 短信插件</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
-    <link rel="stylesheet" href="/static/css/console.css">
+    <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ @asset('/static/css/fresns-panel.css') }}">
 </head>
 
 <body>
@@ -23,7 +23,12 @@
                         <h3>Easy SMS 短信插件 <span class="badge bg-secondary fs-9">v1.2.0</span></h3>
                         <p class="text-secondary">Fresns 官方开发的短信服务插件。</p>
                     </div>
-                    <div class="col-5 text-end"></div>
+                    <div class="col-5">
+                        <div class="input-group mt-2 mb-4 justify-content-lg-end px-1" role="group">
+                            <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/main/EasySms" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+                            <a class="btn btn-outline-secondary" href="https://gitee.com/fresns/extensions/tree/master/EasySms" target="_blank" role="button"><i class="bi bi-git"></i> Gitee</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- Menu -->
                 <div class="mb-3">
@@ -48,22 +53,22 @@
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">Key ID:</label>
-                            <div class="col-lg-5"><input type="text" class="form-control" id="easysms_keyid" name="easysms_keyid" placeholder="Key ID" value="{{$key_id}}"></div>
+                            <div class="col-lg-5"><input type="text" class="form-control" id="easysms_keyid" name="easysms_keyid" placeholder="Key ID" value="{{$easysms_keyid}}"></div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> Access Key ID 或 Secret ID</div>
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">Key Secret:</label>
-                            <div class="col-lg-5"><input type="text" class="form-control" id="easysms_keysecret" name="easysms_keysecret" placeholder="Key Secret" value="{{$key_secret}}"></div>
+                            <div class="col-lg-5"><input type="text" class="form-control" id="easysms_keysecret" name="easysms_keysecret" placeholder="Key Secret" value="{{$easysms_keysecret}}"></div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> Access Key Secret 或 Secret Key</div>
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">SDK App ID:</label>
-                            <div class="col-lg-5"><input type="text" class="form-control" id="easysms_sdk_appid" name="easysms_sdk_appid" placeholder="Sdk AppId" value="{{$sdk_appid}}"></div>
+                            <div class="col-lg-5"><input type="text" class="form-control" id="easysms_sdk_appid" name="easysms_sdk_appid" placeholder="SDK AppId" value="{{$easysms_sdk_appid}}"></div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 仅腾讯云使用，阿里云忽略</div>
                         </div>
                         <div class="row mb-4">
                             <label class="col-lg-2 col-form-label text-lg-end">匹配验证码模板:</label>
-                            <div class="col-lg-5"><textarea class="form-control" id="easysms_linked" name="easysms_linked" rows="5">{{$sms_linked}}</textarea></div>
+                            <div class="col-lg-5"><textarea class="form-control" id="easysms_linked" name="easysms_linked" rows="5">{{$easysms_linked}}</textarea></div>
                             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> JSON Object 格式，以国际区号匹配验证码语言标签模板<br><code class="ms-3">{"国际区号":"验证码模板语言标签","other":"其他区号使用该模板"}</code><br><code class="ms-3">{"86":"zh-Hans","other":"en"}</code></div>
                         </div>
                         <div class="row mb-4">
@@ -93,8 +98,8 @@
         </div>
     </div>
 
-    <script src="/static/js/jquery-3.6.0.min.js"></script>
-    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ @asset('/static/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ @asset('/static/js/jquery-3.6.0.min.js') }}"></script>
 
     <script>
         $(document).ready(function () {
@@ -110,7 +115,7 @@
 
                 $("#save_btn").prop("disabled", true);
                 $.ajax({
-                    url: '/EasySms/saveSetting',
+                    url: '/easy-sms/saveSetting',
                     type: 'post',
                     enctype: 'multipart/form-data',
                     data: data,

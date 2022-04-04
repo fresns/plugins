@@ -19,7 +19,7 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 
     /* This is a map of command word and its provider. */
     protected $cmdWordsMap = [
-        ['word' => 'sendCode', 'provider' => [SmsService::class, 'makeMailCode']],
+        ['word' => 'sendCode', 'provider' => [SmsService::class, 'sendCode']],
         ['word' => 'sendSms', 'provider' => [SmsService::class, 'sendSms']],
     ];
 

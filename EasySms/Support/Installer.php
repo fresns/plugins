@@ -32,7 +32,7 @@ class Installer
             'item_tag' => 'easysms',
         ],
         [
-            'item_key' => 'easysms_appid',
+            'item_key' => 'easysms_sdk_appid',
             'item_value' => '',
             'item_type' => 'string',
             'item_tag' => 'easysms',

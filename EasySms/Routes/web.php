@@ -20,7 +20,7 @@ use Plugins\EasySms\Http\Controllers as Controller;
 |
 */
 
-Route::prefix('EasySms')->middleware(['web', 'panelAuth'])->group(function () {
+Route::prefix('easy-sms')->middleware(['web', 'panelAuth'])->group(function () {
     Route::get('/setting', [Controller\EasySmsController::class, 'setting'])->name('EasySms.setting');
     Route::post('/saveSetting', [Controller\EasySmsController::class, 'saveSetting'])->name('EasySms.saveSetting');
 });

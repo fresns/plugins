@@ -10,7 +10,7 @@
         "sendSms"
     ],
     "accessPath": null,
-    "settingPath": "/easy-sms/settings",
+    "settingsPath": "/easy-sms/setting",
     "priority": 0,
     "composer": {
         "require": {

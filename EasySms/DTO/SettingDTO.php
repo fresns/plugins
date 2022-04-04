@@ -10,14 +10,6 @@ namespace Plugins\EasySms\DTO;
 
 use Fresns\DTO\DTO;
 
-/**
- * @property-read string sence
- * @property-read string countryCode
- * @property-read string phoneNumber
- * @property-read string signName
- * @property-read string templateCode
- * @property-read string templateParam
- */
 class SettingDTO extends DTO
 {
     /**
@@ -26,11 +18,11 @@ class SettingDTO extends DTO
     public function rules(): array
     {
         return [
-            'easysms_type' => 'required|string',
-            'easysms_keyid' => 'required',
-            'easysms_keysecret' => 'required',
-            'easysms_appid' => 'nullable',
-            'easysms_linked' => 'required|string',
+            'easysms_type' => ['required', 'integer'],
+            'easysms_keyid' => ['required', 'string'],
+            'easysms_keysecret' => ['required', 'string'],
+            'easysms_sdk_appid' => ['nullable', 'string'],
+            'easysms_linked' => ['required', 'string'],
         ];
     }
 }

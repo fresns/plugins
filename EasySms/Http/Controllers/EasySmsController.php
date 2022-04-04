@@ -55,9 +55,6 @@ class EasySmsController extends Controller
             $data[$config->item_key] = $config->item_value;
         }
 
-        // TODO: 不存在 $this->success, 需要核实 App\Base\Controllers\BaseApiController::success 函数逻辑
-        // https://gitee.com/fresns/fresns/blob/master/app/Traits/ApiTrait.php#L29-46 业务逻辑移除
-        // $this->success($data);
         return \response()->json([
             'code' => 0,
             'message' => 'success',

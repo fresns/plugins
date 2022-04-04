@@ -39,7 +39,7 @@ class SmsConfig
 
     public function getAppId(): string
     {
-        $value = $this->getValueByConfigItemKey('easysms_appid');
+        $value = $this->getValueByConfigItemKey('easysms_sdk_appid');
 
         return $value;
     }
@@ -69,7 +69,7 @@ class SmsConfig
     {
         $templateBlade = $this->getValueByConfigItemKey('verifycode_template'.$templateId);
 
-        $templateData = json_decode($templateBlade, true);
+        $templateData = $templateBlade;
 
         $sms = [];
         if ($templateData) {

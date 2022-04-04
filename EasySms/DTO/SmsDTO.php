@@ -11,9 +11,8 @@ namespace Plugins\EasySms\DTO;
 use App\Fresns\Words\Send\DTO\SendSmsDTO;
 
 /**
- * @property-read string sence
- * @property-read string countryCode
- * @property-read string phoneNumber
+ * @property-read integer countryCode
+ * @property-read integer phoneNumber
  * @property-read string signName
  * @property-read string templateCode
  * @property-read string templateParam
@@ -26,12 +25,11 @@ class SmsDTO extends SendSmsDTO
     public function rules(): array
     {
         return [
-            'countryCode' => 'required',
-            'phoneNumber' => 'required',
-            'signName' => 'nullable|string',
-            'content' => 'nullable|string',
-            'templateCode' => 'required',
-            'templateParam' => 'nullable|string',
+            'countryCode' => ['required', 'integer'],
+            'phoneNumber' => ['required', 'integer'],
+            'signName' => ['nullable', 'string'],
+            'templateCode' => ['required', 'string'],
+            'templateParam' => ['nullable', 'string'],
         ];
     }
 
