@@ -12,7 +12,7 @@ Fresns official development of the SMTP sending method of mail plugin.
 
 - SMTP Host `fresnsemail_smtp_host`
 - SMTP Port `fresnsemail_smtp_port`
-- SMTP User `fresnsemail_smtp_user`
+- SMTP User `fresnsemail_smtp_username`
 - SMTP Password `fresnsemail_smtp_password`
 - SMTP Verify Type `fresnsemail_verify_type`
     - Null

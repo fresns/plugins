@@ -55,7 +55,7 @@
                             </div>
                             <div class="row mb-4">
                                 <label class="col-lg-2 col-form-label text-lg-end">@lang('FresnsEmail::fresns.smtpUser'):</label>
-                                <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_smtp_user" placeholder="name@example.com" value="{{ old("fresnsemail_smtp_user", $content['fresnsemail_smtp_user'] ?? '') }}" ></div>
+                                <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_smtp_username" placeholder="name@example.com" value="{{ old("fresnsemail_smtp_username", $content['fresnsemail_smtp_username'] ?? '') }}" ></div>
                                 <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('FresnsEmail::fresns.smtpUserIntro')</div>
                             </div>
                             <div class="row mb-4">

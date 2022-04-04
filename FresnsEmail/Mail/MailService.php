@@ -47,7 +47,7 @@ class MailService
     {
         $host = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_host');
         $port = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_port');
-        $user = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_user');
+        $user = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_username');
         $pass = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_password');
         $type = ConfigHelper::fresnsConfigByItemKey('fresnsemail_verify_type');
         $from_name = ConfigHelper::fresnsConfigByItemKey('fresnsemail_from_name');

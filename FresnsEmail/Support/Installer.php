@@ -30,7 +30,7 @@ class Installer
             'is_restful' => 0,
         ],
         [
-            'item_key' => 'fresnsemail_smtp_user',
+            'item_key' => 'fresnsemail_smtp_username',
             'item_value' => '',
             'item_type' => 'string',
             'item_tag' => 'fresnsemail',

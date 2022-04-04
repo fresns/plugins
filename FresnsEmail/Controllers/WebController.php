@@ -23,7 +23,7 @@ class WebController extends Controller
         $content = Config::query()->whereIn('item_key', [
             'fresnsemail_smtp_host',
             'fresnsemail_smtp_port',
-            'fresnsemail_smtp_user',
+            'fresnsemail_smtp_username',
             'fresnsemail_smtp_password',
             'fresnsemail_verify_type',
             'fresnsemail_from_mail',
