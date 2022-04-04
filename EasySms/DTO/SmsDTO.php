@@ -11,8 +11,8 @@ namespace Plugins\EasySms\DTO;
 use App\Fresns\Words\Send\DTO\SendSmsDTO;
 
 /**
- * @property-read integer countryCode
- * @property-read integer phoneNumber
+ * @property-read int countryCode
+ * @property-read int phoneNumber
  * @property-read string signName
  * @property-read string templateCode
  * @property-read string templateParam
