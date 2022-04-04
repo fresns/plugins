@@ -27,7 +27,7 @@ class CmdWordToolController extends Controller
         $unikey = $request->get('unikey') ?? 'Fresns';
         $wordName = $request->get('wordName');
         $param = $request->get('param');
-        if (!empty($request->file('param.file'))) {
+        if (! empty($request->file('param.file'))) {
             $param['file'] = $request->file('param.file');
         }
 

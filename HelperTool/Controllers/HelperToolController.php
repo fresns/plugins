@@ -26,10 +26,10 @@ class HelperToolController extends Controller
         $helperName = $request->get('helperName');
         $param = $request->get('param', []);
         $class = new ($namespace.$helperClass);
-        $reflectionMethod =  (new \ReflectionMethod($class, $helperName))->getParameters();
-        foreach ($reflectionMethod as $key => $value){
-            if ($value->getType() == 'array'){
-              $param[$key] = json_decode($param[$key],true);
+        $reflectionMethod = (new \ReflectionMethod($class, $helperName))->getParameters();
+        foreach ($reflectionMethod as $key => $value) {
+            if ($value->getType() == 'array') {
+                $param[$key] = json_decode($param[$key], true);
             }
         }
 
