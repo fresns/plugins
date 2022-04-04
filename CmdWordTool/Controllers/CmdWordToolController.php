@@ -27,6 +27,9 @@ class CmdWordToolController extends Controller
         $unikey = $request->get('unikey') ?? 'Fresns';
         $wordName = $request->get('wordName');
         $param = $request->get('param');
+        if (!empty($request->file('param.file'))) {
+            $param['file'] = $request->file('param.file');
+        }
 
         return \FresnsCmdWord::plugin($unikey)->$wordName($param);
     }
