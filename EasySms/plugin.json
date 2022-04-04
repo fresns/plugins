@@ -1,8 +1,8 @@
 {
     "unikey": "EasySms",
     "type": 1,
-    "name": "Easy SMS 短信插件",
-    "description": "Fresns 官方开发的支持多家服务商的短信插件。",
+    "name": "Easy SMS",
+    "description": "Fresns official development for the Chinese market to support multiple service providers SMS plugin.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
     "version": "1.0.0",

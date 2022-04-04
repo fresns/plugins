@@ -18,9 +18,7 @@ Fresns official helper function test tool.
 | --- | --- | --- | --- |
 | helperClass | text | required | class name |
 | helperName | text | required | helper name |
-| param[...] | text | *optional* | param name |
-| param[itemKey] | text | *optional* | param name |
-| param[langTag] | text | *optional* | param name |
+| param[0] | text | *optional* | param |
 
 **Body Example:**
 

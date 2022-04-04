@@ -12,7 +12,7 @@ Fresns official helper function test tool.
 - Get Cakes: `POST`
 - Request: `Form-data`
 
-### body Arguments:
+### Body Arguments:
 
 | Parameters Name | Type | Required | Description |
 | --- | --- | --- | --- |
