@@ -8,9 +8,9 @@
 
 namespace Plugins\EasySms\Http\Controllers;
 
+use App\Models\Config;
 use Illuminate\Routing\Controller;
 use Plugins\EasySms\DTO\SettingDTO;
-use Plugins\EasySms\Models\Config;
 use Plugins\EasySms\Services\SmsConfig;
 
 class EasySmsController extends Controller

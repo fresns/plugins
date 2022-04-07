@@ -8,7 +8,7 @@
 
 namespace Plugins\EasySms\Services;
 
-use Plugins\EasySms\Models\Config;
+use App\Models\Config;
 
 class SmsConfig
 {

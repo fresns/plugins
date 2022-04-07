@@ -8,12 +8,12 @@
 
 namespace Plugins\EasySms\Services;
 
+use App\Models\VerifyCode;
 use Fresns\CmdWordManager\Exceptions\Constants\ExceptionConstant;
 use Overtrue\EasySms\EasySms;
 use Overtrue\EasySms\PhoneNumber;
 use Plugins\EasySms\DTO\SmsDTO;
 use Plugins\EasySms\DTO\SmsSendCodeDTO;
-use Plugins\EasySms\Models\VerifyCode;
 
 class SmsService
 {
@@ -101,10 +101,10 @@ class SmsService
         $phone = $to->getIDDCode().$to->getNumber();
 
         $data = [
-            'account'     => $phone,
-            'template_id'     => $templateId,
-            'type'  => 2,
-            'code'  => $code,
+            'account' => $phone,
+            'template_id' => $templateId,
+            'type' => 2,
+            'code' => $code,
             'expired_at' => now()->addMinutes(10)->toDateTimeString(),
         ];
 
