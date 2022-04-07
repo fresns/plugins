@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Configuration du courrier',
     'menuTest' => 'Test d\'envoi',
+    'menuVariable' => 'Noms de variables pris en charge',
 
     'smtpHost' => 'Hôte SMTP',
     'smtpHostIntro' => 'Une configuration incorrecte de la distribution du courrier entraînera une perte de temps pour le serveur.',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'Après avoir enregistré la configuration de la boîte aux lettres, saisissez la boîte aux lettres entrante ici et testez l\'envoi.',
     'testMailSend' => 'Confirmer l\'envoi',
+
+    'variableCode' => 'Code de vérification',
+    'variableTime' => 'Heure d\'envoi',
 ];

@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Mail Config',
     'menuTest' => 'Test Send',
+    'menuVariable' => 'Supported Variable Names',
 
     'smtpHost' => 'SMTP Host',
     'smtpHostIntro' => 'Incorrectly configured sending emails can cause server timeouts',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'After saving the mailbox configuration, enter the incoming mailbox here and test sending.',
     'testMailSend' => 'Confirm Send',
+
+    'variableCode' => 'Verify Code',
+    'variableTime' => 'Send Time',
 ];

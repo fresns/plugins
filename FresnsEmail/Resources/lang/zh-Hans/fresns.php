@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => '邮箱配置',
     'menuTest' => '发信测试',
+    'menuVariable' => '支持的变量名',
 
     'smtpHost' => 'SMTP 服务器',
     'smtpHostIntro' => '错误的配置发送邮件会导致服务器超时',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => '保存邮箱配置后，在此输入收件邮箱，测试发送。',
     'testMailSend' => '确认发送',
+
+    'variableCode' => '验证码',
+    'variableTime' => '发信时间',
 ];

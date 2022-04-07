@@ -8,10 +8,10 @@
 
 namespace Plugins\FresnsEmail\Controllers;
 
+use App\Models\Config;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
-use Plugins\FresnsEmail\Models\Config;
 
 class WebController extends Controller
 {

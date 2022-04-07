@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Configurazione della posta',
     'menuTest' => 'Test di invio',
+    'menuVariable' => 'Nomi di variabili supportati',
 
     'smtpHost' => 'Host SMTP',
     'smtpHostIntro' => 'La consegna della posta configurata in modo non corretto causerà il time out del server',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'Dopo aver salvato la configurazione della mailbox, inserite qui la mailbox in entrata e provate l\'invio.',
     'testMailSend' => 'Conferma l\'invio',
+
+    'variableCode' => 'Verificare il codice',
+    'variableTime' => 'Invia tempo',
 ];

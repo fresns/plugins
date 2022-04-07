@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Configuração do correio',
     'menuTest' => 'Envio de testes',
+    'menuVariable' => 'Nomes de variáveis suportadas',
 
     'smtpHost' => 'Hospedeiro SMTP',
     'smtpHostIntro' => 'A entrega de correio configurado incorrectamente fará com que o servidor fique sem tempo',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'Depois de guardar a configuração da caixa de correio, introduzir aqui a caixa de correio de entrada e testar o envio.',
     'testMailSend' => 'Confirmar Enviar',
+
+    'variableCode' => 'Verificar o Código',
+    'variableTime' => 'Tempo de envio',
 ];

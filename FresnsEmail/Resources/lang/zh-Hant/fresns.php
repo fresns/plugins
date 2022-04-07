@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => '郵箱配置',
     'menuTest' => '发信测试',
+    'menuVariable' => '支持的變量名',
 
     'smtpHost' => 'SMTP 服務器',
     'smtpHostIntro' => '錯誤的配置發送郵件會導致服務器超時',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => '保存郵箱配置後，在此輸入收件郵箱，測試發送。',
     'testMailSend' => '確認發送',
+
+    'variableCode' => '驗證碼',
+    'variableTime' => '發信時間',
 ];

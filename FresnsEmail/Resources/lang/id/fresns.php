@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Konfigurasi Email',
     'menuTest' => 'Tes Kirim',
+    'menuVariable' => 'Nama variabel yang didukung',
 
     'smtpHost' => 'Tuan Rumah SMTP',
     'smtpHostIntro' => 'Konfigurasi yang salah untuk mengirim email akan menyebabkan server kehabisan waktu',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'Setelah menyimpan konfigurasi email, masukkan email penerima di sini untuk menguji pengiriman.',
     'testMailSend' => 'Konfirmasi Kirim',
+
+    'variableCode' => 'Kode verifikasi',
+    'variableTime' => 'Kirim Waktu',
 ];

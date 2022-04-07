@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'メール設定',
     'menuTest' => '送信テスト',
+    'menuVariable' => '対応する変数名',
 
     'smtpHost' => 'SMTPホスト',
     'smtpHostIntro' => 'メール配信の設定が正しくないと、サーバーがタイムアウトしてしまう',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'メールボックスの設定を保存した後、ここに受信メールボックスを入力し、送信のテストをしてください。',
     'testMailSend' => '送信確認',
+
+    'variableCode' => 'ベリファイコード',
+    'variableTime' => '送信時間',
 ];

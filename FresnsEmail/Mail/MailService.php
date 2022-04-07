@@ -8,9 +8,9 @@
 
 namespace Plugins\FresnsEmail\Mail;
 
+use App\Models\VerifyCode;
 use App\Helpers\ConfigHelper;
 use App\Helpers\StrHelper;
-use Plugins\FresnsEmail\Models\VerifyCode;
 
 class MailService
 {

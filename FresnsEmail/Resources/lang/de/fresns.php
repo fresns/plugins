@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Mail-Konfiguration',
     'menuTest' => 'Test Senden',
+    'menuVariable' => 'Unterstützte Variablennamen',
 
     'smtpHost' => 'SMTP-Host',
     'smtpHostIntro' => 'Eine falsch konfigurierte E-Mail-Zustellung führt zu einer Zeitüberschreitung des Servers',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'Nach dem Speichern der Mailbox-Konfiguration geben Sie hier die Eingangs-Mailbox ein und testen den Versand.',
     'testMailSend' => 'Bestätigen Sie Senden',
+
+    'variableCode' => 'Code überprüfen',
+    'variableTime' => 'Zeit senden',
 ];

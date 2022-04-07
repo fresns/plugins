@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => '메일 구성',
     'menuTest' => '테스트 보내기',
+    'menuVariable' => '지원되는 변수 이름',
 
     'smtpHost' => 'SMTP 호스트',
     'smtpHostIntro' => '메일을 보내는 잘못된 구성으로 인해 서버 시간이 초과됩니다.',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => '이메일 구성을 저장한 후 여기에 수신자 이메일을 입력하여 전송을 테스트합니다.',
     'testMailSend' => '보내기 확인',
+
+    'variableCode' => '코드 확인',
+    'variableTime' => '전송 시간',
 ];

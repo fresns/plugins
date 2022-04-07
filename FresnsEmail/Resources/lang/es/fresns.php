@@ -19,6 +19,7 @@ return [
 
     'menuConfig' => 'Configuración de correo',
     'menuTest' => 'Prueba de envío',
+    'menuVariable' => 'Nombres de variables admitidos',
 
     'smtpHost' => 'Host SMTP',
     'smtpHostIntro' => 'Una configuración incorrecta de la entrega de correo hará que el servidor se quede sin tiempo de espera',
@@ -38,4 +39,7 @@ return [
 
     'testMailDesc' => 'Después de guardar la configuración del buzón, introduzca aquí el buzón de entrada y pruebe el envío.',
     'testMailSend' => 'Confirmar envío',
+
+    'variableCode' => 'Código de verificación',
+    'variableTime' => 'Hora de envío',
 ];
