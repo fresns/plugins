@@ -92,9 +92,13 @@
 
     <!--Toast-->
     <div id="fresnsToast" class="toast align-items-center position-absolute top-50 start-50 translate-middle" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="/static/images/icon.png" width="20px" height="20px" class="rounded me-2" alt="Fresns">
+                <strong class="me-auto">Fresns</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
             <div class="toast-body" id="save_msg">操作结果信息</div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
 
@@ -129,12 +133,12 @@
                     success: function (res) {
                         console.log("success ", res)
                         $("#save_btn").prop("disabled", false);
-                        // 显示 toast
-                        // $("#fresnsToast").show().delay(3000).fadeOut();
+                        $("#fresnsToast").show().delay(2000).fadeOut();
                         $("#save_msg").text("保存成功");
                         $("#fresnsToast").addClass("show");
                     },
                     error: function (e){
+                        $("#fresnsToast").show().delay(3000).fadeOut();
                         $("#save_msg").text("保存失败");
                         $("#fresnsToast").addClass("show");
                         console.log("error", e)

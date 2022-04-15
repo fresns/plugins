@@ -6,11 +6,11 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace Plugins\EasySms\Listeners;
+namespace Plugins\FresnsEmail\Listeners;
 
-use Plugins\EasySms\Support\Installer;
+use Plugins\FresnsEmail\Support\Installer;
 
-class CliearPluginDataListener
+class ClearPluginDataListener
 {
     /**
      * Create the event listener.

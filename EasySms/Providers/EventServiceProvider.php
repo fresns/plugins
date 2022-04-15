@@ -9,7 +9,7 @@
 namespace Plugins\EasySms\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Plugins\EasySms\Listeners\CliearPluginDataListener;
+use Plugins\EasySms\Listeners\ClearPluginDataListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'plugins.cleandata' => [
-            CliearPluginDataListener::class,
+            ClearPluginDataListener::class,
         ],
     ];
 
