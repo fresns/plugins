@@ -4,7 +4,8 @@ Fresns official development of the SMTP sending method of mail plugin.
 
 ## Installation
 
-- Search for `FresnsEmail` in the Fresns App Marketplace and click Install.
+- Installation with key name: `FresnsEmail`
+- Installation using command: `php artisan fresns:require FresnsEmail`
 
 ## Dev Notes
 

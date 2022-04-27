@@ -4,7 +4,8 @@ Fresns official development for the Chinese market to support multiple service p
 
 ## Installation
 
-- Search for `EasySms` in the Fresns App Marketplace and click Install.
+- Installation with key name: `EasySms`
+- Installation using command: `php artisan fresns:require EasySms`
 
 ## Dev Notes
 

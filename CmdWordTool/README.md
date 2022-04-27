@@ -4,7 +4,8 @@ Fresns official helper function test tool.
 
 ## Installation
 
-- Search for `CmdWordTool` in the official app store market and click Install.
+- Installation with key name: `CmdWordTool`
+- Installation using command: `php artisan fresns:require CmdWordTool`
 
 ## Using
 

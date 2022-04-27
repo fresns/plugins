@@ -4,7 +4,8 @@ Fresns official helper function test tool.
 
 ## Installation
 
-- Search for `HelperTool` in the official app store market and click Install.
+- Installation with key name: `HelperTool`
+- Installation using command: `php artisan fresns:require HelperTool`
 
 ## Using
 
