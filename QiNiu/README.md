@@ -3,9 +3,6 @@
 Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链接](https://s.qiniu.com/YNJrYv)注册七牛云账号，不仅是对 Fresns 研发支持，注册后凭关联账号还能获得额外优惠和服务支持。
 
 - 七牛云账号注册链接：[https://s.qiniu.com/YNJrYv](https://s.qiniu.com/YNJrYv)
-- 配置信息：[https://fresns.cn/database/keyname/storages.html](https://fresns.cn/database/keyname/storages.html)
-- 命令字信息：[https://fresns.cn/extensions/command.html](https://fresns.cn/extensions/command.html)
-- 回调返参表：[https://fresns.cn/database/plugin/plugin-callbacks.html](https://fresns.cn/database/plugin/plugin-callbacks.html)
 
 ## 插件安装
 
@@ -27,6 +24,10 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 | 图片处理功能配置 | 图片样式名包含样式分隔符 |
 
 ## 开发说明
+
+- 配置信息：[https://fresns.cn/database/keyname/storages.html](https://fresns.cn/database/keyname/storages.html)
+- 命令字信息：[https://fresns.cn/extensions/command.html](https://fresns.cn/extensions/command.html)
+- 回调返参表：[https://fresns.cn/database/plugin/plugin-callbacks.html](https://fresns.cn/database/plugin/plugin-callbacks.html)
 
 ### 安装和卸载
 
