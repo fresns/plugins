@@ -20,12 +20,13 @@
                 <!-- top -->
                 <div class="row mb-2">
                     <div class="col-7">
-                        <h3>@lang('FresnsEmail::fresns.name') <span class="badge bg-secondary fs-9">v1.2.0</span></h3>
+                        <h3>@lang('FresnsEmail::fresns.name') <span class="badge bg-secondary fs-9">{{ $version }}</span></h3>
                         <p class="text-secondary">@lang('FresnsEmail::fresns.description')</p>
                     </div>
                     <div class="col-5">
                         <div class="input-group mt-2 mb-4 justify-content-lg-end px-1" role="group">
                             <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/main/FresnsEmail" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+                            <a class="btn btn-outline-secondary" href="https://gitee.com/fresns/extensions/tree/master/FresnsEmail" target="_blank" role="button"><i class="bi bi-git"></i> Gitee</a>
                         </div>
                     </div>
                 </div>

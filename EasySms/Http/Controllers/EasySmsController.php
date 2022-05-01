@@ -8,6 +8,7 @@
 
 namespace Plugins\EasySms\Http\Controllers;
 
+use App\Helpers\PluginHelper;
 use App\Models\Config;
 use Illuminate\Routing\Controller;
 use Plugins\EasySms\DTO\SettingDTO;
@@ -27,7 +28,10 @@ class EasySmsController extends Controller
 
     public function setting()
     {
+        $version = PluginHelper::fresnsPluginVersionByUnikey('EasySms');
+
         return view('EasySms::setting', [
+            'version' => $version,
             'easysms_type' => $this->smsSystemConfig->getEasySmsType(),
             'easysms_keyid' => $this->smsSystemConfig->getKeyId(),
             'easysms_keysecret' => $this->smsSystemConfig->getKeySecret(),

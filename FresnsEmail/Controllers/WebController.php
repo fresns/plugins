@@ -8,6 +8,7 @@
 
 namespace Plugins\FresnsEmail\Controllers;
 
+use App\Helpers\PluginHelper;
 use App\Models\Config;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -20,6 +21,8 @@ class WebController extends Controller
      */
     public function settings()
     {
+        $version = PluginHelper::fresnsPluginVersionByUnikey('FresnsEmail');
+
         $content = Config::query()->whereIn('item_key', [
             'fresnsemail_smtp_host',
             'fresnsemail_smtp_port',
@@ -29,9 +32,9 @@ class WebController extends Controller
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
-        $locale = request()->input('lang', 'en');
+        $locale = request()->input('lang', 'zh-Hans');
 
-        return view('FresnsEmail::setting', compact('content', 'locale'));
+        return view('FresnsEmail::setting', compact('content', 'version','locale'));
     }
 
     /**
