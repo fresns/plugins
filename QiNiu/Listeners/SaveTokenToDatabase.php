@@ -1,13 +1,19 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Listeners;
 
-use Plugins\QiNiu\QiNiu;
-use Illuminate\Support\Str;
 use App\Models\PluginCallback;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Str;
 use Plugins\QiNiu\Events\UploadTokenGenerated;
+use Plugins\QiNiu\QiNiu;
 
 class SaveTokenToDatabase
 {
@@ -30,7 +36,7 @@ class SaveTokenToDatabase
     public function handle(UploadTokenGenerated $event)
     {
         $data = $this->getData($event->disk, $event->token);
-        
+
         PluginCallback::create($data);
     }
 

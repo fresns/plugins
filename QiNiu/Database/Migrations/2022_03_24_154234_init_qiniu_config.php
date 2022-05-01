@@ -1,9 +1,15 @@
 <?php
 
-use Plugins\QiNiu\Support\Installer;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Plugins\QiNiu\Support\Installer;
 
 class InitQiniuConfig extends Migration
 {

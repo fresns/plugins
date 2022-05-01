@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Listeners;
 
-use Plugins\QiNiu\Storage;
 use App\Helpers\ConfigHelper;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Plugins\QiNiu\Events\FileUpdateToQiNiuSuccessfual;
+use Plugins\QiNiu\Storage;
 
 class GenerateVideoScreenshot
 {
@@ -21,7 +27,7 @@ class GenerateVideoScreenshot
     }
 
     /**
-     * 如果是视频文件，则执行配置表 videos_screenshot 键值，生成一条视频封面图并存入 file_appends > video_cover 字段
+     * 如果是视频文件，则执行配置表 videos_screenshot 键值，生成一条视频封面图并存入 file_appends > video_cover 字段.
      *
      * @param  object  $event
      * @return void
@@ -31,14 +37,13 @@ class GenerateVideoScreenshot
         $fileModel = $event->fileModel;
         $qiniuFilePath = $event->qiniuFilePath;
 
-        if (!$fileModel->isVideo()) {
+        if (! $fileModel->isVideo()) {
             return;
         }
 
         $storage = new Storage($fileModel->file_type);
         $pfop = $storage->getPersistentFop();
 
-        
         $bucket = $storage->getConfig()['bucket'];
         $transParams = ConfigHelper::fresnsConfigByItemKey('video_screenshot');
 
@@ -72,7 +77,6 @@ class GenerateVideoScreenshot
 
         $notifyUrl = sprintf('%s/%s', rtrim($bucketDomain, '/'), ltrim($api));
 
-        
         $callbackParam = \request()->input('callback_param');
         if ($callbackParam) {
             $notifyUrl = $notifyUrl.'?callback_param='.$callbackParam;

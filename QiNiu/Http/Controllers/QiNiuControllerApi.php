@@ -9,20 +9,20 @@
 namespace Plugins\QiNiu\Http\Controllers;
 
 use App\Fresns\Api\Base\Controllers\BaseController;
-use App\Fresns\Api\Helpers\StrHelper;
 use App\Fresns\Api\Center\Common\ErrorCodeService;
 use App\Fresns\Api\Center\Common\LogService;
 use App\Fresns\Api\Center\Helper\CmdRpcHelper;
 use App\Fresns\Api\Center\Scene\FileSceneService;
-use App\Helpers\ConfigHelper;
 use App\Fresns\Api\FsCmd\FresnsCmdWords;
 use App\Fresns\Api\FsCmd\FresnsCmdWordsConfig;
 use App\Fresns\Api\FsDb\FresnsFileAppends\FresnsFileAppends;
 use App\Fresns\Api\FsDb\FresnsFiles\FresnsFiles;
 use App\Fresns\Api\FsDb\FresnsPluginCallbacks\FresnsPluginCallbacks;
+use App\Fresns\Api\Helpers\StrHelper;
+use App\Helpers\ConfigHelper;
+use Illuminate\Http\Request;
 use Plugins\QiNiu\ServicesOld\QiNiuService;
 use Plugins\QiNiu\ServicesOld\QiNiuTransService;
-use Illuminate\Http\Request;
 
 class QiNiuControllerApi extends BaseController
 {

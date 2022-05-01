@@ -8,24 +8,24 @@
 
 namespace Plugins\QiNiu;
 
-use Plugins\QiNiu\ServicesOld\QiNiuService;
 use App\Fresns\Api\Center\Base\BasePlugin;
-use Plugins\QiNiu\ServicesOld\QiNiuDocService;
-use App\Fresns\Api\FsCmd\FresnsCmdWordsConfig;
-use App\Fresns\Api\FsCmd\FresnsCmdWords;
-use Plugins\QiNiu\ServicesOld\QiNiuAudioService;
-use Plugins\QiNiu\ServicesOld\QiNiuImageService;
-use Plugins\QiNiu\ServicesOld\QiNiuTransService;
-use Plugins\QiNiu\ServicesOld\QiNiuVideoService;
-use App\Fresns\Api\Center\Helper\CmdRpcHelper;
-use App\Fresns\Api\FsDb\FresnsFiles\FresnsFiles;
-use App\Fresns\Api\FsDb\FresnsPosts\FresnsPosts;
-use App\Fresns\Api\Center\Scene\FileSceneService;
 use App\Fresns\Api\Center\Common\ErrorCodeService;
+use App\Fresns\Api\Center\Helper\CmdRpcHelper;
+use App\Fresns\Api\Center\Scene\FileSceneService;
+use App\Fresns\Api\FsCmd\FresnsCmdWords;
+use App\Fresns\Api\FsCmd\FresnsCmdWordsConfig;
 use App\Fresns\Api\FsDb\FresnsComments\FresnsComments;
 use App\Fresns\Api\FsDb\FresnsFileAppends\FresnsFileAppends;
+use App\Fresns\Api\FsDb\FresnsFiles\FresnsFiles;
 use App\Fresns\Api\FsDb\FresnsPluginCallbacks\FresnsPluginCallbacks;
+use App\Fresns\Api\FsDb\FresnsPosts\FresnsPosts;
 use App\Helpers\ConfigHelper;
+use Plugins\QiNiu\ServicesOld\QiNiuAudioService;
+use Plugins\QiNiu\ServicesOld\QiNiuDocService;
+use Plugins\QiNiu\ServicesOld\QiNiuImageService;
+use Plugins\QiNiu\ServicesOld\QiNiuService;
+use Plugins\QiNiu\ServicesOld\QiNiuTransService;
+use Plugins\QiNiu\ServicesOld\QiNiuVideoService;
 
 class Plugin extends BasePlugin
 {

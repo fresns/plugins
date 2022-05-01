@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Events;
 
-use Plugins\QiNiu\QiNiu;
 use Illuminate\Queue\SerializesModels;
+use Plugins\QiNiu\QiNiu;
 
 class UploadTokenGenerated
 {

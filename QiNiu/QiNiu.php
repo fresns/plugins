@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu;
 
 use App\Models\File;
@@ -8,23 +14,22 @@ use Illuminate\Validation\Rule;
 class QiNiu
 {
     /**
-     * 见 https://fresns.cn/database/dictionary/storages.html
+     * 见 https://fresns.cn/database/dictionary/storages.html.
      */
     const STORAGE_ID = 17;
 
     /**
-     * Fresns
+     * Fresns.
      */
-
     const DEFAULT_BUCKET_NAME = 'Fresns';
 
     /**
      * 单位：分钟
      */
     const DEFAULT_EXPIRE_TIME = 3600;
-    
+
     protected int $type;
-    
+
     public function __construct(array $wordBody)
     {
         $this->validate($wordBody);

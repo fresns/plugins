@@ -1,19 +1,25 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Services;
 
 use App\Models\File;
-use Plugins\QiNiu\QiNiu;
+use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
+use Plugins\QiNiu\Events\UploadTokenGenerated;
+use Plugins\QiNiu\FileInfoOfAntiLink;
 use Plugins\QiNiu\FresnsUploadFile;
 use Plugins\QiNiu\FresnsUploadFiles;
-use Plugins\QiNiu\FileInfoOfAntiLink;
-use Plugins\QiNiu\Events\UploadTokenGenerated;
-use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
+use Plugins\QiNiu\QiNiu;
 
 class QiNiuService
 {
     use CmdWordResponseTrait;
-    
+
     public function getUploadToken(array $wordBody)
     {
         $disk = new QiNiu($wordBody);
@@ -23,7 +29,7 @@ class QiNiuService
         event(new UploadTokenGenerated($disk, $token));
 
         return $this->success([
-            'storageId' => $disk->getStorageId(), 
+            'storageId' => $disk->getStorageId(),
             'token' => $token,
             'expireTime' => $disk->getExpireTime(),
         ]);
@@ -69,12 +75,11 @@ class QiNiuService
         ]);
 
         $file = File::idOrFid([
-                'id' => $wordBody['fileId'],
-                'fid' => $wordBody['fid'],
-            ])->firstOrFail();
+            'id' => $wordBody['fileId'],
+            'fid' => $wordBody['fid'],
+        ])->firstOrFail();
 
         $cmd = \Plugins\QiNiu\PluginConfig::FRESNS_CMD_PHYSICAL_DELETION_FILE;
-
 
         $pluginClass = \App\Fresns\Api\Center\Helper\PluginHelper::findPluginClass('QiNiu');
 

@@ -8,19 +8,19 @@
 
 namespace Plugins\QiNiu\Http\Controllers;
 
+use App\Fresns\Api\Base\Controllers\BaseController;
+use App\Fresns\Api\Center\Common\LogService;
+use App\Fresns\Api\FsDb\FresnsCommentLogs\FresnsCommentLogs;
+use App\Fresns\Api\FsDb\FresnsComments\FresnsComments;
+use App\Fresns\Api\FsDb\FresnsFileAppends\FresnsFileAppends;
+use App\Fresns\Api\FsDb\FresnsFiles\FresnsFiles;
+use App\Fresns\Api\FsDb\FresnsPostLogs\FresnsPostLogs;
+use App\Fresns\Api\FsDb\FresnsPosts\FresnsPosts;
+use App\Helpers\ConfigHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Plugins\QiNiu\ServicesOld\QiNiuService;
-use App\Helpers\ConfigHelper;
-use App\Fresns\Api\Center\Common\LogService;
 use Plugins\QiNiu\ServicesOld\QiNiuTransService;
-use App\Fresns\Api\FsDb\FresnsFiles\FresnsFiles;
-use App\Fresns\Api\FsDb\FresnsPosts\FresnsPosts;
-use App\Fresns\Api\Base\Controllers\BaseController;
-use App\Fresns\Api\FsDb\FresnsComments\FresnsComments;
-use App\Fresns\Api\FsDb\FresnsPostLogs\FresnsPostLogs;
-use App\Fresns\Api\FsDb\FresnsCommentLogs\FresnsCommentLogs;
-use App\Fresns\Api\FsDb\FresnsFileAppends\FresnsFileAppends;
 
 class QiNiuControllerTrans extends BaseController
 {

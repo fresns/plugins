@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu;
 
 use App\Models\File;
@@ -30,7 +36,7 @@ class FileInfoOfAntiLink
 
     public function getFile()
     {
-        if (!$this->file) {
+        if (! $this->file) {
             $this->file = File::idOrFid([
                 'id' => $this->fileId,
                 'fid' => $this->fid,
@@ -50,7 +56,7 @@ class FileInfoOfAntiLink
         $serviceInfo = $this->file->getFileServiceInfo();
 
         // 未开启防盗链
-        if (!$serviceInfo['url_anti_status']) {
+        if (! $serviceInfo['url_anti_status']) {
             return $this->file->getFileInfo();
         }
 
@@ -85,7 +91,7 @@ class FileInfoOfAntiLink
         $serviceInfo = $this->file->getFileServiceInfo();
 
         // 未开启防盗链
-        if (!$serviceInfo['url_anti_status']) {
+        if (! $serviceInfo['url_anti_status']) {
             // return $this->file->getFileInfo();
         }
 

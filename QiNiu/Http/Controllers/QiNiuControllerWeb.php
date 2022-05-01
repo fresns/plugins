@@ -12,12 +12,12 @@ use App\Fresns\Api\Base\Controllers\BaseFrontendController;
 use App\Fresns\Api\Center\Common\ErrorCodeService;
 use App\Fresns\Api\Center\Helper\CmdRpcHelper;
 use App\Fresns\Api\Center\Scene\FileSceneService;
-use App\Helpers\ConfigHelper;
 use App\Fresns\Api\FsCmd\FresnsCmdWords;
 use App\Fresns\Api\FsCmd\FresnsCmdWordsConfig;
 use App\Fresns\Api\FsDb\FresnsPluginCallbacks\FresnsPluginCallbacks;
-use Plugins\QiNiu\ServicesOld\QiNiuService;
+use App\Helpers\ConfigHelper;
 use Illuminate\Http\Request;
+use Plugins\QiNiu\ServicesOld\QiNiuService;
 
 class QiNiuControllerWeb extends BaseFrontendController
 {
@@ -35,7 +35,7 @@ class QiNiuControllerWeb extends BaseFrontendController
         ];
 
         $resp = \FresnsCmdWord::plugin('QiNiu')->physicalDeletionFile($wordBody);
-        
+
         dd($resp);
         $callback = $request->input('callback');
         $base64DecodeSign = $request->input('sign');

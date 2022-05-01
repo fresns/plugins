@@ -1,17 +1,23 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Providers;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
-use Plugins\QiNiu\Listeners\RemoveLocalFile;
-use Plugins\QiNiu\Events\UploadTokenGenerated;
-use Plugins\QiNiu\Listeners\SaveQiNiuFilePath;
-use Plugins\QiNiu\Listeners\SaveTokenToDatabase;
-use Plugins\QiNiu\Listeners\GenerateVideoScreenshot;
-use Plugins\QiNiu\Events\FileUpdateToQiNiuSuccessfual;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Plugins\QiNiu\Events\FileUpdateToQiNiuSuccessfual;
+use Plugins\QiNiu\Events\UploadTokenGenerated;
+use Plugins\QiNiu\Listeners\GenerateVideoScreenshot;
+use Plugins\QiNiu\Listeners\RemoveLocalFile;
+use Plugins\QiNiu\Listeners\SaveQiNiuFilePath;
+use Plugins\QiNiu\Listeners\SaveTokenToDatabase;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -24,8 +30,8 @@ class EventServiceProvider extends ServiceProvider
         // Registered::class => [
         //     SendEmailVerificationNotification::class,
         // ],
-        "plugins.cleandata" => [
-            // When the user uninstalls, if the data needs to be deleted, the listener is configured here. 
+        'plugins.cleandata' => [
+            // When the user uninstalls, if the data needs to be deleted, the listener is configured here.
         ],
         UploadTokenGenerated::class => [
             SaveTokenToDatabase::class,

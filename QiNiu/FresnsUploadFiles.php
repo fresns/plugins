@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu;
 
-use Illuminate\Http\File;
 use App\Models\File as FileModel;
+use Illuminate\Http\File;
 use Plugins\QiNiu\Events\FileUpdateToQiNiuSuccessfual;
 
 class FresnsUploadFiles
@@ -13,7 +19,7 @@ class FresnsUploadFiles
     protected $fids;
 
     protected $files;
-    
+
     public function __construct(array $wordBody)
     {
         $this->validate($wordBody);
@@ -37,7 +43,7 @@ class FresnsUploadFiles
                 $this->files[$fid] = FileModel::where('fid', $fid)->firstOrFail();
             }
         }
-        
+
         return $this->files;
     }
 

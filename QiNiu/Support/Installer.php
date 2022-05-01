@@ -8,19 +8,18 @@
 
 namespace Plugins\QiNiu\Support;
 
-use App\Models\Post;
-use App\Models\Comment;
-use App\Fresns\Subscribe\Subscribe;
 use App\Fresns\Api\Center\Base\BaseInstaller;
+use App\Fresns\Subscribe\Subscribe;
+use App\Models\Comment;
+use App\Models\Post;
 
 class Installer extends BaseInstaller
 {
-
     protected $subscribes = [
         [
             'type' => Subscribe::SUBSCRIBE_TYPE_TABLE_DATA_CHANGE,
             'unikey' => 'QiNiu',
-            'cmdWord' => 'notifyAudioVideoTranscoding', 
+            'cmdWord' => 'notifyAudioVideoTranscoding',
             'subTableName' => Post::class,
         ],
         [

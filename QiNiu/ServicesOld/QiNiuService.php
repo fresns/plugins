@@ -8,8 +8,8 @@
 
 namespace Plugins\QiNiu\ServicesOld;
 
-use App\Fresns\Api\Helpers\StrHelper;
 use App\Fresns\Api\Center\Common\LogService;
+use App\Fresns\Api\Helpers\StrHelper;
 use App\Helpers\ConfigHelper;
 use Plugins\QiNiu\QiNiuConfig;
 use Qiniu\Auth;
