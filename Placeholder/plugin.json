@@ -24,12 +24,12 @@
         "map",
         "editor",
         "followGroup",
-        "expandEditor",
-        "expandContentType",
-        "expandData",
-        "expandManage",
-        "expandGroup",
-        "expandUser"
+        "extendEditor",
+        "extendContentType",
+        "extendData",
+        "extendManage",
+        "extendGroup",
+        "extendUser"
     ],
     "accessPath": "/placeholder/index?uuid={uuid}&sign={sign}&lang={langTag}&type={type}&scene={scene}&aid={aid}&uid={uid}&rid={rid}&gid={gid}&pid={pid}&cid={cid}&eid={eid}&fid={fid}&plid={plid}&clid={clid}&uploadToken={uploadToken}&uploadInfo={uploadInfo}",
     "settingsPath": null,
