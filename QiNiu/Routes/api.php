@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Plugins\QiNiu\Http\Controllers;
 
 Route::group(['prefix' => 'qiniu'], function () {
-     Route::post('/uploadCallback', [Controllers\QiNiuControllerApi::class, 'uploadCallback'])->name('qiniu.file.uploadCallback');
-     Route::get('/getToken', [Controllers\QiNiuControllerApi::class, 'getToken'])->name('qiniu.file.getToken');
-     Route::any('/trans/notify', [Controllers\QiNiuControllerTrans::class, 'transNotify'])->name('qiniu.file.transNotify');
- });
+    Route::post('/uploadCallback', [Controllers\QiNiuControllerApi::class, 'uploadCallback'])->name('qiniu.file.uploadCallback');
+    Route::get('/getToken', [Controllers\QiNiuControllerApi::class, 'getToken'])->name('qiniu.file.getToken');
+    Route::any('/trans/notify', [Controllers\QiNiuControllerTrans::class, 'transNotify'])->name('qiniu.file.transNotify');
+});
