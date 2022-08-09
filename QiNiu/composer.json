@@ -1,0 +1,37 @@
+{
+    "name": "fresns/qiniu",
+    "description": "QiNiu plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "唐杰",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://tangjie.me",
+            "role": "Creator"
+        },
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\QiNiu\\": "app"
+        }
+    },
+    "require": {
+        "overtrue/laravel-filesystem-qiniu": "^2.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Plugins\\QiNiu\\Providers\\ServiceProvider",
+                "Plugins\\QiNiu\\Providers\\CmdWordServiceProvider",
+                "Plugins\\QiNiu\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
+}
