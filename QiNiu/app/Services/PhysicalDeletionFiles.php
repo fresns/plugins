@@ -1,11 +1,17 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Services;
 
-use Fresns\DTO\DTO;
 use App\Models\File;
-use Plugins\QiNiu\Traits\QiNiuStorageTrait;
+use Fresns\DTO\DTO;
 use Illuminate\Validation\Rule;
+use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class PhysicalDeletionFiles extends DTO
 {
@@ -26,7 +32,7 @@ class PhysicalDeletionFiles extends DTO
         if (is_null($storage)) {
             return null;
         }
-        
+
         $files = File::whereIn('id', $this->fileIdsOrFids)->orWhereIn('fid', $this->fileIdsOrFids)->get();
 
         foreach ($files as $file) {

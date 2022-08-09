@@ -1,10 +1,16 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Traits;
 
-use App\Models\File;
-use App\Helpers\FileHelper;
 use App\Helpers\ConfigHelper;
+use App\Helpers\FileHelper;
+use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 
 trait QiNiuStorageTrait
@@ -77,7 +83,7 @@ trait QiNiuStorageTrait
     {
         $this->resetQiNiuConfig();
 
-        if (!$this->isEnableStorage()) {
+        if (! $this->isEnableStorage()) {
             return null;
         }
 
@@ -108,14 +114,14 @@ trait QiNiuStorageTrait
     }
 
     /**
-     * 生成七牛云防盗链，防盗链基于时间戳
-     * 
+     * 生成七牛云防盗链，防盗链基于时间戳.
+     *
      * @param  string  $url
      * @param  string  $antiLinkKey
-     * @param  integer $deadline
-     * @param  array   $query
+     * @param  int  $deadline
+     * @param  array  $query
      * @return void
-     * 
+     *
      * @see https://developer.qiniu.com/fusion/kb/1670/timestamp-hotlinking-prevention
      */
     public function getAntiLinkUrl(string $url, string $antiLinkKey, int $deadline, array $query = [])
@@ -129,7 +135,7 @@ trait QiNiuStorageTrait
         $qiniuOriginUrl = sprintf('/%s', ltrim($urlInfo['path'], '/'));
 
         $accessUrl = $qiniuOriginUrl;
-        $accessUrl = implode("/", array_map("rawurlencode", explode("/", $accessUrl)));
+        $accessUrl = implode('/', array_map('rawurlencode', explode('/', $accessUrl)));
 
         $key = $antiLinkKey;
 
@@ -182,17 +188,17 @@ trait QiNiuStorageTrait
     }
 
     /**
-     * 七牛云转码、生成视频截图
+     * 七牛云转码、生成视频截图.
      *
-     * @param  \Qiniu\Auth $auth
-     * @param  string      $transParams
-     * @param  string      $bucket
-     * @param  string      $dir
-     * @param  string      $key
-     * @param  string      $filename
-     * @param  string      $notifyUrl
+     * @param  \Qiniu\Auth  $auth
+     * @param  string  $transParams
+     * @param  string  $bucket
+     * @param  string  $dir
+     * @param  string  $key
+     * @param  string  $filename
+     * @param  string  $notifyUrl
      * @return array
-     * 
+     *
      * @see https://developer.qiniu.com/dora/api/persistent-data-processing-pfop#4
      */
     public function executeTranscoding(\Qiniu\Auth $auth, ?string $transParams, string $bucket, string $dir, string $key, string $filename, string $notifyUrl): array

@@ -49,7 +49,7 @@ class Installer
         try {
             $this->handleSubscribes(fn ($subscribe) => \FresnsCmdWord::plugin()->addSubscribeItem($subscribe));
         } catch (\Throwable $e) {
-            \info('add config fail: ' . $e->getMessage());
+            \info('add config fail: '.$e->getMessage());
             throw $e;
         }
     }
@@ -60,7 +60,7 @@ class Installer
         try {
             $this->handleSubscribes(fn ($subscribe) => \FresnsCmdWord::plugin()->deleteSubscribeItem($subscribe));
         } catch (\Throwable $e) {
-            \info('remove config fail: ' . $e->getMessage());
+            \info('remove config fail: '.$e->getMessage());
             throw $e;
         }
     }

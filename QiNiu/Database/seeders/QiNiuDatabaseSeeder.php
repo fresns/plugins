@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class QiNiuDatabaseSeeder extends Seeder
 {

@@ -1,11 +1,17 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Services;
 
-use Fresns\DTO\DTO;
 use App\Models\File;
-use Plugins\QiNiu\Traits\QiNiuStorageTrait;
+use Fresns\DTO\DTO;
 use Illuminate\Validation\Rule;
+use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class AntiLinkFileOriginalUrl extends DTO
 {
@@ -28,7 +34,7 @@ class AntiLinkFileOriginalUrl extends DTO
             return null;
         }
 
-        if (!$this->isEnableAntiLink()) {
+        if (! $this->isEnableAntiLink()) {
             return null;
         }
 
@@ -39,10 +45,10 @@ class AntiLinkFileOriginalUrl extends DTO
 
         /** @var File $file */
         $file = $antiLinkFileInfo->getFile();
-        
+
         $originalPath = $file->original_path;
 
-        if (!$originalPath) {
+        if (! $originalPath) {
             $originalPath = $file->path;
         }
 

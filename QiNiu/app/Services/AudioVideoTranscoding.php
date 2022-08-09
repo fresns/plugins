@@ -1,15 +1,21 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Services;
 
-use Fresns\DTO\DTO;
-use App\Models\File;
 use App\Helpers\FileHelper;
+use App\Models\File;
 use App\Models\FileUsage;
 use App\Models\PluginCallback;
-use Plugins\QiNiu\Traits\QiNiuStorageTrait;
+use Fresns\DTO\DTO;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class AudioVideoTranscoding extends DTO
 {
@@ -57,15 +63,15 @@ class AudioVideoTranscoding extends DTO
 
             $uuid = Str::uuid();
             $filename = str_replace(pathinfo($key, PATHINFO_EXTENSION), $extension, pathinfo($key, PATHINFO_BASENAME));
-            $filename = str_replace(pathinfo($key, PATHINFO_FILENAME), pathinfo($key, PATHINFO_FILENAME)."-transcoding_file", pathinfo($key, PATHINFO_BASENAME));
+            $filename = str_replace(pathinfo($key, PATHINFO_FILENAME), pathinfo($key, PATHINFO_FILENAME).'-transcoding_file', pathinfo($key, PATHINFO_BASENAME));
 
             $result = $this->executeTranscoding(
-                auth: $storage->getAuthManager(), 
-                transParams: $transParams, 
-                bucket: $this->getBucketName(), 
-                dir: FileHelper::fresnsFileStoragePath($fileAppend->file_type, $fileAppend->use_type), 
-                key: $key, 
-                filename: $filename, 
+                auth: $storage->getAuthManager(),
+                transParams: $transParams,
+                bucket: $this->getBucketName(),
+                dir: FileHelper::fresnsFileStoragePath($fileAppend->file_type, $fileAppend->use_type),
+                key: $key,
+                filename: $filename,
                 notifyUrl: route('qiniu.transcoding.callback', ['uuid', $uuid]),
             );
 

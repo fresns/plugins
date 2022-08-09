@@ -1,14 +1,20 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Services;
 
-use Fresns\DTO\DTO;
-use App\Models\File;
-use App\Helpers\FileHelper;
-use Illuminate\Support\Str;
 use App\Helpers\ConfigHelper;
+use App\Helpers\FileHelper;
+use App\Models\File;
 use App\Models\PluginCallback;
 use App\Utilities\FileUtility;
+use Fresns\DTO\DTO;
+use Illuminate\Support\Str;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class UploadFile extends DTO
@@ -84,12 +90,12 @@ class UploadFile extends DTO
     public function generateVideoCover($storage, $dir, $diskPath, $uuid)
     {
         $result = $this->executeTranscoding(
-            auth: $storage->getAuthManager(), 
-            transParams: $this->getVideoScreenshot(), 
-            bucket: $this->getBucketName(), 
-            dir: $dir, 
-            key: $diskPath, 
-            filename: pathinfo($diskPath, PATHINFO_FILENAME).'.jpg', 
+            auth: $storage->getAuthManager(),
+            transParams: $this->getVideoScreenshot(),
+            bucket: $this->getBucketName(),
+            dir: $dir,
+            key: $diskPath,
+            filename: pathinfo($diskPath, PATHINFO_FILENAME).'.jpg',
             notifyUrl: route('qiniu.transcoding.callback', ['uuid' => $uuid]),
         );
 

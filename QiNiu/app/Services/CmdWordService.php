@@ -1,23 +1,29 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Services;
 
-use Plugins\QiNiu\UploadFile;
 use App\Models\PluginCallback;
-use Plugins\QiNiu\UploadToken;
-use Plugins\QiNiu\UploadFileInfo;
+use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Plugins\QiNiu\AntiLinkFileInfo;
 use Plugins\QiNiu\AntiLinkFileInfoList;
-use Plugins\QiNiu\LogicalDeletionFiles;
-use Plugins\QiNiu\AudioVideoTranscoding;
-use Plugins\QiNiu\PhysicalDeletionFiles;
 use Plugins\QiNiu\AntiLinkFileOriginalUrl;
-use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
+use Plugins\QiNiu\AudioVideoTranscoding;
+use Plugins\QiNiu\LogicalDeletionFiles;
+use Plugins\QiNiu\PhysicalDeletionFiles;
+use Plugins\QiNiu\UploadFile;
+use Plugins\QiNiu\UploadFileInfo;
+use Plugins\QiNiu\UploadToken;
 
 class CmdWordService
 {
     use CmdWordResponseTrait;
-    
+
     public function getUploadToken(array $wordBody)
     {
         $uploadToken = new UploadToken($wordBody);
@@ -43,7 +49,7 @@ class CmdWordService
         $uploadFileInfo = new UploadFileInfo($wordBody);
 
         $uploadFileInfos = $uploadFileInfo->process();
-        
+
         return $this->success($uploadFileInfos);
     }
 
@@ -95,7 +101,7 @@ class CmdWordService
     {
         $audioVideoTranscoding = new AudioVideoTranscoding($wordBody);
         $audioVideoTranscoding->process();
-        
+
         return $this->success();
     }
 }

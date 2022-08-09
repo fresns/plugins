@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -41,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-            ->group(dirname(__DIR__, 2) . '/routes/web.php');
+            ->group(dirname(__DIR__, 2).'/routes/web.php');
     }
 
     /**
@@ -55,6 +61,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->group(dirname(__DIR__, 2) . '/routes/api.php');
+            ->group(dirname(__DIR__, 2).'/routes/api.php');
     }
 }

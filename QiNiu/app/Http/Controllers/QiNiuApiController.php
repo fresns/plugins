@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Http\Controllers;
 
+use App\Fresns\Api\Traits\ApiResponseTrait;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Fresns\Api\Traits\ApiResponseTrait;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
-use Illuminate\Contracts\Support\Renderable;
 
 class QiNiuApiController extends Controller
 {
@@ -26,7 +32,7 @@ class QiNiuApiController extends Controller
         \info('test', [
             $pluginCallback?->toArray(),
         ]);
-        if (!$pluginCallback) {
+        if (! $pluginCallback) {
             return $this->failure(3e4, '未找到 callback 信息 '.$uuid);
         }
 
@@ -71,7 +77,7 @@ class QiNiuApiController extends Controller
                     [$stat, $error] = $adapter->getBucketManager()->stat($this->getBucketName(), $diskPath);
 
                     $meta = [];
-                    if (!$error) {
+                    if (! $error) {
                         $meta = array_merge([
                             'mime' => $stat['mimeType'],
                             'extension' => pathinfo($diskPath, PATHINFO_EXTENSION),
@@ -95,6 +101,6 @@ class QiNiuApiController extends Controller
             'is_use' => \App\Models\PluginCallback::IS_USE_TRUE,
         ]);
 
-        return $this->success(null, '操作 ' . $uuid);
+        return $this->success(null, '操作 '.$uuid);
     }
 }

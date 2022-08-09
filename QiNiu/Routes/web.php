@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 use Illuminate\Support\Facades\Route;
 use Plugins\QiNiu\Http\Controllers as ApiController;
 
@@ -14,6 +20,6 @@ use Plugins\QiNiu\Http\Controllers as ApiController;
 |
 */
 
-Route::prefix('qiniu')->group(function() {
+Route::prefix('qiniu')->group(function () {
     Route::get('/', [ApiController\QiNiuController::class, 'index']);
 });

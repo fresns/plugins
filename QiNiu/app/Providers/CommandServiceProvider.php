@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Providers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Symfony\Component\Finder\Finder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Symfony\Component\Finder\Finder;
 
 class CommandServiceProvider extends ServiceProvider
 {
@@ -17,7 +23,7 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $commandsDirectory = dirname(__DIR__) . '/Console/Commands';
+        $commandsDirectory = dirname(__DIR__).'/Console/Commands';
         if (File::exists($commandsDirectory)) {
             $this->load($commandsDirectory);
         }
@@ -26,8 +32,7 @@ class CommandServiceProvider extends ServiceProvider
     /**
      * Register all of the commands in the given directory.
      *
-     * @param array|string $paths
-     *
+     * @param  array|string  $paths
      * @return void
      */
     protected function load($paths)
@@ -45,7 +50,7 @@ class CommandServiceProvider extends ServiceProvider
         $commands = [];
         foreach ((new Finder)->in($paths)->files() as $command) {
             $commands[] = Str::before(self::class, 'Providers\\')
-                . 'Console\\Commands\\' . str_replace('.php', '', $command->getBasename());
+                .'Console\\Commands\\'.str_replace('.php', '', $command->getBasename());
         }
         $this->commands($commands);
     }

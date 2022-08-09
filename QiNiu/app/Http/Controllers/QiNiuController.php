@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -10,6 +16,7 @@ class QiNiuController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @return Renderable
      */
     public function index()
@@ -19,6 +26,7 @@ class QiNiuController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Renderable
      */
     public function create()
@@ -28,7 +36,8 @@ class QiNiuController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @return Renderable
      */
     public function store(Request $request)
@@ -38,7 +47,8 @@ class QiNiuController extends Controller
 
     /**
      * Show the specified resource.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return Renderable
      */
     public function show($id)
@@ -48,7 +58,8 @@ class QiNiuController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return Renderable
      */
     public function edit($id)
@@ -58,8 +69,9 @@ class QiNiuController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     *
+     * @param  Request  $request
+     * @param  int  $id
      * @return Renderable
      */
     public function update(Request $request, $id)
@@ -69,7 +81,8 @@ class QiNiuController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     *
+     * @param  int  $id
      * @return Renderable
      */
     public function destroy($id)
