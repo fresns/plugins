@@ -55,6 +55,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('placeholder')
             ->name('placeholder.')
             ->namespace($this->namespace)
-            ->group(dirname(__DIR__, 2) . '/routes/web.php');
+            ->group(dirname(__DIR__, 2).'/routes/web.php');
     }
 }

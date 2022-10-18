@@ -23,7 +23,7 @@ class FresnsEmailServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
 
-        $this->loadMigrationsFrom(dirname(__DIR__, 2) . '/database/migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__, 2).'/database/migrations');
 
         // Event::listen(UserCreated::class, UserCreatedListener::class);
     }
@@ -50,7 +50,7 @@ class FresnsEmailServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__, 2) . '/config/fresns-email.php', 'fresns-email'
+            dirname(__DIR__, 2).'/config/fresns-email.php', 'fresns-email'
         );
     }
 
@@ -61,7 +61,7 @@ class FresnsEmailServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $this->loadViewsFrom(dirname(__DIR__, 2) . '/resources/views', 'FresnsEmail');
+        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'FresnsEmail');
     }
 
     /**
@@ -71,7 +71,7 @@ class FresnsEmailServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom(dirname(__DIR__, 2) . '/resources/lang', 'FresnsEmail');
+        $this->loadTranslationsFrom(dirname(__DIR__, 2).'/resources/lang', 'FresnsEmail');
     }
 
     /**

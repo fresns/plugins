@@ -47,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-            ->group(dirname(__DIR__, 2) . '/routes/web.php');
+            ->group(dirname(__DIR__, 2).'/routes/web.php');
     }
 
     /**
@@ -61,6 +61,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->group(dirname(__DIR__, 2) . '/routes/api.php');
+            ->group(dirname(__DIR__, 2).'/routes/api.php');
     }
 }

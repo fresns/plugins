@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jarvis Tang
+ * Released under the Apache-2.0 License.
+ */
+
 namespace Plugins\QiNiu\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -17,7 +23,7 @@ class QiNiuServiceProvider extends BaseServiceProvider
         $this->registerConfig();
         $this->registerViews();
 
-        $this->loadMigrationsFrom(dirname(__DIR__, 2) . '/database/migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__, 2).'/database/migrations');
 
         // Event::listen(UserCreated::class, UserCreatedListener::class);
     }
@@ -44,11 +50,11 @@ class QiNiuServiceProvider extends BaseServiceProvider
     protected function registerConfig()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__, 2) . '/config/qiniu.php', 'qiniu'
+            dirname(__DIR__, 2).'/config/qiniu.php', 'qiniu'
         );
 
         $this->mergeConfigFrom(
-            dirname(__DIR__, 2) . '/config/filesystems.php', 'fresns-qiniu-filesystems'
+            dirname(__DIR__, 2).'/config/filesystems.php', 'fresns-qiniu-filesystems'
         );
 
         $this->publishes([
@@ -63,10 +69,10 @@ class QiNiuServiceProvider extends BaseServiceProvider
      */
     public function registerViews()
     {
-        $this->loadViewsFrom(dirname(__DIR__, 2) . '/resources/views', 'QiNiu');
+        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'QiNiu');
 
         $this->publishes([
-            __DIR__.'/../../resources/views' => resource_path('views/plugins/qiniu')
+            __DIR__.'/../../resources/views' => resource_path('views/plugins/qiniu'),
         ], ['views', 'qiniu-plugin-views']);
     }
 
@@ -77,7 +83,7 @@ class QiNiuServiceProvider extends BaseServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom(dirname(__DIR__, 2) . '/resources/lang', 'QiNiu');
+        $this->loadTranslationsFrom(dirname(__DIR__, 2).'/resources/lang', 'QiNiu');
     }
 
     /**

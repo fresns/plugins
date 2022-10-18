@@ -35,6 +35,6 @@ class PlaceholderServiceProvider extends ServiceProvider
      */
     protected function registerViews()
     {
-        $this->loadViewsFrom(dirname(__DIR__, 2) . '/resources/views', 'FsView');
+        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'FsView');
     }
 }

@@ -95,10 +95,11 @@ class UploadFile extends DTO
     {
         $transParams = $this->getVideoScreenshot();
         if (empty($transParams)) {
-            info("视频封面图生成失败，未配置 video_screenshot 转码设置");
+            info('视频封面图生成失败，未配置 video_screenshot 转码设置');
+
             return;
         }
-        
+
         $result = $this->executeTranscoding(
             auth: $storage->getAuthManager(),
             transParams: $transParams,

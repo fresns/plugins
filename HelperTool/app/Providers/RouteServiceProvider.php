@@ -27,12 +27,12 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-            ->group(dirname(__DIR__, 2) . '/routes/web.php');
+            ->group(dirname(__DIR__, 2).'/routes/web.php');
     }
 
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-            ->group(dirname(__DIR__, 2) . '/routes/api.php');
+            ->group(dirname(__DIR__, 2).'/routes/api.php');
     }
 }
