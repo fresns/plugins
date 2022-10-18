@@ -1,0 +1,26 @@
+{
+    "name": "fresns/easy-sms",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        },
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "overtrue/easy-sms": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Plugins\\EasySms\\": "app"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "unikey": "UtilityTool",
+    "type": 1,
+    "name": "Utility Test Tool",
+    "description": "Fresns official utilities function test tool.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "tool"
+    ],
+    "accessPath": null,
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\UtilityTool\\Providers\\UtilityToolServiceProvider"
+    ],
+    "aliases": {}
+}

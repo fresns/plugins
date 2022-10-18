@@ -1,0 +1,18 @@
+{
+    "unikey": "CmdWordTool",
+    "type": 1,
+    "name": "CmdWord Test Tool",
+    "description": "Fresns official helper function test tool.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "tool"
+    ],
+    "accessPath": null,
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\CmdWordTool\\Providers\\CmdWordToolServiceProvider"
+    ],
+    "aliases": {}
+}

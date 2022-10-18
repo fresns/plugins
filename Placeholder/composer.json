@@ -1,0 +1,19 @@
+{
+    "name": "fresns/placeholder",
+    "description": "Placeholder plugin for testing and viewing client generated parameters.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\Placeholder\\": "app"
+        }
+    },
+    "require": {}
+}

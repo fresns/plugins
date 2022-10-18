@@ -1,0 +1,20 @@
+{
+    "unikey": "EasySms",
+    "type": 1,
+    "name": "Easy SMS",
+    "description": "Fresns official development for the Chinese market to support multiple service providers SMS plugin.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "2.0.0",
+    "scene": [
+        "sendSms"
+    ],
+    "accessPath": null,
+    "settingsPath": "/easy-sms/setting",
+    "providers": [
+        "Plugins\\EasySms\\Providers\\EasySmsServiceProvider",
+        "Plugins\\EasySms\\Providers\\CmdWordServiceProvider",
+        "Plugins\\EasySms\\Providers\\EventServiceProvider"
+    ],
+    "aliases": {}
+}

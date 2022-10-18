@@ -1,0 +1,42 @@
+{
+    "unikey": "Placeholder",
+    "type": 1,
+    "name": "Fresns Placeholder",
+    "description": "Placeholder plugin for testing and viewing client generated parameters.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "apiKey",
+        "register",
+        "join",
+        "sendEmail",
+        "sendSms",
+        "connect",
+        "realName",
+        "multiUser",
+        "recharge",
+        "withdraw",
+        "storage",
+        "map",
+        "editor",
+        "followGroup",
+        "extendEditor",
+        "extendContentType",
+        "extendIp",
+        "extendReview",
+        "extendData",
+        "extendSearch",
+        "extendManage",
+        "extendGroup",
+        "extendUser",
+        "engine",
+        "appNotify"
+    ],
+    "accessPath": "/placeholder/index?sign={sign}&lang={langTag}&type={type}&scene={scene}&postMessageKey={postMessageKey}&aid={aid}&uid={uid}&rid={rid}&gid={gid}&pid={pid}&cid={cid}&eid={eid}&fid={fid}&plid={plid}&clid={clid}",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\Placeholder\\Providers\\PlaceholderServiceProvider"
+    ],
+    "aliases": {}
+}

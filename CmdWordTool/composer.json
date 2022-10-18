@@ -1,0 +1,19 @@
+{
+    "name": "fresns/cmd-word-tool",
+    "description": "Fresns official helper function test tool.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\CmdWordTool\\": "app"
+        }
+    },
+    "require": {}
+}
