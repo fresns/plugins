@@ -9,8 +9,6 @@
 namespace Plugins\QiNiu\Http\Controllers;
 
 use App\Fresns\Api\Traits\ApiResponseTrait;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 

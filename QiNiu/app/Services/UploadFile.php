@@ -118,7 +118,7 @@ class UploadFile extends DTO
         return PluginCallback::create([
             'plugin_unikey' => 'QiNiu',
             'uuid' => $uuid,
-            'types' => PluginCallback::TYPE_CUSTOMIZE,
+            'type' => PluginCallback::TYPE_CUSTOMIZE,
             'content' => [
                 'sence' => 'upload_file',
                 'pipline_id' => $result['id'],
