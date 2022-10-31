@@ -7,7 +7,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
-use Plugins\QiNiu\Http\Controllers as ApiController;
+use Plugins\QiNiu\Http\Controllers\QiNiuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +21,5 @@ use Plugins\QiNiu\Http\Controllers as ApiController;
 */
 
 Route::prefix('qiniu')->group(function () {
-    Route::get('/', [ApiController\QiNiuController::class, 'index']);
+    Route::get('upload', [QiNiuController::class, 'upload'])->name('qiniu.upload.file');
 });
