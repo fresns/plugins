@@ -8,11 +8,11 @@
 
 namespace Plugins\QiNiu\Http\Controllers;
 
-use Plugins\QiNiu\Http\Requests\UploadFileInfoDTO;
 use App\Fresns\Api\Traits\ApiResponseTrait;
 use App\Utilities\FileUtility;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Plugins\QiNiu\Http\Requests\UploadFileInfoDTO;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class QiNiuApiController extends Controller
@@ -123,7 +123,7 @@ class QiNiuApiController extends Controller
 
         $data = FileUtility::uploadFileInfo($bodyInfo);
 
-        if (!$data) {
+        if (! $data) {
             return $this->failure();
         }
 
