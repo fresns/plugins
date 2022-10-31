@@ -57,7 +57,7 @@ class SmsService
         $this->langTag = $this->smsSystemConfig->getLangTagOfEasySmsLinked($smsDTO->countryCode);
 
         // 模板
-        $template = $this->smsSystemConfig->getCodeTeamplate($smsDTO->templateId, $this->langTag);
+        $template = $this->smsSystemConfig->getCodeTemplate($smsDTO->templateId, $this->langTag);
 
         if (empty($template)) {
             ExceptionConstant::getHandleClassByCode(ExceptionConstant::WORD_UNKNOWN_ERROR)::throw('未找到短信模板');

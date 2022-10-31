@@ -65,7 +65,7 @@ class SmsConfig
         return $value;
     }
 
-    public function getCodeTeamplate(string $templateId, string $langTag)
+    public function getCodeTemplate(string $templateId, string $langTag)
     {
         $templateBlade = $this->getValueByConfigItemKey('verifycode_template'.$templateId);
 

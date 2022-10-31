@@ -5,7 +5,7 @@
     "description": "Fresns official development for the Chinese market to support multiple service providers SMS plugin.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "scene": [
         "sendSms"
     ],
