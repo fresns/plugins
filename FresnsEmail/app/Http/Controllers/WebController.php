@@ -8,6 +8,7 @@
 
 namespace Plugins\FresnsEmail\Http\Controllers;
 
+use App\Helpers\CacheHelper;
 use App\Helpers\PluginHelper;
 use App\Models\Config;
 use Illuminate\Http\Request;
@@ -61,6 +62,17 @@ class WebController extends Controller
             $fresnsConfigs->item_tag = 'fresnsemail';
             $fresnsConfigs->saveOrFail();
         });
+
+        $keys = [
+            'fresnsemail_smtp_host',
+            'fresnsemail_smtp_port',
+            'fresnsemail_smtp_username',
+            'fresnsemail_smtp_password',
+            'fresnsemail_verify_type',
+            'fresnsemail_from_mail',
+            'fresnsemail_from_name',
+        ];
+        CacheHelper::forgetFresnsKeys($keys);
 
         return back()->with('success', __('success!'));
     }
