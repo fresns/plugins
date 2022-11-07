@@ -158,17 +158,17 @@
                     if(json.code == '000000'){
                         $('#testUrl').removeAttr("disabled");
                         $('#testUrl').find(".spinner-border").hide();
-                        alert('send success');
+                        alert('Send successfully, please check');
                     }else{
                         $('#testUrl').removeAttr("disabled");
                         $('#testUrl').find(".spinner-border").hide();
-                        alert('send fail');
+                        alert('Send failed, please check the configuration');
                     }
                 },
                 error: function() {
                     $('#testUrl').removeAttr("disabled");
                     $('#testUrl').find(".spinner-border").hide();
-                    alert('server error');
+                    alert('Service error, please confirm e-mail support SMTP');
                 }
             });
         }
