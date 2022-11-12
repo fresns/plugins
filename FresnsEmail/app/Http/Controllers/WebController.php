@@ -33,7 +33,8 @@ class WebController extends Controller
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
-        $locale = request()->input('lang', 'zh-Hans');
+
+        $locale = request()->input('lang', 'en');
 
         return view('FresnsEmail::setting', compact('content', 'version', 'locale'));
     }
