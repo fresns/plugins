@@ -35,8 +35,8 @@ class SmsConfig
         $value = $this->getValueByConfigItemKey('easysms_linked');
 
         $default = [
-            "86" => "zh-Hans",
-            "other" => "en",
+            '86' => 'zh-Hans',
+            'other' => 'en',
         ];
 
         return $value ?? $default;
