@@ -34,24 +34,29 @@ class SmsConfig
     {
         $value = $this->getValueByConfigItemKey('easysms_linked');
 
-        return $value;
+        $default = [
+            "86" => "zh-Hans",
+            "other" => "en",
+        ];
+
+        return $value ?? $default;
     }
 
-    public function getAppId(): string
+    public function getAppId(): ?string
     {
         $value = $this->getValueByConfigItemKey('easysms_sdk_appid');
 
         return $value;
     }
 
-    public function getKeyId(): string
+    public function getKeyId(): ?string
     {
         $value = $this->getValueByConfigItemKey('easysms_keyid');
 
         return $value;
     }
 
-    public function getKeySecret(): string
+    public function getKeySecret(): ?string
     {
         $value = $this->getValueByConfigItemKey('easysms_keysecret');
 
