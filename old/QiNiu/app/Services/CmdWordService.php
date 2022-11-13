@@ -8,7 +8,6 @@
 
 namespace Plugins\QiNiu\Services;
 
-use App\Models\PluginCallback;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Plugins\QiNiu\AntiLinkFileInfo;
 use Plugins\QiNiu\AntiLinkFileInfoList;

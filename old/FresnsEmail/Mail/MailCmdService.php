@@ -11,8 +11,6 @@ namespace Plugins\FresnsEmail\Mail;
 use App\Helpers\ConfigHelper;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Plugins\FresnsEmail\Mail\MailSend;
-use Plugins\FresnsEmail\Mail\MailService;
 
 class MailCmdService
 {

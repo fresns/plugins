@@ -9,15 +9,6 @@
 namespace Plugins\QiNiu\Services;
 
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
-use Plugins\QiNiu\Services\AntiLinkFileInfo;
-use Plugins\QiNiu\Services\AntiLinkFileInfoList;
-use Plugins\QiNiu\Services\AntiLinkFileOriginalUrl;
-use Plugins\QiNiu\Services\AudioVideoTranscoding;
-use Plugins\QiNiu\Services\LogicalDeletionFiles;
-use Plugins\QiNiu\Services\PhysicalDeletionFiles;
-use Plugins\QiNiu\Services\UploadFile;
-use Plugins\QiNiu\Services\UploadFileInfo;
-use Plugins\QiNiu\Services\UploadToken;
 
 class CmdWordService
 {
