@@ -1,6 +1,6 @@
 # Cmd Word Test Tool
 
-Fresns official helper function test tool.
+Fresns official command word function test tool.
 
 ## Installation
 
