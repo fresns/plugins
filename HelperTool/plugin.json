@@ -14,5 +14,6 @@
     "providers": [
         "Plugins\\HelperTool\\Providers\\HelperToolServiceProvider"
     ],
+    "autoloadFiles": [],
     "aliases": {}
 }

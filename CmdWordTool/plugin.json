@@ -14,5 +14,6 @@
     "providers": [
         "Plugins\\CmdWordTool\\Providers\\CmdWordToolServiceProvider"
     ],
+    "autoloadFiles": [],
     "aliases": {}
 }

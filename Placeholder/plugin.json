@@ -38,5 +38,6 @@
     "providers": [
         "Plugins\\Placeholder\\Providers\\PlaceholderServiceProvider"
     ],
+    "autoloadFiles": [],
     "aliases": {}
 }

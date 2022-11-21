@@ -16,5 +16,6 @@
         "Plugins\\EasySms\\Providers\\CmdWordServiceProvider",
         "Plugins\\EasySms\\Providers\\EventServiceProvider"
     ],
+    "autoloadFiles": [],
     "aliases": {}
 }
