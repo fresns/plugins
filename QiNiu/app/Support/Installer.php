@@ -9,9 +9,7 @@
 namespace Plugins\QiNiu\Support;
 
 use App\Fresns\Subscribe\Subscribe;
-use App\Models\Comment;
-use App\Models\DialogMessage;
-use App\Models\Post;
+use App\Models\FileUsage;
 
 class Installer
 {
@@ -20,19 +18,7 @@ class Installer
             'type' => Subscribe::SUBSCRIBE_TYPE_TABLE_DATA_CHANGE,
             'unikey' => 'QiNiu',
             'cmdWord' => 'audioVideoTranscoding',
-            'subTableName' => Post::class,
-        ],
-        [
-            'type' => Subscribe::SUBSCRIBE_TYPE_TABLE_DATA_CHANGE,
-            'unikey' => 'QiNiu',
-            'cmdWord' => 'audioVideoTranscoding',
-            'subTableName' => Comment::class,
-        ],
-        [
-            'type' => Subscribe::SUBSCRIBE_TYPE_TABLE_DATA_CHANGE,
-            'unikey' => 'QiNiu',
-            'cmdWord' => 'audioVideoTranscoding',
-            'subTableName' => DialogMessage::class,
+            'subTableName' => FileUsage::class,
         ],
     ];
 

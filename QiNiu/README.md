@@ -38,14 +38,7 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
     "type" => 1,
     "unikey" => "QiNiu",
     "cmdWord" => "qiniuTranscoding"
-    "subTableName" => "posts"
-])
-
-\FresnsCmdWord::plugin('Fresns')->addSubscribeItem([
-    "type" => 1,
-    "unikey" => "QiNiu",
-    "cmdWord" => "qiniuTranscoding"
-    "subTableName" => "comments"
+    "subTableName" => "file_usages"
 ])
 ```
 
@@ -56,13 +49,6 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
     "type" => 1,
     "unikey" => "QiNiu",
     "cmdWord" => "qiniuTranscoding"
-    "subTableName" => "posts"
-])
-
-\FresnsCmdWord::plugin('Fresns')->deleteSubscribeItem([
-    "type" => 1,
-    "unikey" => "QiNiu",
-    "cmdWord" => "qiniuTranscoding"
-    "subTableName" => "comments"
+    "subTableName" => "file_usages"
 ])
 ```

@@ -37,9 +37,8 @@ class AudioVideoTranscoding extends DTO
         $fileAppends = FileUsage::query()
             ->with('file')
             ->whereIn('file_type', [File::TYPE_VIDEO, File::TYPE_AUDIO])
-            ->where('table_name', $this->tableName)
-            ->where('table_column', 'id')
-            ->where('table_id', $this->primaryId)
+            ->whereIn('table_name', ['posts', 'comments', 'conversation_messages'])
+            ->where('id', $this->primaryId)
             ->get();
 
         foreach ($fileAppends as $fileAppend) {
@@ -69,10 +68,10 @@ class AudioVideoTranscoding extends DTO
                 auth: $storage->getAuthManager(),
                 transParams: $transParams,
                 bucket: $this->getBucketName(),
-                dir: FileHelper::fresnsFileStoragePath($fileAppend->file_type, $fileAppend->use_type),
+                dir: FileHelper::fresnsFileStoragePath($fileAppend->file_type, $fileAppend->usage_type),
                 key: $key,
                 filename: $filename,
-                notifyUrl: route('qiniu.transcoding.callback', ['uuid', $uuid]),
+                notifyUrl: route('qiniu.transcoding.callback', ['uuid' => $uuid]),
             );
 
             if (is_null($result) || empty($result['id'])) {
