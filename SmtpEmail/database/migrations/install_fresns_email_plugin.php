@@ -7,8 +7,6 @@
  */
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Plugins\SmtpEmail\Support\Installer;
 
 return new class extends Migration

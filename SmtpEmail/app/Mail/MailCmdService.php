@@ -11,8 +11,6 @@ namespace Plugins\SmtpEmail\Mail;
 use App\Helpers\ConfigHelper;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Plugins\SmtpEmail\Mail\MailSend;
-use Plugins\SmtpEmail\Mail\MailService;
 
 class MailCmdService
 {
