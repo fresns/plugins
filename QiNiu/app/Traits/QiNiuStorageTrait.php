@@ -130,7 +130,7 @@ trait QiNiuStorageTrait
     }
 
     /**
-     * 生成七牛云私有空间文件链接
+     * 生成七牛云私有空间文件链接.
      *
      * @param  string  $url
      * @param  int  $deadline
