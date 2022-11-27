@@ -21,7 +21,15 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 | 存储配置名称 | 空间名称 |
 | 存储配置地域 | 华东-浙江 `z0`<br>华东-浙江2 `cn-east-2`<br>华北-河北 `z1`<br>华南-广东 `z2`<br>北美-洛杉矶 `na0`<br>亚太-新加坡 `as0`<br>亚太-首尔 `ap-northeast-1` |
 | 存储配置域名 | 空间绑定的域名 |
+| 文件系统磁盘 | `remote` |
 | 图片处理功能配置 | 图片样式名包含样式分隔符 |
+
+| 功能配置 | 介绍 |
+| --- | --- |
+| 防盗链功能 | 七牛云采用 AK 和 SK 生成防盗链接，防盗链 Key 留空即可 |
+| 视频转码参数 | 示例 `avthumb/mp4/ab/160k/ar/44100/acodec/libfaac/r/30/vb/2200k/vcodec/libx264/s/1280x720/autoscale/1/stripmeta/0` |
+| 视频截图参数 | 示例 `vframe/jpg/offset/7/w/480/h/360` |
+| 音频转码参数 | 示例 `avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame` |
 
 ## 开发说明
 

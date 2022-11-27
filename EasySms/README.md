@@ -7,6 +7,22 @@ Fresns official development for the Chinese market to support multiple service p
 - Installation with key name: `EasySms`
 - Installation using command: `php artisan market:require EasySms`
 
+## Configuration Notes
+
+| 配置项 | 腾讯云 | 阿里云 |
+| --- | --- | --- |
+| Key ID | 访问管理->用户->用户列表->用户详情->API 密钥<br>`SecretId` | RAM 访问控制->身份管理->用户<br>`AccessKey ID` |
+| Key Secret | 访问管理->用户->用户列表->用户详情->API 密钥<br>`SecretKey` | RAM 访问控制->身份管理->用户<br>`AccessKey Secret` |
+| SDK App ID | 短信->应用管理->应用列表->SDK AppID | 留空 |
+
+**权限说明：**
+- 腾讯云：权限->权限策略->短信服务（SMS）全读写访问权限 `QcloudSMSFullAccess`
+- 阿里云：权限管理->系统策略->管理短信服务(SMS)的权限 `AliyunDysmsFullAccess`
+
+**模板说明：**
+- 腾讯云：验证码变量名示例 `{1}`
+- 阿里云：验证码变量名示例 `${code}`
+
 ## Dev Notes
 
 ### 配置项键名
