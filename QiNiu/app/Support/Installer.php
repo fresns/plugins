@@ -33,7 +33,7 @@ class Installer
     public function install()
     {
         try {
-            $this->handleSubscribes(function ($subscribe)  {
+            $this->handleSubscribes(function ($subscribe) {
                 $resp = \FresnsCmdWord::plugin()->addSubscribeItem($subscribe);
             });
         } catch (\Throwable $e) {
@@ -46,7 +46,7 @@ class Installer
     public function uninstall()
     {
         try {
-            $this->handleSubscribes(function ($subscribe)  {
+            $this->handleSubscribes(function ($subscribe) {
                 $resp = \FresnsCmdWord::plugin()->deleteSubscribeItem($subscribe);
             });
         } catch (\Throwable $e) {
