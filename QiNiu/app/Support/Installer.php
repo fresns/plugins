@@ -15,7 +15,7 @@ class Installer
 {
     protected $subscribes = [
         [
-            'type' => Subscribe::SUBSCRIBE_TYPE_TABLE_DATA_CHANGE,
+            'type' => Subscribe::TYPE_TABLE_DATA_CHANGE,
             'unikey' => 'QiNiu',
             'cmdWord' => 'audioVideoTranscoding',
             'subTableName' => FileUsage::class,
@@ -33,7 +33,9 @@ class Installer
     public function install()
     {
         try {
-            $this->handleSubscribes(fn ($subscribe) => \FresnsCmdWord::plugin()->addSubscribeItem($subscribe));
+            $this->handleSubscribes(function ($subscribe)  {
+                $resp = \FresnsCmdWord::plugin()->addSubscribeItem($subscribe);
+            });
         } catch (\Throwable $e) {
             \info('add config fail: '.$e->getMessage());
             throw $e;
@@ -44,7 +46,9 @@ class Installer
     public function uninstall()
     {
         try {
-            $this->handleSubscribes(fn ($subscribe) => \FresnsCmdWord::plugin()->deleteSubscribeItem($subscribe));
+            $this->handleSubscribes(function ($subscribe)  {
+                $resp = \FresnsCmdWord::plugin()->deleteSubscribeItem($subscribe);
+            });
         } catch (\Throwable $e) {
             \info('remove config fail: '.$e->getMessage());
             throw $e;
