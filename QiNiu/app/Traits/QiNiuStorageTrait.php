@@ -15,19 +15,13 @@ use Illuminate\Support\Facades\Storage;
 
 trait QiNiuStorageTrait
 {
-    /**
-     * 见 https://fresns.cn/database/dictionary/storages.html.
-     */
+    // 参见 https://fresns.cn/database/dictionary/storages.html
     protected $storageId = 17;
 
-    /**
-     * Fresns.
-     */
+    // 存储空间名称
     protected $defaultBucketName = 'Fresns';
 
-    /**
-     * 单位：分钟
-     */
+    // 私有空间 URL 有效期，单位 秒
     protected $defaultExpireTime = 3600;
 
     protected array $userConfig = [];
@@ -51,7 +45,7 @@ trait QiNiuStorageTrait
 
     public function isEnableAntiLink()
     {
-        return $this->userConfig['antiLinkConfigStatus'] ?? false;
+        return $this->userConfig['antiLinkStatus'] ?? false;
     }
 
     public function resetQiNiuConfig()
@@ -113,58 +107,6 @@ trait QiNiuStorageTrait
         return $this->defaultExpireTime;
     }
 
-    /**
-     * 生成七牛云防盗链，防盗链基于时间戳.
-     *
-     * @param  string  $url
-     * @param  string  $antiLinkKey
-     * @param  int  $deadline
-     * @param  array  $query
-     * @return void
-     *
-     * @see https://developer.qiniu.com/fusion/kb/1670/timestamp-hotlinking-prevention
-     */
-    public function getAntiLinkUrl(string $url, string $antiLinkKey, int $deadline, array $query = [])
-    {
-        $urlInfo = parse_url($url);
-
-        if (empty($urlInfo['path'])) {
-            return null;
-        }
-
-        $qiniuOriginUrl = sprintf('/%s', ltrim($urlInfo['path'], '/'));
-
-        $accessUrl = $qiniuOriginUrl;
-        $accessUrl = implode('/', array_map('rawurlencode', explode('/', $accessUrl)));
-
-        $key = $antiLinkKey;
-
-        $hexDeadline = dechex($deadline);
-        $lowerHexDeadline = strtolower($hexDeadline);
-
-        $signString = sprintf('%s%s%s', $key, $accessUrl, $lowerHexDeadline);
-
-        $sign = strtolower(md5($signString));
-
-        $querystring = http_build_query(array_merge($query, [
-            'sign' => $sign,
-            't' => $lowerHexDeadline,
-        ]));
-
-        if (str_contains($url, '?')) {
-            $url .= "&{$querystring}";
-        } else {
-            $url .= "?{$querystring}";
-        }
-
-        return $url;
-    }
-
-    public function getAntiLinkKey()
-    {
-        return $this->userConfig['antiLinkKey'] ?? null;
-    }
-
     public function getDeadline()
     {
         return time() + $this->getExpireSeconds();
@@ -185,6 +127,48 @@ trait QiNiuStorageTrait
         $expireMinuteTime = $this->userConfig['antiLinkExpire'] ?? (int) bcdiv($this->defaultExpireTime, 60);
 
         return (int) bcmul($expireMinuteTime, 60);
+    }
+
+    /**
+     * 生成七牛云私有空间文件链接
+     *
+     * @param  string  $url
+     * @param  int  $deadline
+     * @return void
+     *
+     * @see https://developer.qiniu.com/kodo/1241/php#private-get
+     */
+    public function getAntiLinkUrl(string $url, int $deadline)
+    {
+        $storage = $this->getAdapter();
+
+        $url = $storage?->privateDownloadUrl($url, $deadline);
+
+        return $url;
+    }
+
+    // 转码配置
+    public function getTranscodingConfig()
+    {
+        return ConfigHelper::fresnsConfigByItemKeys([
+            'video_transcode',
+            'audio_transcode',
+        ]);
+    }
+
+    public function getTranscondingConfigByFileType(int $type)
+    {
+        if (empty($this->transcodingConfig)) {
+            $this->transcodingConfig = $this->getTranscodingConfig();
+        }
+
+        $key = match ($type) {
+            default => null,
+            File::TYPE_VIDEO => 'video_transcode',
+            File::TYPE_AUDIO => 'audio_transcode',
+        };
+
+        return $this->transcodingConfig[$key] ?? null;
     }
 
     /**
@@ -226,28 +210,5 @@ trait QiNiuStorageTrait
             'id' => $id,
             'path' => $filepath,
         ];
-    }
-
-    public function getTranscodingConfig()
-    {
-        return ConfigHelper::fresnsConfigByItemKeys([
-            'video_transcode',
-            'audio_transcode',
-        ]);
-    }
-
-    public function getTranscondingConfigByFileType(int $type)
-    {
-        if (empty($this->transcodingConfig)) {
-            $this->transcodingConfig = $this->getTranscodingConfig();
-        }
-
-        $key = match ($type) {
-            default => null,
-            File::TYPE_VIDEO => 'video_transcode',
-            File::TYPE_AUDIO => 'audio_transcode',
-        };
-
-        return $this->transcodingConfig[$key] ?? null;
     }
 }
