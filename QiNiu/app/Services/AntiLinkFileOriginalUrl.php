@@ -55,7 +55,7 @@ class AntiLinkFileOriginalUrl extends DTO
         $url = sprintf('%s/%s', rtrim($this->getBucketDomain(), '/'), ltrim($originalPath));
 
         return [
-            'originalUrl' => $this->getAntiLinkUrl($url, $this->getAntiLinkKey(), $this->getDeadline()),
+            'originalUrl' => $this->getAntiLinkUrl($url, $this->getDeadline()),
         ];
     }
 }

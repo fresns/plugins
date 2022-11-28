@@ -50,7 +50,6 @@ class AntiLinkFileInfo extends DTO
 
             $fileInfo = $file->getFileInfo();
 
-            $antiLinkKey = $this->getAntiLinkKey();
             $deadline = $this->getDeadline();
 
             $keys = [
@@ -62,7 +61,7 @@ class AntiLinkFileInfo extends DTO
 
             foreach ($keys as $key) {
                 if (! empty($fileInfo[$key])) {
-                    $fileInfo[$key] = $this->getAntiLinkUrl($fileInfo[$key], $antiLinkKey, $deadline);
+                    $fileInfo[$key] = $this->getAntiLinkUrl($fileInfo[$key], $deadline);
                 }
             }
 
