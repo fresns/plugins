@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "overtrue/easy-sms": "^2.2"
+        "overtrue/easy-sms": "^2.3"
     },
     "autoload": {
         "psr-4": {

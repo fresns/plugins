@@ -9,6 +9,7 @@
 namespace Plugins\SmtpEmail\Mail;
 
 use App\Helpers\ConfigHelper;
+use App\Helpers\DateHelper;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,15 +23,17 @@ class MailCmdService
                 return ['code' => 1002, 'message' => 'Data does not exist', 'data' => []];
             }
             $code = $codeRes['mailCode'];
-            $expired = $codeRes['expired'];
             $sitename = ConfigHelper::fresnsConfigByItemKey('site_name', $input['langTag']);
             $template = MailService::getTemplateValue($input['templateId'], $input['langTag']);
             if (empty($template) || empty($template['title']) || empty($template['content'])) {
                 return ['code' => 1002, 'message' => 'Data does not exist', 'data' => []];
             }
 
+            $datetime = date('Y-m-d H:i:s', time());
+            $time = DateHelper::fresnsDateTimeByTimezone($datetime, null, $input['langTag']);
+
             $title = MailService::getTitle($template['title'], $sitename);
-            $content = MailService::getContent($template['content'], $sitename, $code, $expired);
+            $content = MailService::getContent($template['content'], $sitename, $code, $time);
 
             Log::info('Email Params: ', [$input, $title, $content]);
 
