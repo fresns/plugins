@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-5">
                         <div class="input-group mt-2 mb-4 justify-content-lg-end px-1" role="group">
-                            <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/main/EasySms" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+                            <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/release/EasySms" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
