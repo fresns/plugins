@@ -61,8 +61,25 @@ class AudioVideoTranscoding extends DTO
             $key = $fileAppend->file->path;
 
             $uuid = Str::uuid();
-            $filename = str_replace(pathinfo($key, PATHINFO_EXTENSION), $extension, pathinfo($key, PATHINFO_BASENAME));
-            $filename = str_replace(pathinfo($key, PATHINFO_FILENAME), pathinfo($key, PATHINFO_FILENAME).'-transcoding_file', pathinfo($key, PATHINFO_BASENAME));
+
+            $fileBasename = pathinfo($key, PATHINFO_BASENAME); // 七牛存储空间的文件名，包含后缀
+            $fileExt = pathinfo($key, PATHINFO_EXTENSION); // 七牛存储空间的文件名的后缀，不含 "."
+            $oldFilename = pathinfo($key, PATHINFO_FILENAME); // 七牛存储空间的文件名，不含后缀
+
+            $filename = str_replace($fileExt, $extension, $fileBasename);
+
+            // 设置保存文件的新文件名
+            $filenameParts = explode('-', $oldFilename);
+            if (!empty($filenameParts[2])) {
+                $filename = str_replace(
+                    [
+                        $fileExt, $filenameParts[2]
+                    ],
+                    [
+                        $extension, 'transcode'
+                    ],
+                    $fileBasename);
+            }
 
             $result = $this->executeTranscoding(
                 auth: $storage->getAuthManager(),
