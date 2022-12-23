@@ -9,8 +9,8 @@
 namespace Plugins\QiNiu\Http\Controllers;
 
 use App\Fresns\Api\Traits\ApiResponseTrait;
-use App\Helpers\ConfigHelper;
 use App\Helpers\CacheHelper;
+use App\Helpers\ConfigHelper;
 use App\Models\File;
 use App\Models\PluginCallback;
 use Illuminate\Http\Request;
@@ -88,7 +88,6 @@ class QiNiuApiController extends Controller
                         // 保留原来的
                         $videoCoverPath = $file->video_cover_path;
                     }
-
 
                     $file->update(array_merge([
                         'path' => $diskPath,
