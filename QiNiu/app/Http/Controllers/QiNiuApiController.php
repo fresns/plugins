@@ -9,7 +9,10 @@
 namespace Plugins\QiNiu\Http\Controllers;
 
 use App\Fresns\Api\Traits\ApiResponseTrait;
-use App\Utilities\FileUtility;
+use App\Helpers\ConfigHelper;
+use App\Helpers\CacheHelper;
+use App\Models\File;
+use App\Models\PluginCallback;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Plugins\QiNiu\Http\Requests\UploadFileInfoDTO;
@@ -28,7 +31,7 @@ class QiNiuApiController extends Controller
 
         $data = \request()->all();
 
-        $pluginCallback = \App\Models\PluginCallback::query()->where('uuid', $uuid)->first();
+        $pluginCallback = PluginCallback::query()->where('uuid', $uuid)->first();
         \info('plugin_callback', [
             $pluginCallback?->toArray(),
         ]);
@@ -39,26 +42,13 @@ class QiNiuApiController extends Controller
         $fileInfo = $pluginCallback->content['file'] ?? [];
 
         switch ($pluginCallback->content['sence']) {
-            case 'upload_file':
-                if ($data['code'] == 3) {
-                    return $this->failure(3e4, '转码失败 '.$uuid);
-                }
-
-                if ($data['code'] == 0 && $fileInfo['type'] == \App\Models\File::TYPE_VIDEO) {
-                    // 保存视频截图
-                    \App\Models\File::where('fid', $fileInfo['fid'])->update([
-                        // 'video_cover' => $pluginCallback->content['save_path'],
-                        'video_cover_path' => $pluginCallback->content['save_path'],
-                    ]);
-                }
-            break;
             case 'transcoding':
-                $file = \App\Models\File::where('fid', $fileInfo['fid'])->first();
+                $file = File::where('fid', $fileInfo['fid'])->first();
 
                 // 失败
                 if ($data['code'] == 3) {
                     $file->update([
-                        'transcoding_state' => \App\Models\File::TRANSCODING_STATE_FAILURE,
+                        'transcoding_state' => File::TRANSCODING_STATE_FAILURE,
                         'transcoding_reason' => $data['items'][0]['error'] ?? null,
                     ]);
                     break;
@@ -88,17 +78,32 @@ class QiNiuApiController extends Controller
                         ]);
                     }
 
+                    $videoScreenshot = ConfigHelper::fresnsConfigByItemKey('video_screenshot');
+
+                    // unit: seconds @see https://developer.qiniu.com/dora/1313/video-frame-thumbnails-vframe
+                    $videoCoverPath = $diskPath.'?'.$videoScreenshot;
+                    if (empty($videoScreenshot)) {
+                        info('视频封面图生成失败，未配置 video_screenshot 转码设置');
+
+                        // 保留原来的
+                        $videoCoverPath = $file->video_cover_path;
+                    }
+
+
                     $file->update(array_merge([
                         'path' => $diskPath,
-                        'transcoding_state' => \App\Models\File::TRANSCODING_STATE_DONE,
+                        'video_cover_path' => $videoCoverPath,
+                        'transcoding_state' => File::TRANSCODING_STATE_DONE,
                     ], $meta));
+
+                    CacheHelper::forgetFresnsFileUsage($file->id);
                     break;
                 }
             break;
         }
 
         $pluginCallback->update([
-            'is_use' => \App\Models\PluginCallback::IS_USE_TRUE,
+            'is_use' => PluginCallback::IS_USE_TRUE,
         ]);
 
         return $this->success(null, '操作 '.$uuid);
@@ -109,24 +114,24 @@ class QiNiuApiController extends Controller
         $dtoRequest = new UploadFileInfoDTO($request->all());
 
         $bodyInfo = [
-            'aid' => $dtoRequest->aid,
-            'uid' => $dtoRequest->uid,
             'platformId' => $dtoRequest->platformId,
             'usageType' => $dtoRequest->usageType,
             'tableName' => $dtoRequest->tableName,
             'tableColumn' => $dtoRequest->tableColumn,
             'tableId' => $dtoRequest->tableId ?? null,
             'tableKey' => $dtoRequest->tableKey ?? null,
+            'aid' => $dtoRequest->aid,
+            'uid' => $dtoRequest->uid,
             'type' => (int) $dtoRequest->type,
             'fileInfo' => $dtoRequest->fileInfo,
         ];
 
-        $data = FileUtility::uploadFileInfo($bodyInfo);
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->uploadFileInfo($bodyInfo);
 
-        if (! $data) {
-            return $this->failure();
+        if ($fresnsResp->isErrorResponse()) {
+            return $fresnsResp->errorResponse();
         }
 
-        return $this->success($data);
+        return $this->success($fresnsResp->getData());
     }
 }

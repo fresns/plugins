@@ -11,6 +11,7 @@ namespace Plugins\QiNiu\Http\Controllers;
 use App\Helpers\ConfigHelper;
 use App\Helpers\FileHelper;
 use App\Helpers\PrimaryHelper;
+use App\Models\FileUsage;
 use App\Utilities\ConfigUtility;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -102,6 +103,19 @@ class QiNiuController extends Controller
         $dir = FileHelper::fresnsFileStoragePath($fileType, $uploadInfo['usageType']);
         $checkHeaders = $fresnsResp->getData();
 
+        // 判断上传文件数量
+        $fileCount = FileUsage::where('file_type', $fileType)
+            ->where('usage_type', $uploadInfo['usageType'])
+            ->where('table_name', $uploadInfo['tableName'])
+            ->where('table_column', $uploadInfo['tableColumn'])
+            ->where('table_id', $uploadInfo['tableId'])
+            ->count();
+
+        $fileCountTip = ConfigUtility::getCodeMessage(36115, 'Fresns', $langTag);
+
+        $fileMax = $uploadConfig['uploadNumber'] - $fileCount;
+
+        // 获取上传凭证
         $uploadTokenResp = \FresnsCmdWord::plugin('QiNiu')->getUploadToken([
             'type' => $fileType,
             'name' => null,
@@ -119,7 +133,10 @@ class QiNiuController extends Controller
             'uploadToken',
             'fsLang',
             'uploadConfig',
-            'postMessageKey'
+            'fileCount',
+            'fileCountTip',
+            'fileMax',
+            'postMessageKey',
         ));
     }
 }

@@ -16,7 +16,7 @@
                 font-size: 0.9rem;
             }
         </style>
-        @yield('css')
+        @stack('css')
     </head>
 
     <body>
@@ -27,6 +27,6 @@
         <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
         <script src="{{ @asset('/static/js/select2.min.js') }}"></script>
         <script src="{{ @asset('/assets/plugins/QiNiu/js/app.js') }}"></script>
-        @yield('js')
+        @stack('script')
     </body>
 </html>
