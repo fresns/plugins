@@ -70,13 +70,13 @@ class AudioVideoTranscoding extends DTO
 
             // 设置保存文件的新文件名
             $filenameParts = explode('-', $oldFilename);
-            if (!empty($filenameParts[2])) {
+            if (! empty($filenameParts[2])) {
                 $filename = str_replace(
                     [
-                        $fileExt, $filenameParts[2]
+                        $fileExt, $filenameParts[2],
                     ],
                     [
-                        $extension, 'transcode'
+                        $extension, 'transcode',
                     ],
                     $fileBasename);
             }

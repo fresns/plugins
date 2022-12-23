@@ -9,13 +9,11 @@
 namespace Plugins\QiNiu\Services;
 
 use App\Helpers\ConfigHelper;
-use App\Helpers\StrHelper;
 use App\Helpers\FileHelper;
+use App\Helpers\StrHelper;
 use App\Models\File;
-use App\Models\PluginCallback;
 use App\Utilities\FileUtility;
 use Fresns\DTO\DTO;
-use Illuminate\Support\Str;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class UploadFile extends DTO

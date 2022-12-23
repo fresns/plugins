@@ -117,8 +117,8 @@ function uploadFile(file) {
         };
     }
 
-    var randomStr = Math.round(Math.random() * 100000000000)
-    var currentTimestampMs = +new Date()
+    var randomStr = Math.round(Math.random() * 100000000000);
+    var currentTimestampMs = +new Date();
     key = dir + '/' + `${uploadType}-${randomStr}-${currentTimestampMs}` + '.' + getFileExtension(file.name);
     token = uploadToken;
 
