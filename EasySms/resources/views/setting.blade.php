@@ -85,7 +85,7 @@
 
     <footer>
         <div class="copyright text-center">
-            <p class="mt-5 mb-5 text-muted">&copy; 2021 Fresns</p>
+            <p class="mt-5 mb-5 text-muted">&copy; 2021-Present Fresns</p>
         </div>
     </footer>
 
