@@ -66,10 +66,10 @@ window.progress = {
     speed: 1000,
     parentElement: null,
     stop: false,
-    html: function (){
-        return `<div class="progress-bar" role="progressbar" style="width: ${progress.valuenow}%" aria-valuenow="${progress.valuenow}" aria-valuemin="0" aria-valuemax="100">${progress.valuenow}</div>`
+    html: function () {
+        return `<div class="progress-bar" role="progressbar" style="width: ${progress.valuenow}%" aria-valuenow="${progress.valuenow}" aria-valuemin="0" aria-valuemax="100">${progress.valuenow}</div>`;
     },
-    setProgressElement: function (pe){
+    setProgressElement: function (pe) {
         this.parentElement = pe;
         return this;
     },
@@ -77,7 +77,7 @@ window.progress = {
         this.total = 100;
         this.valuenow = 0;
         this.parentElement = null;
-        this.stop = false
+        this.stop = false;
         return this;
     },
     work: function () {
@@ -89,14 +89,14 @@ window.progress = {
         if (obj.stop !== true && obj.valuenow < obj.total) {
             let num = parseFloat(obj.total) - parseFloat(obj.valuenow);
             obj.valuenow = (parseFloat(obj.valuenow) + parseFloat(num / 100)).toFixed(2);
-            $(obj.parentElement).empty().append(html)
+            $(obj.parentElement).empty().append(html);
         } else {
-            $(obj.parentElement).empty().append(html)
+            $(obj.parentElement).empty().append(html);
             return;
         }
-        setTimeout(function(){
-            obj.add(obj)
-        }, obj.speed)
+        setTimeout(function () {
+            obj.add(obj);
+        }, obj.speed);
     },
     exit: function () {
         this.valuenow = 0;
@@ -109,7 +109,7 @@ window.progress = {
     },
     clearHtml: function () {
         this.parentElement?.empty();
-    }
+    },
 };
 
 function progressInit() {
@@ -122,8 +122,8 @@ function progressInit() {
 }
 
 function progressReset() {
-    $(".ajax-progress").empty();
-    $('.ajax-progress-submit').show().removeAttr("disabled");
+    $('.ajax-progress').empty();
+    $('.ajax-progress-submit').show().removeAttr('disabled');
 }
 
 function progressDown() {
@@ -180,7 +180,7 @@ function uploadFile(file) {
     var uploadType = $(form).find('input[name="uploadType"]').val();
     var uploadToken = $(form).find('input[name="uploadToken"]').val();
 
-    var uploadTypeStr = uploadType == 'video' && '视频' || '音频';
+    var uploadTypeStr = (uploadType == 'video' && '视频') || '音频';
 
     var setting_extensions = $('#extensions').data('value');
     var setting_uploadMaxSize = $('#uploadMaxSize').data('value');
@@ -197,7 +197,7 @@ function uploadFile(file) {
     }
 
     // 文件过大，单位 MB
-    if (setting_uploadMaxSize && file.size > (setting_uploadMaxSize * 1024 * 1024)) {
+    if (setting_uploadMaxSize && file.size > setting_uploadMaxSize * 1024 * 1024) {
         window.tips('文件过大，上传失败');
         progressExit && progressExit();
         return;
@@ -267,10 +267,9 @@ function uploadFile(file) {
         chunkSize: 4, // 分片上传时每片的大小，必须为正整数，单位为 MB，且最大不能超过 1024
     };
 
-
     var intervalId = setInterval(() => {
         // 获取音视频元数据需要等待，时长不确定，故使用定时器进行检测，每 500ms 判断一次是否加载完成
-        
+
         // 不是音视频的时候，直接可以上传
         // 音视频的时长获取到之后，也可以进行上传，此时需要清理定时器
         if ((uploadType == 'video' || uploadType == 'audio') && setting_uploadMaxTime) {
@@ -292,7 +291,7 @@ function uploadFile(file) {
         clearInterval(intervalId);
 
         observable = qiniu.upload(file, key, token, putExtra, config);
-    
+
         subscription = observable.subscribe({
             next(res) {
                 console.log(res, 'next');
@@ -305,14 +304,14 @@ function uploadFile(file) {
             complete(res) {
                 console.log(res, 'complete');
                 progressDown && progressDown();
-    
+
                 var searchParams = new URLSearchParams(window.location.href);
                 var urlConfig = {};
-    
+
                 try {
                     urlConfig = JSON.parse(window.atob(searchParams.get('config')));
                 } catch (e) {}
-    
+
                 var fileInfoItem = {
                     name: file.name,
                     mime: file.type,
@@ -334,9 +333,9 @@ function uploadFile(file) {
                     rating: null,
                     remark: null,
                 };
-    
+
                 console.log('fileInfoItem', fileInfoItem);
-    
+
                 // 上传到七牛
                 $.ajax({
                     url: '/api/qiniu/upload-fileinfo',
@@ -358,7 +357,7 @@ function uploadFile(file) {
                             window.tips(res.message);
                             return;
                         }
-    
+
                         var message;
                         parent.postMessage(
                             (message = {
@@ -386,13 +385,13 @@ function uploadFile(file) {
                                 data: res.data,
                             })
                         );
-    
+
                         console.log('发送给父级的信息', message);
                     },
                 });
             },
         });
-    }, 500)
+    }, 500);
 }
 
 $(document).ready(function () {});
