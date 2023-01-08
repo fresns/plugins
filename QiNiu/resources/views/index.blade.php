@@ -22,17 +22,18 @@
 
             <div class="input-group">
                 <input class="form-control" type="file" id="formFile" @if($uploadConfig['uploadNumber'] > 1) multiple="multiple" max="{{ $fileMax }}" @endif accept="{{ $uploadConfig['inputAccept'] }}">
-                <button class="btn btn-outline-secondary" type="button" onclick="uploadFiles(event)">{{ $fsLang['editorUploadBtn'] }}</button>
+                <button class="btn btn-outline-secondary ajax-progress-submit" type="button">{{ $fsLang['editorUploadBtn'] }}</button>
             </div>
+            <div class="ajax-progress progress mt-2"></div>
         </form>
     @endif
 
-    <div class="mx-2 mt-3 text-secondary fs-7">{{ $fsLang['editorUploadExtensions'] }}: {{ $uploadConfig['extensions'] }}</div>
-    <div class="mx-2 mt-2 text-secondary fs-7">{{ $fsLang['editorUploadMaxSize'] }}: {{ $uploadConfig['maxSize'] }} MB</div>
+    <div class="mx-2 mt-3 text-secondary fs-7" id="extensions" data-value="{{ $uploadConfig['extensions'] }}">{{ $fsLang['editorUploadExtensions'] }}: {{ $uploadConfig['extensions'] }}</div>
+    <div class="mx-2 mt-2 text-secondary fs-7" id="uploadMaxSize" data-value="{{ $uploadConfig['maxSize'] }}">{{ $fsLang['editorUploadMaxSize'] }}: {{ $uploadConfig['maxSize'] }} MB</div>
     @if ($uploadConfig['maxTime'] > 0)
-        <div class="mx-2 mt-2 text-secondary fs-7">{{ $fsLang['editorUploadMaxTime'] }}: {{ $uploadConfig['maxTime'] }} {{ $fsLang['unitSecond'] }}</div>
+        <div class="mx-2 mt-2 text-secondary fs-7" id="uploadMaxTime" data-value="{{ $uploadConfig['maxTime'] }}">{{ $fsLang['editorUploadMaxTime'] }}: {{ $uploadConfig['maxTime'] }} {{ $fsLang['unitSecond'] }}</div>
     @endif
-    <div class="mx-2 my-2 text-secondary fs-7">{{ $fsLang['editorUploadNumber'] }}: {{ $fileMax }}</div>
+    <div class="mx-2 my-2 text-secondary fs-7" id="uploadFileMax" data-value="{{ $fileMax }}">{{ $fsLang['editorUploadNumber'] }}: {{ $fileMax }}</div>
 @endsection
 
 @push('script')

@@ -51,6 +51,93 @@ function getUploadToken() {
     });
 }
 
+// progress
+// progress-bar 将会作为 "<div class="ajax-progress progress mt-2"></div>" 的子元素添加到尾部
+// 使用时，需要在页面中增加代码 <div class="ajax-progress progress mt-2"></div>
+// 并在页面的相关按钮增加 class 样式 ajax-progress-submit
+// 在相关代码中调用:
+// progressInit && progressInit();
+// progressReset() && progressReset();
+// progressDown() && progressDown();
+// progressExit() && progressExit();
+window.progress = {
+    total: 100,
+    valuenow: 0,
+    speed: 1000,
+    parentElement: null,
+    stop: false,
+    html: function (){
+        return `<div class="progress-bar" role="progressbar" style="width: ${progress.valuenow}%" aria-valuenow="${progress.valuenow}" aria-valuemin="0" aria-valuemax="100">${progress.valuenow}</div>`
+    },
+    setProgressElement: function (pe){
+        this.parentElement = pe;
+        return this;
+    },
+    init: function () {
+        this.total = 100;
+        this.valuenow = 0;
+        this.parentElement = null;
+        this.stop = false
+        return this;
+    },
+    work: function () {
+        this.add(progress);
+    },
+    add: function (obj) {
+        var html = obj.html();
+
+        if (obj.stop !== true && obj.valuenow < obj.total) {
+            let num = parseFloat(obj.total) - parseFloat(obj.valuenow);
+            obj.valuenow = (parseFloat(obj.valuenow) + parseFloat(num / 100)).toFixed(2);
+            $(obj.parentElement).empty().append(html)
+        } else {
+            $(obj.parentElement).empty().append(html)
+            return;
+        }
+        setTimeout(function(){
+            obj.add(obj)
+        }, obj.speed)
+    },
+    exit: function () {
+        this.valuenow = 0;
+        this.stop = true;
+        return this;
+    },
+    done: function () {
+        this.valuenow = this.total;
+        return this;
+    },
+    clearHtml: function () {
+        this.parentElement?.empty();
+    }
+};
+
+function progressInit() {
+    var progressObj = progress.init();
+    var ele = $('.ajax-progress').removeClass('d-none');
+    if (ele.length > 0) {
+        progressObj.setProgressElement(ele[0]);
+        progressObj.work();
+    }
+}
+
+function progressReset() {
+    $(".ajax-progress").empty();
+    $('.ajax-progress-submit').show().removeAttr("disabled");
+}
+
+function progressDown() {
+    progress.done();
+}
+
+function progressExit() {
+    progress.exit();
+}
+
+$(document).ready(function () {
+    $('.ajax-progress-submit').click(_.debounce(uploadFiles, 1500));
+});
+
 function uploadFiles(event) {
     event.preventDefault();
 
@@ -72,6 +159,11 @@ function getFileExtension(filename) {
  * @see https://developer.qiniu.com/kodo/sdk/javascript
  */
 function uploadFile(file) {
+    // 清空 progress 进度
+    progressReset();
+    // 触发 progress 进度显示
+    progressInit();
+
     var key, token, putExtra, config, observable, subscription;
 
     var form = $('#QiNiuForm');
@@ -88,7 +180,31 @@ function uploadFile(file) {
     var uploadType = $(form).find('input[name="uploadType"]').val();
     var uploadToken = $(form).find('input[name="uploadToken"]').val();
 
+    var uploadTypeStr = uploadType == 'video' && '视频' || '音频';
+
+    var setting_extensions = $('#extensions').data('value');
+    var setting_uploadMaxSize = $('#uploadMaxSize').data('value');
+    var setting_uploadMaxTime = $('#uploadMaxTime').data('value');
+    var setting_uploadFileMax = $('#uploadFileMax').data('value');
+
+    var extension = getFileExtension(file.name);
+
+    // 不支持当前文件的后缀
+    if (setting_extensions && setting_extensions.includes(extension) === false) {
+        window.tips('文件类型不正确，上传失败');
+        progressExit && progressExit();
+        return;
+    }
+
+    // 文件过大，单位 MB
+    if (setting_uploadMaxSize && file.size > (setting_uploadMaxSize * 1024 * 1024)) {
+        window.tips('文件过大，上传失败');
+        progressExit && progressExit();
+        return;
+    }
+
     var ele;
+    var duration = null;
     var videoDuration = null;
     var audioDuration = null;
     var imageWidth = null;
@@ -106,6 +222,7 @@ function uploadFile(file) {
         ele.src = URL.createObjectURL(file);
         ele.onloadedmetadata = function () {
             videoDuration = ele.duration;
+            duration = videoDuration;
             URL.revokeObjectURL(ele.src);
         };
     } else if (uploadType == 'audio') {
@@ -113,13 +230,16 @@ function uploadFile(file) {
         ele.src = URL.createObjectURL(file);
         ele.onloadedmetadata = function () {
             audioDuration = ele.duration;
+            duration = audioDuration;
             URL.revokeObjectURL(ele.src);
         };
+    } else {
+        //
     }
 
     var randomStr = Math.round(Math.random() * 100000000000);
     var currentTimestampMs = +new Date();
-    key = dir + '/' + `${uploadType}-${randomStr}-${currentTimestampMs}` + '.' + getFileExtension(file.name);
+    key = dir + '/' + `${uploadType}-${randomStr}-${currentTimestampMs}` + '.' + extension;
     token = uploadToken;
 
     putExtra = {
@@ -147,105 +267,132 @@ function uploadFile(file) {
         chunkSize: 4, // 分片上传时每片的大小，必须为正整数，单位为 MB，且最大不能超过 1024
     };
 
-    observable = qiniu.upload(file, key, token, putExtra, config);
 
-    subscription = observable.subscribe({
-        next(res) {
-            console.log(res, 'next');
-        },
-        error(err) {
-            console.error(err, 'error');
-            window.tips(`${err.name}: ${err.message}`);
-        },
-        complete(res) {
-            console.log(res, 'complete');
+    var intervalId = setInterval(() => {
+        // 获取音视频元数据需要等待，时长不确定，故使用定时器进行检测，每 500ms 判断一次是否加载完成
+        
+        // 不是音视频的时候，直接可以上传
+        // 音视频的时长获取到之后，也可以进行上传，此时需要清理定时器
+        if ((uploadType == 'video' || uploadType == 'audio') && setting_uploadMaxTime) {
+            console.log(`${uploadTypeStr} duration: ${duration}s, uploadMaxTime: ${setting_uploadMaxTime}`);
 
-            var searchParams = new URLSearchParams(window.location.href);
-            var urlConfig = {};
+            if (!duration) {
+                console.log(`获取${uploadTypeStr}时长失败`);
+                return;
+            }
 
-            try {
-                urlConfig = JSON.parse(window.atob(searchParams.get('config')));
-            } catch (e) {}
+            if (duration > setting_uploadMaxTime) {
+                clearInterval(intervalId);
+                window.tips(`${uploadTypeStr}时长过长，上传失败`);
+                progressExit && progressExit();
+                return;
+            }
+        }
 
-            var fileInfoItem = {
-                name: file.name,
-                mime: file.type,
-                extension: getFileExtension(file.name),
-                size: file.size, // 单位 Byte
-                md5: null,
-                sha: res.hash,
-                shaType: 'hash',
-                path: res.key,
-                imageWidth: imageWidth,
-                imageHeight: imageHeight,
-                videoTime: videoDuration,
-                videoCoverPath: null,
-                videoGifPath: null,
-                audioTime: audioDuration,
-                transcodingState: 1,
-                moreJson: null,
-                originalPath: null,
-                rating: null,
-                remark: null,
-            };
+        clearInterval(intervalId);
 
-            console.log('fileInfoItem', fileInfoItem);
-
-            // 上传到七牛
-            $.ajax({
-                url: '/api/qiniu/upload-fileinfo',
-                method: 'post',
-                data: {
-                    aid: searchParams.get('aid') || aid,
-                    uid: searchParams.get('uid') || uid,
-                    platformId: platformId,
-                    usageType: usageType,
-                    tableName: tableName,
-                    tableColumn: tableColumn,
-                    tableId: tableId,
-                    tableKey: tableKey,
-                    type: fileType,
-                    fileInfo: [fileInfoItem],
-                },
-                success(res) {
-                    if (res.code != 0) {
-                        window.tips(res.message);
-                        return;
-                    }
-
-                    var message;
-                    parent.postMessage(
-                        (message = {
-                            postMessageKey: searchParams.get('postMessageKey'), // 路径中 postMessageKey 变量值
-                            windowClose: true, // 是否关闭窗口或弹出层(modal)
-                            variables: {
-                                // 路径中变量值原样返回
-                                type: searchParams.get('type'),
-                                scene: searchParams.get('scene'),
-                                aid: searchParams.get('aid') || aid,
-                                uid: searchParams.get('uid') || uid,
-                                rid: searchParams.get('rid'),
-                                gid: searchParams.get('gid'),
-                                pid: searchParams.get('pid'),
-                                cid: searchParams.get('cid'),
-                                eid: searchParams.get('eid'),
-                                fid: searchParams.get('fid'),
-                                plid: searchParams.get('plid'),
-                                clid: searchParams.get('clid'),
-                                uploadInfo: searchParams.get('uploadInfo'),
-                            },
-                            // 以下逻辑同 API 一致
-                            code: 0, // 处理状态，0 表示，其余为失败状态码
-                            message: 'ok', // 失败时的提示信息
-                            data: res.data,
-                        })
-                    );
-
-                    console.log('发送给父级的信息', message);
-                },
-            });
-        },
-    });
+        observable = qiniu.upload(file, key, token, putExtra, config);
+    
+        subscription = observable.subscribe({
+            next(res) {
+                console.log(res, 'next');
+            },
+            error(err) {
+                console.error(err, 'error');
+                progressExit && progressExit();
+                window.tips(`${err.name}: ${err.message}`);
+            },
+            complete(res) {
+                console.log(res, 'complete');
+                progressDown && progressDown();
+    
+                var searchParams = new URLSearchParams(window.location.href);
+                var urlConfig = {};
+    
+                try {
+                    urlConfig = JSON.parse(window.atob(searchParams.get('config')));
+                } catch (e) {}
+    
+                var fileInfoItem = {
+                    name: file.name,
+                    mime: file.type,
+                    extension: extension,
+                    size: file.size, // 单位 Byte
+                    md5: null,
+                    sha: res.hash,
+                    shaType: 'hash',
+                    path: res.key,
+                    imageWidth: imageWidth,
+                    imageHeight: imageHeight,
+                    videoTime: videoDuration,
+                    videoCoverPath: null,
+                    videoGifPath: null,
+                    audioTime: audioDuration,
+                    transcodingState: 1,
+                    moreJson: null,
+                    originalPath: null,
+                    rating: null,
+                    remark: null,
+                };
+    
+                console.log('fileInfoItem', fileInfoItem);
+    
+                // 上传到七牛
+                $.ajax({
+                    url: '/api/qiniu/upload-fileinfo',
+                    method: 'post',
+                    data: {
+                        aid: searchParams.get('aid') || aid,
+                        uid: searchParams.get('uid') || uid,
+                        platformId: platformId,
+                        usageType: usageType,
+                        tableName: tableName,
+                        tableColumn: tableColumn,
+                        tableId: tableId,
+                        tableKey: tableKey,
+                        type: fileType,
+                        fileInfo: [fileInfoItem],
+                    },
+                    success(res) {
+                        if (res.code != 0) {
+                            window.tips(res.message);
+                            return;
+                        }
+    
+                        var message;
+                        parent.postMessage(
+                            (message = {
+                                postMessageKey: searchParams.get('postMessageKey'), // 路径中 postMessageKey 变量值
+                                windowClose: true, // 是否关闭窗口或弹出层(modal)
+                                variables: {
+                                    // 路径中变量值原样返回
+                                    type: searchParams.get('type'),
+                                    scene: searchParams.get('scene'),
+                                    aid: searchParams.get('aid') || aid,
+                                    uid: searchParams.get('uid') || uid,
+                                    rid: searchParams.get('rid'),
+                                    gid: searchParams.get('gid'),
+                                    pid: searchParams.get('pid'),
+                                    cid: searchParams.get('cid'),
+                                    eid: searchParams.get('eid'),
+                                    fid: searchParams.get('fid'),
+                                    plid: searchParams.get('plid'),
+                                    clid: searchParams.get('clid'),
+                                    uploadInfo: searchParams.get('uploadInfo'),
+                                },
+                                // 以下逻辑同 API 一致
+                                code: 0, // 处理状态，0 表示，其余为失败状态码
+                                message: 'ok', // 失败时的提示信息
+                                data: res.data,
+                            })
+                        );
+    
+                        console.log('发送给父级的信息', message);
+                    },
+                });
+            },
+        });
+    }, 500)
 }
 
 $(document).ready(function () {});

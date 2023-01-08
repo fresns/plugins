@@ -8,8 +8,11 @@
 
 namespace Plugins\QiNiu\Services;
 
+use App\Helpers\CacheHelper;
+use App\Helpers\StrHelper;
 use App\Models\File;
 use Fresns\DTO\DTO;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
@@ -39,10 +42,10 @@ class AntiLinkFileInfo extends DTO
         }
 
         $cacheKey = 'qiniu_file_antilink_'.$this->fileIdOrFid;
-        $cacheExpireAt = now()->addSeconds($this->getExpireSeconds() - 60);
 
-        // 缓存
-        $data = cache()->remember($cacheKey, $cacheExpireAt, function () {
+        $fileInfo = Cache::get($cacheKey);
+
+        if (empty($fileInfo)) {
             $file = $this->getFile();
             if (is_null($file)) {
                 return null;
@@ -65,18 +68,22 @@ class AntiLinkFileInfo extends DTO
                 }
             }
 
-            return $fileInfo;
-        });
+            $cacheTime = CacheHelper::fresnsCacheTimeByFileType($this->getType());
 
-        if (is_null($data)) {
-            cache()->forget($cacheKey);
+            CacheHelper::put($fileInfo, $cacheKey, ['fresnsPlugins', 'pluginQiNiu'], null, $cacheTime);
         }
 
-        return $data;
+        return $fileInfo;
     }
 
     public function getFile()
     {
-        return File::where('id', $this->fileIdOrFid)->orWhere('fid', $this->fileIdOrFid)->first();
+        if (StrHelper::isPureInt($this->fileIdOrFid)) {
+            $file = File::where('id', $this->fileIdOrFid)->first();
+        } else {
+            $file = File::where('fid', $this->fileIdOrFid)->first();
+        }
+
+        return $file;
     }
 }

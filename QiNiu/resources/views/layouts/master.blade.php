@@ -22,10 +22,13 @@
     <body>
         @yield('content')
 
+        <div class="fresns-tips"></div>
+
         <script src="https://cdn.staticfile.org/qiniu-js/3.4.1/qiniu.min.js"></script>
         <script src="{{ @asset('/static/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
         <script src="{{ @asset('/static/js/select2.min.js') }}"></script>
+        <script src="{{ @asset('/assets/plugins/QiNiu/js/lodash.min.js') }}"></script>
         <script src="{{ @asset('/assets/plugins/QiNiu/js/app.js') }}"></script>
         @stack('script')
     </body>

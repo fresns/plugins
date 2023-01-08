@@ -28,9 +28,11 @@ Fresns 官方开发的「七牛云」存储服务插件。请通过[点击此链
 | 功能配置 | 介绍 |
 | --- | --- |
 | 防盗链功能 | 七牛云采用 AK 和 SK 生成防盗链接，防盗链 Key 留空即可 |
-| 视频转码参数 | 示例 `avthumb/mp4/ab/160k/ar/44100/acodec/libfaac/r/30/vb/2200k/vcodec/libx264/s/1280x720/autoscale/1/stripmeta/0` |
-| 视频截图参数 | 示例 `vframe/jpg/offset/7/w/480/h/360` |
+| 视频转码参数 | 示例 `avthumb/mp4/ab/128k/ar/44100/acodec/libfaac/r/30/vb/720k/vcodec/libx264/s/640x360/autoscale/1/stripmeta/0` |
+| 视频截图参数 | 示例 `vframe/jpg/offset/3` 或 `vframe/jpg/offset/7/w/480/h/360` |
 | 音频转码参数 | 示例 `avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame` |
+
+- [查看音视频转码参数](https://developer.qiniu.com/kodo/kb/5858/the-instructions-on-the-storage-space-of-transcoding-style)
 
 ## 开发说明
 
