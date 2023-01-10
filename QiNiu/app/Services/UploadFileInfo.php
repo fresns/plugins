@@ -8,6 +8,8 @@
 
 namespace Plugins\QiNiu\Services;
 
+use App\Helpers\ConfigHelper;
+use App\Helpers\StrHelper;
 use App\Models\File;
 use App\Utilities\FileUtility;
 use Fresns\DTO\DTO;
@@ -50,27 +52,42 @@ class UploadFileInfo extends DTO
             'fileInfo' => $this->fileInfo,
         ];
 
-        $uploadFileInfos = FileUtility::uploadFileInfo($bodyInfo);
+        $uploadFileInfo = FileUtility::uploadFileInfo($bodyInfo);
 
-        $data = [];
-        foreach ($uploadFileInfos as $uploadFileInfo) {
-            if ($uploadFileInfo->type == File::TYPE_VIDEO) {
-                $this->generateVideoCover($uploadFileInfo);
+        $newFileInfo = [];
+        foreach ($uploadFileInfo as $fileInfo) {
+            if ($fileInfo['type'] == File::TYPE_VIDEO) {
+                $fileModel = File::where('fid', $fileInfo['fid'])->first();
+
+                $fileInfo['videoCoverUrl'] = $this->generateVideoCover($fileModel);
             }
 
-            $data[] = $uploadFileInfo->getFileInfo();
+            $newFileInfo[] = $fileInfo;
         }
 
-        return $data;
+        return $newFileInfo;
     }
 
     public function generateVideoCover(File $file)
     {
-        $videoCover = $file->path.'?vframe/jpg/offset/1'; // unit: seconds @see https://developer.qiniu.com/dora/1313/video-frame-thumbnails-vframe
+        $videoScreenshot = ConfigHelper::fresnsConfigByItemKey('video_screenshot');
+        if (empty($videoScreenshot)) {
+            info('视频封面图生成失败，未配置 video_screenshot 转码设置');
+
+            return;
+        }
+
+        // unit: seconds @see https://developer.qiniu.com/dora/1313/video-frame-thumbnails-vframe
+        $videoCoverPath = $file->path.'?'.$videoScreenshot;
 
         $file->update([
-            'video_cover_path' => $videoCover,
+            'video_cover_path' => $videoCoverPath,
         ]);
-        // dd($videoCover);
+
+        $videoConfig = ConfigHelper::fresnsConfigByItemKey('video_bucket_domain');
+
+        $videoCoverUrl = StrHelper::qualifyUrl($videoCoverPath, $videoConfig);
+
+        return $videoCoverUrl;
     }
 }

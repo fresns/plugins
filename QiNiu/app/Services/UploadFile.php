@@ -10,11 +10,10 @@ namespace Plugins\QiNiu\Services;
 
 use App\Helpers\ConfigHelper;
 use App\Helpers\FileHelper;
+use App\Helpers\StrHelper;
 use App\Models\File;
-use App\Models\PluginCallback;
 use App\Utilities\FileUtility;
 use Fresns\DTO\DTO;
-use Illuminate\Support\Str;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
 class UploadFile extends DTO
@@ -74,16 +73,9 @@ class UploadFile extends DTO
         $uploadFileInfo = FileUtility::saveFileInfoToDatabase($bodyInfo, $diskPath, $this->file);
 
         if (is_null($error) && $this->getType() === File::TYPE_VIDEO) {
-            $uuid = Str::uuid()->toString();
+            $file = File::whereFid($uploadFileInfo['fid'])->first();
 
-            $result = $this->generateVideoCover($storage->getAdapter(), $dir, $diskPath, $uuid);
-
-            if (empty($result)) {
-                return $uploadFileInfo;
-            }
-
-            $pluginCallback = $this->savePluginCallback($result, $uploadFileInfo, $uuid);
-            \info(var_export($pluginCallback->toArray(), 1));
+            $uploadFileInfo['videoCoverUrl'] = $this->generateVideoCover($file);
         }
 
         @unlink($this->file->path());
@@ -91,47 +83,26 @@ class UploadFile extends DTO
         return $uploadFileInfo;
     }
 
-    public function generateVideoCover($storage, $dir, $diskPath, $uuid)
+    public function generateVideoCover(File $file)
     {
-        $transParams = $this->getVideoScreenshot();
-        if (empty($transParams)) {
+        $videoScreenshot = ConfigHelper::fresnsConfigByItemKey('video_screenshot');
+        if (empty($videoScreenshot)) {
             info('视频封面图生成失败，未配置 video_screenshot 转码设置');
 
             return;
         }
 
-        $result = $this->executeTranscoding(
-            auth: $storage->getAuthManager(),
-            transParams: $transParams,
-            bucket: $this->getBucketName(),
-            dir: $dir,
-            key: $diskPath,
-            filename: pathinfo($diskPath, PATHINFO_FILENAME).'.jpg',
-            notifyUrl: route('qiniu.transcoding.callback', ['uuid' => $uuid]),
-        );
+        // unit: seconds @see https://developer.qiniu.com/dora/1313/video-frame-thumbnails-vframe
+        $videoCoverPath = $file->path.'?'.$videoScreenshot;
 
-        return $result;
-    }
-
-    public function savePluginCallback(array $result, array $uploadFileInfo, $uuid)
-    {
-        return PluginCallback::create([
-            'plugin_unikey' => 'QiNiu',
-            'uuid' => $uuid,
-            'type' => PluginCallback::TYPE_CUSTOMIZE,
-            'content' => [
-                'sence' => 'upload_file',
-                'pipline_id' => $result['id'],
-                'save_path' => $result['path'],
-                'file' => $uploadFileInfo,
-            ],
-            'is_use' => PluginCallback::IS_USE_FALSE,
-            'use_plugin_unikey' => 'QiNiu',
+        $file->update([
+            'video_cover_path' => $videoCoverPath,
         ]);
-    }
 
-    public function getVideoScreenshot()
-    {
-        return ConfigHelper::fresnsConfigByItemKey('video_screenshot');
+        $videoConfig = ConfigHelper::fresnsConfigByItemKey('video_bucket_domain');
+
+        $videoCoverUrl = StrHelper::qualifyUrl($videoCoverPath, $videoConfig);
+
+        return $videoCoverUrl;
     }
 }

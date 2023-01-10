@@ -14,14 +14,20 @@ Fresns official development for the Chinese market to support multiple service p
 | Key ID | 访问管理->用户->用户列表->用户详情->API 密钥<br>`SecretId` | RAM 访问控制->身份管理->用户<br>`AccessKey ID` |
 | Key Secret | 访问管理->用户->用户列表->用户详情->API 密钥<br>`SecretKey` | RAM 访问控制->身份管理->用户<br>`AccessKey Secret` |
 | SDK App ID | 短信->应用管理->应用列表->SDK AppID | 留空 |
+| 匹配验证码模板 | 未使用国际短信，保持默认即可<br>`{"86":"zh-Hans","other":"en"}` | 未使用国际短信，保持默认即可<br>`{"86":"zh-Hans","other":"en"}` |
 
 **权限说明：**
 - 腾讯云：权限->权限策略->短信服务（SMS）全读写访问权限 `QcloudSMSFullAccess`
 - 阿里云：权限管理->系统策略->管理短信服务(SMS)的权限 `AliyunDysmsFullAccess`
 
-**模板说明：**
-- 腾讯云：验证码变量名示例 `{1}`
-- 阿里云：验证码变量名示例 `${code}`
+**短信模板示例：**
+
+| 配置项 | 腾讯云示例 | 阿里云示例 |
+| --- | --- | --- |
+| 短信签名名称 | `Fresns` | `Fresns` |
+| 模板参数 | `1107229` | `SMS_115200038` |
+| 验证码变量名 | `{1}` | `${code}` |
+
 
 ## Dev Notes
 
@@ -44,6 +50,7 @@ Fresns official development for the Chinese market to support multiple service p
     "国际区号": "验证码模板语言标签",
     "other": "其他区号使用该模板"
 }
+
 // 示例
 {
     "86": "zh-Hans",
