@@ -12,7 +12,6 @@ use App\Helpers\CacheHelper;
 use App\Helpers\StrHelper;
 use App\Models\File;
 use Fresns\DTO\DTO;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use Plugins\QiNiu\Traits\QiNiuStorageTrait;
 
@@ -42,8 +41,9 @@ class AntiLinkFileInfo extends DTO
         }
 
         $cacheKey = 'qiniu_file_antilink_'.$this->fileIdOrFid;
+        $cacheTags = ['fresnsPlugins', 'pluginQiNiu'];
 
-        $fileInfo = Cache::get($cacheKey);
+        $fileInfo = CacheHelper::get($cacheKey, $cacheTags);
 
         if (empty($fileInfo)) {
             $file = $this->getFile();
@@ -70,7 +70,7 @@ class AntiLinkFileInfo extends DTO
 
             $cacheTime = CacheHelper::fresnsCacheTimeByFileType($this->getType());
 
-            CacheHelper::put($fileInfo, $cacheKey, ['fresnsPlugins', 'pluginQiNiu'], null, $cacheTime);
+            CacheHelper::put($fileInfo, $cacheKey, $cacheTags, null, $cacheTime);
         }
 
         return $fileInfo;
