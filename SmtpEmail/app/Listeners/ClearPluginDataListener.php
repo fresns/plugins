@@ -28,8 +28,13 @@ class ClearPluginDataListener
      * @param  object  $event
      * @return void
      */
-    public function handle($plugin)
+    public function handle($event)
     {
-        return (new Installer)->uninstall(\request()->input('clear_plugin_data'));
+        $unikey = $event['unikey'] ?? null;
+        if ($unikey !== config('smtp-email.name')) {
+            return;
+        }
+
+        return (new Installer)->uninstall(true);
     }
 }

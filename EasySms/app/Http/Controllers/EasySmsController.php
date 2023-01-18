@@ -50,10 +50,18 @@ class EasySmsController extends Controller
                 $value = json_decode($value, true);
             }
 
+            $itemType = match ($key) {
+                'easysms_type' => 'number',
+                'easysms_linked' => 'object',
+                default => 'string',
+            };
+
             $config = Config::updateOrCreate([
                 'item_key' => $key,
             ], [
                 'item_value' => $value,
+                'item_type' => $itemType,
+                'item_tag' => 'easysms',
             ]);
 
             $data[$config->item_key] = $config->item_value;
