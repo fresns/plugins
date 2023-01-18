@@ -52,7 +52,7 @@ trait QiNiuStorageTrait
     {
         $userConfig = $this->getQiNiuStorageConfig();
 
-        $qiniuConfig = config('fresns-qiniu-filesystems.disks.qiniu');
+        $qiniuConfig = config('fresns-qiniu-filesystems.disks.qiniu', []);
         $qiniuConfig = array_merge($qiniuConfig, $userConfig);
 
         config([
@@ -66,6 +66,7 @@ trait QiNiuStorageTrait
         $this->userConfig = FileHelper::fresnsFileStorageConfigByType($this->getType());
 
         return [
+            'driver' => 'qiniu',
             'access_key' => $this->userConfig['secretId'],
             'secret_key' => $this->userConfig['secretKey'],
             'bucket' => $this->getBucketName(),
