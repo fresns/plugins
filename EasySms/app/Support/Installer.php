@@ -8,7 +8,7 @@
 
 namespace Plugins\EasySms\Support;
 
-use App\Models\Config;
+use App\Utilities\ConfigUtility;
 
 class Installer
 {
@@ -48,20 +48,9 @@ class Installer
         ],
     ];
 
-    protected function process(callable $callback)
-    {
-        foreach ($this->fresnsConfigItems as $item) {
-            $callback($item);
-        }
-    }
-
     public function install()
     {
-        $this->process(function ($item) {
-            Config::firstOrCreate([
-                'item_key' => $item['item_key'],
-            ], $item);
-        });
+        ConfigUtility::addFresnsConfigItems($this->fresnsConfigItems);
     }
 
     public function uninstall(bool $clearPluginData = false)
@@ -70,8 +59,6 @@ class Installer
             return;
         }
 
-        $this->process(function ($item) {
-            Config::query()->where('item_key', $item['item_key'])->forceDelete();
-        });
+        ConfigUtility::removeFresnsConfigItems($this->fresnsConfigItems);
     }
 }

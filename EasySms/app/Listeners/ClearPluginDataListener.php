@@ -28,8 +28,13 @@ class ClearPluginDataListener
      * @param  object  $event
      * @return void
      */
-    public function handle($plugin)
+    public function handle($event)
     {
+        $unikey = $event['unikey'] ?? null;
+        if ($unikey !== config('easysms.name')) {
+            return;
+        }
+
         return (new Installer)->uninstall(true);
     }
 }
