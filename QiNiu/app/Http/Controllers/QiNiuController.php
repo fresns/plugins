@@ -14,40 +14,42 @@ use App\Helpers\PrimaryHelper;
 use App\Models\FileUsage;
 use App\Utilities\ConfigUtility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Illuminate\Routing\Controller;
 
 class QiNiuController extends Controller
 {
     public function upload(Request $request)
     {
-        $headers = json_decode(base64_decode(urldecode($request->sign)), true);
-        $uploadInfo = json_decode(base64_decode(urldecode($request->config)), true);
+        // 验证签名
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
+            'urlAuthorization' => $request->authorization,
+        ]);
 
-        $langTag = $headers['langTag'] ?? ConfigHelper::fresnsConfigDefaultLangTag();
-        \View::share('langTag', $langTag);
+        $langTag = $fresnsResp->getData('langTag');
+        View::share('langTag', $langTag);
+
+        if ($fresnsResp->isErrorResponse()) {
+            return view('QiNiu::error', [
+                'code' => $fresnsResp->getCode(),
+                'message' => $fresnsResp->getMessage(),
+            ]);
+        }
 
         // 判断必传参数
-        if (! $request->sign || ! $request->config) {
+        if (empty($request->config)) {
             return view('QiNiu::error', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
             ]);
         }
 
-        // 验证签名
-        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlSign([
-            'urlSign' => $request->sign,
-        ]);
-
-        if ($fresnsResp->isErrorResponse()) {
-            return view('QiNiu::error', [
-                'code' => 31503,
-                'message' => ConfigUtility::getCodeMessage(31503, 'Fresns', $langTag),
-            ]);
-        }
+        $uploadInfo = json_decode(base64_decode(urldecode($request->config)), true);
 
         // 验证是否登录状态
-        if (! $fresnsResp->getData('uid')) {
+        $uid = $fresnsResp->getData('uid');
+
+        if (empty($uid)) {
             return view('QiNiu::error', [
                 'code' => 31601,
                 'message' => ConfigUtility::getCodeMessage(31601, 'Fresns', $langTag),
@@ -82,7 +84,7 @@ class QiNiuController extends Controller
             8 => 'comment',
         };
 
-        $authUserId = PrimaryHelper::fresnsUserIdByUidOrUsername($headers['uid']);
+        $authUserId = PrimaryHelper::fresnsUserIdByUidOrUsername($uid);
 
         $editorConfig = ConfigUtility::getEditorConfigByType($authUserId, $usageType, $langTag);
         $toolbar = $editorConfig['toolbar'][$uploadInfo['type']];
