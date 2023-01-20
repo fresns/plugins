@@ -22,6 +22,6 @@
         }
     },
     "require": {
-        "overtrue/laravel-filesystem-qiniu": "^2.1"
+        "overtrue/laravel-filesystem-qiniu": "^2.2"
     }
 }
