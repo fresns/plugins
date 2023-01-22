@@ -27,10 +27,10 @@ use App\Models\UserRole;
 use App\Utilities\ConfigUtility;
 use App\Utilities\InteractionUtility;
 use App\Utilities\PermissionUtility;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 class WebController extends Controller
 {
