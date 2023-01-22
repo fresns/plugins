@@ -1,0 +1,19 @@
+{
+    "unikey": "AdminMenu",
+    "type": 1,
+    "name": "Admin Menu",
+    "description": "Fresns official development of easy to manage menu.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.1.0",
+    "scene": [
+        "extendManage"
+    ],
+    "accessPath": "/admin-menu?authorization={authorization}&type={type}&scene={scene}&uid={uid}&pid={pid}&cid={cid}",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\AdminMenu\\Providers\\AdminMenuServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}
