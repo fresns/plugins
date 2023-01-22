@@ -5,10 +5,6 @@
  * Copyright (C) 2021-Present Jarvis Tang
  * Released under the Apache-2.0 License.
  */
-
-use Illuminate\Support\Facades\Route;
-use Plugins\EasyManager\Controllers as ApiController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
