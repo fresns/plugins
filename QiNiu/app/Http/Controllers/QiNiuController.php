@@ -14,8 +14,8 @@ use App\Helpers\PrimaryHelper;
 use App\Models\FileUsage;
 use App\Utilities\ConfigUtility;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class QiNiuController extends Controller
 {
