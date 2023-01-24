@@ -24,6 +24,8 @@ Route::prefix('admin-menu')->name('admin-menu.')->group(function () {
     Route::get('/', [WebController::class, 'index'])->name('index');
     Route::get('/delete-post', [WebController::class, 'deletePost'])->name('delete.post');
     Route::get('/edit-post-group', [WebController::class, 'editPostGroup'])->name('edit.post.group');
+    Route::get('/edit-post', [WebController::class, 'editPost'])->name('edit.post');
     Route::get('/delete-comment', [WebController::class, 'deleteComment'])->name('delete.comment');
+    Route::get('/edit-comment', [WebController::class, 'editComment'])->name('edit.comment');
     Route::get('/edit-user', [WebController::class, 'editUser'])->name('edit.user');
 });

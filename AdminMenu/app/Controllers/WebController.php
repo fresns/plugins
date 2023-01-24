@@ -148,12 +148,12 @@ class WebController extends Controller
             'group_name',
         ], $langTag);
 
-        $authUuid = (string) Str::uuid();
+        $authUlid = (string) Str::ulid();
         $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
 
-        CacheHelper::put($authUuid, $authUuid, $cacheTags, null, now()->addMinutes(10));
+        CacheHelper::put($authUlid, $authUlid, $cacheTags, null, now()->addMinutes(10));
 
-        return view('AdminMenu::index', compact('type', 'data', 'roles', 'groupCategories', 'authUuid', 'langTag', 'fsLang', 'fsName'));
+        return view('AdminMenu::index', compact('type', 'data', 'roles', 'groupCategories', 'authUlid', 'langTag', 'fsLang', 'fsName'));
     }
 
     // delete post
@@ -162,7 +162,7 @@ class WebController extends Controller
         $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
         View::share('langTag', $langTag);
 
-        if (! $request->authUuid || ! $request->pid) {
+        if (! $request->authUlid || ! $request->pid) {
             return view('AdminMenu::error', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
@@ -170,9 +170,9 @@ class WebController extends Controller
         }
 
         $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
-        $authUuid = CacheHelper::get($request->authUuid, $cacheTags);
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
-        if (empty($authUuid)) {
+        if (empty($authUlid)) {
             return view('AdminMenu::error', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
@@ -210,7 +210,7 @@ class WebController extends Controller
         $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
         View::share('langTag', $langTag);
 
-        if (! $request->authUuid || ! $request->pid) {
+        if (! $request->authUlid || ! $request->pid) {
             return view('AdminMenu::error', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
@@ -218,9 +218,9 @@ class WebController extends Controller
         }
 
         $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
-        $authUuid = CacheHelper::get($request->authUuid, $cacheTags);
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
-        if (empty($authUuid)) {
+        if (empty($authUlid)) {
             return view('AdminMenu::error', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
@@ -274,13 +274,13 @@ class WebController extends Controller
         ]);
     }
 
-    // delete comment
-    public function deleteComment(Request $request)
+    // edit post
+    public function editPost(Request $request)
     {
         $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
         View::share('langTag', $langTag);
 
-        if (! $request->authUuid || ! $request->cid) {
+        if (! $request->authUlid || ! $request->pid) {
             return view('AdminMenu::error', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
@@ -288,9 +288,81 @@ class WebController extends Controller
         }
 
         $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
-        $authUuid = CacheHelper::get($request->authUuid, $cacheTags);
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
-        if (empty($authUuid)) {
+        if (empty($authUlid)) {
+            return view('AdminMenu::error', [
+                'code' => 32203,
+                'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+            ]);
+        }
+
+        $post = Post::where('pid', $request->pid)->first();
+
+        if (empty($post)) {
+            return view('AdminMenu::error', [
+                'code' => 37300,
+                'message' => ConfigUtility::getCodeMessage(37300, 'Fresns', $langTag),
+            ]);
+        }
+
+        if ($request->title) {
+            $post->update([
+                'title' => $request->title,
+            ]);
+        }
+
+        if ($request->digestState) {
+            $post->update([
+                'digest_state' => $request->digestState,
+            ]);
+        }
+
+        if ($request->stickyState) {
+            $post->update([
+                'sticky_state' => $request->stickyState,
+            ]);
+        }
+
+        if ($request->status == 'true') {
+            $post->update([
+                'is_enable' => true,
+            ]);
+        }
+
+        if ($request->status == 'false') {
+            $post->update([
+                'is_enable' => false,
+            ]);
+        }
+
+        CacheHelper::clearDataCache('post', $request->pid, 'fresnsApiData');
+        CacheHelper::clearDataCache('post', $request->pid, 'fresnsSeo');
+        CacheHelper::clearDataCache('post', $request->pid, 'fresnsModel');
+
+        return view('AdminMenu::error', [
+            'code' => 0,
+            'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+        ]);
+    }
+
+    // delete comment
+    public function deleteComment(Request $request)
+    {
+        $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
+        View::share('langTag', $langTag);
+
+        if (! $request->authUlid || ! $request->cid) {
+            return view('AdminMenu::error', [
+                'code' => 30001,
+                'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+            ]);
+        }
+
+        $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
+
+        if (empty($authUlid)) {
             return view('AdminMenu::error', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
@@ -322,13 +394,13 @@ class WebController extends Controller
         ]);
     }
 
-    // edit user
-    public function editUser(Request $request)
+    // edit comment
+    public function editComment(Request $request)
     {
         $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
         View::share('langTag', $langTag);
 
-        if (! $request->authUuid || ! $request->uid) {
+        if (! $request->authUlid || ! $request->cid) {
             return view('AdminMenu::error', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
@@ -336,9 +408,81 @@ class WebController extends Controller
         }
 
         $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
-        $authUuid = CacheHelper::get($request->authUuid, $cacheTags);
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
-        if (empty($authUuid)) {
+        if (empty($authUlid)) {
+            return view('AdminMenu::error', [
+                'code' => 32203,
+                'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+            ]);
+        }
+
+        $comment = Comment::where('cid', $request->cid)->first();
+
+        if (empty($comment)) {
+            return view('AdminMenu::error', [
+                'code' => 37300,
+                'message' => ConfigUtility::getCodeMessage(37300, 'Fresns', $langTag),
+            ]);
+        }
+
+        if ($request->digestState) {
+            $comment->update([
+                'digest_state' => $request->digestState,
+            ]);
+        }
+
+        if ($request->isSticky == 'true') {
+            $comment->update([
+                'is_sticky' => true,
+            ]);
+        }
+
+        if ($request->isSticky == 'false') {
+            $comment->update([
+                'is_sticky' => false,
+            ]);
+        }
+
+        if ($request->status == 'true') {
+            $comment->update([
+                'is_enable' => true,
+            ]);
+        }
+
+        if ($request->status == 'false') {
+            $comment->update([
+                'is_enable' => false,
+            ]);
+        }
+
+        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsApiData');
+        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsSeo');
+        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsModel');
+
+        return view('AdminMenu::error', [
+            'code' => 0,
+            'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+        ]);
+    }
+
+    // edit user
+    public function editUser(Request $request)
+    {
+        $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
+        View::share('langTag', $langTag);
+
+        if (! $request->authUlid || ! $request->uid) {
+            return view('AdminMenu::error', [
+                'code' => 30001,
+                'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+            ]);
+        }
+
+        $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
+
+        if (empty($authUlid)) {
             return view('AdminMenu::error', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),

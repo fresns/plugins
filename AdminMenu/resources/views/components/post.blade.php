@@ -4,7 +4,7 @@
     <p class="text-end mb-0">{{ $data['creator']['nickname'] }}</p>
 </div>
 
-<div class="input-group mb-4">
+<div class="input-group mb-3">
     <span class="input-group-text">{{ $fsName['group_name'] }}</span>
     <input type="text" class="form-control" value="{{ $data['group']['gname'] ?? null }}" disabled readonly>
     @if ($data['group'])
@@ -14,11 +14,79 @@
     @endif
 </div>
 
+<form action="{{ route('admin-menu.edit.post') }}" method="GET">
+    <input type="hidden" name="pid" value="{{ $data['pid'] }}">
+    <input type="hidden" name="langTag" value="{{ $langTag }}">
+    <input type="hidden" name="authUlid" value="{{ $authUlid }}">
+    <div class="input-group mb-3">
+        <span class="input-group-text">{{ $fsLang['editorTitle'] }}</span>
+        <input type="text" class="form-control" name="title" value="{{ $data['title'] }}">
+        <button class="btn btn-outline-secondary" type="submit">{{ $fsLang['modify'] }}</button>
+    </div>
+</form>
+
+<form action="{{ route('admin-menu.edit.post') }}" method="GET">
+    <input type="hidden" name="pid" value="{{ $data['pid'] }}">
+    <input type="hidden" name="langTag" value="{{ $langTag }}">
+    <input type="hidden" name="authUlid" value="{{ $authUlid }}">
+    <div class="input-group mb-3">
+        <span class="input-group-text">{{ $fsLang['contentDigest'] }}</span>
+        <select class="form-select" name="digestState">
+            <option value="1" {{ $data['digestState'] == 1 ? 'selected' : '' }}>No</option>
+            <option value="2" {{ $data['digestState'] == 2 ? 'selected' : '' }}>General Digest</option>
+            <option value="3" {{ $data['digestState'] == 3 ? 'selected' : '' }}>Senior Digest</option>
+        </select>
+        <button class="btn btn-outline-secondary" type="submit">{{ $fsLang['setting'] }}</button>
+    </div>
+</form>
+
+<form action="{{ route('admin-menu.edit.post') }}" method="GET">
+    <input type="hidden" name="pid" value="{{ $data['pid'] }}">
+    <input type="hidden" name="langTag" value="{{ $langTag }}">
+    <input type="hidden" name="authUlid" value="{{ $authUlid }}">
+    <div class="input-group mb-3">
+        <span class="input-group-text">{{ $fsLang['contentSticky'] }}</span>
+        <select class="form-select" name="stickyState">
+            <option value="1" {{ $data['stickyState'] == 1 ? 'selected' : '' }}>No</option>
+            <option value="2" {{ $data['stickyState'] == 2 ? 'selected' : '' }}>Group Sticky</option>
+            <option value="3" {{ $data['stickyState'] == 3 ? 'selected' : '' }}>Global Sticky</option>
+        </select>
+        <button class="btn btn-outline-secondary" type="submit">{{ $fsLang['setting'] }}</button>
+    </div>
+</form>
+
+<div class="input-group mb-4">
+    <span class="input-group-text">{{ $fsLang['status'] }}</span>
+    <div class="form-control">
+        @if ($data['status'])
+            <i class="bi bi-check-circle text-success"></i> <span class="text-success">{{ $fsLang['activate'] }}</span>
+        @else
+            <i class="bi bi-slash-circle text-danger"></i> <span class="text-danger">{{ $fsLang['deactivate'] }}</span>
+        @endif
+        <span class="ms-3 form-text">Deactivate status is only visible to the author</span>
+    </div>
+    @if ($data['status'])
+        <a class="btn btn-outline-secondary" href="{{ route('admin-menu.edit.post', [
+            'pid' => $data['pid'],
+            'langTag' => $langTag,
+            'authUlid' => $authUlid,
+            'status' => 'false',
+        ]) }}" role="button">{{ $fsLang['deactivate'] }}</a>
+    @else
+        <a class="btn btn-outline-secondary" href="{{ route('admin-menu.edit.post', [
+            'pid' => $data['pid'],
+            'langTag' => $langTag,
+            'authUlid' => $authUlid,
+            'status' => 'true',
+        ]) }}" role="button">{{ $fsLang['activate'] }}</a>
+    @endif
+</div>
+
 <div class="d-grid gap-2">
     <a class="btn btn-danger" href="{{ route('admin-menu.delete.post', [
         'pid' => $data['pid'],
         'langTag' => $langTag,
-        'authUuid' => $authUuid,
+        'authUlid' => $authUlid,
     ]) }}" role="button">{{ $fsLang['delete'] }}</a>
 </div>
 
@@ -38,7 +106,7 @@
                         <a role="button" class="btn btn-outline-secondary btn-sm mb-2" href="{{ route('admin-menu.edit.post.group', [
                             'pid' => $data['pid'],
                             'langTag' => $langTag,
-                            'authUuid' => $authUuid,
+                            'authUlid' => $authUlid,
                         ]) }}">{{ $fsLang['editorNoGroup'] }} {{ $fsName['group_name'] }}</a>
 
                         {{-- Group Categories --}}
@@ -80,7 +148,7 @@
                 page = page + 1
                 if (lists.length > 0) {
                     $.each(lists, function (i, list){
-                        html += '<a href="{{ route('admin-menu.edit.post.group', ['pid' => $data['pid'], 'langTag' => $langTag, 'authUuid' => $authUuid]) }}&gid=' + list.gid +'" class="list-group-item list-group-item-action">';
+                        html += '<a href="{{ route('admin-menu.edit.post.group', ['pid' => $data['pid'], 'langTag' => $langTag, 'authUlid' => $authUlid]) }}&gid=' + list.gid +'" class="list-group-item list-group-item-action">';
                         if (list.cover) {
                             html += '<img src="' + list.cover + '" height="20" class="me-1">';
                         }

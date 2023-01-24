@@ -6,7 +6,7 @@
     <a class="btn btn-outline-secondary pt-4" href="{{ route('admin-menu.edit.user', [
         'uid' => $data['uid'],
         'langTag' => $langTag,
-        'authUuid' => $authUuid,
+        'authUlid' => $authUlid,
         'avatar' => 'true',
     ]) }}" role="button">{{ $fsLang['remove'] }}</a>
 </div>
@@ -33,23 +33,23 @@
     <span class="input-group-text">{{ $fsLang['status'] }}</span>
     <div class="form-control">
         @if ($data['status'])
-            <i class="bi bi-check-circle text-success"></i> {{ $fsLang['activate'] }}
+            <i class="bi bi-check-circle text-success"></i> <span class="text-success">{{ $fsLang['activate'] }}</span>
         @else
-            <i class="bi bi-slash-circle text-danger"></i> {{ $fsLang['deactivate'] }}
+            <i class="bi bi-slash-circle text-danger"></i> <span class="text-danger">{{ $fsLang['deactivate'] }}</span>
         @endif
     </div>
     @if ($data['status'])
         <a class="btn btn-outline-secondary" href="{{ route('admin-menu.edit.user', [
             'uid' => $data['uid'],
             'langTag' => $langTag,
-            'authUuid' => $authUuid,
+            'authUlid' => $authUlid,
             'status' => 'false',
         ]) }}" role="button">{{ $fsLang['deactivate'] }}</a>
     @else
         <a class="btn btn-outline-secondary" href="{{ route('admin-menu.edit.user', [
             'uid' => $data['uid'],
             'langTag' => $langTag,
-            'authUuid' => $authUuid,
+            'authUlid' => $authUlid,
             'status' => 'true',
         ]) }}" role="button">{{ $fsLang['activate'] }}</a>
     @endif
@@ -69,7 +69,7 @@
                         <a href="{{ route('admin-menu.edit.user', [
                             'uid' => $data['uid'],
                             'langTag' => $langTag,
-                            'authUuid' => $authUuid,
+                            'authUlid' => $authUlid,
                             'roleId' => $role['rid'],
                         ]) }}" class="list-group-item list-group-item-action">{{ $role['name'] }}</a>
                     @endforeach
@@ -91,7 +91,7 @@
                 <form action="{{ route('admin-menu.edit.user') }}" method="GET">
                     <input type="hidden" name="uid" value="{{ $data['uid'] }}">
                     <input type="hidden" name="langTag" value="{{ $langTag }}">
-                    <input type="hidden" name="authUuid" value="{{ $authUuid }}">
+                    <input type="hidden" name="authUlid" value="{{ $authUlid }}">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">{{ $fsName['user_nickname_name'] }}</span>
@@ -116,7 +116,7 @@
                 <form action="{{ route('admin-menu.edit.user') }}" method="GET">
                     <input type="hidden" name="uid" value="{{ $data['uid'] }}">
                     <input type="hidden" name="langTag" value="{{ $langTag }}">
-                    <input type="hidden" name="authUuid" value="{{ $authUuid }}">
+                    <input type="hidden" name="authUlid" value="{{ $authUlid }}">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">{{ $fsName['user_username_name'] }}</span>
