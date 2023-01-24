@@ -23,20 +23,20 @@ class QiNiuApiController extends Controller
     use ApiResponseTrait;
     use QiNiuStorageTrait;
 
-    public function callback(string $uuid)
+    public function callback(string $ulid)
     {
         // 接收到七牛请求, 进行请求记录
-        \info('接收到七牛请求 '.$uuid);
+        \info('接收到七牛请求 '.$ulid);
         \info(var_export(\request()->all(), true));
 
         $data = \request()->all();
 
-        $pluginCallback = PluginCallback::query()->where('uuid', $uuid)->first();
+        $pluginCallback = PluginCallback::query()->where('ulid', $ulid)->first();
         \info('plugin_callback', [
             $pluginCallback?->toArray(),
         ]);
         if (! $pluginCallback) {
-            return $this->failure(3e4, '未找到 callback 信息 '.$uuid);
+            return $this->failure(3e4, '未找到 callback 信息 '.$ulid);
         }
 
         $fileInfo = $pluginCallback->content['file'] ?? [];
@@ -105,7 +105,7 @@ class QiNiuApiController extends Controller
             'is_use' => PluginCallback::IS_USE_TRUE,
         ]);
 
-        return $this->success(null, '操作 '.$uuid);
+        return $this->success(null, '操作 '.$ulid);
     }
 
     public function uploadFileInfo(Request $request)

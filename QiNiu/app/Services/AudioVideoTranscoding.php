@@ -60,7 +60,7 @@ class AudioVideoTranscoding extends DTO
 
             $key = $fileAppend->file->path;
 
-            $uuid = Str::uuid();
+            $ulid = (string) Str::ulid();
 
             $fileBasename = pathinfo($key, PATHINFO_BASENAME); // 七牛存储空间的文件名，包含后缀
             $fileExt = pathinfo($key, PATHINFO_EXTENSION); // 七牛存储空间的文件名的后缀，不含 "."
@@ -88,24 +88,24 @@ class AudioVideoTranscoding extends DTO
                 dir: FileHelper::fresnsFileStoragePath($fileAppend->file_type, $fileAppend->usage_type),
                 key: $key,
                 filename: $filename,
-                notifyUrl: route('qiniu.transcoding.callback', ['uuid' => $uuid]),
+                notifyUrl: route('qiniu.transcoding.callback', ['ulid' => $ulid]),
             );
 
             if (is_null($result) || empty($result['id'])) {
                 continue;
             }
 
-            $this->savePluginCallback($result, $fileAppend->file->getFileInfo(), $uuid);
+            $this->savePluginCallback($result, $fileAppend->file->getFileInfo(), $ulid);
 
             $this->updateTranscodingState($fileAppend->file);
         }
     }
 
-    public function savePluginCallback(array $result, array $uploadFileInfo, $uuid)
+    public function savePluginCallback(array $result, array $uploadFileInfo, $ulid)
     {
         return PluginCallback::create([
             'plugin_unikey' => 'QiNiu',
-            'uuid' => $uuid,
+            'ulid' => $ulid,
             'type' => PluginCallback::TYPE_CUSTOMIZE,
             'content' => [
                 'sence' => 'transcoding',

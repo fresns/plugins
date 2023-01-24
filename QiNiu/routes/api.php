@@ -25,5 +25,5 @@ Route::middleware('auth:api')->get('/qiniu', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('api')->post('/qiniu/transcoding/{uuid}', [QiNiuApiController::class, 'callback'])->name('qiniu.transcoding.callback');
+Route::middleware('api')->post('/qiniu/transcoding/{ulid}', [QiNiuApiController::class, 'callback'])->name('qiniu.transcoding.callback');
 Route::middleware('api')->post('/qiniu/upload-fileinfo', [QiNiuApiController::class, 'uploadFileInfo'])->name('qiniu.upload.fileinfo');

@@ -14,14 +14,14 @@ use App\Helpers\PrimaryHelper;
 use App\Models\FileUsage;
 use App\Utilities\ConfigUtility;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
+use Illuminate\Routing\Controller;
 
 class QiNiuController extends Controller
 {
     public function upload(Request $request)
     {
-        // 验证签名
+        // 验证路径凭证
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
             'urlAuthorization' => $request->authorization,
         ]);
