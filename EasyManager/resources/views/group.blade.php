@@ -62,7 +62,7 @@
                         <td><a href="{{ route('easy-manager.comment.index', ['groupId' => $group->id]) }}">{{ $group->comment_count }}</a></td>
                         <td>{{ $group->comment_digest_count }}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-primary btn-sm"
+                            <button type="button" class="btn btn-outline-primary btn-sm me-2"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editGroup"
                                 data-name="{{ $group->getLangName($defaultLanguage) }}"
@@ -70,6 +70,7 @@
                                 data-params="{{ $group->toJson() }}">
                                 {{ __('EasyManager::fresns.button_edit') }}
                             </button>
+                            <a class="btn btn-outline-primary btn-sm" href="{{ route('easy-manager.group.edit.permissions', ['groupId' => $group->id]) }}" role="button">{{ __('FsLang::panel.button_config_permission') }}</a>
                         </td>
                     </tr>
                 @endforeach

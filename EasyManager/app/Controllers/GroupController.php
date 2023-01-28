@@ -90,4 +90,87 @@ class GroupController extends Controller
 
         return $this->updateSuccess();
     }
+
+    public function groupEditPermissions(int $groupId)
+    {
+        $group = Group::where('id', $groupId)->first();
+
+        $permissions = [];
+        foreach ($group->permissions as $permKey => $permValue) {
+            $fresnsKeys = [
+                'publish_post',
+                'publish_post_roles',
+                'publish_post_review',
+                'publish_comment',
+                'publish_comment_roles',
+                'publish_comment_review',
+            ];
+
+            $isCustom = true;
+            if (in_array($permKey, $fresnsKeys)) {
+                $isCustom = false;
+            }
+
+            if ($permKey == 'publish_post_roles' || $permKey == 'publish_comment_roles') {
+                $permValue = json_encode($permValue);
+            }
+
+            if ($permKey == 'publish_post_review' || $permKey == 'publish_comment_review') {
+                $permValue = $permValue ? 'true' : 'false';
+            }
+
+            $item['permKey'] = $permKey;
+            $item['permValue'] = $permValue;
+            $item['isCustom'] = $isCustom;
+
+            $permissions[] = $item;
+        }
+
+        // search config
+        $search = [
+            'status' => false,
+            'action' => null,
+            'selects' => [],
+            'defaultSelect' => [],
+        ];
+
+        return view('EasyManager::group-edit', compact('group', 'permissions', 'search'));
+    }
+
+    public function groupUpdatePermissions(int $groupId, Request $request)
+    {
+        $group = Group::where('id', $groupId)->first();
+
+        $requestPerms = collect($request->editPermissions['permKey'] ?? [])->filter()->map(function ($value, $key) use ($request) {
+            return [
+                'permKey' => $value,
+                'permValue' => $request->editPermissions['permValue'][$key] ?? '',
+            ];
+        });
+
+        $permissions = $group->permissions;
+
+        $newPermissions = [];
+        foreach ($requestPerms as $newPerm) {
+            $permKey = $newPerm['permKey'];
+            $permValue = $newPerm['permValue'];
+
+            $newPermissions[$permKey] = $permValue;
+        }
+
+        $newPermissions['publish_post'] = $permissions['publish_post'];
+        $newPermissions['publish_post_roles'] = $permissions['publish_post_roles'] ?? [];
+        $newPermissions['publish_post_review'] = (bool) ($permissions['publish_post_review'] ?? 0);
+        $newPermissions['publish_comment'] = $permissions['publish_comment'];
+        $newPermissions['publish_comment_roles'] = $permissions['publish_comment_roles'] ?? [];
+        $newPermissions['publish_comment_review'] = (bool) ($permissions['publish_comment_review'] ?? 0);
+
+        $group->permissions = $newPermissions;
+        $group->save();
+
+        CacheHelper::forgetFresnsMultilingual("fresns_api_group_{$group->gid}");
+        CacheHelper::forgetFresnsModel('group', $group->gid);
+
+        return $this->updateSuccess();
+    }
 }

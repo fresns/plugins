@@ -45,6 +45,8 @@ Route::prefix('easy-manager')->name('easy-manager.')->middleware(['panel', 'pane
     Route::resource('group', GroupController::class)->only([
         'index', 'update', 'destroy',
     ]);
+    Route::get('group/permissions/{groupId}', [GroupController::class, 'groupEditPermissions'])->name('group.edit.permissions');
+    Route::put('group/permissions/{groupId}', [GroupController::class, 'groupUpdatePermissions'])->name('group.update.permissions');
 
     Route::resource('hashtag', HashtagController::class)->only([
         'index', 'update', 'destroy',
