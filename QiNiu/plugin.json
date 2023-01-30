@@ -5,7 +5,7 @@
     "description": "Fresns 官方开发的「七牛云」存储服务插件。本插件没有设置页，七牛云配置信息使用系统的「存储设置」信息。",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "2.6.1",
+    "version": "2.6.2",
     "scene": [
         "storage"
     ],
@@ -13,7 +13,8 @@
     "settingPath": null,
     "providers": [
         "Plugins\\QiNiu\\Providers\\QiNiuServiceProvider",
-        "Plugins\\QiNiu\\Providers\\CmdWordServiceProvider"
+        "Plugins\\QiNiu\\Providers\\CmdWordServiceProvider",
+        "Plugins\\QiNiu\\Providers\\EventServiceProvider"
     ],
     "autoloadFiles": [],
     "aliases": {}
