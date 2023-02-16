@@ -16,6 +16,7 @@ use App\Helpers\ConfigHelper;
 use App\Helpers\FileHelper;
 use App\Helpers\LanguageHelper;
 use App\Helpers\PrimaryHelper;
+use App\Models\Account;
 use App\Models\Comment;
 use App\Models\CommentLog;
 use App\Models\Group;
@@ -241,7 +242,7 @@ class WebController extends Controller
 
             $oldGroup?->decrement('post_count');
 
-            if ($post->comment_count) {
+            if ($post->comment_count && $oldGroup->comment_count > $post->comment_count) {
                 $oldGroup?->decrement('comment_count', $post->comment_count);
             }
         }
@@ -313,15 +314,11 @@ class WebController extends Controller
         }
 
         if ($request->digestState) {
-            $post->update([
-                'digest_state' => $request->digestState,
-            ]);
+            InteractionUtility::markContentDigest('post', $post->id, $request->digestState);
         }
 
         if ($request->stickyState) {
-            $post->update([
-                'sticky_state' => $request->stickyState,
-            ]);
+            InteractionUtility::markContentSticky('post', $post->id, $request->stickyState);
         }
 
         if ($request->status == 'true') {
@@ -427,21 +424,13 @@ class WebController extends Controller
         }
 
         if ($request->digestState) {
-            $comment->update([
-                'digest_state' => $request->digestState,
-            ]);
+            InteractionUtility::markContentDigest('comment', $comment->id, $request->digestState);
         }
 
-        if ($request->isSticky == 'true') {
-            $comment->update([
-                'is_sticky' => true,
-            ]);
-        }
+        if ($request->isSticky) {
+            $stickyState = ($request->isSticky == 'true') ? 1 : 0;
 
-        if ($request->isSticky == 'false') {
-            $comment->update([
-                'is_sticky' => false,
-            ]);
+            InteractionUtility::markContentSticky('comment', $comment->id, $stickyState);
         }
 
         if ($request->status == 'true') {
@@ -459,6 +448,53 @@ class WebController extends Controller
         CacheHelper::clearDataCache('comment', $request->cid, 'fresnsApiData');
         CacheHelper::clearDataCache('comment', $request->cid, 'fresnsSeo');
         CacheHelper::clearDataCache('comment', $request->cid, 'fresnsModel');
+
+        return view('AdminMenu::error', [
+            'code' => 0,
+            'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+        ]);
+    }
+
+    // delete user
+    public function deleteUser(Request $request)
+    {
+        $langTag = $request->langTag ?? ConfigHelper::fresnsConfigDefaultLangTag();
+        View::share('langTag', $langTag);
+
+        if (! $request->authUlid || ! $request->uid) {
+            return view('AdminMenu::error', [
+                'code' => 30001,
+                'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+            ]);
+        }
+
+        $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
+        $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
+
+        if (empty($authUlid)) {
+            return view('AdminMenu::error', [
+                'code' => 32203,
+                'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+            ]);
+        }
+
+        $user = User::where('uid', $request->uid)->first();
+
+        if (empty($user)) {
+            return view('AdminMenu::error', [
+                'code' => 37400,
+                'message' => ConfigUtility::getCodeMessage(37400, 'Fresns', $langTag),
+            ]);
+        }
+
+        $account = Account::with(['users'])->where('id', $user->account_id)->first();
+        if (count($account?->users) == 1) {
+            CacheHelper::forgetFresnsAccount($account->aid);
+            $account->delete();
+        }
+
+        CacheHelper::forgetFresnsUser($user->uid, $user->id);
+        $user->delete();
 
         return view('AdminMenu::error', [
             'code' => 0,

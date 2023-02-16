@@ -83,11 +83,23 @@
 </div>
 
 <div class="d-grid gap-2">
-    <a class="btn btn-danger" href="{{ route('admin-menu.delete.post', [
-        'pid' => $data['pid'],
-        'langTag' => $langTag,
-        'authUlid' => $authUlid,
-    ]) }}" role="button">{{ $fsLang['delete'] }}</a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">{{ $fsLang['delete'] }}</button>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">{{ $fsLang['delete'] }}?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ $fsLang['cancel'] }}</button>
+                <a class="btn btn-danger" href="{{ route('admin-menu.delete.post', [
+                    'pid' => $data['pid'],
+                    'langTag' => $langTag,
+                    'authUlid' => $authUlid,
+                ]) }}" role="button">{{ $fsLang['confirm'] }}</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -1,7 +1,7 @@
 <div class="input-group mb-3">
     <span class="input-group-text">{{ $fsLang['userAvatar'] }}</span>
     <div class="form-control">
-        <img src="{{ $data['avatar'] }}" class="rounded-circle" height="60">
+        <img src="{{ $data['avatar'] }}" class="rounded-circle" width="60" height="60">
     </div>
     <a class="btn btn-outline-secondary pt-4" href="{{ route('admin-menu.edit.user', [
         'uid' => $data['uid'],
@@ -54,6 +54,27 @@
         ]) }}" role="button">{{ $fsLang['activate'] }}</a>
     @endif
 </div>
+
+<div class="d-grid gap-2">
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">{{ $fsLang['accountDelete'] }}</button>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">{{ $fsLang['accountDelete'] }}?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ $fsLang['cancel'] }}</button>
+                <a class="btn btn-danger" href="{{ route('admin-menu.delete.user', [
+                    'uid' => $data['uid'],
+                    'langTag' => $langTag,
+                    'authUlid' => $authUlid,
+                ]) }}" role="button">{{ $fsLang['confirm'] }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="roleModalLabel" aria-hidden="true">
