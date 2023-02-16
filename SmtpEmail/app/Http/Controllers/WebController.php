@@ -11,6 +11,7 @@ namespace Plugins\SmtpEmail\Http\Controllers;
 use App\Helpers\CacheHelper;
 use App\Helpers\PluginHelper;
 use App\Models\Config;
+use App\Utilities\AppUtility;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +24,7 @@ class WebController extends Controller
     public function settings()
     {
         $version = PluginHelper::fresnsPluginVersionByUnikey('SmtpEmail');
+        $marketUrl = AppUtility::getApiHost().'/open-source';
 
         $content = Config::query()->whereIn('item_key', [
             'fresnsemail_smtp_host',
@@ -36,7 +38,7 @@ class WebController extends Controller
 
         $locale = \request()->cookie('panel_lang');
 
-        return view('SmtpEmail::setting', compact('content', 'version', 'locale'));
+        return view('SmtpEmail::setting', compact('content', 'version', 'marketUrl', 'locale'));
     }
 
     /**
