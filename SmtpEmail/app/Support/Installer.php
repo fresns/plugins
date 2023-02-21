@@ -22,7 +22,7 @@ class Installer
         [
             'item_key' => 'fresnsemail_smtp_port',
             'item_value' => '',
-            'item_type' => 'string',
+            'item_type' => 'number',
             'item_tag' => 'SmtpEmail',
         ],
         [

@@ -46,7 +46,7 @@ class MailService
     public static function initMailSetting()
     {
         $host = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_host');
-        $port = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_port');
+        $port = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_port') ?? 25;
         $user = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_username');
         $pass = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_password');
         $type = ConfigHelper::fresnsConfigByItemKey('fresnsemail_verify_type');
@@ -55,7 +55,7 @@ class MailService
         $smtp = [
             'transport' => 'smtp',
             'host' => $host,
-            'port' => $port,
+            'port' => (int) $port,
             'username' => $user,
             'password' => $pass,
             'encryption' => $type,
