@@ -5,7 +5,7 @@
     "description": "Placeholder plugin for testing and viewing client generated parameters.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scene": [
         "apiKey",
         "register",
@@ -33,7 +33,7 @@
         "engine",
         "appNotify"
     ],
-    "accessPath": "/placeholder/index?sign={sign}&lang={langTag}&type={type}&scene={scene}&postMessageKey={postMessageKey}&aid={aid}&uid={uid}&rid={rid}&gid={gid}&pid={pid}&cid={cid}&eid={eid}&fid={fid}&plid={plid}&clid={clid}",
+    "accessPath": "/placeholder/index?authorization={authorization}&type={type}&scene={scene}&postMessageKey={postMessageKey}&aid={aid}&uid={uid}&rid={rid}&gid={gid}&pid={pid}&cid={cid}&eid={eid}&fid={fid}&plid={plid}&clid={clid}&uploadInfo={uploadInfo}",
     "settingsPath": null,
     "providers": [
         "Plugins\\Placeholder\\Providers\\PlaceholderServiceProvider"

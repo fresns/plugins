@@ -1,0 +1,19 @@
+{
+    "unikey": "EasyManager",
+    "type": 2,
+    "name": "Easy Manager",
+    "description": "Fresns official development of easy management plug-in.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.2.1",
+    "scene": [
+        "tool"
+    ],
+    "accessPath": null,
+    "settingsPath": "/easy-manager",
+    "providers": [
+        "Plugins\\EasyManager\\Providers\\EasyManagerServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}

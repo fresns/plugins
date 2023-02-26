@@ -43,6 +43,15 @@
                     <div class="tab-pane fade show active" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
                         <form class="mt-4" action="{{ route('fresnsemail.settings.store') }}" method="post">
                             @csrf
+                            {{-- Send Config --}}
+                            <div class="row mb-4">
+                                <label class="col-lg-2 col-form-label text-lg-end">{{ __('FsLang::panel.sidebar_send') }}:</label>
+                                <div class="col-lg-5 pt-1">
+                                    <a class="btn btn-outline-secondary btn-sm px-4 me-2" href="{{ route('panel.send.index') }}" target="_blank" role="button">{{ __('FsLang::panel.button_config') }}</a>
+                                    <a href="{{ $marketUrl.'/detail/SmtpEmail' }}" target="_blank" class="link-primary fs-7">{{ __('FsLang::panel.button_support') }}</a>
+                                </div>
+                            </div>
+                            {{-- Email Config --}}
                             <div class="row mb-4">
                                 <label class="col-lg-2 col-form-label text-lg-end">@lang('SmtpEmail::fresns.smtpHost'):</label>
                                 <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_smtp_host" placeholder="smtp.example.com" value="{{ old("fresnsemail_smtp_host", $content['fresnsemail_smtp_host'] ?? '') }}" ></div>
@@ -84,6 +93,7 @@
                                 <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_from_name" placeholder="Fresns" value="{{ old("fresnsemail_from_name", $content['fresnsemail_from_name'] ?? '') }}" ></div>
                                 <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('SmtpEmail::fresns.smtpFromNameIntro')</div>
                             </div>
+                            {{-- Save --}}
                             <div class="row mb-4">
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-10">
