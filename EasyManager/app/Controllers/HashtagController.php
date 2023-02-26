@@ -100,7 +100,7 @@ class HashtagController extends Controller
                 $query->where('hashtag_id', $id);
             })->count();
 
-            $postDigestCount = Post::with(['hashtags'])->where('digest_state', "!=", '1')->whereHas('hashtags', function ($query) use ($id) {
+            $postDigestCount = Post::with(['hashtags'])->where('digest_state', '!=', '1')->whereHas('hashtags', function ($query) use ($id) {
                 $query->where('hashtag_id', $id);
             })->count();
 
@@ -108,7 +108,7 @@ class HashtagController extends Controller
                 $query->where('hashtag_id', $id);
             })->count();
 
-            $commentDigestCount = Comment::with(['hashtags'])->where('digest_state', "!=", '1')->whereHas('hashtags', function ($query) use ($id) {
+            $commentDigestCount = Comment::with(['hashtags'])->where('digest_state', '!=', '1')->whereHas('hashtags', function ($query) use ($id) {
                 $query->where('hashtag_id', $id);
             })->count();
 

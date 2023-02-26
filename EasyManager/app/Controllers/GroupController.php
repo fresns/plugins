@@ -185,13 +185,13 @@ class GroupController extends Controller
 
             $postCount = Post::where('group_id', $id)->count();
 
-            $postDigestCount = Post::where('group_id', $id)->where('digest_state', "!=", '1')->count();
+            $postDigestCount = Post::where('group_id', $id)->where('digest_state', '!=', '1')->count();
 
             $commentCount = Comment::with(['post'])->whereHas('post', function ($query) use ($id) {
                 $query->where('group_id', $id);
             })->count();
 
-            $commentDigestCount = Comment::with(['post'])->where('digest_state', "!=", '1')->whereHas('post', function ($query) use ($id) {
+            $commentDigestCount = Comment::with(['post'])->where('digest_state', '!=', '1')->whereHas('post', function ($query) use ($id) {
                 $query->where('group_id', $id);
             })->count();
 
