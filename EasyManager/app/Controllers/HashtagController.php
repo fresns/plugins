@@ -10,7 +10,9 @@ namespace Plugins\EasyManager\Controllers;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
+use App\Models\Comment;
 use App\Models\Hashtag;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HashtagController extends Controller
@@ -83,6 +85,40 @@ class HashtagController extends Controller
 
         CacheHelper::clearDataCache('hashtag', $hashtag->slug, 'fresnsModel');
         CacheHelper::clearDataCache('hashtag', $hashtag->slug, 'fresnsApiData');
+
+        return $this->updateSuccess();
+    }
+
+    public function updateCount()
+    {
+        $hashtags = Hashtag::get();
+
+        foreach ($hashtags as $hashtag) {
+            $id = $hashtag->id;
+
+            $postCount = Comment::with(['hashtags'])->whereHas('hashtags', function ($query) use ($id) {
+                $query->where('hashtag_id', $id);
+            })->count();
+
+            $postDigestCount = Post::with(['hashtags'])->where('digest_state', "!=", '1')->whereHas('hashtags', function ($query) use ($id) {
+                $query->where('hashtag_id', $id);
+            })->count();
+
+            $commentCount = Comment::with(['hashtags'])->whereHas('hashtags', function ($query) use ($id) {
+                $query->where('hashtag_id', $id);
+            })->count();
+
+            $commentDigestCount = Comment::with(['hashtags'])->where('digest_state', "!=", '1')->whereHas('hashtags', function ($query) use ($id) {
+                $query->where('hashtag_id', $id);
+            })->count();
+
+            $hashtag->update([
+                'post_count' => $postCount,
+                'post_digest_count' => $postDigestCount,
+                'comment_count' => $commentCount,
+                'comment_digest_count' => $commentDigestCount,
+            ]);
+        }
 
         return $this->updateSuccess();
     }

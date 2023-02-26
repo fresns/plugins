@@ -10,7 +10,9 @@ namespace Plugins\EasyManager\Controllers;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
+use App\Models\Comment;
 use App\Models\Group;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -85,7 +87,7 @@ class GroupController extends Controller
         $group->gid = $request->gid;
         $group->save();
 
-        CacheHelper::forgetFresnsKey('fresns_guest_all_groups');
+        CacheHelper::forgetFresnsKey('fresns_guest_all_groups', 'fresnsGroupData');
         CacheHelper::forgetFresnsTag('fresnsGroupData');
 
         return $this->updateSuccess();
@@ -168,8 +170,38 @@ class GroupController extends Controller
         $group->permissions = $newPermissions;
         $group->save();
 
-        CacheHelper::forgetFresnsMultilingual("fresns_api_group_{$group->gid}");
+        CacheHelper::forgetFresnsMultilingual("fresns_api_group_{$group->gid}", 'fresnsGroupData');
         CacheHelper::forgetFresnsModel('group', $group->gid);
+
+        return $this->updateSuccess();
+    }
+
+    public function updateCount()
+    {
+        $groups = Group::get();
+
+        foreach ($groups as $group) {
+            $id = $group->id;
+
+            $postCount = Post::where('group_id', $id)->count();
+
+            $postDigestCount = Post::where('group_id', $id)->where('digest_state', "!=", '1')->count();
+
+            $commentCount = Comment::with(['post'])->whereHas('post', function ($query) use ($id) {
+                $query->where('group_id', $id);
+            })->count();
+
+            $commentDigestCount = Comment::with(['post'])->where('digest_state', "!=", '1')->whereHas('post', function ($query) use ($id) {
+                $query->where('group_id', $id);
+            })->count();
+
+            $group->update([
+                'post_count' => $postCount,
+                'post_digest_count' => $postDigestCount,
+                'comment_count' => $commentCount,
+                'comment_digest_count' => $commentDigestCount,
+            ]);
+        }
 
         return $this->updateSuccess();
     }
