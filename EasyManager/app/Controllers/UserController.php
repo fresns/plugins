@@ -117,6 +117,12 @@ class UserController extends Controller
     {
         $user = User::where('uid', $uid)->first();
 
+        if ($request->is_main) {
+            UserRole::where('user_id', $user->id)->update([
+                'is_main' => false,
+            ]);
+        }
+
         UserRole::create([
             'user_id' => $user->id,
             'role_id' => $request->roleId,
