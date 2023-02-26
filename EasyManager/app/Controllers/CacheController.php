@@ -8,7 +8,6 @@
 
 namespace Plugins\EasyManager\Controllers;
 
-use App\Helpers\CacheHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -26,8 +25,8 @@ class CacheController extends Controller
         ];
 
         // cache info
-        $isSupportTags = CacheHelper::isSupportTags();
-        $cacheDriver = config('cache.default', 'file');
+        $isSupportTags = Cache::supportsTags();
+        $cacheDriver = Cache::getDefaultDriver();
         $cacheTagArr = Cache::get('fresns_cache_tags') ?? [];
 
         arsort($cacheTagArr);
@@ -54,7 +53,7 @@ class CacheController extends Controller
 
     public function destroy(Request $request)
     {
-        $isSupportTags = CacheHelper::isSupportTags();
+        $isSupportTags = Cache::supportsTags();
 
         if (empty($request->tag) || ! $isSupportTags) {
             return;
