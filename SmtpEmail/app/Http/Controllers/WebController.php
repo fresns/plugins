@@ -75,7 +75,7 @@ class WebController extends Controller
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ];
-        CacheHelper::forgetFresnsKeys($keys);
+        CacheHelper::forgetFresnsConfigs($keys);
 
         return back()->with('success', __('success!'));
     }
