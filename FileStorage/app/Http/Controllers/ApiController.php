@@ -26,7 +26,6 @@ class ApiController extends Controller
      * @param  string  $token
      * @param  int  $time
      * @param  string  $type
-     *
      * @return file
      */
     // path: /api/file-storage/file?fid=c8N8g0Tf?type=config&token=94a08da1fecbb6e8b46990538c7b50b2&time=1676241447

@@ -15,8 +15,8 @@ use App\Models\File;
 use App\Models\FileUsage;
 use App\Utilities\AppUtility;
 use App\Utilities\FileUtility;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Plugins\FileStorage\Helpers\ConfigHelper;
 
@@ -64,7 +64,7 @@ class AdminController extends Controller
         ];
 
         $watermarkFile = null;
-        $watermarkFileUrl  = null;
+        $watermarkFileUrl = null;
         if ($imageWatermarkFile) {
             $watermarkFile = File::where('id', $imageWatermarkFile)->first();
 
