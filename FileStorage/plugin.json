@@ -1,0 +1,21 @@
+{
+    "unikey": "FileStorage",
+    "type": 1,
+    "name": "File Storage",
+    "description": "The official File Storage service plugin developed by Fresns. Supports local, ftp and sftp storage methods.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.cn",
+    "version": "1.1.1",
+    "scene": [
+        "storage"
+    ],
+    "accessPath": null,
+    "settingsPath": "/file-storage/admin",
+    "providers": [
+        "Plugins\\FileStorage\\Providers\\FileStorageServiceProvider",
+        "Plugins\\FileStorage\\Providers\\CmdWordServiceProvider",
+        "Plugins\\FileStorage\\Providers\\EventServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}

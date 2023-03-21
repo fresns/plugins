@@ -1,0 +1,23 @@
+{
+    "name": "fresns/file-storage",
+    "description": "The official File Storage service plugin developed by Fresns. Supports local, ftp and sftp storage methods.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\FileStorage\\": "app"
+        }
+    },
+    "require": {
+        "league/flysystem-ftp": "^3.0",
+        "league/flysystem-sftp-v3": "^3.0",
+        "intervention/image": "^3.0@alpha"
+    }
+}

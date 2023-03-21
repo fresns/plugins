@@ -108,15 +108,15 @@ class WebController extends Controller
                 }
 
                 $groupCategories = $catList;
-            break;
+                break;
 
-            // comment
+                // comment
             case 'comment':
                 $service = new CommentService();
                 $data = $service->commentData($model, 'list', $langTag, $timezone, false);
-            break;
+                break;
 
-            // user
+                // user
             case 'user':
                 $service = new UserService();
                 $data = $service->userData($model, $langTag, $timezone);
@@ -136,7 +136,7 @@ class WebController extends Controller
                     $roleList[] = $item;
                 }
                 $roles = $roleList;
-            break;
+                break;
         }
 
         $fsLang = ConfigHelper::fresnsConfigByItemKey('language_pack_contents', $langTag);
