@@ -63,11 +63,11 @@ class AccountController extends Controller
                     'value' => 'aid',
                 ],
                 [
-                    'name' => __('EasyManager::fresns.table_phone'),
+                    'name' => __('EasyManager::fresns.table_email'),
                     'value' => 'email',
                 ],
                 [
-                    'name' => __('EasyManager::fresns.table_email'),
+                    'name' => __('EasyManager::fresns.table_phone'),
                     'value' => 'phone',
                 ],
             ],
