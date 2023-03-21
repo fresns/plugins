@@ -227,44 +227,44 @@ class AdminController extends Controller
             Config::updateOrCreate([
                 'item_key' => "filestorage_{$type}_driver",
             ],
-            [
-                'item_value' => $request->driver,
-                'item_type' => 'string',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->driver,
+                    'item_type' => 'string',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         if ($request->privateKey) {
             Config::updateOrCreate([
                 'item_key' => "filestorage_{$type}_private_key",
             ],
-            [
-                'item_value' => $request->privateKey,
-                'item_type' => 'string',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->privateKey,
+                    'item_type' => 'string',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         if ($request->passphrase) {
             Config::updateOrCreate([
                 'item_key' => "filestorage_{$type}_passphrase",
             ],
-            [
-                'item_value' => $request->passphrase,
-                'item_type' => 'string',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->passphrase,
+                    'item_type' => 'string',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         if ($request->hostFingerprint) {
             Config::updateOrCreate([
                 'item_key' => "filestorage_{$type}_host_fingerprint",
             ],
-            [
-                'item_value' => $request->hostFingerprint,
-                'item_type' => 'string',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->hostFingerprint,
+                    'item_type' => 'string',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         // image config
@@ -272,22 +272,22 @@ class AdminController extends Controller
             Config::updateOrCreate([
                 'item_key' => 'filestorage_image_processing_library',
             ],
-            [
-                'item_value' => $request->imageProcessingLibrary,
-                'item_type' => 'string',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->imageProcessingLibrary,
+                    'item_type' => 'string',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         if ($request->imageProcessingParams) {
             Config::updateOrCreate([
                 'item_key' => 'filestorage_image_processing_params',
             ],
-            [
-                'item_value' => $request->imageProcessingParams,
-                'item_type' => 'object',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->imageProcessingParams,
+                    'item_type' => 'object',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         if ($request->imageWatermarkFile) {
@@ -310,22 +310,22 @@ class AdminController extends Controller
             Config::updateOrCreate([
                 'item_key' => 'filestorage_image_watermark_file',
             ],
-            [
-                'item_value' => $file?->id,
-                'item_type' => 'file',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $file?->id,
+                    'item_type' => 'file',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         if ($request->imageWatermarkConfig) {
             Config::updateOrCreate([
                 'item_key' => 'filestorage_image_watermark_config',
             ],
-            [
-                'item_value' => $request->imageWatermarkConfig,
-                'item_type' => 'object',
-                'item_tag' => 'filestorage',
-            ]);
+                [
+                    'item_value' => $request->imageWatermarkConfig,
+                    'item_type' => 'object',
+                    'item_tag' => 'filestorage',
+                ]);
         }
 
         ConfigHelper::forgetCache($fileTypeInt);
