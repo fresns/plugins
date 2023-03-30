@@ -3,7 +3,7 @@
 <p align="center">
 <img src="https://img.shields.io/badge/Fresns-%5E2.0-orange" alt="Fresns">
 <img src="https://img.shields.io/badge/PluginManager-2.x-blueviolet" alt="PluginManager">
-<img src="https://img.shields.io/badge/License-Apache--2.0-brightgreen" alt="License">
+<img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License">
 </p>
 
 ## Repository Introduction
