@@ -93,8 +93,8 @@ class WebController extends Controller
         $roles = [];
 
         switch ($type) {
-            // post
             case 'post':
+                // post
                 $service = new PostService();
                 $data = $service->postData($model, 'list', $langTag, $timezone, false);
 
@@ -110,14 +110,14 @@ class WebController extends Controller
                 $groupCategories = $catList;
                 break;
 
-                // comment
             case 'comment':
+                // comment
                 $service = new CommentService();
                 $data = $service->commentData($model, 'list', $langTag, $timezone, false);
                 break;
 
-                // user
             case 'user':
+                // user
                 $service = new UserService();
                 $data = $service->userData($model, $langTag, $timezone);
 

@@ -108,7 +108,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ $fsLang['choose'] }}</h5>
+                <h5 class="modal-title">{{ $fsLang['select'] }}</h5>
                 <button type="button" class="btn-close" data-bs-target="#createModal" data-bs-toggle="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
