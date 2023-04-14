@@ -55,6 +55,22 @@
         <div class="row mb-4">
             <label class="col-lg-3 col-form-label text-lg-end">{{ __('FsLang::panel.storage_function_image_config') }}:</label>
             <div class="col-lg-9">
+                {{-- imageProcessingStatus --}}
+                <div class="row mb-2">
+                    <div class="col-lg-7">
+                        <div class="input-group">
+                            <label class="input-group-text">{{ __('FileStorage::fresns.imageProcessingStatus') }}</label>
+                            <select class="form-select" name="imageProcessingStatus">
+                                <option value="close" {{ $imageProcessingStatus == 'close' ? 'selected' : '' }}>{{ __('FsLang::panel.option_close') }}</option>
+                                <option value="open" {{ $imageProcessingStatus == 'open' ? 'selected' : '' }}>{{ __('FsLang::panel.option_open') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 form-text pt-1">
+                        <i class="bi bi-info-circle"></i> {{ __('FileStorage::fresns.imageProcessingLibraryIntro') }}
+                    </div>
+                </div>
+
                 {{-- imageProcessingLibrary --}}
                 <div class="row mb-2">
                     <div class="col-lg-7">

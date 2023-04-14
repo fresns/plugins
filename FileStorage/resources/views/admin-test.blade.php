@@ -77,7 +77,7 @@
                                 @break
 
                                 @case(4)
-                                    <a href="{{ $file['documentUrl'] }}" target="_blank">{{ $file['name'] }}</a>
+                                    <a href="{{ $file['documentPreviewUrl'] }}" target="_blank">{{ $file['name'] }}</a>
                                 @break
 
                                 @default

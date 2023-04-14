@@ -2,7 +2,7 @@
 
 /*
  * Fresns (https://fresns.org)
- * Copyright (C) 2021-Present Jarvis Tang
+ * Copyright (C) 2021-Present Jevan Tang
  * Released under the Apache-2.0 License.
  */
 
@@ -37,6 +37,12 @@ class Installer
         [
             'item_key' => 'filestorage_image_host_fingerprint',
             'item_value' => null,
+            'item_type' => 'string',
+            'item_tag' => 'filestorage',
+        ],
+        [
+            'item_key' => 'filestorage_image_processing_status',
+            'item_value' => 'open',
             'item_type' => 'string',
             'item_tag' => 'filestorage',
         ],

@@ -2,7 +2,7 @@
 
 /*
  * Fresns (https://fresns.org)
- * Copyright (C) 2021-Present Jarvis Tang
+ * Copyright (C) 2021-Present Jevan Tang
  * Released under the Apache-2.0 License.
  */
 
@@ -26,6 +26,7 @@ return [
     'passphraseIntro' => 'SFTP specific, leave empty if key has no password',
     'hostFingerprintIntro' => 'SFTP specific, leave empty if not required',
 
+    'imageProcessingStatus' => 'Image Processing Status',
     'imageProcessingLibrary' => 'Image Processing Library',
     'imageProcessingLibraryIntro' => 'Support for GD & Imagick',
 

@@ -2,7 +2,7 @@
 
 /*
  * Fresns (https://fresns.org)
- * Copyright (C) 2021-Present Jarvis Tang
+ * Copyright (C) 2021-Present Jevan Tang
  * Released under the Apache-2.0 License.
  */
 
@@ -26,6 +26,7 @@ return [
     'passphraseIntro' => 'SFTP 專用，如果密鑰無密碼則留空',
     'hostFingerprintIntro' => 'SFTP 專用，沒有要求則留空',
 
+    'imageProcessingStatus' => '圖片處理功能',
     'imageProcessingLibrary' => '圖片處理庫',
     'imageProcessingLibraryIntro' => '支持 GD 和 Imagick',
 

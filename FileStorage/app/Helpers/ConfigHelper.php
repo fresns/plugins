@@ -2,7 +2,7 @@
 
 /*
  * Fresns (https://fresns.org)
- * Copyright (C) 2021-Present Jarvis Tang
+ * Copyright (C) 2021-Present Jevan Tang
  * Released under the Apache-2.0 License.
  */
 
@@ -43,6 +43,7 @@ class ConfigHelper
     {
         return [
             'filestorage_image_driver',
+            'filestorage_image_processing_status',
             'filestorage_image_processing_library',
             'filestorage_image_processing_params',
             'filestorage_image_watermark_file',
