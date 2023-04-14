@@ -38,6 +38,7 @@ class AdminController extends Controller
             'filestorage_image_private_key',
             'filestorage_image_passphrase',
             'filestorage_image_host_fingerprint',
+            'filestorage_image_processing_status',
             'filestorage_image_processing_library',
             'filestorage_image_processing_params',
             'filestorage_image_watermark_file',
@@ -50,6 +51,7 @@ class AdminController extends Controller
         $imagePrivateKey = $configs->where('item_key', 'filestorage_image_private_key')->first()?->item_value;
         $imagePassphrase = $configs->where('item_key', 'filestorage_image_passphrase')->first()?->item_value;
         $imageHostFingerprint = $configs->where('item_key', 'filestorage_image_host_fingerprint')->first()?->item_value;
+        $imageProcessingStatus = $configs->where('item_key', 'filestorage_image_processing_status')->first()?->item_value ?? 'open';
         $imageProcessingLibrary = $configs->where('item_key', 'filestorage_image_processing_library')->first()?->item_value ?? 'gd';
         $imageProcessingParams = $configs->where('item_key', 'filestorage_image_processing_params')->first()?->item_value ?? [
             'config' => 400,
@@ -86,6 +88,7 @@ class AdminController extends Controller
             'imagePrivateKey',
             'imagePassphrase',
             'imageHostFingerprint',
+            'imageProcessingStatus',
             'imageProcessingLibrary',
             'imageProcessingParams',
             'watermarkFile',
@@ -264,6 +267,15 @@ class AdminController extends Controller
         }
 
         // image config
+        if ($request->imageProcessingStatus) {
+            Config::updateOrCreate([
+                'item_key' => 'filestorage_image_processing_status',
+            ], [
+                'item_value' => $request->imageProcessingStatus,
+                'item_type' => 'string',
+                'item_tag' => 'filestorage',
+            ]);
+        }
         if ($request->imageProcessingLibrary) {
             Config::updateOrCreate([
                 'item_key' => 'filestorage_image_processing_library',

@@ -26,6 +26,7 @@ return [
     'passphraseIntro' => 'SFTP specific, leave empty if key has no password',
     'hostFingerprintIntro' => 'SFTP specific, leave empty if not required',
 
+    'imageProcessingStatus' => 'Image Processing Status',
     'imageProcessingLibrary' => 'Image Processing Library',
     'imageProcessingLibraryIntro' => 'Support for GD & Imagick',
 

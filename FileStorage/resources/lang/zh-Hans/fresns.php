@@ -26,6 +26,7 @@ return [
     'passphraseIntro' => 'SFTP 专用，如果密钥无密码则留空',
     'hostFingerprintIntro' => 'SFTP 专用，没有要求则留空',
 
+    'imageProcessingStatus' => '图片处理功能',
     'imageProcessingLibrary' => '图片处理库',
     'imageProcessingLibraryIntro' => '支持 GD 和 Imagick',
 

@@ -41,6 +41,12 @@ class Installer
             'item_tag' => 'filestorage',
         ],
         [
+            'item_key' => 'filestorage_image_processing_status',
+            'item_value' => 'open',
+            'item_type' => 'string',
+            'item_tag' => 'filestorage',
+        ],
+        [
             'item_key' => 'filestorage_image_processing_library',
             'item_value' => 'gd',
             'item_type' => 'string',

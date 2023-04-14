@@ -26,6 +26,11 @@ class TranscodeHelper
         }
 
         $configs = FresnsConfigHelper::fresnsConfigByItemKeys(ConfigHelper::imageConfigKeys());
+
+        if ($configs['filestorage_image_processing_status'] == 'close') {
+            return;
+        }
+
         $params = [
             'config' => $configs['filestorage_image_processing_params']['config'] ?? 400,
             'ratio' => $configs['filestorage_image_processing_params']['ratio'] ?? 400,
