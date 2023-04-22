@@ -13,7 +13,7 @@
         <select class="form-select" name="digestState">
             <option value="1" {{ $data['digestState'] == 1 ? 'selected' : '' }}>No</option>
             <option value="2" {{ $data['digestState'] == 2 ? 'selected' : '' }}>General Digest</option>
-            <option value="3" {{ $data['digestState'] == 3 ? 'selected' : '' }}>Senior Digest</option>
+            <option value="3" {{ $data['digestState'] == 3 ? 'selected' : '' }}>Advanced Digest</option>
         </select>
         <button class="btn btn-outline-secondary" type="submit">{{ $fsLang['setting'] }}</button>
     </div>
