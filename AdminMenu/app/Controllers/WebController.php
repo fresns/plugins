@@ -193,9 +193,7 @@ class WebController extends Controller
 
         PostLog::where('post_id', $post->id)->delete();
 
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsApiData');
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsSeo');
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsModel');
+        CacheHelper::clearDataCache('post', $request->pid);
 
         $post->delete();
 
@@ -265,9 +263,7 @@ class WebController extends Controller
             ]);
         }
 
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsApiData');
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsSeo');
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsModel');
+        CacheHelper::clearDataCache('post', $request->pid);
 
         return view('AdminMenu::error', [
             'code' => 0,
@@ -333,9 +329,7 @@ class WebController extends Controller
             ]);
         }
 
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsApiData');
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsSeo');
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsModel');
+        CacheHelper::clearDataCache('post', $request->pid);
 
         return view('AdminMenu::error', [
             'code' => 0,
@@ -379,9 +373,7 @@ class WebController extends Controller
 
         CommentLog::where('comment_id', $comment->id)->delete();
 
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsApiData');
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsSeo');
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsModel');
+        CacheHelper::clearDataCache('comment', $request->cid);
 
         $comment->delete();
 
@@ -445,9 +437,7 @@ class WebController extends Controller
             ]);
         }
 
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsApiData');
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsSeo');
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsModel');
+        CacheHelper::clearDataCache('comment', $request->cid);
 
         return view('AdminMenu::error', [
             'code' => 0,
