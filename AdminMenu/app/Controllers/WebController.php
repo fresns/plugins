@@ -40,6 +40,7 @@ class WebController extends Controller
         // Verify URL Authorization
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
             'urlAuthorization' => $request->authorization,
+            'userLogin' => true,
         ]);
 
         $langTag = $fresnsResp->getData('langTag');
@@ -49,14 +50,6 @@ class WebController extends Controller
             return view('AdminMenu::error', [
                 'code' => $fresnsResp->getCode(),
                 'message' => $fresnsResp->getMessage(),
-            ]);
-        }
-
-        // Check User Login
-        if (! $fresnsResp->getData('uid')) {
-            return view('AdminMenu::error', [
-                'code' => 31601,
-                'message' => ConfigUtility::getCodeMessage(31601, 'Fresns', $langTag),
             ]);
         }
 
