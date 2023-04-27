@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fresns Email</title>
     <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ @asset('/static/css/fresns-panel.css') }}">
 </head>
 
