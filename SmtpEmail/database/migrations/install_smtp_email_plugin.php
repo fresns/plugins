@@ -6,11 +6,10 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace Plugins\SmtpEmail\Support;
-
 use App\Utilities\ConfigUtility;
+use Illuminate\Database\Migrations\Migration;
 
-class Installer
+return new class extends Migration
 {
     protected $fresnsConfigItems = [
         [
@@ -57,17 +56,19 @@ class Installer
         ],
     ];
 
-    public function install()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         ConfigUtility::addFresnsConfigItems($this->fresnsConfigItems);
     }
 
-    public function uninstall(bool $clearPluginData = false)
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        if (! $clearPluginData) {
-            return;
-        }
-
         ConfigUtility::removeFresnsConfigItems($this->fresnsConfigItems);
     }
-}
+};
