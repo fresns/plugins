@@ -20,6 +20,7 @@ use App\Models\Account;
 use App\Models\Comment;
 use App\Models\CommentLog;
 use App\Models\Group;
+use App\Models\PluginUsage;
 use App\Models\Post;
 use App\Models\PostLog;
 use App\Models\Role;
@@ -58,21 +59,17 @@ class WebController extends Controller
         $groupId = null;
         if ($request->cid) {
             $type = 'comment';
-            $model = PrimaryHelper::fresnsModelByFsid('comment', $request->cid);
 
-            $groupId = $model->post->group_id;
+            $groupId = PrimaryHelper::fresnsGroupIdByContentFsid('comment', $request->cid);
         } elseif ($request->pid) {
             $type = 'post';
-            $model = PrimaryHelper::fresnsModelByFsid('post', $request->pid);
 
-            $groupId = $model->group_id;
-        } else {
-            $model = PrimaryHelper::fresnsModelByFsid('user', $request->uid);
+            $groupId = PrimaryHelper::fresnsGroupIdByContentFsid('post', $request->pid);
         }
 
         // Verify the right to use
         $userId = PrimaryHelper::fresnsUserIdByUidOrUsername($fresnsResp->getData('uid'));
-        $checkPerm = PermissionUtility::checkExtendPerm('AdminMenu', 'manage', $groupId, $userId);
+        $checkPerm = PermissionUtility::checkExtendPerm('AdminMenu', PluginUsage::TYPE_MANAGE, $groupId, $userId);
         if (! $checkPerm) {
             return view('AdminMenu::error', [
                 'code' => 35301,
@@ -88,11 +85,12 @@ class WebController extends Controller
         switch ($type) {
             case 'post':
                 // post
+                $model = PrimaryHelper::fresnsModelByFsid('post', $request->pid);
                 $service = new PostService();
                 $data = $service->postData($model, 'list', $langTag, $timezone, false);
 
                 // group categories
-                $groupQuery = Group::where('type', Group::TYPE_CATEGORY)->orderBy('rating')->isEnable()->get();
+                $groupQuery = Group::where('type', Group::TYPE_CATEGORY)->orderBy('rating')->isEnabled()->get();
 
                 $catList = [];
                 foreach ($groupQuery as $category) {
@@ -105,12 +103,14 @@ class WebController extends Controller
 
             case 'comment':
                 // comment
+                $model = PrimaryHelper::fresnsModelByFsid('comment', $request->cid);
                 $service = new CommentService();
                 $data = $service->commentData($model, 'list', $langTag, $timezone, false);
                 break;
 
             case 'user':
                 // user
+                $model = PrimaryHelper::fresnsModelByFsid('user', $request->uid);
                 $service = new UserService();
                 $data = $service->userData($model, $langTag, $timezone);
 
@@ -125,7 +125,7 @@ class WebController extends Controller
                     $item['nameDisplay'] = (bool) $role->is_display_name;
                     $item['icon'] = FileHelper::fresnsFileUrlByTableColumn($role->icon_file_id, $role->icon_file_url);
                     $item['iconDisplay'] = (bool) $role->is_display_icon;
-                    $item['status'] = (bool) $role->is_enable;
+                    $item['status'] = (bool) $role->is_enabled;
                     $roleList[] = $item;
                 }
                 $roles = $roleList;
@@ -312,13 +312,13 @@ class WebController extends Controller
 
         if ($request->status == 'true') {
             $post->update([
-                'is_enable' => true,
+                'is_enabled' => true,
             ]);
         }
 
         if ($request->status == 'false') {
             $post->update([
-                'is_enable' => false,
+                'is_enabled' => false,
             ]);
         }
 
@@ -420,13 +420,13 @@ class WebController extends Controller
 
         if ($request->status == 'true') {
             $comment->update([
-                'is_enable' => true,
+                'is_enabled' => true,
             ]);
         }
 
         if ($request->status == 'false') {
             $comment->update([
-                'is_enable' => false,
+                'is_enabled' => false,
             ]);
         }
 
@@ -557,13 +557,13 @@ class WebController extends Controller
 
         if ($request->status == 'true') {
             $user->update([
-                'is_enable' => true,
+                'is_enabled' => true,
             ]);
         }
 
         if ($request->status == 'false') {
             $user->update([
-                'is_enable' => false,
+                'is_enabled' => false,
             ]);
         }
 
