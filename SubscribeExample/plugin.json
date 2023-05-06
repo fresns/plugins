@@ -1,0 +1,18 @@
+{
+    "fskey": "SubscribeExample",
+    "type": 1,
+    "name": "Subscribe Example",
+    "description": "Subscribe example: Data table change, user activity, account and user login.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": null,
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\SubscribeExample\\Providers\\SubscribeExampleServiceProvider",
+        "Plugins\\SubscribeExample\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}
