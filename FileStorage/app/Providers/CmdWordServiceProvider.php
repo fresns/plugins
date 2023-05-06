@@ -17,7 +17,7 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
 {
     use CmdWordProviderTrait;
 
-    protected $unikeyName = 'FileStorage';
+    protected $fsKeyName = 'FileStorage';
 
     /**
      * @var array[]

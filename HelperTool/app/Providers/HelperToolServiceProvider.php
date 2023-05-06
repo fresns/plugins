@@ -12,9 +12,9 @@ use Illuminate\Support\ServiceProvider;
 
 class HelperToolServiceProvider extends ServiceProvider
 {
-    protected string $pluginName = 'HelperTool';
+    protected string $pluginFskey = 'HelperTool';
 
-    protected string $pluginNameKebab = 'helper-tool';
+    protected string $pluginFskeyKebab = 'helper-tool';
 
     public function boot()
     {

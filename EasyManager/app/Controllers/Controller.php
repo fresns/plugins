@@ -23,7 +23,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('EasyManager');
+        $version = PluginHelper::fresnsPluginVersionByFskey('EasyManager');
         View::share('version', $version);
 
         $locale = \request()->cookie('panel_lang');
