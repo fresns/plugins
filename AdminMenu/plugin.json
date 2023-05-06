@@ -1,11 +1,11 @@
 {
-    "unikey": "AdminMenu",
+    "fskey": "AdminMenu",
     "type": 1,
     "name": "Admin Menu",
     "description": "Fresns official development of easy to manage menu.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.3.4",
+    "version": "1.4.0",
     "scene": [
         "extendManage"
     ],
