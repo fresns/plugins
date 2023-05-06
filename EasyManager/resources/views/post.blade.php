@@ -126,11 +126,11 @@
                         </td>
                         <td>
                             @if ($post->is_anonymous)
-                                <a href="{{ route('easy-manager.user.index', ['uid' => $post->creator->uid]) }}" class="link-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('EasyManager::fresns.table_anonymous') }}">
-                                    <i class="bi bi-person-lock"></i> {{ $post->creator->nickname }}
+                                <a href="{{ route('easy-manager.user.index', ['uid' => $post->author->uid]) }}" class="link-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('EasyManager::fresns.table_anonymous') }}">
+                                    <i class="bi bi-person-lock"></i> {{ $post->author->nickname }}
                                 </a>
                             @else
-                                <a href="{{ route('easy-manager.user.index', ['uid' => $post->creator->uid]) }}">{{ $post->creator->nickname }}</a>
+                                <a href="{{ route('easy-manager.user.index', ['uid' => $post->author->uid]) }}">{{ $post->author->nickname }}</a>
                             @endif
                         </td>
                         <td>{{ $post->like_count }}</td>

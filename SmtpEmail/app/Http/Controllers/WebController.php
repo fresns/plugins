@@ -23,7 +23,7 @@ class WebController extends Controller
      */
     public function settings()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('SmtpEmail');
+        $version = PluginHelper::fresnsPluginVersionByFskey('SmtpEmail');
         $marketUrl = AppUtility::MARKETPLACE_URL.'/open-source';
 
         $content = Config::query()->whereIn('item_key', [

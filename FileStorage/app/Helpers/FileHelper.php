@@ -83,7 +83,7 @@ class FileHelper
                 $file = File::where('fid', $fileIdOrFid)->first();
             }
 
-            if (empty($file) || ! $file?->is_enable) {
+            if (empty($file) || ! $file?->is_enabled) {
                 return null;
             }
 

@@ -155,16 +155,16 @@
                             @endif
                         </td>
                         <td>{{ $user->profile->created_at }}</td>
-                        <td>{!! $user->profile->is_enable ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-dash-lg text-secondary"></i>' !!}</td>
+                        <td>{!! $user->profile->is_enabled ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-dash-lg text-secondary"></i>' !!}</td>
                         <td>
                             <form action="{{ route('easy-manager.user.update', $user->profile) }}" method="post">
                                 @csrf
                                 @method('put')
-                                @if ($user->profile->is_enable)
-                                    <input type="hidden" name="is_enable" value="0"/>
+                                @if ($user->profile->is_enabled)
+                                    <input type="hidden" name="is_enabled" value="0"/>
                                     <button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('EasyManager::fresns.button_deactivate') }}</button>
                                 @else
-                                    <input type="hidden" name="is_enable" value="1"/>
+                                    <input type="hidden" name="is_enabled" value="1"/>
                                     <button type="submit" class="btn btn-outline-primary btn-sm">{{ __('EasyManager::fresns.button_activate') }}</button>
                                 @endif
                             </form>

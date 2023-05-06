@@ -15,7 +15,7 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 {
     use \Fresns\CmdWordManager\Traits\CmdWordProviderTrait;
 
-    protected $unikeyName = 'SmtpEmail';
+    protected $fsKeyName = 'SmtpEmail';
 
     /* This is a map of command word and its provider. */
     protected $cmdWordsMap = [

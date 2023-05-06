@@ -12,9 +12,9 @@ use Illuminate\Support\ServiceProvider;
 
 class CmdWordToolServiceProvider extends ServiceProvider
 {
-    protected string $pluginName = 'CmdWordTool';
+    protected string $pluginFskey = 'CmdWordTool';
 
-    protected string $pluginNameKebab = 'cmd-word-tool';
+    protected string $pluginFskeyKebab = 'cmd-word-tool';
 
     public function boot()
     {

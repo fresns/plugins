@@ -76,11 +76,11 @@
                             <form action="{{ route('easy-manager.hashtag.update', $hashtag) }}" method="post">
                                 @csrf
                                 @method('put')
-                                @if ($hashtag->is_enable)
-                                    <input type="hidden" name="is_enable" value="0"/>
+                                @if ($hashtag->is_enabled)
+                                    <input type="hidden" name="is_enabled" value="0"/>
                                     <button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('EasyManager::fresns.button_deactivate') }}</button>
                                 @else
-                                    <input type="hidden" name="is_enable" value="1"/>
+                                    <input type="hidden" name="is_enabled" value="1"/>
                                     <button type="submit" class="btn btn-outline-primary btn-sm">{{ __('EasyManager::fresns.button_activate') }}</button>
                                 @endif
                             </form>

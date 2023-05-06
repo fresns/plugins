@@ -24,13 +24,13 @@ class CmdWordToolController extends Controller
      */
     public function index(Request $request)
     {
-        $unikey = $request->get('unikey') ?? 'Fresns';
+        $fskey = $request->get('fskey') ?? 'Fresns';
         $wordName = $request->get('wordName');
         $param = $request->get('param');
         if (! empty($request->file('param.file'))) {
             $param['file'] = $request->file('param.file');
         }
 
-        return \FresnsCmdWord::plugin($unikey)->$wordName($param);
+        return \FresnsCmdWord::plugin($fskey)->$wordName($param);
     }
 }

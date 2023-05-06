@@ -120,11 +120,11 @@
                         </td>
                         <td>
                             @if ($comment->is_anonymous)
-                                <a href="{{ route('easy-manager.user.index', ['uid' => $comment->creator->uid]) }}" class="link-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('EasyManager::fresns.table_anonymous') }}">
-                                    <i class="bi bi-person-lock"></i> {{ $comment->creator->nickname }}
+                                <a href="{{ route('easy-manager.user.index', ['uid' => $comment->author->uid]) }}" class="link-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('EasyManager::fresns.table_anonymous') }}">
+                                    <i class="bi bi-person-lock"></i> {{ $comment->author->nickname }}
                                 </a>
                             @else
-                                <a href="{{ route('easy-manager.user.index', ['uid' => $comment->creator->uid]) }}">{{ $comment->creator->nickname }}</a>
+                                <a href="{{ route('easy-manager.user.index', ['uid' => $comment->author->uid]) }}">{{ $comment->author->nickname }}</a>
                             @endif
                         </td>
                         <td>{{ $comment->like_count }}</td>

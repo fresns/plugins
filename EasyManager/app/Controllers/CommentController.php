@@ -16,7 +16,7 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
-        $commentQuery = Comment::with(['commentAppend', 'parentComment', 'creator', 'post', 'hashtags', 'fileUsages']);
+        $commentQuery = Comment::with(['commentAppend', 'parentComment', 'author', 'post', 'hashtags', 'fileUsages']);
 
         $commentQuery->when($request->id, function ($query, $value) {
             $query->where('id', $value);

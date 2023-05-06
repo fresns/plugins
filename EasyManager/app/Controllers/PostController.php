@@ -16,7 +16,7 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $postQuery = Post::with(['postAppend', 'creator', 'group', 'hashtags', 'fileUsages']);
+        $postQuery = Post::with(['postAppend', 'author', 'group', 'hashtags', 'fileUsages']);
 
         $postQuery->when($request->id, function ($query, $value) {
             $query->where('id', $value);

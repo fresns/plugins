@@ -30,7 +30,7 @@ class AdminController extends Controller
     // image config
     public function adminImage()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('FileStorage');
+        $version = PluginHelper::fresnsPluginVersionByFskey('FileStorage');
         $marketUrl = AppUtility::MARKETPLACE_URL.'/open-source';
 
         $configKeys = [
@@ -101,7 +101,7 @@ class AdminController extends Controller
     // video config
     public function adminVideo()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('FileStorage');
+        $version = PluginHelper::fresnsPluginVersionByFskey('FileStorage');
         $marketUrl = AppUtility::MARKETPLACE_URL.'/open-source';
 
         $configKeys = [
@@ -131,7 +131,7 @@ class AdminController extends Controller
     // audio config
     public function adminAudio()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('FileStorage');
+        $version = PluginHelper::fresnsPluginVersionByFskey('FileStorage');
         $marketUrl = AppUtility::MARKETPLACE_URL.'/open-source';
 
         $configKeys = [
@@ -161,7 +161,7 @@ class AdminController extends Controller
     // document config
     public function adminDocument()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('FileStorage');
+        $version = PluginHelper::fresnsPluginVersionByFskey('FileStorage');
         $marketUrl = AppUtility::MARKETPLACE_URL.'/open-source';
 
         $configKeys = [
@@ -191,12 +191,12 @@ class AdminController extends Controller
     // upload test
     public function adminTest()
     {
-        $version = PluginHelper::fresnsPluginVersionByUnikey('FileStorage');
+        $version = PluginHelper::fresnsPluginVersionByFskey('FileStorage');
 
         $fileUsages = FileUsage::with(['file'])
             ->where('usage_type', FileUsage::TYPE_OTHER)
             ->where('table_name', 'plugins')
-            ->where('table_column', 'unikey')
+            ->where('table_column', 'fskey')
             ->where('table_key', 'FileStorage')
             ->latest()
             ->get();
@@ -356,7 +356,7 @@ class AdminController extends Controller
             'platformId' => 4,
             'usageType' => FileUsage::TYPE_OTHER,
             'tableName' => 'plugins',
-            'tableColumn' => 'unikey',
+            'tableColumn' => 'fskey',
             'tableId' => null,
             'tableKey' => 'FileStorage',
             'type' => $type,

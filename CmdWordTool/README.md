@@ -17,7 +17,7 @@ Fresns official command word function test tool.
 
 | Parameters Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| unikey | text | required | plugin name |
+| fskey | text | required | plugin name |
 | wordName | text | required | command word name |
 | param[...] | text | *optional* | param name |
 | param[account] | text | *optional* | param name |
