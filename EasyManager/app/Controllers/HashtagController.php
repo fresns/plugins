@@ -80,7 +80,7 @@ class HashtagController extends Controller
 
     public function update(Hashtag $hashtag, Request $request)
     {
-        $hashtag->is_enable = $request->is_enable;
+        $hashtag->is_enabled = $request->is_enabled;
         $hashtag->save();
 
         CacheHelper::clearDataCache('hashtag', $hashtag->slug, 'fresnsModel');

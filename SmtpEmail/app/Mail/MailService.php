@@ -82,7 +82,7 @@ class MailService
         $templateValue = ConfigHelper::fresnsConfigByItemKey('verifycode_template'.$templateId);
         if ($templateValue) {
             foreach ($templateValue as $template) {
-                if ($template['type'] == 'email' && $template['isEnable']) {
+                if ($template['type'] == 'email' && $template['isEnabled']) {
                     foreach ($template['template'] as $tmp) {
                         if ($tmp['langTag'] == $langTag) {
                             return $tmp;

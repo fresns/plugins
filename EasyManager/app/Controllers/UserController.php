@@ -98,7 +98,7 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
-        $user->is_enable = $request->is_enable;
+        $user->is_enabled = $request->is_enabled;
         $user->save();
 
         CacheHelper::forgetFresnsUser($user->id, $user->uid);

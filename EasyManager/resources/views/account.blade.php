@@ -46,16 +46,16 @@
                             @endif
                         </td>
                         <td>{{ $account->created_at }}</td>
-                        <td>{!! $account->is_enable ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-dash-lg text-secondary"></i>' !!}</td>
+                        <td>{!! $account->is_enabled ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-dash-lg text-secondary"></i>' !!}</td>
                         <td>
                             <form action="{{ route('easy-manager.account.update', $account) }}" method="post">
                                 @csrf
                                 @method('put')
-                                @if ($account->is_enable)
-                                    <input type="hidden" name="is_enable" value="0"/>
+                                @if ($account->is_enabled)
+                                    <input type="hidden" name="is_enabled" value="0"/>
                                     <button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('EasyManager::fresns.button_deactivate') }}</button>
                                 @else
-                                    <input type="hidden" name="is_enable" value="1"/>
+                                    <input type="hidden" name="is_enabled" value="1"/>
                                     <button type="submit" class="btn btn-outline-primary btn-sm">{{ __('EasyManager::fresns.button_activate') }}</button>
                                 @endif
                             </form>

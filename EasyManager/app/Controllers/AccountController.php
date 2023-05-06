@@ -82,7 +82,7 @@ class AccountController extends Controller
 
     public function update(Account $account, Request $request)
     {
-        $account->is_enable = $request->is_enable;
+        $account->is_enabled = $request->is_enabled;
         $account->save();
 
         CacheHelper::forgetFresnsAccount($account->aid);
