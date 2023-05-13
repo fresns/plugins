@@ -13,8 +13,7 @@
     "settingsPath": "/smtp-email/settings",
     "providers": [
         "Plugins\\SmtpEmail\\Providers\\SmtpEmailServiceProvider",
-        "Plugins\\SmtpEmail\\Providers\\CmdWordServiceProvider",
-        "Plugins\\SmtpEmail\\Providers\\EventServiceProvider"
+        "Plugins\\SmtpEmail\\Providers\\CmdWordServiceProvider"
     ],
     "autoloadFiles": [],
     "aliases": {}

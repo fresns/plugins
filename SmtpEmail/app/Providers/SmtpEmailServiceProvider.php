@@ -24,8 +24,6 @@ class SmtpEmailServiceProvider extends ServiceProvider
         $this->registerViews();
 
         $this->loadMigrationsFrom(dirname(__DIR__, 2).'/database/migrations');
-
-        // Event::listen(UserCreated::class, UserCreatedListener::class);
     }
 
     /**
