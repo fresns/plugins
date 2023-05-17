@@ -21,20 +21,20 @@
 
         if (code != 34406) {
             setTimeout(function() {
-            const fresnsCallbackMessage = {
-                code: 0,
-                message: 'ok',
-                action: {
-                    postMessageKey: 'fresnsConnect',
-                    windowClose: true, // 是否关闭窗口或弹出层(modal)
-                    reloadData: true, // 是否重载数据
-                    redirectUrl: '', // 是否重定向新页面
-                },
-                data: '',
-            }
+                const fresnsCallbackMessage = {
+                    code: 0,
+                    message: 'ok',
+                    action: {
+                        postMessageKey: 'fresnsConnect',
+                        windowClose: true, // 是否关闭窗口或弹出层(modal)
+                        reloadData: true, // 是否重载数据
+                        redirectUrl: '', // 是否重定向新页面
+                    },
+                    data: '',
+                }
 
-            parent.postMessage(JSON.stringify(fresnsCallbackMessage));
-        }, 1500);
+                parent.postMessage(JSON.stringify(fresnsCallbackMessage));
+            }, 1500);
         }
     </script>
 @endpush
