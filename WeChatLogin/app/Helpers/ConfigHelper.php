@@ -51,7 +51,7 @@ class ConfigHelper
 
         $config = [
             /**
-             * 账号基本信息，请从微信公众平台/开放平台获取
+             * 账号基本信息，请从微信公众平台/开放平台获取.
              */
             'app_id'  => $appId,        // AppID
             'secret'  => $appSecret,    // AppSecret
@@ -59,7 +59,7 @@ class ConfigHelper
             'aes_key' => '',            // EncodingAESKey，兼容与安全模式下请一定要填写！！！
 
             /**
-             * OAuth 配置
+             * OAuth 配置.
              *
              * scopes：公众平台（snsapi_userinfo / snsapi_base），开放平台：snsapi_login
              * callback：OAuth授权完成后的回调页地址
@@ -71,7 +71,7 @@ class ConfigHelper
 
             /**
              * 接口请求相关配置，超时时间等，具体可用参数请参考：
-             * https://github.com/symfony/symfony/blob/5.3/src/Symfony/Contracts/HttpClient/HttpClientInterface.php
+             * https://github.com/symfony/symfony/blob/5.3/src/Symfony/Contracts/HttpClient/HttpClientInterface.php.
              */
             'http' => [
                 'timeout' => 5.0,

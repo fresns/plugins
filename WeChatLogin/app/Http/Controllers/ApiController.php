@@ -118,12 +118,12 @@ class ApiController extends Controller
         PluginCallback::updateOrCreate([
             'ulid' => $dtoRequest->ulid,
         ],
-        [
-            'plugin_fskey' => 'WeChatLogin',
-            'type' => PluginCallback::TYPE_ACCOUNT,
-            'content' => null,
-            'is_use' => false,
-        ]);
+            [
+                'plugin_fskey' => 'WeChatLogin',
+                'type' => PluginCallback::TYPE_ACCOUNT,
+                'content' => null,
+                'is_use' => false,
+            ]);
 
         // 有值表示为绑定关联
         if ($cacheData['aid'] ?? null) {
@@ -138,12 +138,12 @@ class ApiController extends Controller
             PluginCallback::updateOrCreate([
                 'ulid' => $dtoRequest->ulid,
             ],
-            [
-                'plugin_fskey' => 'WeChatLogin',
-                'type' => PluginCallback::TYPE_ACCOUNT,
-                'content' => $accountData,
-                'is_use' => false,
-            ]);
+                [
+                    'plugin_fskey' => 'WeChatLogin',
+                    'type' => PluginCallback::TYPE_ACCOUNT,
+                    'content' => $accountData,
+                    'is_use' => false,
+                ]);
 
             return $accountData;
         }
@@ -155,12 +155,12 @@ class ApiController extends Controller
             PluginCallback::updateOrCreate([
                 'ulid' => $dtoRequest->ulid,
             ],
-            [
-                'plugin_fskey' => 'WeChatLogin',
-                'type' => PluginCallback::TYPE_ACCOUNT,
-                'content' => $checkAccount,
-                'is_use' => false,
-            ]);
+                [
+                    'plugin_fskey' => 'WeChatLogin',
+                    'type' => PluginCallback::TYPE_ACCOUNT,
+                    'content' => $checkAccount,
+                    'is_use' => false,
+                ]);
         }
 
         if (! $dtoRequest->autoRegister) {
@@ -179,12 +179,12 @@ class ApiController extends Controller
             PluginCallback::updateOrCreate([
                 'ulid' => $dtoRequest->ulid,
             ],
-            [
-                'plugin_fskey' => 'WeChatLogin',
-                'type' => PluginCallback::TYPE_ACCOUNT,
-                'content' => $accountData,
-                'is_use' => false,
-            ]);
+                [
+                    'plugin_fskey' => 'WeChatLogin',
+                    'type' => PluginCallback::TYPE_ACCOUNT,
+                    'content' => $accountData,
+                    'is_use' => false,
+                ]);
 
             return $accountData;
         }

@@ -11,8 +11,8 @@ namespace Plugins\WeChatLogin\Http\Controllers;
 use App\Helpers\CacheHelper;
 use App\Helpers\PluginHelper;
 use App\Models\Config;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class AdminController extends Controller
 {
@@ -41,33 +41,33 @@ class AdminController extends Controller
             Config::updateOrCreate([
                 'item_key' => 'wechatlogin_official_account',
             ],
-            [
-                'item_value' => $request->officialAccount,
-                'item_type' => 'object',
-                'item_tag' => 'wechatlogin',
-            ]);
+                [
+                    'item_value' => $request->officialAccount,
+                    'item_type' => 'object',
+                    'item_tag' => 'wechatlogin',
+                ]);
         }
 
         if ($request->miniProgram) {
             Config::updateOrCreate([
                 'item_key' => 'wechatlogin_mini_program',
             ],
-            [
-                'item_value' => $request->miniProgram,
-                'item_type' => 'object',
-                'item_tag' => 'wechatlogin',
-            ]);
+                [
+                    'item_value' => $request->miniProgram,
+                    'item_type' => 'object',
+                    'item_tag' => 'wechatlogin',
+                ]);
         }
 
         if ($request->openPlatform) {
             Config::updateOrCreate([
                 'item_key' => 'wechatlogin_open_platform',
             ],
-            [
-                'item_value' => $request->openPlatform,
-                'item_type' => 'object',
-                'item_tag' => 'wechatlogin',
-            ]);
+                [
+                    'item_value' => $request->openPlatform,
+                    'item_type' => 'object',
+                    'item_tag' => 'wechatlogin',
+                ]);
         }
 
         CacheHelper::forgetFresnsConfigs([

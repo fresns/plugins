@@ -15,8 +15,8 @@ use App\Models\AccountConnect;
 use App\Models\PluginCallback;
 use App\Utilities\ConfigUtility;
 use EasyWeChat\OfficialAccount\Application;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Plugins\WeChatLogin\Helpers\ConfigHelper;
 use Plugins\WeChatLogin\Helpers\LoginHelper;
@@ -157,12 +157,12 @@ class WebController extends Controller
             PluginCallback::updateOrCreate([
                 'ulid' => $authUlid,
             ],
-            [
-                'plugin_fskey' => 'WeChatLogin',
-                'type' => PluginCallback::TYPE_ACCOUNT,
-                'content' => null,
-                'is_use' => false,
-            ]);
+                [
+                    'plugin_fskey' => 'WeChatLogin',
+                    'type' => PluginCallback::TYPE_ACCOUNT,
+                    'content' => null,
+                    'is_use' => false,
+                ]);
 
             $app = new Application(ConfigHelper::getConfig($cacheData['connectId']));
             $oauth = $app->getOauth();
@@ -200,12 +200,12 @@ class WebController extends Controller
                 PluginCallback::updateOrCreate([
                     'ulid' => $authUlid,
                 ],
-                [
-                    'plugin_fskey' => 'WeChatLogin',
-                    'type' => PluginCallback::TYPE_ACCOUNT,
-                    'content' => $checkAccount,
-                    'is_use' => false,
-                ]);
+                    [
+                        'plugin_fskey' => 'WeChatLogin',
+                        'type' => PluginCallback::TYPE_ACCOUNT,
+                        'content' => $checkAccount,
+                        'is_use' => false,
+                    ]);
             }
         }
 
