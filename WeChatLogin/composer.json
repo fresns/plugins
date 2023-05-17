@@ -1,0 +1,22 @@
+{
+    "name": "fresns/wechat-login",
+    "description": "Fresns 官方开发的「微信登录」插件，支持网站、小程序、App 等各端的微信登录。",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jevan Tang",
+            "email": "jevan@fresns.org",
+            "homepage": "https://github.com/jevantang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\WeChatLogin\\": "app"
+        }
+    },
+    "require": {
+        "w7corp/easywechat": "^6.11",
+        "endroid/qr-code": "^4.8"
+    }
+}
