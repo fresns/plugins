@@ -156,13 +156,12 @@ class WebController extends Controller
         if (empty($code) && $isWeChat) {
             PluginCallback::updateOrCreate([
                 'ulid' => $authUlid,
-            ],
-                [
-                    'plugin_fskey' => 'WeChatLogin',
-                    'type' => PluginCallback::TYPE_ACCOUNT,
-                    'content' => null,
-                    'is_use' => false,
-                ]);
+            ], [
+                'plugin_fskey' => 'WeChatLogin',
+                'type' => PluginCallback::TYPE_ACCOUNT,
+                'content' => null,
+                'is_use' => false,
+            ]);
 
             $app = new Application(ConfigHelper::getConfig($cacheData['connectId']));
             $oauth = $app->getOauth();
@@ -199,13 +198,12 @@ class WebController extends Controller
             } else {
                 PluginCallback::updateOrCreate([
                     'ulid' => $authUlid,
-                ],
-                    [
-                        'plugin_fskey' => 'WeChatLogin',
-                        'type' => PluginCallback::TYPE_ACCOUNT,
-                        'content' => $checkAccount,
-                        'is_use' => false,
-                    ]);
+                ], [
+                    'plugin_fskey' => 'WeChatLogin',
+                    'type' => PluginCallback::TYPE_ACCOUNT,
+                    'content' => $checkAccount,
+                    'is_use' => false,
+                ]);
             }
         }
 

@@ -40,34 +40,31 @@ class AdminController extends Controller
         if ($request->officialAccount) {
             Config::updateOrCreate([
                 'item_key' => 'wechatlogin_official_account',
-            ],
-                [
-                    'item_value' => $request->officialAccount,
-                    'item_type' => 'object',
-                    'item_tag' => 'wechatlogin',
-                ]);
+            ], [
+                'item_value' => $request->officialAccount,
+                'item_type' => 'object',
+                'item_tag' => 'wechatlogin',
+            ]);
         }
 
         if ($request->miniProgram) {
             Config::updateOrCreate([
                 'item_key' => 'wechatlogin_mini_program',
-            ],
-                [
-                    'item_value' => $request->miniProgram,
-                    'item_type' => 'object',
-                    'item_tag' => 'wechatlogin',
-                ]);
+            ], [
+                'item_value' => $request->miniProgram,
+                'item_type' => 'object',
+                'item_tag' => 'wechatlogin',
+            ]);
         }
 
         if ($request->openPlatform) {
             Config::updateOrCreate([
                 'item_key' => 'wechatlogin_open_platform',
-            ],
-                [
-                    'item_value' => $request->openPlatform,
-                    'item_type' => 'object',
-                    'item_tag' => 'wechatlogin',
-                ]);
+            ], [
+                'item_value' => $request->openPlatform,
+                'item_type' => 'object',
+                'item_tag' => 'wechatlogin',
+            ]);
         }
 
         CacheHelper::forgetFresnsConfigs([
