@@ -5,7 +5,7 @@
     "description": "Fresns official development of the SMTP sending method of mail plugin.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "scene": [
         "sendEmail"
     ],
@@ -13,8 +13,7 @@
     "settingsPath": "/smtp-email/settings",
     "providers": [
         "Plugins\\SmtpEmail\\Providers\\SmtpEmailServiceProvider",
-        "Plugins\\SmtpEmail\\Providers\\CmdWordServiceProvider",
-        "Plugins\\SmtpEmail\\Providers\\EventServiceProvider"
+        "Plugins\\SmtpEmail\\Providers\\CmdWordServiceProvider"
     ],
     "autoloadFiles": [],
     "aliases": {}

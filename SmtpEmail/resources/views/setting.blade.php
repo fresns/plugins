@@ -161,7 +161,10 @@
             $.ajax({
                 type: "POST",
                 url: url,
-                data: {email:email,_token:'{{ csrf_token() }}'},
+                data: {
+                    email: email,
+                    _token: '{{ csrf_token() }}',
+                },
                 cache: false,
                 dataType: "json",
                 success: function(json) {

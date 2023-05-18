@@ -87,9 +87,14 @@ class WebController extends Controller
     {
         $email = $request->input('email');
 
-        $validator = Validator::make($request->post(), ['email' => 'required|email']);
+        $validator = Validator::make($request->post(), [
+            'email' => 'required|email',
+        ]);
         if ($validator->fails()) {
-            return response()->json(['code'=>'200000', 'message'=>$validator->errors()->all()[0]]);
+            return response()->json([
+                'code' => '200000',
+                'message' => $validator->errors()->all()[0],
+            ]);
         }
 
         try {
@@ -103,9 +108,17 @@ class WebController extends Controller
                 return $fresnsResp->errorResponse();
             }
         } catch (\Exception $exception) {
-            return ['code'=>'500500', 'message'=>$exception->getMessage(), 'data'=>[]];
+            return [
+                'code' => '500500',
+                'message' => $exception->getMessage(),
+                'data' => [],
+            ];
         }
 
-        return ['code'=>'000000', 'message'=>'', 'data'=>[]];
+        return [
+            'code' => '000000',
+            'message' => '',
+            'data' => [],
+        ];
     }
 }
