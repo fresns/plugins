@@ -14,3 +14,27 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        const code = {{ $code }};
+
+        if (code == 0) {
+            setTimeout(function () {
+                const fresnsCallbackMessage = {
+                    code: 0,
+                    message: 'ok',
+                    action: {
+                        postMessageKey: 'reload',
+                        windowClose: true,
+                        reloadData: true,
+                        redirectUrl: '',
+                    },
+                    data: '',
+                }
+
+                parent.postMessage(JSON.stringify(fresnsCallbackMessage));
+            }, 2000);
+        }
+    </script>
+@endpush
