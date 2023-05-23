@@ -1,11 +1,11 @@
 {
     "fskey": "WeChatLogin",
     "type": 1,
-    "name": "WeChat Login",
+    "name": "微信登录",
     "description": "Fresns 官方开发的「微信登录」插件，支持网站、小程序、App 等各端的微信登录。",
     "author": "Fresns",
     "authorLink": "https://fresns.cn",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scene": [
         "connect"
     ],

@@ -18,13 +18,13 @@ return new class extends Migration
             'type' => SubscribeUtility::TYPE_TABLE_DATA_CHANGE,
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'dataChange',
-            'subTableName' => Post::class,
+            'subject' => Post::class,
         ],
         [
             'type' => SubscribeUtility::TYPE_TABLE_DATA_CHANGE,
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'dataChange',
-            'subTableName' => Comment::class,
+            'subject' => Comment::class,
         ],
         [
             'type' => SubscribeUtility::TYPE_USER_ACTIVITY,
@@ -35,6 +35,36 @@ return new class extends Migration
             'type' => SubscribeUtility::TYPE_ACCOUNT_AND_USER_LOGIN,
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'accountAndUserLogin',
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_USER,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_GROUP,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_HASHTAG,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_POST,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_COMMENT,
         ],
     ];
 

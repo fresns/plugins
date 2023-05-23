@@ -171,6 +171,7 @@ class ConfigHelper
                 $rawInfo = $user->getRaw();
 
                 $wechatConfig = [
+                    'connectId' => AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT,
                     'unionid' => $rawInfo['unionid'] ?? null,
                     'openid' => $user->getId(),
                     'refreshToken' => $user->getRefreshToken(),
@@ -196,6 +197,7 @@ class ConfigHelper
                 }
 
                 $wechatConfig = [
+                    'connectId' => AccountConnect::CONNECT_WECHAT_MINI_PROGRAM,
                     'unionid' => $response['unionid'] ?? null,
                     'openid' => $response['openid'],
                     'refreshToken' => null,
@@ -239,6 +241,7 @@ class ConfigHelper
                 $resData = $response->toArray();
 
                 $wechatConfig = [
+                    'connectId' => AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION,
                     'unionid' => $resData['unionid'] ?? null,
                     'openid' => $resData['openid'],
                     'refreshToken' => $resData['refresh_token'],
@@ -266,6 +269,7 @@ class ConfigHelper
                 $rawInfo = $user->getRaw();
 
                 $wechatConfig = [
+                    'connectId' => AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION,
                     'unionid' => $rawInfo['unionid'] ?? null,
                     'openid' => $user->getId(),
                     'refreshToken' => $user->getRefreshToken(),

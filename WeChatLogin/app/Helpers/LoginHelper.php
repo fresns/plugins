@@ -103,39 +103,41 @@ class LoginHelper
         // 合并计算 unionid 和 openid 是否有账号
         $aid = $unionAid ?? $openIdResp->getData('aid') ?? null;
 
-        if ($aid) {
-            $unionWordBody = [
-                'fskey' => 'WeChatLogin',
-                'aid' => $aid,
-                'connectId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
-                'connectToken' => $wechatConfig['unionid'],
-                'connectNickname' => $wechatConfig['nickname'],
-                'connectAvatar' => $wechatConfig['avatarUrl'],
+        if (empty($aid)) {
+            $noAccount = [
+                'code' => 31502,
+                'message' => ConfigUtility::getCodeMessage(31502, 'Fresns', $langTag),
+                'data' => $wechatConfig,
             ];
 
-            \FresnsCmdWord::plugin('Fresns')->setAccountConnect($unionWordBody);
-
-            $openWordBody = [
-                'fskey' => 'WeChatLogin',
-                'aid' => $aid,
-                'connectId' => $connectId,
-                'connectToken' => $wechatConfig['openid'],
-                'connectRefreshToken' => $wechatConfig['refreshToken'],
-                'refreshTokenExpiredDatetime' => $wechatConfig['refreshTokenExpiredDatetime'],
-                'connectNickname' => $wechatConfig['nickname'],
-                'connectAvatar' => $wechatConfig['avatarUrl'],
-            ];
-
-            \FresnsCmdWord::plugin('Fresns')->setAccountConnect($openWordBody);
-
-            return LoginHelper::getAccountData($aid, $langTag, $appId, $platformId, $version);
+            return $noAccount;
         }
 
-        return [
-            'code' => 31502,
-            'message' => ConfigUtility::getCodeMessage(31502, 'Fresns', $langTag),
-            'data' => $wechatConfig,
+        $unionWordBody = [
+            'fskey' => 'WeChatLogin',
+            'aid' => $aid,
+            'connectId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
+            'connectToken' => $wechatConfig['unionid'],
+            'connectNickname' => $wechatConfig['nickname'],
+            'connectAvatar' => $wechatConfig['avatarUrl'],
         ];
+
+        \FresnsCmdWord::plugin('Fresns')->setAccountConnect($unionWordBody);
+
+        $openWordBody = [
+            'fskey' => 'WeChatLogin',
+            'aid' => $aid,
+            'connectId' => $connectId,
+            'connectToken' => $wechatConfig['openid'],
+            'connectRefreshToken' => $wechatConfig['refreshToken'],
+            'refreshTokenExpiredDatetime' => $wechatConfig['refreshTokenExpiredDatetime'],
+            'connectNickname' => $wechatConfig['nickname'],
+            'connectAvatar' => $wechatConfig['avatarUrl'],
+        ];
+
+        \FresnsCmdWord::plugin('Fresns')->setAccountConnect($openWordBody);
+
+        return LoginHelper::getAccountData($aid, $langTag, $appId, $platformId, $version);
     }
 
     // 获取账号数据
@@ -149,6 +151,10 @@ class LoginHelper
             'langTag' => $langTag,
         ];
         $accountDetail = \FresnsCmdWord::plugin('Fresns')->getAccountDetail($wordBody);
+
+        if ($accountDetail->isErrorResponse()) {
+            return $accountDetail->getOrigin();
+        }
 
         // 创建账号凭证
         $keyId = FsConfigHelper::fresnsConfigByItemKey('engine_key_id');
@@ -165,11 +171,7 @@ class LoginHelper
         $fresnsTokenResponse = \FresnsCmdWord::plugin('Fresns')->createAccountToken($createTokenWordBody);
 
         if ($fresnsTokenResponse->isErrorResponse()) {
-            return [
-                'code' => $fresnsTokenResponse->getCode(),
-                'message' => $fresnsTokenResponse->getMessage(),
-                'data' => null,
-            ];
+            return $fresnsTokenResponse->getOrigin();
         }
 
         $data = [
@@ -184,18 +186,22 @@ class LoginHelper
         ];
 
         // 将账号凭证写入 Cookies
-        $cookiePrefix = FsConfigHelper::fresnsConfigByItemKey('engine_cookie_prefix') ?? 'fresns_';
-        $fresnsAid = "{$cookiePrefix}aid";
-        $fresnsAidToken = "{$cookiePrefix}aid_token";
+        if (empty($platformId) || in_array($platformId, [2, 3, 4])) {
+            $cookiePrefix = FsConfigHelper::fresnsConfigByItemKey('engine_cookie_prefix') ?? 'fresns_';
+            $fresnsAid = "{$cookiePrefix}aid";
+            $fresnsAidToken = "{$cookiePrefix}aid_token";
 
-        Cookie::queue($fresnsAid, $data['sessionToken']['aid'], 525600);
-        Cookie::queue($fresnsAidToken, $data['sessionToken']['token'], 525600);
+            Cookie::queue($fresnsAid, $data['sessionToken']['aid'], 525600);
+            Cookie::queue($fresnsAidToken, $data['sessionToken']['token'], 525600);
+        }
 
-        return [
+        $accountData = [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
             'data' => $data,
         ];
+
+        return $accountData;
     }
 
     // 创建账号
@@ -203,7 +209,7 @@ class LoginHelper
     {
         $connectInfo = [
             [
-                'connectId' => AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT,
+                'connectId' => $wechatConfig['connectId'],
                 'connectToken' => $wechatConfig['openid'],
                 'connectRefreshToken' => $wechatConfig['refreshToken'],
                 'refreshTokenExpiredDatetime' => $wechatConfig['refreshTokenExpiredDatetime'],
@@ -323,18 +329,20 @@ class LoginHelper
 
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->setAccountConnect($openWordBody);
 
-        PluginCallback::updateOrCreate([
-            'ulid' => $cacheData['ulid'],
-        ], [
-            'plugin_fskey' => 'WeChatLogin',
-            'type' => PluginCallback::TYPE_ACCOUNT,
-            'content' => [
-                'code' => 0,
-                'message' => 'ok',
-                'data' => $cacheData,
-            ],
-            'is_use' => false,
-        ]);
+        if ($cacheData['ulid'] ?? null) {
+            PluginCallback::updateOrCreate([
+                'ulid' => $cacheData['ulid'],
+            ], [
+                'plugin_fskey' => 'WeChatLogin',
+                'type' => PluginCallback::TYPE_ACCOUNT,
+                'content' => [
+                    'code' => 0,
+                    'message' => 'ok',
+                    'data' => $cacheData,
+                ],
+                'is_use' => false,
+            ]);
+        }
 
         return $fresnsResp->getOrigin();
     }

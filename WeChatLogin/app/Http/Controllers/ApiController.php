@@ -73,18 +73,34 @@ class ApiController extends Controller
     public function miniProgramOauth(Request $request)
     {
         $dtoRequest = new OauthDTO($request->all());
+        $aid = \request()->header('X-Fresns-Aid');
         $appId = \request()->header('X-Fresns-App-Id');
         $platformId = \request()->header('X-Fresns-Client-Platform-Id');
         $version = \request()->header('X-Fresns-Client-Version');
         $langTag = \request()->header('X-Fresns-Client-Lang-Tag');
 
+        // 有 aid 表示为绑定关联
+        if ($aid) {
+            $cacheData['aid'] = $aid;
+            $connectAdd = LoginHelper::connectAdd($cacheData, AccountConnect::CONNECT_WECHAT_MINI_PROGRAM, $dtoRequest->code, $langTag);
+
+            if ($connectAdd['code']) {
+                return $connectAdd;
+            }
+
+            $accountData = LoginHelper::getAccountData($aid, $langTag, $appId, $platformId, $version);
+
+            return $accountData;
+        }
+
+        // 没有 aid 表示登录或注册
         $checkAccount = LoginHelper::checkAccount(AccountConnect::CONNECT_WECHAT_MINI_PROGRAM, $dtoRequest->code, $langTag, $appId, $platformId, $version);
 
         if (! $dtoRequest->autoRegister) {
             return $checkAccount;
         }
 
-        if ($checkAccount['code'] = 31502) {
+        if ($checkAccount['code'] == 31502) {
             $response = LoginHelper::createAccount($checkAccount['data'], $langTag, $appId, $platformId, $version);
 
             if ($response['code']) {
@@ -124,7 +140,7 @@ class ApiController extends Controller
             'is_use' => false,
         ]);
 
-        // 有值表示为绑定关联
+        // 有 aid 表示为绑定关联
         if ($cacheData['aid'] ?? null) {
             $connectAdd = LoginHelper::connectAdd($cacheData, AccountConnect::CONNECT_WECHAT_MINI_PROGRAM, $dtoRequest->code, $langTag);
 
@@ -164,7 +180,7 @@ class ApiController extends Controller
             return $checkAccount;
         }
 
-        if ($checkAccount['code'] = 31502) {
+        if ($checkAccount['code'] == 31502) {
             $response = LoginHelper::createAccount($checkAccount['data'], $langTag);
 
             if ($response['code']) {
@@ -192,18 +208,34 @@ class ApiController extends Controller
     public function openPlatformOauth(Request $request)
     {
         $dtoRequest = new OauthDTO($request->all());
+        $aid = \request()->header('X-Fresns-Aid');
         $appId = \request()->header('X-Fresns-App-Id');
         $platformId = \request()->header('X-Fresns-Client-Platform-Id');
         $version = \request()->header('X-Fresns-Client-Version');
         $langTag = \request()->header('X-Fresns-Client-Lang-Tag');
 
+        // 有 aid 表示为绑定关联
+        if ($aid) {
+            $cacheData['aid'] = $aid;
+            $connectAdd = LoginHelper::connectAdd($cacheData, AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION, $dtoRequest->code, $langTag);
+
+            if ($connectAdd['code']) {
+                return $connectAdd;
+            }
+
+            $accountData = LoginHelper::getAccountData($aid, $langTag, $appId, $platformId, $version);
+
+            return $accountData;
+        }
+
+        // 没有 aid 表示登录或注册
         $checkAccount = LoginHelper::checkAccount(AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION, $dtoRequest->code, $langTag, $appId, $platformId, $version);
 
         if (! $dtoRequest->autoRegister) {
             return $checkAccount;
         }
 
-        if ($checkAccount['code'] = 31502) {
+        if ($checkAccount['code'] == 31502) {
             $response = LoginHelper::createAccount($checkAccount['data'], $langTag, $appId, $platformId, $version);
 
             if ($response['code']) {

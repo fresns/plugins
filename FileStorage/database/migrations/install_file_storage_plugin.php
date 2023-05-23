@@ -6,9 +6,7 @@
  * Released under the Apache-2.0 License.
  */
 
-use App\Models\FileUsage;
 use App\Utilities\ConfigUtility;
-use App\Utilities\SubscribeUtility;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -149,21 +147,12 @@ return new class extends Migration
         ],
     ];
 
-    protected $fresnsWordBody = [
-        'type' => SubscribeUtility::TYPE_TABLE_DATA_CHANGE,
-        'fskey' => 'FileStorage',
-        'cmdWord' => 'audioAndVideoTranscode',
-        'subTableName' => FileUsage::class,
-    ];
-
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         ConfigUtility::addFresnsConfigItems($this->fresnsConfigItems);
-
-        \FresnsCmdWord::plugin()->addSubscribeItem($this->fresnsWordBody);
     }
 
     /**
@@ -172,7 +161,5 @@ return new class extends Migration
     public function down(): void
     {
         ConfigUtility::removeFresnsConfigItems($this->fresnsConfigItems);
-
-        \FresnsCmdWord::plugin()->removeSubscribeItem($this->fresnsWordBody);
     }
 };
