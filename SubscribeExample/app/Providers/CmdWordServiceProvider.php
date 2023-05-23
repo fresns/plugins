@@ -26,6 +26,7 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
         ['word' => 'dataChange', 'provider' => [CmdWordService::class, 'dataChange']],
         ['word' => 'userActivity', 'provider' => [CmdWordService::class, 'userActivity']],
         ['word' => 'accountAndUserLogin', 'provider' => [CmdWordService::class, 'accountAndUserLogin']],
+        ['word' => 'viewContent', 'provider' => [CmdWordService::class, 'viewContent']],
     ];
 
     /**

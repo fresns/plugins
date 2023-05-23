@@ -36,6 +36,36 @@ return new class extends Migration
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'accountAndUserLogin',
         ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_USER,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_GROUP,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_HASHTAG,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_POST,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_COMMENT,
+        ],
     ];
 
     public function handleSubscribes(callable $callable)

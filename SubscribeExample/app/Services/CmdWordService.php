@@ -37,4 +37,12 @@ class CmdWordService
 
         return $this->success();
     }
+
+    // viewContent
+    public function viewContent($wordBody)
+    {
+        \info('Subscribe View Content: ', [$wordBody]);
+
+        return $this->success();
+    }
 }
