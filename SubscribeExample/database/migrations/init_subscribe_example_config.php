@@ -18,13 +18,13 @@ return new class extends Migration
             'type' => SubscribeUtility::TYPE_TABLE_DATA_CHANGE,
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'dataChange',
-            'subTableName' => Post::class,
+            'subject' => Post::class,
         ],
         [
             'type' => SubscribeUtility::TYPE_TABLE_DATA_CHANGE,
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'dataChange',
-            'subTableName' => Comment::class,
+            'subject' => Comment::class,
         ],
         [
             'type' => SubscribeUtility::TYPE_USER_ACTIVITY,

@@ -153,7 +153,7 @@ return new class extends Migration
         'type' => SubscribeUtility::TYPE_TABLE_DATA_CHANGE,
         'fskey' => 'FileStorage',
         'cmdWord' => 'audioAndVideoTranscode',
-        'subTableName' => FileUsage::class,
+        'subject' => FileUsage::class,
     ];
 
     /**
