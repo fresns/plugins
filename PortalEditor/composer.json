@@ -1,0 +1,19 @@
+{
+    "name": "fresns/portal-editor",
+    "description": "Edit the portal content code directly.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jevan Tang",
+            "email": "jevan@fresns.org",
+            "homepage": "https://github.com/jevantang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\PortalEditor\\": "app"
+        }
+    },
+    "require": {}
+}

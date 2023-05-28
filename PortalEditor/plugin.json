@@ -1,0 +1,18 @@
+{
+    "fskey": "PortalEditor",
+    "type": 2,
+    "name": "Portal Editor",
+    "description": "Edit the portal content code directly.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": null,
+    "settingsPath": "/portal-editor",
+    "providers": [
+        "Plugins\\PortalEditor\\Providers\\PortalEditorServiceProvider",
+        "Plugins\\PortalEditor\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}
