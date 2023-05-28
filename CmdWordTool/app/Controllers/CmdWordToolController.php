@@ -27,7 +27,7 @@ class CmdWordToolController extends Controller
         $fskey = $request->get('fskey') ?? 'Fresns';
         $wordName = $request->get('wordName');
         $param = $request->get('param');
-        if (! empty($request->file('param.file'))) {
+        if ($request->file('param.file')) {
             $param['file'] = $request->file('param.file');
         }
 

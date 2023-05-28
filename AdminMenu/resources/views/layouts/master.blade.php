@@ -20,7 +20,9 @@
     </head>
 
     <body>
-        @yield('content')
+        <main class="m-3">
+            @yield('content')
+        </main>
 
         <div class="fresns-tips"></div>
 

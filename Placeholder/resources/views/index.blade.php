@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
 
-<body>
+<body style="background-color:#ccc">
     <table class="table">
         <thead>
             <tr>
