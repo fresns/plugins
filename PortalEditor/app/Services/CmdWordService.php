@@ -15,9 +15,9 @@ use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
 use App\Models\Config;
 use App\Models\Language;
+use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 
 class CmdWordService
 {
@@ -88,9 +88,9 @@ class CmdWordService
 
         // Query Config
         $queryConfig = [
-            'user' => ConfigHelper::fresnsConfigByItemKey("menu_user_query_config"),
-            'hashtag' => ConfigHelper::fresnsConfigByItemKey("menu_hashtag_query_config"),
-            'post' => ConfigHelper::fresnsConfigByItemKey("menu_post_list_query_config"),
+            'user' => ConfigHelper::fresnsConfigByItemKey('menu_user_query_config'),
+            'hashtag' => ConfigHelper::fresnsConfigByItemKey('menu_hashtag_query_config'),
+            'post' => ConfigHelper::fresnsConfigByItemKey('menu_post_list_query_config'),
         ];
 
         // post list

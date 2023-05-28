@@ -23,7 +23,7 @@ return new class extends Migration
             'item_value' => 'true',
             'item_type' => 'boolean',
             'item_tag' => 'PortalEditor',
-        ]
+        ],
     ];
 
     // Run the migrations.
