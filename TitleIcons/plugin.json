@@ -1,0 +1,19 @@
+{
+    "fskey": "TitleIcons",
+    "type": 1,
+    "name": "Title Icons",
+    "description": "Content icon manager extension to manage post and comment title icons.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "extendManage"
+    ],
+    "accessPath": "/title-icons?authorization={authorization}&type={type}&scene={scene}&pid={pid}&cid={cid}",
+    "settingsPath": "/title-icons/admin",
+    "providers": [
+        "Plugins\\TitleIcons\\Providers\\TitleIconsServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}
