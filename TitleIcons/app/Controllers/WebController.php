@@ -18,9 +18,9 @@ use App\Models\PluginUsage;
 use App\Models\Post;
 use App\Utilities\ConfigUtility;
 use App\Utilities\PermissionUtility;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
 class WebController extends Controller
 {
