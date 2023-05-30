@@ -144,7 +144,7 @@
 
     <footer>
         <div class="copyright text-center">
-            <p class="mt-5 mb-5 text-muted">&copy; 2023 Fresns</p>
+            <p class="mt-5 mb-5 text-muted">&copy; <span class="copyright-year"></span> Fresns</p>
         </div>
     </footer>
 
@@ -164,6 +164,12 @@
     <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
 
     <script>
+        // copyright-year
+        var yearElement = document.querySelector('.copyright-year');
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        yearElement.textContent = currentYear;
+
         $(document).ready(function () {
             $("#saveButton").click(function (event) {
                 //stop submit the form, we will post it manually.

@@ -60,7 +60,7 @@
 
     <footer>
         <div class="copyright text-center">
-            <p class="mt-5 mb-5 text-muted">&copy; 2023 Fresns</p>
+            <p class="mt-5 mb-5 text-muted">&copy; <span class="copyright-year"></span> Fresns</p>
         </div>
     </footer>
 
@@ -72,6 +72,12 @@
     <script src="{{ @asset('/static/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
     <script>
+        // copyright-year
+        var yearElement = document.querySelector('.copyright-year');
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        yearElement.textContent = currentYear;
+
         // set timeout toast hide
         const setTimeoutToastHide = () => {
             $('.toast.show').each((k, v) => {
