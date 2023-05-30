@@ -24,6 +24,17 @@
 
     <script src="{{ @asset('/static/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
+    <script>
+        // set timeout toast hide
+        const setTimeoutToastHide = () => {
+            $('.toast.show').each((k, v) => {
+                setTimeout(function () {
+                    $(v).hide();
+                }, 1500);
+            });
+        };
+        setTimeoutToastHide();
+    </script>
     @stack('script')
 </body>
 </html>

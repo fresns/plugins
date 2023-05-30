@@ -207,7 +207,7 @@ class CmdWordService
         if ($configKeys['default_language'] == $langTag) {
             $userUrl = $configKeys['site_url'].'/'.$configKeys['website_user_path'];
             $hashtagUrl = $configKeys['site_url'].'/'.$configKeys['website_hashtag_path'];
-            $postUrl = $configKeys['site_url'].$configKeys['website_post_path'].'/list';
+            $postUrl = $configKeys['site_url'].'/'.$configKeys['website_post_path'].'/list';
             $userDetailUrl = $configKeys['site_url'].'/'.$configKeys['website_user_detail_path'].'/';
             $hashtagDetailUrl = $configKeys['site_url'].'/'.$configKeys['website_hashtag_detail_path'].'/';
             $postDetailUrl = $configKeys['site_url'].'/'.$configKeys['website_post_detail_path'].'/';
