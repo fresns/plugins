@@ -1,0 +1,18 @@
+{
+    "fskey": "OnlineDays",
+    "type": 1,
+    "name": "Number of days online",
+    "description": "Counting the number of days users are online",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": null,
+    "settingsPath": "/online-days",
+    "providers": [
+        "Plugins\\OnlineDays\\Providers\\OnlineDaysServiceProvider",
+        "Plugins\\OnlineDays\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}
