@@ -48,8 +48,6 @@
     </div>
 </div>
 
-<script src="{{ config('app.url') }}/static/js/masonry.pkgd.min.js"></script>
-
 <div class="fs-list-group mb-3">
     <div class="d-flex">
         <h4 class="fs-5 px-3 pb-1 pt-3 flex-grow-1">{{ $titleArr['post'] }}</h4>

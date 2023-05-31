@@ -32,8 +32,6 @@ class CmdWordService
             return $this->failure(21010);
         }
 
-        info('Cmd Word', ['PortalEditor->generateContent']);
-
         Config::withTrashed()->updateOrCreate([
             'item_key' => 'portal_4',
         ], [
