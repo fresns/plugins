@@ -34,6 +34,18 @@ class CmdWordService
 
         info('Cmd Word', ['PortalEditor->generateContent']);
 
+        Config::withTrashed()->updateOrCreate([
+            'item_key' => 'portal_4',
+        ], [
+            'item_value' => null,
+            'item_type' => 'string',
+            'item_tag' => 'client',
+            'is_multilingual' => 1,
+            'is_custom' => 1,
+            'is_api' => 1,
+            'deleted_at' => null,
+        ]);
+
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'default_language',
             'language_status',
