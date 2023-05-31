@@ -59,9 +59,9 @@
         @endif
     </div>
 
-    <div class="row mx-3 py-2" data-masonry='{"percentPosition": true }'>
+    <div class="row mx-1 py-2" data-masonry='{"percentPosition": true }'>
         @foreach($data['posts'] as $post)
-            <div class="col-6 col-lg-3 mb-3">
+            <div class="col-6 col-lg-3 mb-2 px-1">
                 <a href="{{ $urlArr['postDetail'].$post['pid'] }}" class="card text-decoration-none link-dark">
                     @if ($post['files']['images'])
                         <img class="bd-placeholder-img card-img-top" src="{{ $post['files']['images'][0]['imageRatioUrl'] }}">
