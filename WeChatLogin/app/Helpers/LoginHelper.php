@@ -65,11 +65,11 @@ class LoginHelper
     }
 
     // 判断账号是否存在
-    public static function checkAccount(int $connectId, string $code, ?string $langTag = null, ?string $appId = null, ?int $platformId = null, ?string $version = null): array
+    public static function checkAccount(int $connectPlatformId, string $code, ?string $langTag = null, ?string $appId = null, ?int $platformId = null, ?string $version = null): array
     {
         $langTag = $langTag ?: FsConfigHelper::fresnsConfigDefaultLangTag();
 
-        $wechatInfo = ConfigHelper::getWeChatUserInfo($connectId, $code);
+        $wechatInfo = ConfigHelper::getWeChatUserInfo($connectPlatformId, $code);
 
         if ($wechatInfo['code']) {
             return $wechatInfo;
@@ -82,8 +82,8 @@ class LoginHelper
         if ($wechatConfig['unionid']) {
             $unionIdWordBody = [
                 'type' => Account::ACT_TYPE_CONNECT,
-                'connectId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
-                'connectToken' => $wechatConfig['unionid'],
+                'connectPlatformId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
+                'connectAccountId' => $wechatConfig['unionid'],
             ];
 
             $unionIdResp = \FresnsCmdWord::plugin('Fresns')->verifyAccount($unionIdWordBody);
@@ -94,8 +94,8 @@ class LoginHelper
         // 查询 openid 是否有账号
         $openIdWordBody = [
             'type' => Account::ACT_TYPE_CONNECT,
-            'connectId' => $connectId,
-            'connectToken' => $wechatConfig['openid'],
+            'connectPlatformId' => $connectPlatformId,
+            'connectAccountId' => $wechatConfig['openid'],
         ];
 
         $openIdResp = \FresnsCmdWord::plugin('Fresns')->verifyAccount($openIdWordBody);
@@ -116,8 +116,8 @@ class LoginHelper
         $unionWordBody = [
             'fskey' => 'WeChatLogin',
             'aid' => $aid,
-            'connectId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
-            'connectToken' => $wechatConfig['unionid'],
+            'connectPlatformId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
+            'connectAccountId' => $wechatConfig['unionid'],
             'connectNickname' => $wechatConfig['nickname'],
             'connectAvatar' => $wechatConfig['avatarUrl'],
         ];
@@ -127,8 +127,8 @@ class LoginHelper
         $openWordBody = [
             'fskey' => 'WeChatLogin',
             'aid' => $aid,
-            'connectId' => $connectId,
-            'connectToken' => $wechatConfig['openid'],
+            'connectPlatformId' => $connectPlatformId,
+            'connectAccountId' => $wechatConfig['openid'],
             'connectRefreshToken' => $wechatConfig['refreshToken'],
             'refreshTokenExpiredDatetime' => $wechatConfig['refreshTokenExpiredDatetime'],
             'connectNickname' => $wechatConfig['nickname'],
@@ -209,8 +209,8 @@ class LoginHelper
     {
         $connectInfo = [
             [
-                'connectId' => $wechatConfig['connectId'],
-                'connectToken' => $wechatConfig['openid'],
+                'connectPlatformId' => $wechatConfig['connectPlatformId'],
+                'connectAccountId' => $wechatConfig['openid'],
                 'connectRefreshToken' => $wechatConfig['refreshToken'],
                 'refreshTokenExpiredDatetime' => $wechatConfig['refreshTokenExpiredDatetime'],
                 'connectNickname' => $wechatConfig['nickname'],
@@ -221,8 +221,8 @@ class LoginHelper
 
         if ($wechatConfig['unionid']) {
             $unionArr = [
-                'connectId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
-                'connectToken' => $wechatConfig['unionid'],
+                'connectPlatformId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
+                'connectAccountId' => $wechatConfig['unionid'],
                 'connectNickname' => $wechatConfig['nickname'],
                 'connectAvatar' => $wechatConfig['avatarUrl'],
                 'pluginFskey' => 'WeChatLogin',
@@ -286,11 +286,11 @@ class LoginHelper
     }
 
     // 绑定关联
-    public static function connectAdd(array $cacheData, int $connectId, string $code, ?string $langTag = null): array
+    public static function connectAdd(array $cacheData, int $connectPlatformId, string $code, ?string $langTag = null): array
     {
         $langTag = $langTag ?: FsConfigHelper::fresnsConfigDefaultLangTag();
 
-        $wechatInfo = ConfigHelper::getWeChatUserInfo($connectId, $code);
+        $wechatInfo = ConfigHelper::getWeChatUserInfo($connectPlatformId, $code);
 
         if ($wechatInfo['code']) {
             return $wechatInfo;
@@ -302,8 +302,8 @@ class LoginHelper
             $unionWordBody = [
                 'fskey' => 'WeChatLogin',
                 'aid' => $cacheData['aid'],
-                'connectId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
-                'connectToken' => $wechatConfig['unionid'],
+                'connectPlatformId' => AccountConnect::CONNECT_WECHAT_OPEN_PLATFORM,
+                'connectAccountId' => $wechatConfig['unionid'],
                 'connectNickname' => $wechatConfig['nickname'],
                 'connectAvatar' => $wechatConfig['avatarUrl'],
             ];
@@ -319,8 +319,8 @@ class LoginHelper
         $openWordBody = [
             'fskey' => 'WeChatLogin',
             'aid' => $cacheData['aid'],
-            'connectId' => $connectId,
-            'connectToken' => $wechatConfig['openid'],
+            'connectPlatformId' => $connectPlatformId,
+            'connectAccountId' => $wechatConfig['openid'],
             'connectRefreshToken' => $wechatConfig['refreshToken'],
             'refreshTokenExpiredDatetime' => $wechatConfig['refreshTokenExpiredDatetime'],
             'connectNickname' => $wechatConfig['nickname'],

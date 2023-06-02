@@ -23,9 +23,9 @@ class ConfigHelper
     }
 
     // 获取配置信息
-    public static function getConfig(int $connectId): array
+    public static function getConfig(int $connectPlatformId): array
     {
-        $configArr = match ($connectId) {
+        $configArr = match ($connectPlatformId) {
             AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_official_account'),
             AccountConnect::CONNECT_WECHAT_MINI_PROGRAM => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_mini_program'),
             AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_open_platform')['mobile'],
@@ -41,7 +41,7 @@ class ConfigHelper
         $appId = $configArr['appId'] ?? null;
         $appSecret = $configArr['appSecret'] ?? null;
 
-        $scopes = match ($connectId) {
+        $scopes = match ($connectPlatformId) {
             AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT => ['snsapi_userinfo'],
             AccountConnect::CONNECT_WECHAT_MINI_PROGRAM => ['snsapi_userinfo'],
             AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION => ['snsapi_login'],
@@ -96,15 +96,15 @@ class ConfigHelper
     }
 
     // 获取网页登录信息
-    public static function getWebOauthInfo(int $connectId, string $authUlid, string $callbackUrl, ?string $langTag = null): array
+    public static function getWebOauthInfo(int $connectPlatformId, string $authUlid, string $callbackUrl, ?string $langTag = null): array
     {
         $isWeChat = LoginHelper::isWeChat();
         $wechatQrCode = null;
         $oauthUrl = null;
 
-        $app = new Application(ConfigHelper::getConfig($connectId));
+        $app = new Application(ConfigHelper::getConfig($connectPlatformId));
 
-        switch ($connectId) {
+        switch ($connectPlatformId) {
             case AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT:
                 // 公众号
                 if ($isWeChat) {
@@ -149,12 +149,12 @@ class ConfigHelper
     }
 
     // 获取微信授权信息
-    public static function getWeChatUserInfo(int $connectId, string $code): array
+    public static function getWeChatUserInfo(int $connectPlatformId, string $code): array
     {
-        switch ($connectId) {
+        switch ($connectPlatformId) {
             case AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT:
                 // 公众号
-                $app = new Application(ConfigHelper::getConfig($connectId));
+                $app = new Application(ConfigHelper::getConfig($connectPlatformId));
 
                 $oauth = $app->getOauth();
 
@@ -171,7 +171,7 @@ class ConfigHelper
                 $rawInfo = $user->getRaw();
 
                 $wechatConfig = [
-                    'connectId' => AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT,
+                    'connectPlatformId' => AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT,
                     'unionid' => $rawInfo['unionid'] ?? null,
                     'openid' => $user->getId(),
                     'refreshToken' => $user->getRefreshToken(),
@@ -183,7 +183,7 @@ class ConfigHelper
 
             case AccountConnect::CONNECT_WECHAT_MINI_PROGRAM:
                 // 小程序
-                $app = new MiniApp(ConfigHelper::getConfig($connectId));
+                $app = new MiniApp(ConfigHelper::getConfig($connectPlatformId));
                 $utils = $app->getUtils();
 
                 try {
@@ -197,7 +197,7 @@ class ConfigHelper
                 }
 
                 $wechatConfig = [
-                    'connectId' => AccountConnect::CONNECT_WECHAT_MINI_PROGRAM,
+                    'connectPlatformId' => AccountConnect::CONNECT_WECHAT_MINI_PROGRAM,
                     'unionid' => $response['unionid'] ?? null,
                     'openid' => $response['openid'],
                     'refreshToken' => null,
@@ -209,7 +209,7 @@ class ConfigHelper
 
             case AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION:
                 // 开放平台-移动应用
-                $app = new OpenPlatform(ConfigHelper::getConfig($connectId));
+                $app = new OpenPlatform(ConfigHelper::getConfig($connectPlatformId));
 
                 try {
                     $api = $app->getClient();
@@ -241,7 +241,7 @@ class ConfigHelper
                 $resData = $response->toArray();
 
                 $wechatConfig = [
-                    'connectId' => AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION,
+                    'connectPlatformId' => AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION,
                     'unionid' => $resData['unionid'] ?? null,
                     'openid' => $resData['openid'],
                     'refreshToken' => $resData['refresh_token'],
@@ -253,7 +253,7 @@ class ConfigHelper
 
             case AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION:
                 // 开放平台-网站应用
-                $app = new OpenPlatform(ConfigHelper::getConfig($connectId));
+                $app = new OpenPlatform(ConfigHelper::getConfig($connectPlatformId));
                 $oauth = $app->getOauth();
 
                 try {
@@ -269,7 +269,7 @@ class ConfigHelper
                 $rawInfo = $user->getRaw();
 
                 $wechatConfig = [
-                    'connectId' => AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION,
+                    'connectPlatformId' => AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION,
                     'unionid' => $rawInfo['unionid'] ?? null,
                     'openid' => $user->getId(),
                     'refreshToken' => $user->getRefreshToken(),

@@ -26,8 +26,8 @@ class WebController extends Controller
     // 插件入口，判断权限和跳转页面
     public function index(Request $request)
     {
-        $connectId = $request->connectId;
-        if (empty($connectId)) {
+        $connectPlatformId = $request->connectPlatformId;
+        if (empty($connectPlatformId)) {
             return view('WeChatLogin::error', [
                 'code' => 30001,
                 'message' => '[Connect ID] '.ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
@@ -57,7 +57,7 @@ class WebController extends Controller
             'ulid' => $authUlid,
             'aid' => $fresnsResp->getData('aid'),
             'accountId' => $accountId,
-            'connectId' => $connectId,
+            'connectPlatformId' => $connectPlatformId,
             'postMessageKey' => $request->postMessageKey,
         ];
 
@@ -73,7 +73,7 @@ class WebController extends Controller
                 ]);
             }
 
-            $connectInfo = AccountConnect::where('account_id', $accountId)->where('connect_id', $connectId)->first();
+            $connectInfo = AccountConnect::where('account_id', $accountId)->where('connect_platform_id', $connectPlatformId)->first();
 
             // 已有关联，操作解绑
             if ($connectInfo) {
@@ -118,16 +118,16 @@ class WebController extends Controller
         $parentUrl = $request->headers->get('referer');
         $callbackUrl = route('wechat-login.auth.callback', [
             'authUlid' => $authUlid,
-            'connectId' => $cacheData['connectId'],
+            'connectPlatformId' => $cacheData['connectPlatformId'],
             'parentUrl' => $parentUrl,
             'langTag' => $langTag,
         ]);
 
-        $oauthInfo = ConfigHelper::getWebOauthInfo($cacheData['connectId'], $authUlid, $callbackUrl, $langTag);
+        $oauthInfo = ConfigHelper::getWebOauthInfo($cacheData['connectPlatformId'], $authUlid, $callbackUrl, $langTag);
         $oauthUrl = $oauthInfo['oauthUrl'];
         $wechatQrCode = $oauthInfo['wechatQrCode'];
 
-        if ($cacheData['connectId'] == AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION) {
+        if ($cacheData['connectPlatformId'] == AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION) {
             return \redirect($oauthUrl);
         }
 
@@ -163,7 +163,7 @@ class WebController extends Controller
                 'is_use' => false,
             ]);
 
-            $app = new Application(ConfigHelper::getConfig($cacheData['connectId']));
+            $app = new Application(ConfigHelper::getConfig($cacheData['connectPlatformId']));
             $oauth = $app->getOauth();
 
             $oauthUrl = $oauth->redirect($request->fullUrl());
@@ -175,7 +175,7 @@ class WebController extends Controller
         $accountId = $cacheData['accountId'] ?? null;
 
         if ($code && empty($accountId)) {
-            $checkAccount = LoginHelper::checkAccount($cacheData['connectId'], $code, $langTag);
+            $checkAccount = LoginHelper::checkAccount($cacheData['connectPlatformId'], $code, $langTag);
 
             if ($checkAccount['code']) {
                 CacheHelper::put($checkAccount['data'], $authUlid, ConfigHelper::getAuthCacheTags(), null, now()->addMinutes(10));
@@ -224,18 +224,18 @@ class WebController extends Controller
     {
         $authUlid = $request->authUlid;
         $code = $request->code;
-        $connectId = $request->connectId;
+        $connectPlatformId = $request->connectPlatformId;
         $parentUrl = $request->parentUrl ?? FsConfigHelper::fresnsConfigByItemKey('site_url');
         $langTag = $request->langTag;
 
-        if (empty($code) || empty($connectId)) {
+        if (empty($code) || empty($connectPlatformId)) {
             return view('WeChatLogin::error', [
                 'code' => 30001,
-                'message' => '[Code&ConnectID] '.ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'message' => '[Code&ConnectPlatformId] '.ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
             ]);
         }
 
-        $checkAccount = LoginHelper::checkAccount($connectId, $code, $langTag);
+        $checkAccount = LoginHelper::checkAccount($connectPlatformId, $code, $langTag);
 
         if ($checkAccount['code']) {
             CacheHelper::put($checkAccount['data'], $authUlid, ConfigHelper::getAuthCacheTags(), null, now()->addMinutes(10));
@@ -339,12 +339,12 @@ class WebController extends Controller
             'authUlid' => $authUlid,
             'langTag' => $langTag,
         ]);
-        $oauthInfo = ConfigHelper::getWebOauthInfo($cacheData['connectId'], $authUlid, $callbackUrl);
+        $oauthInfo = ConfigHelper::getWebOauthInfo($cacheData['connectPlatformId'], $authUlid, $callbackUrl);
 
         $oauthUrl = $oauthInfo['oauthUrl'];
         $wechatQrCode = $oauthInfo['wechatQrCode'];
 
-        if ($cacheData['connectId'] == AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION) {
+        if ($cacheData['connectPlatformId'] == AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION) {
             return \redirect($oauthUrl);
         }
 
@@ -400,7 +400,7 @@ class WebController extends Controller
     public function connectDisconnect(Request $request)
     {
         $authUlid = $request->authUlid;
-        $connectId = $request->connectId;
+        $connectPlatformId = $request->connectPlatformId;
         $langTag = $request->langTag;
 
         // 验证使用权限
@@ -421,7 +421,7 @@ class WebController extends Controller
             ]);
         }
 
-        $connectInfo = AccountConnect::where('account_id', $cacheData['accountId'])->where('connect_id', $cacheData['connectId'])->first();
+        $connectInfo = AccountConnect::where('account_id', $cacheData['accountId'])->where('connect_platform_id', $cacheData['connectPlatformId'])->first();
 
         return view('WeChatLogin::connect-disconnect', compact('authUlid', 'langTag', 'connectInfo'));
     }
@@ -452,7 +452,7 @@ class WebController extends Controller
 
         $wordBody = [
             'aid' => $cacheData['aid'],
-            'connectId' => $cacheData['connectId'],
+            'connectPlatformId' => $cacheData['connectPlatformId'],
         ];
 
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->disconnectAccountConnect($wordBody);
