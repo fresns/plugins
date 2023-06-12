@@ -33,7 +33,7 @@
                     data: '',
                 }
 
-                parent.postMessage(JSON.stringify(fresnsCallbackMessage));
+                parent.postMessage(JSON.stringify(fresnsCallbackMessage), '*');
             }, 2000);
         }
     </script>

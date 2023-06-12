@@ -84,7 +84,7 @@
                                 data: '',
                             }
 
-                            parent.postMessage(JSON.stringify(fresnsCallbackMessage));
+                            parent.postMessage(JSON.stringify(fresnsCallbackMessage), '*');
                         }
 
                         if (data.code == 32206) {

@@ -32,7 +32,7 @@
                 data: '',
             }
 
-            parent.postMessage(JSON.stringify(fresnsCallbackMessage));
+            parent.postMessage(JSON.stringify(fresnsCallbackMessage), '*');
         }
     </script>
 @endpush
