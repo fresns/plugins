@@ -17,8 +17,8 @@ class MailService
     /**
      * generate mail code.
      *
-     * @param $account
-     * @param $templateId
+     * @param  $account
+     * @param  $templateId
      * @return array|string[]
      */
     public static function makeMailCode($account, $templateId)
@@ -73,8 +73,8 @@ class MailService
     /**
      * Get code template content.
      *
-     * @param $templateId
-     * @param $langTag
+     * @param  $templateId
+     * @param  $langTag
      * @return array|mixed
      */
     public static function getTemplateValue($templateId, $langTag)
@@ -98,8 +98,8 @@ class MailService
     /**
      * get preg_replace title.
      *
-     * @param $title
-     * @param $sitename
+     * @param  $title
+     * @param  $sitename
      * @return string|string[]|null
      */
     public static function getTitle($title, $sitename)
@@ -110,9 +110,9 @@ class MailService
     /**
      * get preg_replace content.
      *
-     * @param $content
-     * @param $code
-     * @param $time
+     * @param  $content
+     * @param  $code
+     * @param  $time
      * @return string|string[]|null
      */
     public static function getContent($content, $sitename, $code, $time)
