@@ -1,0 +1,20 @@
+{
+    "fskey": "NearbyDaysLimit",
+    "type": 1,
+    "name": "Nearby content days limit",
+    "description": "When viewing nearby content, only content within the specified number of days is displayed.",
+    "author": "Tracy",
+    "authorLink": "https://marketplace.fresns.com/developer/tracy",
+    "version": "1.0.0",
+    "scene": [
+        "extendData"
+    ],
+    "accessPath": null,
+    "settingsPath": "/nearby-days-limit",
+    "providers": [
+        "Plugins\\NearbyDaysLimit\\Providers\\NearbyDaysLimitServiceProvider",
+        "Plugins\\NearbyDaysLimit\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}

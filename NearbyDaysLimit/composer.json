@@ -1,0 +1,18 @@
+{
+    "name": "fresns/nearby-days-limit",
+    "description": "When viewing nearby content, only content within the specified number of days is displayed.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Tracy",
+            "homepage": "https://github.com/tracy-yq",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\NearbyDaysLimit\\": "app"
+        }
+    },
+    "require": {}
+}
