@@ -16,7 +16,7 @@ The official File Storage service plugin developed by Fresns. Supports local, ft
 | Secret ID | `Useless, feel free to fill in, but do not leave blank` | username | username |
 | Secret Key | `Useless, feel free to fill in, but do not leave blank` | password | password |
 | Bucket Name | `Useless, feel free to fill in, but do not leave blank` | ftp host | ftp host |
-| Bucket Area | `Useless, feel free to fill in, but do not leave blank` | ftp port `Default is 21` | sftp port `Default is 22` |
+| Bucket Region | `Useless, feel free to fill in, but do not leave blank` | ftp port `Default is 21` | sftp port `Default is 22` |
 | Bucket Domain | System URL of the main program | ftp URL | sftp URL |
 | Anti-theft chain function | Only the expiration date needs to be configured, the anti-theft chain key is not used |
 | Image processing location | `name-end` | `name-end` | `name-end` |

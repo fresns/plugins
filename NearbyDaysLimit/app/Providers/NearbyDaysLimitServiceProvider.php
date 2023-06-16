@@ -18,6 +18,8 @@ class NearbyDaysLimitServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerViews();
+
+        $this->loadMigrationsFrom(dirname(__DIR__, 2).'/database/migrations');
     }
 
     /**

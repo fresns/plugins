@@ -63,7 +63,7 @@ class ApiController extends Controller
         }
 
         $callback->update([
-            'is_use' => true,
+            'is_used' => true,
         ]);
 
         return $this->success();
@@ -137,7 +137,7 @@ class ApiController extends Controller
             'plugin_fskey' => 'WeChatLogin',
             'type' => PluginCallback::TYPE_ACCOUNT,
             'content' => null,
-            'is_use' => false,
+            'is_used' => false,
         ]);
 
         // 有 aid 表示为绑定关联
@@ -156,7 +156,7 @@ class ApiController extends Controller
                 'plugin_fskey' => 'WeChatLogin',
                 'type' => PluginCallback::TYPE_ACCOUNT,
                 'content' => $accountData,
-                'is_use' => false,
+                'is_used' => false,
             ]);
 
             return $accountData;
@@ -172,7 +172,7 @@ class ApiController extends Controller
                 'plugin_fskey' => 'WeChatLogin',
                 'type' => PluginCallback::TYPE_ACCOUNT,
                 'content' => $checkAccount,
-                'is_use' => false,
+                'is_used' => false,
             ]);
         }
 
@@ -195,7 +195,7 @@ class ApiController extends Controller
                 'plugin_fskey' => 'WeChatLogin',
                 'type' => PluginCallback::TYPE_ACCOUNT,
                 'content' => $accountData,
-                'is_use' => false,
+                'is_used' => false,
             ]);
 
             return $accountData;

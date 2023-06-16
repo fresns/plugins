@@ -340,7 +340,7 @@ class LoginHelper
                     'message' => 'ok',
                     'data' => $cacheData,
                 ],
-                'is_use' => false,
+                'is_used' => false,
             ]);
         }
 

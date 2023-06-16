@@ -160,7 +160,7 @@ class WebController extends Controller
                 'plugin_fskey' => 'WeChatLogin',
                 'type' => PluginCallback::TYPE_ACCOUNT,
                 'content' => null,
-                'is_use' => false,
+                'is_used' => false,
             ]);
 
             $app = new Application(ConfigHelper::getConfig($cacheData['connectPlatformId']));
@@ -202,7 +202,7 @@ class WebController extends Controller
                     'plugin_fskey' => 'WeChatLogin',
                     'type' => PluginCallback::TYPE_ACCOUNT,
                     'content' => $checkAccount,
-                    'is_use' => false,
+                    'is_used' => false,
                 ]);
             }
         }
@@ -302,7 +302,7 @@ class WebController extends Controller
             'plugin_fskey' => 'WeChatLogin',
             'type' => PluginCallback::TYPE_ACCOUNT,
             'content' => $accountData,
-            'is_use' => false,
+            'is_used' => false,
         ]);
 
         return \redirect($parentUrl);
