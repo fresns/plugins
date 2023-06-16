@@ -10,14 +10,8 @@ namespace Plugins\FileStorage\Services\DTO;
 
 use Fresns\DTO\DTO;
 
-/**
- * Class AudioAndVideoTranscodeDTO.
- */
 class AudioAndVideoTranscodeDTO extends DTO
 {
-    /**
-     * @return array
-     */
     public function rules(): array
     {
         return [
