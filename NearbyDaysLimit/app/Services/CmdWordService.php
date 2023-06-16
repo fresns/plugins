@@ -15,9 +15,9 @@ use App\Fresns\Api\Traits\ApiHeaderTrait;
 use App\Helpers\ConfigHelper;
 use App\Models\Comment;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class CmdWordService
 {

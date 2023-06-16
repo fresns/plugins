@@ -19,7 +19,7 @@ class EditController extends Controller
     {
         $version = PluginHelper::fresnsPluginVersionByFskey('NearbyDaysLimit');
 
-        $config = Config::where('item_key', 'nearby_days_limit',)->first();
+        $config = Config::where('item_key', 'nearby_days_limit')->first();
 
         $days = $config?->item_value ?? 7;
 
