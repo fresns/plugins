@@ -25,10 +25,8 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerCmdWordProvider();
     }

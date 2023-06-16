@@ -14,10 +14,8 @@ class FileStorageServiceProvider extends ServiceProvider
 {
     /**
      * Boot the application events.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerTranslations();
         $this->registerViews();
@@ -27,30 +25,24 @@ class FileStorageServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
     }
 
     /**
      * Register translations.
-     *
-     * @return void
      */
-    public function registerTranslations()
+    public function registerTranslations(): void
     {
         $this->loadTranslationsFrom(dirname(__DIR__, 2).'/resources/lang', 'FileStorage');
     }
 
     /**
      * Register views.
-     *
-     * @return void
      */
-    public function registerViews()
+    public function registerViews(): void
     {
         $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'FileStorage');
     }
