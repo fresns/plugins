@@ -1,0 +1,20 @@
+{
+    "fskey": "S3Storage",
+    "type": 1,
+    "name": "S3 Storage",
+    "description": "S3 storage, available from any storage service that supports the S3 protocol.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "storage"
+    ],
+    "accessPath": null,
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\S3Storage\\Providers\\S3StorageServiceProvider",
+        "Plugins\\S3Storage\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}

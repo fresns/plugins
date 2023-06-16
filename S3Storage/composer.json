@@ -1,0 +1,21 @@
+{
+    "name": "fresns/s3-storage",
+    "description": "S3 storage, available from any storage service that supports the S3 protocol.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jevan Tang",
+            "email": "jevan@fresns.org",
+            "homepage": "https://github.com/jevantang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\S3Storage\\": "app"
+        }
+    },
+    "require": {
+        "league/flysystem-aws-s3-v3": "^3.0"
+    }
+}
