@@ -1,12 +1,12 @@
 {
     "name": "fresns/nearby-days-limit",
     "description": "When viewing nearby content, only content within the specified number of days is displayed.",
-    "license": "Apache-2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Tracy",
             "homepage": "https://github.com/tracy-yq",
-            "role": "Creator"
+            "role": "Developer"
         }
     ],
     "autoload": {
