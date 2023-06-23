@@ -69,4 +69,5 @@
             }, 2000);
         }
     </script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 @endpush
