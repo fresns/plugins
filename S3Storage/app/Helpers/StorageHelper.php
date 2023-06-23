@@ -10,12 +10,11 @@ namespace Plugins\S3Storage\Helpers;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\FileHelper;
-use App\Helpers\PrimaryHelper;
 use App\Helpers\StrHelper;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 
-class ConfigHelper
+class StorageHelper
 {
     // get disk config
     public static function disk(int $fileType): array
@@ -36,14 +35,8 @@ class ConfigHelper
     }
 
     // get anti link url
-    public static function url(string $fileIdOrFid, ?string $type = null): string
+    public static function url(?File $file, ?string $type = null): ?string
     {
-        if (StrHelper::isPureInt($fileIdOrFid)) {
-            $file = PrimaryHelper::fresnsModelById('file', $fileIdOrFid);
-        } else {
-            $file = PrimaryHelper::fresnsModelByFsid('file', $fileIdOrFid);
-        }
-
         if (empty($file)) {
             return null;
         }
@@ -68,7 +61,7 @@ class ConfigHelper
         };
 
         $config = FileHelper::fresnsFileStorageConfigByType($fileType);
-        $diskConfig = ConfigHelper::disk($fileType);
+        $diskConfig = StorageHelper::disk($fileType);
 
         $url = Storage::build($diskConfig)->temporaryUrl($file->path, now()->addMinutes($config['antiLinkExpire'] ?? 10));
 
@@ -106,7 +99,7 @@ class ConfigHelper
                 if ($key == 'documentPreviewUrl') {
                     $documentUrl = $file->getFileUrl();
 
-                    $antiLinkUrl = ConfigHelper::url($fileInfo['fid'], $key);
+                    $antiLinkUrl = StorageHelper::url($file, $key);
 
                     $fileInfo[$key] = FileHelper::fresnsFileDocumentPreviewUrl($antiLinkUrl, $file->fid, $file->extension);
 
@@ -117,7 +110,7 @@ class ConfigHelper
                     continue;
                 }
 
-                $fileInfo[$key] = ConfigHelper::url($fileInfo['fid'], $key);
+                $fileInfo[$key] = StorageHelper::url($file, $key);
             }
 
             $cacheTime = CacheHelper::fresnsCacheTimeByFileType($file->type);

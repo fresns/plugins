@@ -9,13 +9,14 @@
 namespace Plugins\S3Storage\Services;
 
 use App\Helpers\CacheHelper;
+use App\Helpers\PrimaryHelper;
 use App\Helpers\StrHelper;
 use App\Models\File;
 use App\Models\FileUsage;
 use App\Utilities\FileUtility;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Illuminate\Support\Facades\Storage;
-use Plugins\S3Storage\Helpers\ConfigHelper;
+use Plugins\S3Storage\Helpers\StorageHelper;
 use Plugins\S3Storage\Services\DTO\GetAntiLinkFileInfoDTO;
 use Plugins\S3Storage\Services\DTO\GetAntiLinkFileInfoListDTO;
 use Plugins\S3Storage\Services\DTO\GetAntiLinkFileOriginalUrlDTO;
@@ -35,7 +36,7 @@ class CmdWordService
         $dtoWordBody = new GetUploadTokenDTO($wordBody);
 
         $data = [
-            'storageId' => 1,
+            'storageId' => File::STORAGE_UNKNOWN,
             'token' => null,
             'expireTime' => null,
         ];
@@ -48,7 +49,7 @@ class CmdWordService
     {
         $dtoWordBody = new UploadFileDTO($wordBody);
 
-        $diskConfig = ConfigHelper::disk($dtoWordBody->type);
+        $diskConfig = StorageHelper::disk($dtoWordBody->type);
 
         $bodyInfo = [
             'platformId' => $dtoWordBody->platformId,
@@ -98,7 +99,7 @@ class CmdWordService
     {
         $dtoWordBody = new GetAntiLinkFileInfoDTO($wordBody);
 
-        $fileInfo = ConfigHelper::info($dtoWordBody->fileIdOrFid);
+        $fileInfo = StorageHelper::info($dtoWordBody->fileIdOrFid);
 
         return $this->success($fileInfo);
     }
@@ -110,7 +111,7 @@ class CmdWordService
 
         $data = [];
         foreach ($dtoWordBody->fileIdsOrFids as $id) {
-            $data[] = ConfigHelper::info($id);
+            $data[] = StorageHelper::info($id);
         }
 
         return $this->success($data);
@@ -121,8 +122,16 @@ class CmdWordService
     {
         $dtoWordBody = new GetAntiLinkFileOriginalUrlDTO($wordBody);
 
+        if (StrHelper::isPureInt($dtoWordBody->fileIdOrFid)) {
+            $file = PrimaryHelper::fresnsModelById('file', $dtoWordBody->fileIdOrFid);
+        } else {
+            $file = PrimaryHelper::fresnsModelByFsid('file', $dtoWordBody->fileIdOrFid);
+        }
+
+        $originalUrl = StorageHelper::url($file, 'originalUrl');
+
         return $this->success([
-            'originalUrl' => ConfigHelper::url($dtoWordBody->fileIdOrFid, 'originalUrl'),
+            'originalUrl' => $originalUrl,
         ]);
     }
 
@@ -142,7 +151,7 @@ class CmdWordService
         $dtoWordBody = new PhysicalDeletionFilesDTO($wordBody);
 
         // Storage disk
-        $diskConfig = ConfigHelper::disk($dtoWordBody->type);
+        $diskConfig = StorageHelper::disk($dtoWordBody->type);
         $fresnsStorage = Storage::build($diskConfig);
 
         foreach ($dtoWordBody->fileIdsOrFids as $id) {
