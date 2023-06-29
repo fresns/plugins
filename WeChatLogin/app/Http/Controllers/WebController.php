@@ -30,7 +30,7 @@ class WebController extends Controller
         if (empty($connectPlatformId)) {
             return view('WeChatLogin::error', [
                 'code' => 30001,
-                'message' => '[Connect ID] '.ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'message' => '[Connect ID] '.ConfigUtility::getCodeMessage(30001, 'Fresns'),
             ]);
         }
 
