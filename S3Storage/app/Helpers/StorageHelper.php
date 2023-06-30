@@ -52,7 +52,6 @@ class StorageHelper
             default => null,
         };
 
-        $fileName = $file->name;
         $config = FileHelper::fresnsFileStorageConfigByType($file->type);
         $diskConfig = StorageHelper::disk($file->type);
 
@@ -60,7 +59,7 @@ class StorageHelper
             $file->path,
             now()->addMinutes($config['antiLinkExpire'] ?? 10),
             [
-                'ResponseContentDisposition' => "attachment; filename={$fileName}",
+                'ResponseContentDisposition' => "attachment; filename={$file->name}",
             ]
         );
 
