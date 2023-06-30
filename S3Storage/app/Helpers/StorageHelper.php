@@ -28,7 +28,7 @@ class StorageHelper
             'region' => $configs['bucketRegion'],
             'bucket' => $configs['bucketName'],
             'url' => $configs['bucketDomain'],
-            'endpoint' => $configs['antiLinkKey'],
+            'endpoint' => $configs['antiLinkKey'] ?? $configs['bucketDomain'],
             'use_path_style_endpoint' => false,
             'throw' => false,
         ];
@@ -52,16 +52,8 @@ class StorageHelper
             default => null,
         };
 
-        $fileType = match ($type) {
-            'videoPosterUrl' => File::TYPE_VIDEO,
-            'videoUrl' => File::TYPE_VIDEO,
-            'audioUrl' => File::TYPE_AUDIO,
-            'documentPreviewUrl' => File::TYPE_DOCUMENT,
-            default => File::TYPE_IMAGE,
-        };
-
-        $config = FileHelper::fresnsFileStorageConfigByType($fileType);
-        $diskConfig = StorageHelper::disk($fileType);
+        $config = FileHelper::fresnsFileStorageConfigByType($file->type);
+        $diskConfig = StorageHelper::disk($file->type);
 
         $url = Storage::build($diskConfig)->temporaryUrl($file->path, now()->addMinutes($config['antiLinkExpire'] ?? 10));
 
