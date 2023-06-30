@@ -9,10 +9,12 @@
 namespace Plugins\S3Storage\Services;
 
 use App\Helpers\CacheHelper;
+use App\Helpers\ConfigHelper;
 use App\Helpers\PrimaryHelper;
 use App\Helpers\StrHelper;
 use App\Models\File;
 use App\Models\FileUsage;
+use App\Utilities\ConfigUtility;
 use App\Utilities\FileUtility;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Illuminate\Support\Facades\Storage;
@@ -67,6 +69,15 @@ class CmdWordService
         ];
 
         $fileInfo = FileUtility::uploadFile($bodyInfo, $diskConfig, $dtoWordBody->file);
+
+        if (empty($fileInfo)) {
+            $langTag = \request()->header('X-Fresns-Client-Lang-Tag', ConfigHelper::fresnsConfigDefaultLangTag());
+
+            return $this->failure(
+                32104,
+                ConfigUtility::getCodeMessage(32104, 'Fresns', $langTag)
+            );
+        }
 
         return $this->success($fileInfo);
     }
