@@ -5,7 +5,7 @@
     "description": "Fresns 官方开发的「微信登录」插件，支持网站、小程序、App 等各端的微信登录。",
     "author": "Fresns",
     "authorLink": "https://fresns.cn",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "scene": [
         "connect"
     ],
