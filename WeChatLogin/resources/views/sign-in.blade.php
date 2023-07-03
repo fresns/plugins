@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="m-4">
-        @if ($isWeChat)
+        @if ($isWeChat && $oauthUrl)
             <div class="d-flex justify-content-center">
                 <div class="spinner-border text-success" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -37,7 +37,7 @@
         const postMessageKey = '{{ $postMessageKey }}';
         const oauthUrl = '{!! $oauthUrl !!}';
 
-        if (isWeChat) {
+        if (isWeChat && oauthUrl) {
             window.top.location.href = oauthUrl;
         } else {
             $(document).ready(function () {
@@ -100,7 +100,7 @@
                                         window.ReactNativeWebView.postMessage(messageString);
                                         break;
 
-                                    case (userAgent.indexOf('miniprogram') > -1 && wx && wx.miniProgram):
+                                    case (userAgent.indexOf('miniprogram') > -1):
                                         // WeChat Mini Program
                                         wx.miniProgram.postMessage({ data: messageString });
                                         break;
