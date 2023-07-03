@@ -115,19 +115,21 @@ class WebController extends Controller
             ]);
         }
 
+        $connectPlatformId = $cacheData['connectPlatformId'];
+
         $parentUrl = $request->headers->get('referer');
         $callbackUrl = route('wechat-login.auth.callback', [
             'authUlid' => $authUlid,
-            'connectPlatformId' => $cacheData['connectPlatformId'],
+            'connectPlatformId' => $connectPlatformId,
             'parentUrl' => $parentUrl,
             'langTag' => $langTag,
         ]);
 
-        $oauthInfo = ConfigHelper::getWebOauthInfo($cacheData['connectPlatformId'], $authUlid, $callbackUrl, $langTag);
+        $oauthInfo = ConfigHelper::getWebOauthInfo($connectPlatformId, $authUlid, $callbackUrl, $langTag);
         $oauthUrl = $oauthInfo['oauthUrl'];
         $wechatQrCode = $oauthInfo['wechatQrCode'];
 
-        if ($cacheData['connectPlatformId'] == AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION) {
+        if ($connectPlatformId == AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION) {
             return \redirect($oauthUrl);
         }
 
