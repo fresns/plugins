@@ -108,7 +108,7 @@
                                     window.ReactNativeWebView.postMessage(messageString);
                                     break;
 
-                                case (userAgent.indexOf('miniprogram') > -1 && wx && wx.miniProgram):
+                                case (userAgent.indexOf('miniprogram') > -1):
                                     // WeChat Mini Program
                                     wx.miniProgram.postMessage({ data: messageString });
                                     break;
