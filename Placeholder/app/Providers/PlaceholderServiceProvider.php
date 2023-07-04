@@ -17,12 +17,13 @@ class PlaceholderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //
     }
 
     /**
      * Register the service provider.
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
         $this->registerViews();
@@ -30,11 +31,9 @@ class PlaceholderServiceProvider extends ServiceProvider
 
     /**
      * Register views.
-     *
-     * @return void
      */
-    protected function registerViews()
+    protected function registerViews(): void
     {
-        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'FsView');
+        $this->loadViewsFrom(dirname(__DIR__, 2).'/resources/views', 'Placeholder');
     }
 }

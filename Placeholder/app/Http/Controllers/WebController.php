@@ -12,16 +12,19 @@ use Illuminate\Http\Request;
 
 class WebController
 {
-    /**
-     * This function is used to display the index page of the plugin.
-     *
-     * @param Request request The request object.
-     * @return The view is being returned.
-     */
     public function index(Request $request)
     {
         $params = $request->input();
 
-        return view('FsView::index', compact('params'));
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
+            'urlAuthorization' => $request->authorization,
+        ]);
+
+        $headers = [];
+        if ($fresnsResp->isSuccessResponse()) {
+            $headers = $fresnsResp->getData();
+        }
+
+        return view('Placeholder::index', compact('params', 'headers'));
     }
 }

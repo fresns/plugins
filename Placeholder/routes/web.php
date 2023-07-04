@@ -7,7 +7,6 @@
  */
 
 use Illuminate\Support\Facades\Route;
+use Plugins\Placeholder\Http\Controllers\WebController;
 
-Route::group(['namespace' => '\Plugins\Placeholder\Http\Controllers'], function () {
-    Route::get('/index', 'WebController@index')->name('placeholder.web.index');
-});
+Route::get('index', [WebController::class, 'index'])->name('index');
