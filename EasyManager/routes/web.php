@@ -34,6 +34,7 @@ Route::prefix('easy-manager')->name('easy-manager.')->middleware(['panel', 'pane
     Route::resource('account', AccountController::class)->only([
         'index', 'update', 'destroy',
     ]);
+    Route::get('account/{accountId}/connects', [AccountController::class, 'connects'])->name('account.connects');
 
     Route::resource('user', UserController::class)->only([
         'index', 'update', 'destroy',

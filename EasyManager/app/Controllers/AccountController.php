@@ -17,7 +17,7 @@ class AccountController extends Controller
 {
     public function index(Request $request)
     {
-        $accountQuery = Account::with(['wallet', 'users']);
+        $accountQuery = Account::with(['wallet', 'users', 'connects']);
 
         $accountQuery->when($request->type, function ($query, $value) {
             $query->where('type', $value);
@@ -101,5 +101,36 @@ class AccountController extends Controller
         $account->delete();
 
         return $this->deleteSuccess();
+    }
+
+    public function connects(int $accountId, Request $request)
+    {
+        $connects = AccountConnect::where('account_id', $accountId)->get();
+
+        // search config
+        $search = [
+            'status' => true,
+            'action' => route('easy-manager.account.index'),
+            'selects' => [
+                [
+                    'name' => 'AID',
+                    'value' => 'aid',
+                ],
+                [
+                    'name' => __('EasyManager::fresns.table_email'),
+                    'value' => 'email',
+                ],
+                [
+                    'name' => __('EasyManager::fresns.table_phone'),
+                    'value' => 'phone',
+                ],
+            ],
+            'defaultSelect' => [
+                'name' => 'AID',
+                'value' => 'aid',
+            ],
+        ];
+
+        return view('EasyManager::account-connects', compact('connects', 'search'));
     }
 }

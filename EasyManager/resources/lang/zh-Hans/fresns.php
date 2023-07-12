@@ -41,6 +41,7 @@ return [
     'table_options' => '操作',
 
     'table_wallet_balance' => '钱包余额',
+    'table_connects' => '互联平台',
     'table_users' => '名下用户数量',
     'table_last_login_time' => '最后登录时间',
     'table_wait_delete' => '是否待删除',
@@ -48,6 +49,7 @@ return [
 
     'table_username' => '用户名',
     'table_nickname' => '昵称',
+    'table_avatar' => '头像',
     'table_gender' => '性别',
     'table_main_role' => '主角色',
     'table_expiry_date' => '有效期',

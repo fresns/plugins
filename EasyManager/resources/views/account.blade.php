@@ -11,6 +11,7 @@
                     <th scope="col">{{ __('EasyManager::fresns.table_phone') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_email') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_wallet_balance') }}</th>
+                    <th scope="col">{{ __('EasyManager::fresns.table_connects') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_users') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_last_login_time') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_wait_delete') }}</th>
@@ -36,7 +37,8 @@
                         <td>{{ $account->country_code ? '+'.$account->country_code : '' }} {{ $account->pure_phone }}</td>
                         <td>{{ $account->email }}</td>
                         <td>{{ $account->wallet->balance }}</td>
-                        <td><a href="{{ route('easy-manager.user.index', ['accountId' => $account->id]) }}"><span class="badge rounded-pill text-bg-primary">{{ count($account->users) }}</span></a></td>
+                        <td><a href="{{ route('easy-manager.account.connects', ['accountId' => $account->id]) }}"><span class="badge rounded-pill {{ count($account->connects) ? 'text-bg-primary' : 'text-bg-light fw-normal' }}">{{ count($account->connects) }}</span></a></td>
+                        <td><a href="{{ route('easy-manager.user.index', ['accountId' => $account->id]) }}"><span class="badge rounded-pill {{ count($account->users) ? 'text-bg-primary' : 'text-bg-light fw-normal' }}">{{ count($account->users) }}</span></a></td>
                         <td>{{ $account->last_login_at }}</td>
                         <td>
                             @if ($account->wait_delete)

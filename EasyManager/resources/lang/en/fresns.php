@@ -41,6 +41,7 @@ return [
     'table_options' => 'Options',
 
     'table_wallet_balance' => 'Wallet Balance',
+    'table_connects' => 'Connects',
     'table_users' => 'Users',
     'table_last_login_time' => 'Last Login',
     'table_wait_delete' => 'Wait Delete',
@@ -48,6 +49,7 @@ return [
 
     'table_username' => 'Username',
     'table_nickname' => 'Nickname',
+    'table_avatar' => 'Avatar',
     'table_gender' => 'Gender',
     'table_main_role' => 'Main Role',
     'table_expiry_date' => 'Expiry Date',
