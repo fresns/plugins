@@ -178,10 +178,22 @@ class CmdWordService
 
             FileUsage::where('file_id', $file->id)->delete();
 
-            $fresnsStorage->delete($file->path);
+            if ($file->type == File::TYPE_VIDEO && $file->video_poster_path) {
+                // code
+            }
+
+            if ($file->original_path) {
+                // code
+            }
+
+            $fileDelete = $fresnsStorage->delete($file->path);
+
+            if (! $fileDelete) {
+                return $this->failure(21006);
+            }
 
             $file->update([
-                'physical_deletion' => 1,
+                'physical_deletion' => true,
             ]);
 
             $file->delete();

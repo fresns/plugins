@@ -166,12 +166,6 @@ class CmdWordService
 
             FileUsage::where('file_id', $file->id)->delete();
 
-            $filePaths = [
-                $file->path,
-                $file->original_path,
-                $file->video_poster_path,
-            ];
-
             if ($file->type == File::TYPE_IMAGE) {
                 $imagePaths = FresnsFileHelper::fresnsFilePathForImage('name-end', $file->path);
 
@@ -185,12 +179,22 @@ class CmdWordService
                 $fresnsStorage->delete($imagePathArr);
             }
 
-            $filePaths = array_filter($filePaths);
+            if ($file->type == File::TYPE_VIDEO && $file->video_poster_path) {
+                // code
+            }
 
-            $fresnsStorage->delete($filePaths);
+            if ($file->original_path) {
+                // code
+            }
+
+            $fileDelete = $fresnsStorage->delete($file->path);
+
+            if (! $fileDelete) {
+                return $this->failure(21006);
+            }
 
             $file->update([
-                'physical_deletion' => 1,
+                'physical_deletion' => true,
             ]);
 
             $file->delete();
