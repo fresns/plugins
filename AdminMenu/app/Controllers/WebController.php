@@ -44,13 +44,18 @@ class WebController extends Controller
             'userLogin' => true,
         ]);
 
+        $postMessageKey = $request->callbackKey;
+        $timezone = $fresnsResp->getData('timezone');
         $langTag = $fresnsResp->getData('langTag');
         View::share('langTag', $langTag);
 
         if ($fresnsResp->isErrorResponse()) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => $fresnsResp->getCode(),
                 'message' => $fresnsResp->getMessage(),
+                'data' => [
+                    'postMessageKey' => $postMessageKey,
+                ],
             ]);
         }
 
@@ -71,13 +76,14 @@ class WebController extends Controller
         $userId = PrimaryHelper::fresnsUserIdByUidOrUsername($fresnsResp->getData('uid'));
         $checkPerm = PermissionUtility::checkExtendPerm('AdminMenu', PluginUsage::TYPE_MANAGE, $groupId, $userId);
         if (! $checkPerm) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 35301,
                 'message' => ConfigUtility::getCodeMessage(35301, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $postMessageKey,
+                ],
             ]);
         }
-
-        $timezone = ConfigHelper::fresnsConfigDefaultTimezone();
 
         $groupCategories = [];
         $roles = [];
@@ -142,12 +148,15 @@ class WebController extends Controller
             'group_name',
         ], $langTag);
 
+        $cacheData = $fresnsResp->getData();
+        $cacheData['postMessageKey'] = $postMessageKey;
+
         $authUlid = (string) Str::ulid();
         $cacheTags = ['fresnsPlugins', 'pluginAdminMenu', 'fresnsPluginAuth'];
 
-        CacheHelper::put($authUlid, $authUlid, $cacheTags, null, now()->addMinutes(10));
+        CacheHelper::put($cacheData, $authUlid, $cacheTags, null, now()->addMinutes(10));
 
-        return view('AdminMenu::index', compact('type', 'data', 'roles', 'groupCategories', 'authUlid', 'langTag', 'fsLang', 'fsName'));
+        return view('AdminMenu::index', compact('type', 'data', 'roles', 'groupCategories', 'authUlid', 'fsLang', 'fsName'));
     }
 
     // delete post
@@ -157,9 +166,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->pid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -167,18 +179,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $post = Post::where('pid', $request->pid)->first();
 
         if (empty($post)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37300,
                 'message' => ConfigUtility::getCodeMessage(37300, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -190,9 +208,16 @@ class WebController extends Controller
 
         $post->delete();
 
-        return view('AdminMenu::error', [
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'remove',
+                'detail' => [
+                    'pid' => $request->pid,
+                ],
+            ],
         ]);
     }
 
@@ -203,9 +228,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->pid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -213,18 +241,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $post = Post::where('pid', $request->pid)->first();
 
         if (empty($post)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37300,
                 'message' => ConfigUtility::getCodeMessage(37300, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -258,9 +292,22 @@ class WebController extends Controller
 
         CacheHelper::clearDataCache('post', $request->pid);
 
-        return view('AdminMenu::error', [
+        $wordBody = [
+            'pid' => $request->pid,
+            'langTag' => $langTag,
+            'timezone' => $authUlid['timezone'] ?? null,
+            'authUidOrUsername' => $authUlid['uid'] ?? null,
+        ];
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getPostDetail($wordBody);
+
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'reload',
+                'detail' => $fresnsResp->getData(),
+            ],
         ]);
     }
 
@@ -271,9 +318,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->pid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -281,18 +331,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $post = Post::where('pid', $request->pid)->first();
 
         if (empty($post)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37300,
                 'message' => ConfigUtility::getCodeMessage(37300, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -324,9 +380,22 @@ class WebController extends Controller
 
         CacheHelper::clearDataCache('post', $request->pid);
 
-        return view('AdminMenu::error', [
+        $wordBody = [
+            'pid' => $request->pid,
+            'langTag' => $langTag,
+            'timezone' => $authUlid['timezone'] ?? null,
+            'authUidOrUsername' => $authUlid['uid'] ?? null,
+        ];
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getPostDetail($wordBody);
+
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'reload',
+                'detail' => $fresnsResp->getData(),
+            ],
         ]);
     }
 
@@ -337,9 +406,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->cid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -347,18 +419,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $comment = Comment::where('cid', $request->cid)->first();
 
         if (empty($comment)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37400,
                 'message' => ConfigUtility::getCodeMessage(37400, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -370,9 +448,16 @@ class WebController extends Controller
 
         $comment->delete();
 
-        return view('AdminMenu::error', [
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'remove',
+                'detail' => [
+                    'cid' => $request->cid,
+                ],
+            ],
         ]);
     }
 
@@ -383,9 +468,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->cid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -393,18 +481,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $comment = Comment::where('cid', $request->cid)->first();
 
         if (empty($comment)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37300,
                 'message' => ConfigUtility::getCodeMessage(37300, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -432,9 +526,22 @@ class WebController extends Controller
 
         CacheHelper::clearDataCache('comment', $request->cid);
 
-        return view('AdminMenu::error', [
+        $wordBody = [
+            'cid' => $request->cid,
+            'langTag' => $langTag,
+            'timezone' => $authUlid['timezone'] ?? null,
+            'authUidOrUsername' => $authUlid['uid'] ?? null,
+        ];
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getCommentDetail($wordBody);
+
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'reload',
+                'detail' => $fresnsResp->getData(),
+            ],
         ]);
     }
 
@@ -445,9 +552,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->uid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -455,18 +565,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $user = User::where('uid', $request->uid)->first();
 
         if (empty($user)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37400,
                 'message' => ConfigUtility::getCodeMessage(37400, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -479,9 +595,16 @@ class WebController extends Controller
         CacheHelper::forgetFresnsUser($user->uid, $user->id);
         $user->delete();
 
-        return view('AdminMenu::error', [
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'remove',
+                'detail' => [
+                    'uid' => $user->uid,
+                ],
+            ],
         ]);
     }
 
@@ -492,9 +615,12 @@ class WebController extends Controller
         View::share('langTag', $langTag);
 
         if (! $request->authUlid || ! $request->uid) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 30001,
                 'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
@@ -502,18 +628,24 @@ class WebController extends Controller
         $authUlid = CacheHelper::get($request->authUlid, $cacheTags);
 
         if (empty($authUlid)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 32203,
                 'message' => ConfigUtility::getCodeMessage(32203, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => '',
+                ],
             ]);
         }
 
         $user = User::where('uid', $request->uid)->first();
 
         if (empty($user)) {
-            return view('AdminMenu::error', [
+            return view('AdminMenu::tips', [
                 'code' => 37400,
                 'message' => ConfigUtility::getCodeMessage(37400, 'Fresns', $langTag),
+                'data' => [
+                    'postMessageKey' => $authUlid['postMessageKey'],
+                ],
             ]);
         }
 
@@ -542,9 +674,12 @@ class WebController extends Controller
             $role = Role::where('id', $request->roleId)->first();
 
             if (empty($role)) {
-                return view('AdminMenu::error', [
+                return view('AdminMenu::tips', [
                     'code' => 36100,
                     'message' => ConfigUtility::getCodeMessage(36100, 'Fresns', $langTag),
+                    'data' => [
+                        'postMessageKey' => $authUlid['postMessageKey'],
+                    ],
                 ]);
             }
 
@@ -569,9 +704,22 @@ class WebController extends Controller
 
         CacheHelper::forgetFresnsUser($user->id, $user->uid);
 
-        return view('AdminMenu::error', [
+        $wordBody = [
+            'uid' => $request->uid,
+            'langTag' => $langTag,
+            'timezone' => $authUlid['timezone'] ?? null,
+            'authUidOrUsername' => $authUlid['uid'] ?? null,
+        ];
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getUserDetail($wordBody);
+
+        return view('AdminMenu::tips', [
             'code' => 0,
             'message' => ConfigUtility::getCodeMessage(0, 'Fresns', $langTag),
+            'data' => [
+                'postMessageKey' => $authUlid['postMessageKey'],
+                'dataHandler' => 'reload',
+                'detail' => $fresnsResp->getData(),
+            ],
         ]);
     }
 }
