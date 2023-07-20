@@ -5,11 +5,11 @@
     "description": "Content icon manager extension to manage post and comment title icons.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "scene": [
         "extendManage"
     ],
-    "accessPath": "/title-icons?authorization={authorization}&type={type}&scene={scene}&pid={pid}&cid={cid}",
+    "accessPath": "/title-icons?authorization={authorization}&type={type}&scene={scene}&callbackKey={postMessageKey}&pid={pid}&cid={cid}",
     "settingsPath": "/title-icons/admin",
     "providers": [
         "Plugins\\TitleIcons\\Providers\\TitleIconsServiceProvider"

@@ -16,6 +16,7 @@
 @endsection
 
 @push('script')
+    <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
     <script>
         const code = {{ $code }};
 
@@ -24,12 +25,12 @@
                 code: 0,
                 message: 'ok',
                 action: {
-                    postMessageKey: 'reload',
+                    postMessageKey: '{{ $data["postMessageKey"] ?? "" }}',
                     windowClose: true,
-                    reloadData: true,
                     redirectUrl: '',
+                    dataHandler: '{{ $data["dataHandler"] ?? "" }}'
                 },
-                data: '',
+                data: @json($data['detail'] ?? []),
             }
 
             const messageString = JSON.stringify(fresnsCallbackMessage);
@@ -56,9 +57,10 @@
                     window.ReactNativeWebView.postMessage(messageString);
                     break;
 
-                case (userAgent.indexOf('miniprogram') > -1 && wx && wx.miniProgram):
+                case (userAgent.indexOf('miniprogram') > -1):
                     // WeChat Mini Program
                     wx.miniProgram.postMessage({ data: messageString });
+                    wx.miniProgram.navigateBack();
                     break;
 
                 // Web
@@ -67,5 +69,4 @@
             }
         }
     </script>
-    <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 @endpush
