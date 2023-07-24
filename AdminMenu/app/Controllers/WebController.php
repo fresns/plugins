@@ -705,7 +705,7 @@ class WebController extends Controller
         CacheHelper::forgetFresnsUser($user->id, $user->uid);
 
         $wordBody = [
-            'uid' => $request->uid,
+            'uidOrUsername' => $request->uid,
             'langTag' => $langTag,
             'timezone' => $authUlid['timezone'] ?? null,
             'authUidOrUsername' => $authUlid['uid'] ?? null,
