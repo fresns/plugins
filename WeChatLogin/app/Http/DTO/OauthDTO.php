@@ -17,6 +17,8 @@ class OauthDTO extends DTO
         return [
             'code' => ['string', 'required'],
             'autoRegister' => ['boolean', 'nullable'],
+            'nickname' => ['string', 'nullable'],
+            'avatarUrl' => ['string', 'nullable'],
         ];
     }
 }

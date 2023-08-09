@@ -27,6 +27,8 @@ Fresns 官方开发的「微信登录」插件，支持网站、小程序、App 
 | code | String | 小程序用户登录凭证 |
 | ulid | String | 专用: 使用小程序授权网页登录 |
 | autoRegister | Boolean | 如果账号不存在，是否自动注册一个新账号 |
+| nickname | String | `autoRegister` 自动注册账号时，指定昵称，如果为空则随机生成 |
+| avatarUrl | String | `autoRegister` 自动注册账号时，指定头像图片 URL，如果为空则使用默认头像 |
 
 **小程序授权网页登录的 ulid 参数，附带在小程序码的 scene 参数中**
 

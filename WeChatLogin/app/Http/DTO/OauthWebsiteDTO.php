@@ -18,6 +18,8 @@ class OauthWebsiteDTO extends DTO
             'code' => ['string', 'required'],
             'ulid' => ['ulid', 'required'],
             'autoRegister' => ['boolean', 'nullable'],
+            'nickname' => ['string', 'nullable'],
+            'avatarUrl' => ['string', 'nullable'],
         ];
     }
 }

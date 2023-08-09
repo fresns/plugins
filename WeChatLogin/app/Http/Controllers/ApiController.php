@@ -100,6 +100,9 @@ class ApiController extends Controller
             return $checkAccount;
         }
 
+        $checkAccount['data']['nickname'] = $dtoRequest->nickname ?? $checkAccount['data']['nickname'];
+        $checkAccount['data']['avatarUrl'] = $dtoRequest->avatarUrl ?? $checkAccount['data']['avatarUrl'];
+
         if ($checkAccount['code'] == 31502) {
             $response = LoginHelper::createAccount($checkAccount['data'], $langTag, $appId, $platformId, $version);
 
