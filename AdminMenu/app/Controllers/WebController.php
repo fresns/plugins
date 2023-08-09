@@ -296,7 +296,7 @@ class WebController extends Controller
             'pid' => $request->pid,
             'langTag' => $langTag,
             'timezone' => $authUlid['timezone'] ?? null,
-            'authUidOrUsername' => $authUlid['uid'] ?? null,
+            'authUid' => $authUlid['uid'] ?? null,
         ];
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getPostDetail($wordBody);
 
@@ -384,7 +384,7 @@ class WebController extends Controller
             'pid' => $request->pid,
             'langTag' => $langTag,
             'timezone' => $authUlid['timezone'] ?? null,
-            'authUidOrUsername' => $authUlid['uid'] ?? null,
+            'authUid' => $authUlid['uid'] ?? null,
         ];
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getPostDetail($wordBody);
 
@@ -530,7 +530,7 @@ class WebController extends Controller
             'cid' => $request->cid,
             'langTag' => $langTag,
             'timezone' => $authUlid['timezone'] ?? null,
-            'authUidOrUsername' => $authUlid['uid'] ?? null,
+            'authUid' => $authUlid['uid'] ?? null,
         ];
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getCommentDetail($wordBody);
 
@@ -705,10 +705,10 @@ class WebController extends Controller
         CacheHelper::forgetFresnsUser($user->id, $user->uid);
 
         $wordBody = [
-            'uidOrUsername' => $request->uid,
+            'uid' => $request->uid,
             'langTag' => $langTag,
             'timezone' => $authUlid['timezone'] ?? null,
-            'authUidOrUsername' => $authUlid['uid'] ?? null,
+            'authUid' => $authUlid['uid'] ?? null,
         ];
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->getUserDetail($wordBody);
 
