@@ -14,13 +14,12 @@ use App\Helpers\PrimaryHelper;
 use App\Models\File;
 use App\Models\FileUsage;
 use App\Utilities\ConfigUtility;
+use Cloudinary\Api\ApiUtils;
+use Cloudinary\Configuration\CloudConfig;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
-use Cloudinary\Configuration\CloudConfig;
-use Cloudinary\Api\ApiUtils;
 use Plugins\Cloudinary\Http\Requests\UploadFileInfoDTO;
-
 
 class WebController extends Controller
 {
