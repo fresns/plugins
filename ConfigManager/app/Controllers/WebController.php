@@ -9,8 +9,8 @@
 namespace Plugins\ConfigManager\Controllers;
 
 use App\Models\Config;
-use Illuminate\Http\Request;
 use App\Utilities\ConfigUtility;
+use Illuminate\Http\Request;
 
 class WebController extends Controller
 {
