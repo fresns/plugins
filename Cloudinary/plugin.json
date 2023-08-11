@@ -1,0 +1,20 @@
+{
+    "fskey": "Cloudinary",
+    "type": 1,
+    "name": "Cloudinary",
+    "description": "Store objects to Cloudinary service providers.",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "storage"
+    ],
+    "accessPath": "/cloudinary/upload?authorization={authorization}&config={uploadInfo}&postMessageKey={postMessageKey}",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\Cloudinary\\Providers\\CloudinaryServiceProvider",
+        "Plugins\\Cloudinary\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}

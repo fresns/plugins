@@ -1,0 +1,21 @@
+{
+    "name": "fresns/cloudinary",
+    "description": "Store objects to Cloudinary service providers.",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jevan Tang",
+            "email": "jevan@fresns.org",
+            "homepage": "https://github.com/jevantang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\Cloudinary\\": "app"
+        }
+    },
+    "require": {
+        "cloudinary-labs/cloudinary-laravel": "^2.0"
+    }
+}
