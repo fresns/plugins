@@ -168,6 +168,7 @@ class WebController extends Controller
                 'usage_type' => OperationUsage::TYPE_POST,
                 'usage_id' => $post->id,
                 'operation_id' => $request->operationId,
+                'plugin_fskey' => 'TitleIcons',
             ]);
         }
 
@@ -253,6 +254,7 @@ class WebController extends Controller
                 'usage_type' => OperationUsage::TYPE_COMMENT,
                 'usage_id' => $comment->id,
                 'operation_id' => $request->operationId,
+                'plugin_fskey' => 'TitleIcons',
             ]);
         }
 
