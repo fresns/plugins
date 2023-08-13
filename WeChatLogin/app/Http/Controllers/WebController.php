@@ -340,6 +340,7 @@ class WebController extends Controller
         $callbackUrl = route('wechat-login.connect.add.callback', [
             'authUlid' => $authUlid,
             'langTag' => $langTag,
+            'connectPlatformId' => $cacheData['connectPlatformId'],
         ]);
         $oauthInfo = ConfigHelper::getWebOauthInfo($cacheData['connectPlatformId'], $authUlid, $callbackUrl);
 
@@ -358,6 +359,7 @@ class WebController extends Controller
     {
         $code = $request->code;
         $langTag = $request->langTag;
+        $connectPlatformId = $request->connectPlatformId;
 
         if (empty($code)) {
             return view('WeChatLogin::error', [
@@ -386,7 +388,7 @@ class WebController extends Controller
             ]);
         }
 
-        $connectAdd = LoginHelper::connectAdd($cacheData, AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION, $code);
+        $connectAdd = LoginHelper::connectAdd($cacheData, $connectPlatformId, $code);
 
         if ($connectAdd['code'] == 0) {
             return \redirect('/account/settings#account-tab');
