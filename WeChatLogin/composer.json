@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "w7corp/easywechat": "^6.11",
+        "w7corp/easywechat": "^6.12",
         "endroid/qr-code": "^4.8"
     }
 }
