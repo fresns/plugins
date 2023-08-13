@@ -34,8 +34,8 @@ Store objects to Cloudinary service providers.
 | --- | --- | --- |
 | Image Handle Position | `path-start` | `path-start` |
 | Config Image | `<transformations>` or `Named Transformations` | `q_auto:good/` or Named |
-| Ratio Image | `<transformations>` or `Named Transformations` | `c_limit,w_360/c_limit,h_5000/` or Named |
-| Square Image | `<transformations>` or `Named Transformations` | `c_limit,h_360,w_360/` or Named |
+| Ratio Image | `<transformations>` or `Named Transformations` | `c_limit,w_360/c_limit,h_5000/q_auto:good/` or Named |
+| Square Image | `<transformations>` or `Named Transformations` | `c_scale,h_360,w_360/q_auto:good/` or Named |
 | Big Image | `<transformations>` or `Named Transformations` | `c_limit,w_1200/c_limit,h_1.00/q_auto:eco/` or Named |
 
 ### Video
