@@ -24,7 +24,7 @@ class AdminController extends Controller
     {
         $accountConfig = Config::where('item_key', 'editor_workspace_accounts')->first();
 
-        $accountIds =$accountConfig?->item_value ?? [];
+        $accountIds = $accountConfig?->item_value ?? [];
 
         $accounts = [];
         if ($accountIds) {
@@ -41,7 +41,7 @@ class AdminController extends Controller
 
     public function users(Request $request)
     {
-        $accountId =$request->accountId;
+        $accountId = $request->accountId;
         if (! $accountId) {
             return back()->with('failure', __('FsLang::tips.account_not_found'));
         }
@@ -76,7 +76,7 @@ class AdminController extends Controller
         }
 
         $accountConfig = Config::where('item_key', 'editor_workspace_accounts')->first();
-        $accountIds =$accountConfig?->item_value ?? [];
+        $accountIds = $accountConfig?->item_value ?? [];
 
         if (! in_array($account->id, $accountIds)) {
             $accountIds[] = $account->id;
@@ -103,7 +103,7 @@ class AdminController extends Controller
         $accountId = $request->accountId;
 
         $accountConfig = Config::where('item_key', 'editor_workspace_accounts')->first();
-        $accountIds =$accountConfig?->item_value ?? [];
+        $accountIds = $accountConfig?->item_value ?? [];
 
         if (($key = array_search($accountId, $accountIds)) !== false) {
             unset($accountIds[$key]);
@@ -187,7 +187,7 @@ class AdminController extends Controller
 
         $accountConfig = Config::where('item_key', 'editor_workspace_accounts')->first();
 
-        $accountIds =$accountConfig?->item_value ?? [];
+        $accountIds = $accountConfig?->item_value ?? [];
 
         if (! in_array($accountModel->id, $accountIds)) {
             $accountIds[] = $accountModel->id;

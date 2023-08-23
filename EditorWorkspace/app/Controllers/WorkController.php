@@ -108,7 +108,7 @@ class WorkController extends Controller
         // users
         $accountConfig = Config::where('item_key', 'editor_workspace_accounts')->first();
 
-        $accountIds =$accountConfig?->item_value ?? [];
+        $accountIds = $accountConfig?->item_value ?? [];
 
         $accounts = [];
         if ($accountIds) {
@@ -121,7 +121,7 @@ class WorkController extends Controller
             $users = $users->merge($account->users);
         }
 
-        return view('EditorWorkspace::work.editor', compact('authUlid', 'headers', 'fsConfigs', 'fileAccept','fsLang', 'groupCategories', 'users'));
+        return view('EditorWorkspace::work.editor', compact('authUlid', 'headers', 'fsConfigs', 'fileAccept', 'fsLang', 'groupCategories', 'users'));
     }
 
     public static function groupCategories(): array
