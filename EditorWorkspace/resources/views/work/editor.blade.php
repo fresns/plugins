@@ -25,7 +25,8 @@
             <div class="p-3">
                 {{-- Title --}}
                 @if ($fsConfigs['post_editor_title'])
-                    <div class="collapse @if ($fsConfigs['post_editor_title_view'] == 1) show @endif" id="quickTitleCollapse">
+                    {{-- <div class="collapse @if ($fsConfigs['post_editor_title_view'] == 1) show @endif" id="quickTitleCollapse"> --}}
+                    <div class="collapse show" id="quickTitleCollapse">
                         <input type="text" class="form-control form-control-lg rounded-0 border-0 ps-2"
                             name="postTitle"
                             placeholder="{{ $fsLang['editorTitle'] }} (@if ($fsConfigs['post_editor_title_required']) {{ $fsLang['editorRequired'] }} @else {{ $fsLang['editorOptional'] }} @endif)"
@@ -49,9 +50,9 @@
                 {{-- Function Buttons --}}
                 <div class="d-flex mt-2">
                     {{-- Title --}}
-                    @if ($fsConfigs['post_editor_title'] && $fsConfigs['post_editor_title_view'] == 2)
+                    {{-- @if ($fsConfigs['post_editor_title'] && $fsConfigs['post_editor_title_view'] == 2)
                         <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="collapse" href="#quickTitleCollapse" aria-expanded="false" aria-controls="quickTitleCollapse"><i class="bi bi-textarea-t"></i></button>
-                    @endif
+                    @endif --}}
 
                     {{-- Upload Image --}}
                     @if ($fsConfigs['post_editor_image'])
@@ -149,7 +150,17 @@
                     alert('Please select a time prior to the current time');
                     input.value = now.toISOString().slice(0, 16);
                 }
+
+                const datetimeValue = document.getElementById("datetimeInput").value;
+                localStorage.setItem("savedDatetime", datetimeValue);
             }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const savedDatetime = localStorage.getItem("savedDatetime");
+                if (savedDatetime) {
+                    document.getElementById("datetimeInput").value = savedDatetime;
+                }
+            });
 
             function postBoxSelectGroup(obj) {
                 var gid = $(obj).data('gid');

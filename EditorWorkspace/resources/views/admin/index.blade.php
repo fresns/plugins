@@ -145,6 +145,11 @@
                                 </div>
 
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text">Password</span>
+                                    <input type="text" name="password" class="form-control">
+                                </div>
+
+                                <div class="input-group mb-3">
                                     <span class="input-group-text">Username</span>
                                     <input type="text" name="username" class="form-control">
                                 </div>
@@ -173,10 +178,6 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Bio</span>
                                     <textarea class="form-control" name="bio"></textarea>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Password</span>
-                                    <input type="text" name="password" class="form-control">
                                 </div>
 
                                 <div class="text-center">
