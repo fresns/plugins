@@ -3,13 +3,23 @@
 @section('content')
     <div class="m-4">
         @if ($isWeChat)
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border text-success" role="status">
-                    <span class="visually-hidden">Loading...</span>
+            <div id="loading">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="badge rounded-pill text-bg-success fs-6 fw-normal px-4 py-3">微信授权中...</span>
                 </div>
             </div>
-            <div class="mt-3 text-center">
-                <span class="badge rounded-pill text-bg-success fs-6 fw-normal px-4 py-3">微信授权中...</span>
+
+            <div class="alert alert-warning" role="alert" id="mini-tip" style="display: none">
+                <p>小程序里无法绑定微信号，你可以任选以下方式中的一种操作绑定：</p>
+                <ul>
+                    <li>1、浏览器中访问本站，在账号设置页绑定（微信中打开网站也可以操作，只是小程序里不支持）。</li>
+                    <li>2、直接点互联列表中「微信小程序」绑定微信号。</li>
+                </ul>
             </div>
         @else
             <div class="position-relative text-center">
@@ -43,7 +53,22 @@
         const oauthUrl = '{!! $oauthUrl !!}';
 
         if (isWeChat) {
+            let shouldExecuteTimeout = true;
+
+            wx.miniProgram.getEnv(function(res) {
+                if (res.miniprogram) {
+                    shouldExecuteTimeout = false;
+
+                    $('#loading').hide();
+                    $('#mini-tip').show();
+                }
+            });
+
             setTimeout(function () {
+                if (!shouldExecuteTimeout) {
+                    return;
+                }
+
                 const fresnsCallbackMessage = {
                     code: 0,
                     message: 'ok',
