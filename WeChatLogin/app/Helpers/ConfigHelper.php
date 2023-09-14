@@ -23,14 +23,14 @@ class ConfigHelper
     }
 
     // 获取配置信息
-    public static function getConfig(int $connectPlatformId): array
+    public static function getConfig(?int $connectPlatformId = null): array
     {
         $configArr = match ($connectPlatformId) {
             AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_official_account'),
             AccountConnect::CONNECT_WECHAT_MINI_PROGRAM => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_mini_program'),
             AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_open_platform')['mobile'],
             AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_open_platform')['website'],
-            default => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_official_account'),
+            default => FsConfigHelper::fresnsConfigByItemKey('wechatlogin_mini_app'),
         };
 
         // $configArr = [
@@ -46,7 +46,7 @@ class ConfigHelper
             AccountConnect::CONNECT_WECHAT_MINI_PROGRAM => ['snsapi_userinfo'],
             AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION => ['snsapi_login'],
             AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION => ['snsapi_login'],
-            default => ['snsapi_userinfo'],
+            default => ['snsapi_login'],
         };
 
         $config = [
@@ -162,8 +162,8 @@ class ConfigHelper
                     $user = $oauth->userFromCode($code);
                 } catch (\Exception $e) {
                     return [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
+                        'code' => 40000,
+                        'message' => '['.$e->getCode().'] '.$e->getMessage(),
                         'data' => null,
                     ];
                 }
@@ -190,8 +190,8 @@ class ConfigHelper
                     $response = $utils->codeToSession($code);
                 } catch (\Exception $e) {
                     return [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
+                        'code' => 40000,
+                        'message' => '['.$e->getCode().'] '.$e->getMessage(),
                         'data' => null,
                     ];
                 }
@@ -212,56 +212,42 @@ class ConfigHelper
                 $app = new OpenPlatform(ConfigHelper::getConfig($connectPlatformId));
 
                 try {
-                    $api = $app->getClient();
+                    $oauth = $app->getOAuth();
 
-                    $opConfig = FsConfigHelper::fresnsConfigByItemKey('wechatlogin_open_platform');
-
-                    $response = $api->get('/sns/oauth2/access_token', [
-                        'appid' => $opConfig['mobile']['appId'],
-                        'secret' => $opConfig['mobile']['appSecret'],
-                        'code' => $code,
-                        'grant_type' => 'authorization_code',
-                    ]);
+                    $user = $oauth->userFromCode($code);
                 } catch (\Exception $e) {
                     return [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
+                        'code' => 40000,
+                        'message' => '['.$e->getCode().'] '.$e->getMessage(),
                         'data' => null,
                     ];
                 }
 
-                if ($response->isFailed()) {
-                    return [
-                        'code' => 32302,
-                        'message' => $response->getContent(),
-                        'data' => null,
-                    ];
-                }
-
-                $resData = $response->toArray();
+                $rawInfo = $user->getRaw();
 
                 $wechatConfig = [
                     'connectPlatformId' => AccountConnect::CONNECT_WECHAT_MOBILE_APPLICATION,
-                    'unionid' => $resData['unionid'] ?? null,
-                    'openid' => $resData['openid'],
-                    'refreshToken' => $resData['refresh_token'],
+                    'unionid' => $rawInfo['unionid'] ?? null,
+                    'openid' => $user->getId(),
+                    'refreshToken' => $user->getRefreshToken(),
                     'refreshTokenExpiredDatetime' => now()->addDays(30)->format('Y-m-d H:i:s'),
-                    'nickname' => null,
-                    'avatarUrl' => null,
+                    'nickname' => $user->getNickname(),
+                    'avatarUrl' => $user->getAvatar(),
                 ];
                 break;
 
             case AccountConnect::CONNECT_WECHAT_WEBSITE_APPLICATION:
                 // 开放平台-网站应用
                 $app = new OpenPlatform(ConfigHelper::getConfig($connectPlatformId));
-                $oauth = $app->getOauth();
 
                 try {
+                    $oauth = $app->getOauth();
+
                     $user = $oauth->userFromCode($code);
                 } catch (\Exception $e) {
                     return [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
+                        'code' => 40000,
+                        'message' => '['.$e->getCode().'] '.$e->getMessage(),
                         'data' => null,
                     ];
                 }
@@ -276,6 +262,47 @@ class ConfigHelper
                     'refreshTokenExpiredDatetime' => now()->addDays(30)->format('Y-m-d H:i:s'),
                     'nickname' => $user->getNickname(),
                     'avatarUrl' => $user->getAvatar(),
+                ];
+                break;
+
+            case AccountConnect::CONNECT_APPLE:
+                // 多端应用-苹果
+                $app = new Application(ConfigHelper::getConfig());
+                $api = $app->getClient();
+
+                $appConfig = FsConfigHelper::fresnsConfigByItemKey('wechatlogin_mini_app');
+
+                try {
+                    $response = $api->get('/donut/code2verifyinfo', [
+                        'appid' => $appConfig['appId'],
+                        'appsecret' => $appConfig['appSecret'],
+                        'code' => $code,
+                        'grant_type' => 'authorization_code',
+                    ]);
+                } catch (\Exception $e) {
+                    return [
+                        'code' => 40000,
+                        'message' => '['.$e->getCode().'] '.$e->getMessage(),
+                        'data' => null,
+                    ];
+                }
+
+                if ($response['errcode']) {
+                    return [
+                        'code' => $response['errcode'],
+                        'message' => $response['errmsg'],
+                        'data' => null,
+                    ];
+                }
+
+                $wechatConfig = [
+                    'connectPlatformId' => AccountConnect::CONNECT_APPLE,
+                    'unionid' => null,
+                    'openid' => $response['user_info']['apple_info']['apple_user_id'],
+                    'refreshToken' => null,
+                    'refreshTokenExpiredDatetime' => null,
+                    'nickname' => null,
+                    'avatarUrl' => null,
                 ];
                 break;
 

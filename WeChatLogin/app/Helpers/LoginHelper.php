@@ -298,6 +298,7 @@ class LoginHelper
 
         $wechatConfig = $wechatInfo['data'];
 
+        // 有开放平台联盟 ID
         if ($wechatConfig['unionid']) {
             $unionWordBody = [
                 'fskey' => 'WeChatLogin',

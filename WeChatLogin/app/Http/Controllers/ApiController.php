@@ -252,4 +252,50 @@ class ApiController extends Controller
 
         return $checkAccount;
     }
+
+    // 多端应用 Apple 登录
+    public function miniAppOauthApple(Request $request)
+    {
+        $dtoRequest = new OauthDTO($request->all());
+        $aid = \request()->header('X-Fresns-Aid');
+        $appId = \request()->header('X-Fresns-App-Id');
+        $platformId = \request()->header('X-Fresns-Client-Platform-Id');
+        $version = \request()->header('X-Fresns-Client-Version');
+        $langTag = \request()->header('X-Fresns-Client-Lang-Tag');
+
+        // 有 aid 表示为绑定关联
+        if ($aid) {
+            $cacheData['aid'] = $aid;
+            $connectAdd = LoginHelper::connectAdd($cacheData, AccountConnect::CONNECT_APPLE, $dtoRequest->code, $langTag);
+
+            if ($connectAdd['code']) {
+                return $connectAdd;
+            }
+
+            $accountData = LoginHelper::getAccountData($aid, $langTag, $appId, $platformId, $version);
+
+            return $accountData;
+        }
+
+        // 没有 aid 表示登录或注册
+        $checkAccount = LoginHelper::checkAccount(AccountConnect::CONNECT_APPLE, $dtoRequest->code, $langTag, $appId, $platformId, $version);
+
+        if (! $dtoRequest->autoRegister) {
+            return $checkAccount;
+        }
+
+        if ($checkAccount['code'] == 31502) {
+            $response = LoginHelper::createAccount($checkAccount['data'], $langTag, $appId, $platformId, $version);
+
+            if ($response['code']) {
+                return $response;
+            }
+
+            $accountData = LoginHelper::getAccountData($response['data']['aid'], $langTag, $appId, $platformId, $version);
+
+            return $accountData;
+        }
+
+        return $checkAccount;
+    }
 }

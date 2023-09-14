@@ -27,6 +27,11 @@ return new class extends Migration
             'item_value' => null,
             'item_type' => 'object',
             'item_tag' => 'wechatlogin',
+        ], [
+            'item_key' => 'wechatlogin_mini_app',
+            'item_value' => null,
+            'item_type' => 'object',
+            'item_tag' => 'wechatlogin',
         ],
     ];
 

@@ -38,4 +38,9 @@ Route::prefix('wechat-login')->name('api.')->group(function () {
     Route::prefix('open-platform')->name('open-platform.')->middleware(CheckHeaders::class)->group(function () {
         Route::post('oauth', [ApiController::class, 'openPlatformOauth'])->name('oauth');
     });
+
+    // 多端应用
+    Route::prefix('mini-app')->name('mini-app.')->middleware(CheckHeaders::class)->group(function () {
+        Route::post('oauth-apple', [ApiController::class, 'miniAppOauthApple'])->name('oauth.apple');
+    });
 });

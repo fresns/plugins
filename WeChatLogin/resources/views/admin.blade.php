@@ -42,6 +42,9 @@
                             <button class="nav-link" id="openPlatform-tab" data-bs-toggle="tab" data-bs-target="#openPlatform-tab-pane" type="button" role="tab" aria-controls="openPlatform-tab-pane" aria-selected="false">开放平台</button>
                         </li>
                         <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="miniApp-tab" data-bs-toggle="tab" data-bs-target="#miniApp-tab-pane" type="button" role="tab" aria-controls="miniApp-tab-pane" aria-selected="false">多端应用</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
                             <a class="nav-link" role="tab" href="{{ route('panel.user.index') }}" target="_blank"><i class="bi bi-box-arrow-up-right"></i> 配置互联支持</a>
                         </li>
                     </ul>
@@ -125,6 +128,20 @@
                                     <label class="col-lg-3 col-form-label text-lg-end">移动应用 AppSecret:</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="openPlatform[mobile][appSecret]" value="{{ $openPlatform['mobile']['appSecret'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 微信开放平台移动应用 AppSecret</div>
+                                </div>
+                            </div>
+
+                            <!-- 多端应用 -->
+                            <div class="tab-pane fade" id="miniApp-tab-pane" role="tabpanel" aria-labelledby="miniApp-tab" tabindex="0">
+                                <div class="row mb-4">
+                                    <label class="col-lg-3 col-form-label text-lg-end">应用 ID:</label>
+                                    <div class="col-lg-4"><input type="text" class="form-control" name="miniApp[appId]" value="{{ $miniApp['appId'] ?? '' }}"></div>
+                                    <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 多端应用 ID</div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label class="col-lg-3 col-form-label text-lg-end">应用 Secret:</label>
+                                    <div class="col-lg-4"><input type="text" class="form-control" name="miniApp[appSecret]" value="{{ $miniApp['appSecret'] ?? '' }}"></div>
+                                    <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 多端应用密钥</div>
                                 </div>
                             </div>
 

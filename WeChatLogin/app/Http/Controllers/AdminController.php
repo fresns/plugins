@@ -24,6 +24,7 @@ class AdminController extends Controller
             'wechatlogin_official_account',
             'wechatlogin_mini_program',
             'wechatlogin_open_platform',
+            'wechatlogin_mini_app',
         ];
 
         $configs = Config::whereIn('item_key', $configKeys)->get();
@@ -31,8 +32,9 @@ class AdminController extends Controller
         $officialAccount = $configs->where('item_key', 'wechatlogin_official_account')->first()?->item_value ?? [];
         $miniProgram = $configs->where('item_key', 'wechatlogin_mini_program')->first()?->item_value ?? [];
         $openPlatform = $configs->where('item_key', 'wechatlogin_open_platform')->first()?->item_value ?? [];
+        $miniApp = $configs->where('item_key', 'wechatlogin_mini_app')->first()?->item_value ?? [];
 
-        return view('WeChatLogin::admin', compact('version', 'officialAccount', 'miniProgram', 'openPlatform'));
+        return view('WeChatLogin::admin', compact('version', 'officialAccount', 'miniProgram', 'openPlatform', 'miniApp'));
     }
 
     public function update(Request $request)
@@ -67,10 +69,21 @@ class AdminController extends Controller
             ]);
         }
 
+        if ($request->miniApp) {
+            Config::updateOrCreate([
+                'item_key' => 'wechatlogin_mini_app',
+            ], [
+                'item_value' => $request->miniApp,
+                'item_type' => 'object',
+                'item_tag' => 'wechatlogin',
+            ]);
+        }
+
         CacheHelper::forgetFresnsConfigs([
             'wechatlogin_official_account',
             'wechatlogin_mini_program',
             'wechatlogin_open_platform',
+            'wechatlogin_mini_app',
         ]);
 
         return \response()->json([
