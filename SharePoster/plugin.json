@@ -1,0 +1,17 @@
+{
+    "fskey": "SharePoster",
+    "type": 1,
+    "name": "Share Poster",
+    "description": "Generate sharing posters for content and user pages",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": null,
+    "settingsPath": "/share-poster/admin",
+    "providers": [
+        "Plugins\\SharePoster\\Providers\\SharePosterServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {}
+}

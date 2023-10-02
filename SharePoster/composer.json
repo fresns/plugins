@@ -1,0 +1,21 @@
+{
+    "name": "fresns/share-poster",
+    "description": "Generate sharing posters for content and user pages",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jevan Tang",
+            "email": "jevan@fresns.org",
+            "homepage": "https://github.com/jevantang",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\SharePoster\\": "app"
+        }
+    },
+    "require": {
+        "endroid/qr-code": "^4.8"
+    }
+}
