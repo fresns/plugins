@@ -119,7 +119,7 @@ class AdminController extends Controller
 
         if ($request->fontFile) {
             $disk = Storage::disk('public');
-            $directoryPath = "share-poster/font";
+            $directoryPath = 'share-poster/font';
 
             // Get the original file extension
             $extension = $request->fontFile->getClientOriginalExtension();
@@ -154,7 +154,7 @@ class AdminController extends Controller
 
         if ($request->background_file) {
             $disk = Storage::disk('public');
-            $directoryPath = "share-poster/background";
+            $directoryPath = 'share-poster/background';
 
             $diskPath = $disk->putFile($directoryPath, $request->background_file);
 
