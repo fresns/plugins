@@ -1,6 +1,5 @@
 {
     "fskey": "SharePoster",
-    "type": 1,
     "name": "Share Poster",
     "description": "Generate sharing posters for content and user pages",
     "author": "Fresns",
