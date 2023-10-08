@@ -1,11 +1,10 @@
 {
     "fskey": "Cloudinary",
-    "type": 1,
     "name": "Cloudinary",
     "description": "Store objects to Cloudinary service providers.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scene": [
         "storage"
     ],

@@ -1,11 +1,10 @@
 {
     "fskey": "S3Storage",
-    "type": 1,
     "name": "S3 Storage",
     "description": "S3 storage, available from any storage service that supports the S3 protocol.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "scene": [
         "storage"
     ],

@@ -76,8 +76,8 @@
             action: {
                 postMessageKey: 'test',
                 windowClose: false,
-                reloadData: false,
                 redirectUrl: '',
+                dataHandler: '',
             },
             data: '',
         }

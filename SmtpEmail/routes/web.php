@@ -9,7 +9,7 @@
 use Illuminate\Support\Facades\Route;
 use Plugins\SmtpEmail\Http\Controllers\WebController;
 
-Route::group(['prefix' => 'smtp-email', 'middleware' => ['panelAuth']], function () {
+Route::group(['prefix' => 'smtp-email', 'middleware' => ['panel', 'panelAuth']], function () {
     Route::get('/settings', [WebController::class, 'settings'])->name('fresnsemail.settings.show');
     Route::post('/settings', [WebController::class, 'postSettings'])->name('fresnsemail.settings.store');
     Route::post('/test', [WebController::class, 'sendTest'])->name('fresnsemail.settings.test');

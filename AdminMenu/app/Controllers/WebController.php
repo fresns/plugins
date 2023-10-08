@@ -28,7 +28,6 @@ use App\Models\User;
 use App\Models\UserRole;
 use App\Utilities\ConfigUtility;
 use App\Utilities\InteractionUtility;
-use App\Utilities\PermissionUtility;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
@@ -72,13 +71,21 @@ class WebController extends Controller
             $groupId = PrimaryHelper::fresnsGroupIdByContentFsid('post', $request->pid);
         }
 
+        $groupModel = PrimaryHelper::fresnsModelById('group', $groupId);
+
         // Verify the right to use
-        $userId = PrimaryHelper::fresnsUserIdByUidOrUsername($fresnsResp->getData('uid'));
-        $checkPerm = PermissionUtility::checkExtendPerm('AdminMenu', PluginUsage::TYPE_MANAGE, $groupId, $userId);
-        if (! $checkPerm) {
+        $wordBody = [
+            'fskey' => 'AdminMenu',
+            'type' => PluginUsage::TYPE_MANAGE,
+            'uid' => $fresnsResp->getData('uid'),
+            'gid' => $groupModel?->gid,
+        ];
+        $permResp = \FresnsCmdWord::plugin('Fresns')->checkExtendPerm($wordBody);
+
+        if ($permResp->isErrorResponse()) {
             return view('AdminMenu::tips', [
-                'code' => 35301,
-                'message' => ConfigUtility::getCodeMessage(35301, 'Fresns', $langTag),
+                'code' => $permResp->getCode(),
+                'message' => $permResp->getMessage(),
                 'data' => [
                     'postMessageKey' => $postMessageKey,
                 ],

@@ -1,11 +1,10 @@
 {
     "fskey": "SubscribeExample",
-    "type": 1,
     "name": "Subscribe Example",
     "description": "Subscribe example: Data table change, user activity, account and user login.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "scene": [],
     "accessPath": null,
     "settingsPath": null,

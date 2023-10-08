@@ -1,11 +1,10 @@
 {
     "fskey": "UtilityTool",
-    "type": 1,
     "name": "Utility Test Tool",
     "description": "Fresns official utilities function test tool.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "scene": [
         "tool"
     ],

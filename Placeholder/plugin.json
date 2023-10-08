@@ -1,11 +1,10 @@
 {
     "fskey": "Placeholder",
-    "type": 1,
     "name": "Fresns Placeholder",
     "description": "Placeholder plugin for testing and viewing client generated parameters.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "scene": [
         "apiKey",
         "register",

@@ -43,4 +43,9 @@ Route::prefix('wechat-login')->name('api.')->group(function () {
     Route::prefix('mini-app')->name('mini-app.')->middleware(CheckHeaders::class)->group(function () {
         Route::post('oauth-apple', [ApiController::class, 'miniAppOauthApple'])->name('oauth.apple');
     });
+
+    // JS SDK
+    Route::prefix('js-sdk')->name('js-sdk.')->group(function () {
+        Route::get('sign', [ApiController::class, 'jsSdkSign'])->name('sign');
+    });
 });

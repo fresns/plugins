@@ -1,11 +1,10 @@
 {
     "fskey": "SmtpEmail",
-    "type": 1,
     "name": "SMTP Email",
     "description": "Fresns official development of the SMTP sending method of mail plugin.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "scene": [
         "sendEmail"
     ],

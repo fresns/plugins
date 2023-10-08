@@ -16,7 +16,7 @@
 
         <script src="{{ @asset('/static/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
-        <script src="{{ @asset('/assets/plugins/Cloudinary/js/lodash.min.js') }}"></script>
+        <script src="{{ @asset('/assets/Cloudinary/js/lodash.min.js') }}"></script>
         @stack('script')
     </body>
 </html>

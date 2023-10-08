@@ -57,12 +57,16 @@
                             <div class="tab-pane fade show active" id="officialAccount-tab-pane" role="tabpanel" aria-labelledby="officialAccount-tab" tabindex="0">
                                 <div class="alert alert-warning" role="alert">仅支持微信认证的服务号，订阅号没有网页授权权限。</div>
 
-                                <div class="row mb-4">
+                                <div class="row mb-2">
+                                    <label class="col-lg-3 col-form-label text-lg-end text-secondary">以下资料位置:</label>
+                                    <div class="col-lg-9 form-text pt-1"><a href="https://mp.weixin.qq.com/" target="_blank" class="link-secondary">公众平台</a>->设置与开发->基本配置->公众号开发信息</div>
+                                </div>
+                                <div class="row mb-3">
                                     <label class="col-lg-3 col-form-label text-lg-end">开发者ID(AppID):</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="officialAccount[appId]" value="{{ $officialAccount['appId'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 开发者 ID 是公众号开发识别码</div>
                                 </div>
-                                <div class="row mb-4">
+                                <div class="row mb-3">
                                     <label class="col-lg-3 col-form-label text-lg-end">开发者密码(AppSecret):</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="officialAccount[appSecret]" value="{{ $officialAccount['appSecret'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 开发者密码是校验公众号开发者身份的密码</div>
@@ -70,23 +74,27 @@
                                 <div class="row mb-4">
                                     <label class="col-lg-3 col-form-label text-lg-end">网页授权域名:</label>
                                     <div class="col-lg-4"><input type="text" class="form-control bg-light" value="{{ config('app.url') }}" readonly></div>
-                                    <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 用户在网页授权页同意授权给公众号后，微信会将授权数据传给授权域名的回调页面</div>
+                                    <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> <a href="https://mp.weixin.qq.com/" target="_blank" class="link-secondary">公众平台</a>->设置与开发->公众号设置->功能设置</div>
                                 </div>
                             </div>
 
                             <!-- 小程序 -->
                             <div class="tab-pane fade" id="miniProgram-tab-pane" role="tabpanel" aria-labelledby="miniProgram-tab" tabindex="0">
-                                <div class="row mb-4">
+                                <div class="row mb-2">
+                                    <label class="col-lg-3 col-form-label text-lg-end text-secondary">以下资料位置:</label>
+                                    <div class="col-lg-9 form-text pt-1"><a href="https://mp.weixin.qq.com/" target="_blank" class="link-secondary">公众平台</a>->开发->开发管理->开发设置->开发者ID</div>
+                                </div>
+                                <div class="row mb-3">
                                     <label class="col-lg-3 col-form-label text-lg-end">AppID(小程序ID):</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="miniProgram[appId]" value="{{ $miniProgram['appId'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 小程序 ID</div>
                                 </div>
-                                <div class="row mb-4">
+                                <div class="row mb-3">
                                     <label class="col-lg-3 col-form-label text-lg-end">AppSecret(小程序密钥):</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="miniProgram[appSecret]" value="{{ $miniProgram['appSecret'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 小程序密钥</div>
                                 </div>
-                                <div class="row mb-4">
+                                <div class="row mb-3">
                                     <label class="col-lg-3 col-form-label text-lg-end">要打开的小程序版本:</label>
                                     @php
                                         $envVersion = $miniProgram['envVersion'] ?? null;
@@ -110,14 +118,22 @@
                             <!-- 开放平台 -->
                             <div class="tab-pane fade" id="openPlatform-tab-pane" role="tabpanel" aria-labelledby="openPlatform-tab" tabindex="0">
                                 <div class="row mb-1">
+                                    <label class="col-lg-3 col-form-label text-lg-end text-secondary">以下资料位置:</label>
+                                    <div class="col-lg-9 form-text pt-1"><a href="https://open.weixin.qq.com/" target="_blank" class="link-secondary">开放平台</a>->管理中心->网站应用->查看</div>
+                                </div>
+                                <div class="row mb-1">
                                     <label class="col-lg-3 col-form-label text-lg-end">网站应用 AppID:</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="openPlatform[website][appId]" value="{{ $openPlatform['website']['appId'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 微信开放平台网站应用 AppID</div>
                                 </div>
-                                <div class="row mb-4">
+                                <div class="row mb-5">
                                     <label class="col-lg-3 col-form-label text-lg-end">网站应用 AppSecret:</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="openPlatform[website][appSecret]" value="{{ $openPlatform['website']['appSecret'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 微信开放平台网站应用 AppSecret</div>
+                                </div>
+                                <div class="row mb-1">
+                                    <label class="col-lg-3 col-form-label text-lg-end text-secondary">以下资料位置:</label>
+                                    <div class="col-lg-9 form-text pt-1"><a href="https://open.weixin.qq.com/" target="_blank" class="link-secondary">开放平台</a>->管理中心->移动应用->查看</div>
                                 </div>
                                 <div class="row mb-1">
                                     <label class="col-lg-3 col-form-label text-lg-end">移动应用 AppID:</label>
@@ -133,7 +149,11 @@
 
                             <!-- 多端应用 -->
                             <div class="tab-pane fade" id="miniApp-tab-pane" role="tabpanel" aria-labelledby="miniApp-tab" tabindex="0">
-                                <div class="row mb-4">
+                                <div class="row mb-1">
+                                    <label class="col-lg-3 col-form-label text-lg-end text-secondary">以下资料位置:</label>
+                                    <div class="col-lg-9 form-text pt-1"><a href="https://dev.weixin.qq.com/" target="_blank" class="link-secondary">Donut 开发平台</a>->控制台->多端应用->详情</div>
+                                </div>
+                                <div class="row mb-1">
                                     <label class="col-lg-3 col-form-label text-lg-end">应用 ID:</label>
                                     <div class="col-lg-4"><input type="text" class="form-control" name="miniApp[appId]" value="{{ $miniApp['appId'] ?? '' }}"></div>
                                     <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 多端应用 ID</div>

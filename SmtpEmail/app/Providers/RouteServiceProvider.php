@@ -33,7 +33,6 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            ->group(dirname(__DIR__, 2).'/routes/web.php');
+        Route::middleware('web')->group(dirname(__DIR__, 2).'/routes/web.php');
     }
 }

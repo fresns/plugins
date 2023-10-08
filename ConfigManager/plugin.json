@@ -1,11 +1,10 @@
 {
     "fskey": "ConfigManager",
-    "type": 2,
     "name": "Config Manager",
     "description": "Used to manage all configs datasheet configuration items, view, add, edit, and delete global configuration items.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scene": [
         "tool"
     ],

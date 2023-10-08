@@ -1,11 +1,10 @@
 {
     "fskey": "PortalEditor",
-    "type": 2,
     "name": "Portal Editor",
     "description": "Edit the portal content code directly.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "scene": [],
     "accessPath": null,
     "settingsPath": "/portal-editor",

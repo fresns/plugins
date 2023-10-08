@@ -22,7 +22,7 @@ use Plugins\WeChatLogin\Http\Middleware\WeChatConfig;
 |
 */
 
-Route::name('admin.')->prefix('admin')->middleware(['web', 'panelAuth'])->group(function () {
+Route::name('admin.')->prefix('admin')->middleware(['panel', 'panelAuth'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::post('update', [AdminController::class, 'update'])->name('update');
 });

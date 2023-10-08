@@ -20,7 +20,7 @@ use Plugins\FileStorage\Http\Controllers\AdminController;
 |
 */
 
-Route::name('admin.')->prefix('admin')->middleware(['web', 'panelAuth'])->group(function () {
+Route::name('admin.')->prefix('admin')->middleware(['panel', 'panelAuth'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
     Route::get('image', [AdminController::class, 'adminImage'])->name('image');

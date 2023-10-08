@@ -17,6 +17,7 @@ Fresns 官方开发的「微信登录」插件，支持网站、小程序、App 
 | 使用小程序授权网页登录 | `/api/wechat-login/mini-program/oauth-website`<br><br>小程序入口（网页扫码后打开并访问的小程序页面）<br>`/pages/account/wechat-login/website-oauth` | `code`, `ulid` |
 | 开放平台移动应用登录 | `/api/wechat-login/open-platform/oauth` | `code` |
 | 多端应用 Apple 账号登录 | `/api/wechat-login/mini-app/oauth-apple` | `code` |
+| 获取 JS-SDK 签名 | `/api/wechat-login/js-sdk/sign` | `url` 当前页面地址 |
 
 - 请求方式：`POST`
 - 传参方式：`application/json`

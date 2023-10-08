@@ -36,7 +36,7 @@
 
 @push('style')
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ace-builds@1.22.0/css/ace.min.css"> --}}
-    <link href="/assets/plugins/PortalEditor/css/ace.min.css" rel="stylesheet">
+    <link href="/assets/PortalEditor/css/ace.min.css" rel="stylesheet">
     <style type="text/css" media="screen">
         #editor {
             width: 100%;
@@ -47,7 +47,7 @@
 
 @push('script')
     {{-- <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.22.0/src-min-noconflict/ace.min.js" type="text/javascript" charset="utf-8"></script> --}}
-    <script src="/assets/plugins/PortalEditor/js/ace.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/assets/PortalEditor/js/ace.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/monokai");

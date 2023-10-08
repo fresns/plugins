@@ -16,10 +16,12 @@ use App\Helpers\PluginHelper;
 use App\Models\AccountConnect;
 use App\Models\Plugin;
 use App\Models\PluginCallback;
+use EasyWeChat\OfficialAccount\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Plugins\WeChatLogin\Helpers\ConfigHelper;
 use Plugins\WeChatLogin\Helpers\LoginHelper;
+use Plugins\WeChatLogin\Http\DTO\JsSdkSignDTO;
 use Plugins\WeChatLogin\Http\DTO\OauthDTO;
 use Plugins\WeChatLogin\Http\DTO\OauthWebsiteDTO;
 
@@ -297,5 +299,42 @@ class ApiController extends Controller
         }
 
         return $checkAccount;
+    }
+
+    // 获取 JS-SDK 签名
+    public function jsSdkSign(Request $request)
+    {
+        $dtoRequest = new JsSdkSignDTO($request->all());
+        $url = $dtoRequest->url;
+
+        $hashPosition = strpos($url, '#');
+        if ($hashPosition !== false) {
+            $url = substr($url, 0, $hashPosition);
+        }
+
+        $cacheKey = 'wechatlogin_js_sdk_'.md5($url);
+        $cacheTags = ConfigHelper::getAuthCacheTags();
+        $config = CacheHelper::get($cacheKey, $cacheTags);
+
+        if (empty($config)) {
+            $app = new Application(ConfigHelper::getConfig(AccountConnect::CONNECT_WECHAT_OFFICIAL_ACCOUNT));
+
+            $utils = $app->getUtils();
+
+            $config = $utils->buildJsSdkConfig(
+                debug: false,
+                url: $url,
+                jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData'],
+                openTagList: ['wx-open-launch-weapp', 'wx-open-launch-app', 'wx-open-subscribe', 'wx-open-audio'],
+            );
+
+            CacheHelper::put($config, $cacheKey, $cacheTags, 110);
+        }
+
+        return [
+            'code' => 0,
+            'message' => 'ok',
+            'data' => $config,
+        ];
     }
 }
