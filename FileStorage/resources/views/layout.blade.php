@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-3">
                         <div class="input-group mt-2 mb-4 justify-content-lg-end px-1" role="group">
-                            <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/release/FileStorage" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+                            <a class="btn btn-outline-secondary" href="https://github.com/fresns/plugins/tree/3.x/FileStorage" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>

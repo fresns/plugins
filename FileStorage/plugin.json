@@ -4,7 +4,7 @@
     "description": "The official File Storage service plugin developed by Fresns. Supports local, ftp and sftp storage methods.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "scene": [
         "storage"
     ],

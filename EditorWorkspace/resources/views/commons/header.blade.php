@@ -9,7 +9,7 @@
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addAccount"><i class="bi bi-plus-circle-dotted"></i> {{ __('FsLang::panel.button_add') }}</button>
             @endif
             <a class="btn btn-outline-secondary" href="{{ route('panel.user-feature.index') }}" target="_blank">{{ __('EditorWorkspace::fresns.config_user_feature') }}</a>
-            <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/release/EditorWorkspace" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+            <a class="btn btn-outline-secondary" href="https://github.com/fresns/plugins/tree/3.x/EditorWorkspace" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
         </div>
     </div>
 </div>

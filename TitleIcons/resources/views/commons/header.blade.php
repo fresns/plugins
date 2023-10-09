@@ -6,7 +6,7 @@
     <div class="col-5">
         <div class="input-group mt-2 justify-content-lg-end px-1" role="group">
             <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#editOperation" data-action="{{ route('title-icons.admin.store') }}"><i class="bi bi-plus-circle-dotted"></i> {{ __('FsLang::panel.button_add') }}</button>
-            <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/release/TitleIcons" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+            <a class="btn btn-outline-secondary" href="https://github.com/fresns/plugins/tree/3.x/TitleIcons" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
         </div>
     </div>
 </div>
