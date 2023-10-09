@@ -157,13 +157,17 @@ class LoginHelper
         }
 
         // 创建账号凭证
-        $keyId = FsConfigHelper::fresnsConfigByItemKey('engine_key_id');
-        $engineVersion = PluginHelper::fresnsPluginVersionByFskey('FresnsEngine');
+        $webengineViewMobile = FsConfigHelper::fresnsConfigByItemKey('webengine_view_mobile');
+        $webengineViewDesktop = FsConfigHelper::fresnsConfigByItemKey('webengine_view_desktop');
+        $clientFskey = Browser::isMobile() ? $webengineViewMobile : $webengineViewDesktop;
+        $clientVersion = PluginHelper::fresnsPluginVersionByFskey($clientFskey);
+
+        $keyId = FsConfigHelper::fresnsConfigByItemKey('webengine_key_id');
         $keyInfo = PrimaryHelper::fresnsModelById('key', $keyId);
 
         $createTokenWordBody = [
             'platformId' => $platformId ?? 4,
-            'version' => $version ?? $engineVersion ?? AppHelper::VERSION,
+            'version' => $version ?? $clientVersion ?? AppHelper::VERSION,
             'appId' => $appId ?? $keyInfo?->app_id,
             'aid' => $aid,
             'expiredTime' => null,
@@ -187,7 +191,7 @@ class LoginHelper
 
         // 将账号凭证写入 Cookies
         if (empty($platformId) || in_array($platformId, [2, 3, 4])) {
-            $cookiePrefix = FsConfigHelper::fresnsConfigByItemKey('engine_cookie_prefix') ?? 'fresns_';
+            $cookiePrefix = FsConfigHelper::fresnsConfigByItemKey('website_cookie_prefix') ?? 'fresns_';
             $fresnsAid = "{$cookiePrefix}aid";
             $fresnsAidToken = "{$cookiePrefix}aid_token";
 
@@ -245,8 +249,12 @@ class LoginHelper
 
         $createAccountResp = \FresnsCmdWord::plugin('Fresns')->createAccount($createAccountWordBody);
 
-        $keyId = FsConfigHelper::fresnsConfigByItemKey('engine_key_id');
-        $engineVersion = PluginHelper::fresnsPluginVersionByFskey('FresnsEngine');
+        $webengineViewMobile = FsConfigHelper::fresnsConfigByItemKey('webengine_view_mobile');
+        $webengineViewDesktop = FsConfigHelper::fresnsConfigByItemKey('webengine_view_desktop');
+        $clientFskey = Browser::isMobile() ? $webengineViewMobile : $webengineViewDesktop;
+        $clientVersion = PluginHelper::fresnsPluginVersionByFskey($clientFskey);
+
+        $keyId = FsConfigHelper::fresnsConfigByItemKey('webengine_key_id');
         $keyInfo = PrimaryHelper::fresnsModelById('key', $keyId);
 
         // session log
@@ -255,7 +263,7 @@ class LoginHelper
             'fskey' => 'Fresns',
             'appId' => $appId ?? $keyInfo?->app_id,
             'platformId' => $platformId ?? 4,
-            'version' => $version ?? $engineVersion ?? AppHelper::VERSION,
+            'version' => $version ?? $clientVersion ?? AppHelper::VERSION,
             'langTag' => $langTag ?: FsConfigHelper::fresnsConfigDefaultLangTag(),
             'aid' => null,
             'uid' => null,
