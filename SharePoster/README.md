@@ -13,7 +13,7 @@
 | --- | --- | --- | --- |
 | type | String | **required** | `user`,`group`,`hashtag`,`post`,`comment` |
 | fsid | String | **required** | uid or username, gid, hid, pid, cid |
-| langTag | String | *optional* |  |
+| langTag | String | *optional* | If no parameters are passed, the header value is used. |
 
 ## Configuration Item
 

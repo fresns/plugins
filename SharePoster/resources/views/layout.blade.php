@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-4">
                             <div class="input-group mt-2 mb-4 justify-content-lg-end px-1" role="group">
-                                <a class="btn btn-outline-secondary" href="https://github.com/fresns/extensions/tree/release/SharePoster" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+                                <a class="btn btn-outline-secondary" href="https://github.com/fresns/plugins/tree/3.x/SharePoster" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
                             </div>
                         </div>
                     </div>
@@ -90,6 +90,18 @@
                 });
             };
             setTimeoutToastHide();
+
+            // spinner
+            $(document).on('submit', 'form', function () {
+                var btn = $(this).find('button[type="submit"]');
+                btn.prop('disabled', true);
+                if (0 === btn.children('.spinner-border').length) {
+                    btn.prepend(
+                        '<span class="spinner-border spinner-border-sm mg-r-5 d-none" role="status" aria-hidden="true"></span> '
+                    );
+                }
+                btn.children('.spinner-border').removeClass('d-none');
+            });
         </script>
         @stack('script')
     </body>

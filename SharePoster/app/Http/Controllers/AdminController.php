@@ -21,7 +21,7 @@ class AdminController extends Controller
 
         $config = $configModel['user'] ?? [];
 
-        $background_url = '/assets/plugins/SharePoster/user.jpg';
+        $background_url = '/assets/SharePoster/user.jpg';
 
         if ($config['background_path']) {
             $disk = Storage::disk('public');
@@ -38,7 +38,7 @@ class AdminController extends Controller
 
         $config = $configModel['group'] ?? [];
 
-        $background_url = '/assets/plugins/SharePoster/group.jpg';
+        $background_url = '/assets/SharePoster/group.jpg';
 
         if ($config['background_path']) {
             $disk = Storage::disk('public');
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
         $config = $configModel['hashtag'] ?? [];
 
-        $background_url = '/assets/plugins/SharePoster/hashtag.jpg';
+        $background_url = '/assets/SharePoster/hashtag.jpg';
 
         if ($config['background_path']) {
             $disk = Storage::disk('public');
@@ -72,7 +72,7 @@ class AdminController extends Controller
 
         $config = $configModel['post'] ?? [];
 
-        $background_url = '/assets/plugins/SharePoster/post.jpg';
+        $background_url = '/assets/SharePoster/post.jpg';
 
         if ($config['background_path']) {
             $disk = Storage::disk('public');
@@ -89,7 +89,7 @@ class AdminController extends Controller
 
         $config = $configModel['comment'] ?? [];
 
-        $background_url = '/assets/plugins/SharePoster/comment.jpg';
+        $background_url = '/assets/SharePoster/comment.jpg';
 
         if ($config['background_path']) {
             $disk = Storage::disk('public');

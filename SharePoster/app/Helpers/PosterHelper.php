@@ -39,7 +39,7 @@ class PosterHelper
             return null;
         }
 
-        $font_path = $config['fontPath'] ? storage_path('app/public/'.$config['fontPath']) : public_path('assets/plugins/SharePoster/arial-unicode-ms.ttf');
+        $font_path = $config['fontPath'] ? storage_path('app/public/'.$config['fontPath']) : public_path('assets/SharePoster/arial-unicode-ms.ttf');
 
         $avatar_size = $configArr['avatar_size'] ?? 200;
         $avatar_circle = $configArr['avatar_circle'] ?? true;
@@ -81,7 +81,7 @@ class PosterHelper
         $qrcode_y_position = $configArr['qrcode_y_position'] ?? 0;
         $qrcode_bottom_margin = $configArr['qrcode_bottom_margin'] ?? 0;
 
-        $background_path = $configArr['background_path'] ? storage_path('app/public/'.$configArr['background_path']) : public_path("assets/plugins/SharePoster/{$type}.jpg");
+        $background_path = $configArr['background_path'] ? storage_path('app/public/'.$configArr['background_path']) : public_path("assets/SharePoster/{$type}.jpg");
         $avatar = null;
         $nickname = null;
         $bio = null;

@@ -32,9 +32,9 @@ class ApiController extends Controller
         $type = $dtoRequest->type;
         $fsid = $dtoRequest->fsid;
 
-        if ($type == 'hashtag') {
-            $fsid = StrHelper::slug($fsid);
-        }
+        // if ($type == 'hashtag') {
+        //     $fsid = StrHelper::slug($fsid);
+        // }
 
         try {
             $model = PrimaryHelper::fresnsModelByFsid($type, $fsid);
@@ -68,7 +68,7 @@ class ApiController extends Controller
             $fsid = $model->uid;
         }
 
-        $filePath = PosterHelper::getPosterPath($type, $fsid);
+        $filePath = PosterHelper::getPosterPath($type, $model);
 
         $disk = Storage::disk('public');
         $url = $disk->url($filePath);
