@@ -40,7 +40,7 @@ onLoad: async function (options) {
 },
 ```
 
-- 示例代码: [https://gitee.com/fresns/wechat](https://gitee.com/fresns/wechat/blob/2.x/pages/account/wechat-login/website-oauth.js#L29)
+- 示例代码: [https://github.com/fresns/wechat](https://github.com/fresns/wechat/blob/2.x/pages/account/wechat-login/website-oauth.js#L48-L51)
 
 ### 接口使用建议
 
