@@ -9,4 +9,4 @@ Used to manage all configs datasheet configuration items, view, add, edit, and d
 
 ## Using
 
-- Panel > App Center > Panels
+- Panel > App Center > Plugins

@@ -9,4 +9,4 @@ Fresns official development of easy management plug-in.
 
 ## Using
 
-- Panel > App Center > Panels
+- Panel > App Center > Plugins
