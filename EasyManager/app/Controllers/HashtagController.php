@@ -30,6 +30,10 @@ class HashtagController extends Controller
             $query->whereIn('id', $idArr);
         });
 
+        $hashtagQuery->when($request->type, function ($query, $value) {
+            $query->where('type', $value);
+        });
+
         $hashtagQuery->when($request->hid, function ($query, $value) {
             $query->where('slug', $value);
         });
@@ -80,7 +84,14 @@ class HashtagController extends Controller
 
     public function update(Hashtag $hashtag, Request $request)
     {
-        $hashtag->is_enabled = $request->is_enabled;
+        if ($request->type) {
+            $hashtag->type = $request->type;
+        }
+
+        if ($request->has('is_enabled')) {
+            $hashtag->is_enabled = $request->is_enabled;
+        }
+
         $hashtag->save();
 
         CacheHelper::clearDataCache('hashtag', $hashtag->slug, 'fresnsModel');
