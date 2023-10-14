@@ -18,6 +18,6 @@
     "require": {
         "league/flysystem-ftp": "^3.0",
         "league/flysystem-sftp-v3": "^3.0",
-        "intervention/image": "^3.0@alpha"
+        "intervention/image": "^3.0@beta"
     }
 }
