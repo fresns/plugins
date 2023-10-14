@@ -82,8 +82,7 @@
         {{ $groups->appends(request()->all())->links() }}
     </div>
 
-
-    <!-- Modal -->
+    <!-- Edit Modal -->
     <div class="modal fade name-lang-parent" id="editGroup" tabindex="-1" aria-labelledby="editGroup" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
