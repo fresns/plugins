@@ -114,7 +114,7 @@ class FileHelper
                 $fileInfo[$key] = FileHelper::url($fileInfo['fid'], $key);
             }
 
-            $cacheTime = FresnsCacheHelper::fresnsCacheTimeByFileType($file->type);
+            $cacheTime = FresnsCacheHelper::fresnsCacheTimeByFileType($file->type, null, 2);
             FresnsCacheHelper::put($fileInfo, $cacheKey, $cacheTags, null, $cacheTime);
         }
 

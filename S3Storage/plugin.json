@@ -4,7 +4,7 @@
     "description": "S3 storage, available from any storage service that supports the S3 protocol.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "scene": [
         "storage"
     ],

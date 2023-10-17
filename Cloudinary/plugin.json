@@ -4,7 +4,7 @@
     "description": "Store objects to Cloudinary service providers.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "scene": [
         "storage"
     ],

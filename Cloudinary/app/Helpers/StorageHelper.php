@@ -115,7 +115,7 @@ class StorageHelper
                 $fileInfo[$key] = StorageHelper::url($file, $key);
             }
 
-            $cacheTime = CacheHelper::fresnsCacheTimeByFileType($file->type);
+            $cacheTime = CacheHelper::fresnsCacheTimeByFileType($file->type, null, 2);
             CacheHelper::put($fileInfo, $cacheKey, $cacheTags, null, $cacheTime);
         }
 

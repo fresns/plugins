@@ -56,12 +56,12 @@ class TranscodeHelper
         // image manager
         $manager = new ImageManager($configs['filestorage_image_processing_library'] ?? 'gd');
 
-        // image make
+        // image read
         try {
-            $config = $manager->make($filePath)->scaleDown(width: $params['config'])->sharpen(8);
-            $ratio = $manager->make($filePath)->scaleDown(width: $params['ratio'])->sharpen(8);
-            $square = $manager->make($filePath)->resizeDown($params['square'], $params['square'])->sharpen(8);
-            $big = $manager->make($filePath)->scaleDown(width: $params['big'])->sharpen(8);
+            $config = $manager->read($filePath)->scaleDown(width: $params['config'])->sharpen(8);
+            $ratio = $manager->read($filePath)->scaleDown(width: $params['ratio'])->sharpen(8);
+            $square = $manager->read($filePath)->resizeDown($params['square'], $params['square'])->sharpen(8);
+            $big = $manager->read($filePath)->scaleDown(width: $params['big'])->sharpen(8);
         } catch (\Exception $e) {
             return;
         }
