@@ -180,6 +180,7 @@ class AdminController extends Controller
         $config['bio_line_spacing'] = (int) $request->bio_line_spacing;
         $config['title_color'] = $request->title_color;
         $config['title_font_size'] = (int) $request->title_font_size;
+        $config['title_x_center'] = (bool) $request->title_x_center;
         $config['title_x_position'] = (int) $request->title_x_position;
         $config['title_y_position'] = (int) $request->title_y_position;
         $config['title_max_width'] = (int) $request->title_max_width;

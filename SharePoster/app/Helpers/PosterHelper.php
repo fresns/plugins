@@ -64,6 +64,7 @@ class PosterHelper
         $title_y_position = $configArr['title_y_position'] ?? 0;
         $title_color = $configArr['title_color'] ?? '#343434';
         $title_font_size = $configArr['title_font_size'] ?? 44;
+        $title_x_center = $configArr['title_x_center'] ?? false;
         $title_max_width = $configArr['title_max_width'] ?? 0;
         $title_max_lines = $configArr['title_max_lines'] ?? 1;
         $title_line_spacing = $configArr['title_line_spacing'] ?? 12;
@@ -107,15 +108,15 @@ class PosterHelper
                 $nickname = $model->nickname;
                 $bio = $model->bio;
 
+                $profileFsid = $model->username;
+                $userUrl = $siteUrl.'/'.$configKeys['website_user_detail_path'].'/'.$model->username;
+
                 if ($configKeys['user_identifier'] == 'uid') {
-                    $profile['fsid'] = $model->uid;
+                    $profileFsid = $model->uid;
                     $userUrl = $siteUrl.'/'.$configKeys['website_user_detail_path'].'/'.$model->uid;
-                } else {
-                    $profile['fsid'] = $model->username;
-                    $userUrl = $siteUrl.'/'.$configKeys['website_user_detail_path'].'/'.$model->username;
                 }
 
-                $title = '';
+                $title = '@'.$profileFsid;
                 $content = '';
                 $url = $userUrl;
                 break;
@@ -238,12 +239,24 @@ class PosterHelper
         }
 
         // 5. title
-        if ($title && $title_x_position && $title_y_position) {
+        if ($title && $title_y_position) {
             $titleDraw = new ImagickDraw();
             $titleDraw->setFillColor($title_color);
             $titleDraw->setFont($font_path);
             $titleDraw->setFontSize($title_font_size);
             $titleDraw->setTextInterlineSpacing($title_line_spacing);
+
+            $title_new_x_position = $title_x_position;
+            if ($title_x_center) {
+                // Calculate the width of the text
+                $titleMetrics = $background->queryFontMetrics($titleDraw, $title);
+                $titleWidth = $titleMetrics['textWidth'];
+
+                // Calculate the x position for centering
+                $backgroundWidth = $background->getImageWidth();
+
+                $title_new_x_position = ($backgroundWidth - $titleWidth) / 2;
+            }
 
             $newTitle = $title;
             if ($title_max_width) {
@@ -252,7 +265,7 @@ class PosterHelper
                 $newTitle = $wrappedTitle['text'];
             }
 
-            $background->annotateImage($titleDraw, $title_x_position, $title_y_position, 0, $newTitle);
+            $background->annotateImage($titleDraw, $title_new_x_position, $title_y_position, 0, $newTitle);
         }
 
         // 6. content

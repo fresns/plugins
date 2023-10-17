@@ -28,6 +28,12 @@ return [
     'nickname_x_position' => '暱稱 X 坐標',
     'nickname_y_position' => '暱稱 Y 坐標',
 
+    'fsid_color' => '用戶標識顏色',
+    'fsid_font_size' => '用戶標識字號',
+    'fsid_x_center' => '用戶標識左右居中',
+    'fsid_x_position' => '用戶標識 X 坐標',
+    'fsid_y_position' => '用戶標識 Y 坐標',
+
     'bio_color' => '簡介顏色',
     'bio_font_size' => '簡介字號',
     'bio_x_position' => '簡介 X 坐標',
@@ -38,6 +44,7 @@ return [
 
     'title_color' => '標題顏色',
     'title_font_size' => '標題字號',
+    'title_x_center' => '標題左右居中',
     'title_x_position' => '標題 X 坐標',
     'title_y_position' => '標題 Y 坐標',
     'title_max_width' => '標題最大寬度',
@@ -102,7 +109,7 @@ return [
     'desc_cache' => '一天內只使用快取的海報圖，關閉後每次請求都生成新圖',
     'desc_avatar_size' => '高度和寬度的尺寸',
     'desc_avatar_circle' => '方形是一個帶圓角的正方形',
-    'desc_name_x_center' => '忽略 X 位置配置，名稱左右居中',
+    'desc_name_x_center' => '忽略 X 位置配置，左右居中',
     'desc_max_width' => '內容文本區域的寬度',
     'desc_max_lines' => '超出區域寬度自動換行，最多幾行',
     'desc_line_spacing' => '文字行間距',

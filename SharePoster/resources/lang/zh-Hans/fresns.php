@@ -28,6 +28,12 @@ return [
     'nickname_x_position' => '昵称 X 坐标',
     'nickname_y_position' => '昵称 Y 坐标',
 
+    'fsid_color' => '用户标识颜色',
+    'fsid_font_size' => '用户标识字号',
+    'fsid_x_center' => '用户标识左右居中',
+    'fsid_x_position' => '用户标识 X 坐标',
+    'fsid_y_position' => '用户标识 Y 坐标',
+
     'bio_color' => '简介颜色',
     'bio_font_size' => '简介字号',
     'bio_x_position' => '简介 X 坐标',
@@ -38,6 +44,7 @@ return [
 
     'title_color' => '标题颜色',
     'title_font_size' => '标题字号',
+    'title_x_center' => '标题左右居中',
     'title_x_position' => '标题 X 坐标',
     'title_y_position' => '标题 Y 坐标',
     'title_max_width' => '标题最大宽度',
@@ -102,7 +109,7 @@ return [
     'desc_cache' => '一天内只使用缓存的海报图，关闭后每次请求都生成新图',
     'desc_avatar_size' => '高度和宽度的尺寸',
     'desc_avatar_circle' => '方形是一个带圆角的正方形',
-    'desc_name_x_center' => '忽略 X 坐标配置，名称左右居中',
+    'desc_name_x_center' => '忽略 X 坐标配置，左右居中',
     'desc_max_width' => '内容文本区域的宽度',
     'desc_max_lines' => '超出区域宽度自动换行，最多几行',
     'desc_line_spacing' => '文字行间距',

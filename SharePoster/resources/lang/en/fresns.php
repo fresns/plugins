@@ -28,6 +28,12 @@ return [
     'nickname_x_position' => 'Nickname X Pos',
     'nickname_y_position' => 'Nickname Y Pos',
 
+    'fsid_color' => 'User ID Color',
+    'fsid_font_size' => 'User ID Font Size',
+    'fsid_x_center' => 'User ID Centered',
+    'fsid_x_position' => 'User ID X Pos',
+    'fsid_y_position' => 'User ID Y Pos',
+
     'bio_color' => 'Bio Color',
     'bio_font_size' => 'Bio Font Size',
     'bio_x_position' => 'Bio X Pos',
@@ -38,6 +44,7 @@ return [
 
     'title_color' => 'Title Color',
     'title_font_size' => 'Title Font Size',
+    'title_x_center' => 'Title Centered',
     'title_x_position' => 'Title X Pos',
     'title_y_position' => 'Title Y Pos',
     'title_max_width' => 'Title Max Width',
@@ -102,7 +109,7 @@ return [
     'desc_cache' => 'Use cached poster for a day. Turn off for new image per request.',
     'desc_avatar_size' => 'Height & width dimensions',
     'desc_avatar_circle' => 'Square with rounded corners',
-    'desc_name_x_center' => 'Ignore X pos, center name',
+    'desc_name_x_center' => 'Ignore X pos, center',
     'desc_max_width' => 'Content text width',
     'desc_max_lines' => 'Auto-wrap text, max lines',
     'desc_line_spacing' => 'Text line spacing',

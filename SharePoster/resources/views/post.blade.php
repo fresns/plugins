@@ -152,6 +152,20 @@
             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> 44</div>
         </div>
         <div class="row mb-2">
+            <label class="col-lg-3 col-form-label text-lg-end">{{ __('SharePoster::fresns.title_x_center') }}:</label>
+            <div class="col-lg-4 pt-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="title_x_center" id="title_x_center_yes" value="1" @if(($config['title_x_center'] ?? false)) checked @endif>
+                    <label class="form-check-label" for="title_x_center_yes">{{ __('FsLang::panel.option_yes') }}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="title_x_center" id="title_x_center_no" value="0" @if(! ($config['title_x_center'] ?? false)) checked @endif>
+                    <label class="form-check-label" for="title_x_center_no">{{ __('FsLang::panel.option_no') }}</label>
+                </div>
+            </div>
+            <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> {{ __('SharePoster::fresns.desc_name_x_center') }}</div>
+        </div>
+        <div class="row mb-2">
             <label class="col-lg-3 col-form-label text-lg-end">{{ __('SharePoster::fresns.title_x_position') }}:</label>
             <div class="col-lg-4"><input type="number" class="form-control" name="title_x_position" value="{{ $config['title_x_position'] ?? '' }}"></div>
             <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> x - abscissa</div>
