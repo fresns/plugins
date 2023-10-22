@@ -169,7 +169,7 @@
                     });
                 }
 
-                if (data.data.paginate.currentPage === 1){
+                if (data.data.pagination.currentPage === 1){
                     $('#fresns-group-list .list-group').each(function (){
                         $(this).empty();
                         $(this).next().empty();
@@ -180,7 +180,7 @@
                 $('#fresns-group-list .list-group').append(html);
 
                 $('#fresns-group-list .list-group-addmore').empty();
-                if (data.data.paginate.currentPage < data.data.paginate.lastPage) {
+                if (data.data.pagination.currentPage < data.data.pagination.lastPage) {
                     let addMoreHtml = `<a href="javascript:void(0)"  class="add-more" onclick="boxAjaxGetGroupList('${action}', ${pageSize}, ${page})">{{ $fsLang['clickToLoadMore'] }}</a>`;
                     $('#fresns-group-list .list-group-addmore').append(addMoreHtml);
                 }
