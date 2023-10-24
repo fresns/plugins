@@ -54,7 +54,9 @@ class TranscodeHelper
         }
 
         // image manager
-        $manager = new ImageManager($configs['filestorage_image_processing_library'] ?? 'gd');
+        $manager = new ImageManager([
+            'driver' => $configs['filestorage_image_processing_library'] ?? 'gd',
+        ]);
 
         // image read
         try {
