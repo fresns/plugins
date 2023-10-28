@@ -17,9 +17,9 @@ use App\Models\PluginUsage;
 use App\Models\Post;
 use App\Utilities\ConfigUtility;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Illuminate\Routing\Controller;
 
 class WebController extends Controller
 {
