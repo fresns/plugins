@@ -20,15 +20,17 @@ class WeChatConfig
         $isWeChat = LoginHelper::isWeChat();
         View::share('isWeChat', $isWeChat);
 
-        $langTag = $request->langTag;
-        if ($langTag) {
-            $response = $next($request);
+        $response = $next($request);
 
-            $response->headers->set('X-Fresns-Client-Lang-Tag', $langTag);
-
+        if ($response instanceof \Illuminate\Http\RedirectResponse) {
             return $response;
         }
 
-        return $next($request);
+        $langTag = $request->langTag;
+        if ($langTag && $response->headers) {
+            $response->headers->set('X-Fresns-Client-Lang-Tag', $langTag);
+        }
+
+        return $response;
     }
 }
