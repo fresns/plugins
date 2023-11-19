@@ -54,9 +54,8 @@ class TranscodeHelper
         }
 
         // image manager
-        $manager = new ImageManager([
-            'driver' => $configs['filestorage_image_processing_library'] ?? 'gd',
-        ]);
+        $imageDriver = $configs['filestorage_image_processing_library'] ?? 'gd';
+        $manager = new ImageManager($imageDriver);
 
         // image read
         try {
@@ -72,14 +71,16 @@ class TranscodeHelper
         if ($params['watermarkStatus'] == 'open' && $configs['filestorage_image_watermark_file']) {
             $watermarkFile = FileModel::where('id', $configs['filestorage_image_watermark_file'])->first();
 
-            $watermarkFilePath = $publicStorage->path($watermarkFile->path);
+            if ($watermarkFile?->path) {
+                $watermarkFilePath = $publicStorage->path($watermarkFile->path);
 
-            if (file_exists($watermarkFilePath)) {
-                $imageWidth = $fileModel->image_width / 2;
-                $imageHeight = $fileModel->image_height / 2;
+                if (file_exists($watermarkFilePath)) {
+                    $imageWidth = $fileModel->image_width / 2;
+                    $imageHeight = $fileModel->image_height / 2;
 
-                if ($watermarkFile->image_width < $imageWidth || $watermarkFile->image_height < $imageHeight) {
-                    $big->place($watermarkFilePath, $params['watermarkPosition']);
+                    if ($watermarkFile->image_width < $imageWidth || $watermarkFile->image_height < $imageHeight) {
+                        $big->place($watermarkFilePath, $params['watermarkPosition']);
+                    }
                 }
             }
         }
