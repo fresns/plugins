@@ -7,9 +7,9 @@
     <meta name="author" content="Fresns" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ __('TitleIcons::fresns.name') }}</title>
-    <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ @asset('/static/css/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ @asset('/static/css/fresns-panel.css') }}">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/fresns-panel.css">
     <style>
         .navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
             color: var(--bs-blue);
@@ -55,8 +55,8 @@
         </div>
     </div>
 
-    <script src="{{ @asset('/static/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ @asset('/static/js/jquery.min.js') }}"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
     <script>
         /* Tooltips */
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
