@@ -28,6 +28,7 @@ return [
     'comment' => 'Comment',
     'file' => 'File',
     'cache' => 'Cache Management',
+    'cmd_word' => 'Command word',
     'image' => 'Image',
     'video' => 'Video',
     'audio' => 'Audio',

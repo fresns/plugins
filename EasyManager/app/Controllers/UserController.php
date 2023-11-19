@@ -38,7 +38,7 @@ class UserController extends Controller
             $query->whereRelation('profile', 'username', $value);
         });
 
-        $userQuery->when($request->username, function ($query, $value) {
+        $userQuery->when($request->nickname, function ($query, $value) {
             $query->whereRelation('profile', 'nickname', 'like', '%'.$value.'%');
         });
 

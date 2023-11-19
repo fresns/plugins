@@ -45,6 +45,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('easy-manager.cache.*') ? 'active' : ''}}" href="{{ route('easy-manager.cache.index') }}">{{ __('EasyManager::fresns.cache') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('easy-manager.cmd-word.*') ? 'active' : ''}}" href="{{ route('easy-manager.cmd-word.index') }}">{{ __('EasyManager::fresns.cmd_word') }}</a>
+                </li>
             </ul>
 
             @if ($search['status'])

@@ -9,6 +9,7 @@
 use Illuminate\Support\Facades\Route;
 use Plugins\EasyManager\Controllers\AccountController;
 use Plugins\EasyManager\Controllers\CacheController;
+use Plugins\EasyManager\Controllers\CmdWordController;
 use Plugins\EasyManager\Controllers\CommentController;
 use Plugins\EasyManager\Controllers\FileController;
 use Plugins\EasyManager\Controllers\GroupController;
@@ -68,5 +69,9 @@ Route::prefix('easy-manager')->name('easy-manager.')->middleware(['panel', 'pane
     Route::prefix('cache')->name('cache.')->group(function () {
         Route::get('/', [CacheController::class, 'index'])->name('index');
         Route::delete('destroy', [CacheController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('cmd-word')->name('cmd-word.')->group(function () {
+        Route::get('/', [CmdWordController::class, 'index'])->name('index');
     });
 });

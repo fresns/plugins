@@ -28,6 +28,7 @@ return [
     'comment' => '留言',
     'file' => '文件',
     'cache' => '緩存高級管理',
+    'cmd_word' => '命令字',
     'image' => '圖片',
     'video' => '視頻',
     'audio' => '音頻',
