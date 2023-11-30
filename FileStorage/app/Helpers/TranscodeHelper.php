@@ -14,9 +14,9 @@ use App\Models\File as FileModel;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as Gd;
 use Intervention\Image\Drivers\Imagick\Driver as Imagick;
+use Intervention\Image\ImageManager;
 
 class TranscodeHelper
 {
