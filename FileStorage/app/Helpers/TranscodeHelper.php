@@ -15,6 +15,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver as Gd;
+use Intervention\Image\Drivers\Imagick\Driver as Imagick;
 
 class TranscodeHelper
 {
@@ -54,7 +56,11 @@ class TranscodeHelper
         }
 
         // image manager
-        $imageDriver = $configs['filestorage_image_processing_library'] ?? 'gd';
+        $imageDriver = match ($configs['filestorage_image_processing_library'] ?? 'gd') {
+            'gd' => new Gd(),
+            'imagick' => new Imagick(),
+            default => new Gd(),
+        };
         $manager = new ImageManager($imageDriver);
 
         // image read
