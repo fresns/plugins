@@ -15,8 +15,8 @@ use App\Helpers\ConfigHelper;
 use App\Helpers\PrimaryHelper;
 use App\Helpers\StrHelper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Plugins\SharePoster\Helpers\PosterHelper;
 use Plugins\SharePoster\Http\DTO\ApiDTO;
 
@@ -60,7 +60,7 @@ class ApiController extends Controller
             }
 
             return $this->success([
-                'url' => $url
+                'url' => $url,
             ]);
         }
 
@@ -82,7 +82,7 @@ class ApiController extends Controller
         }
 
         return $this->success([
-            'url' => $url
+            'url' => $url,
         ]);
     }
 }

@@ -16,11 +16,11 @@ use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Imagick;
 use ImagickDraw;
 use ImagickPixel;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class PosterHelper
 {
@@ -173,7 +173,7 @@ class PosterHelper
             if ($avatar_circle) {
                 $shape = new ImagickDraw();
                 $shape->setFillColor('white');
-                $shape->circle($size/2, $size/2, $size/2, 0);
+                $shape->circle($size / 2, $size / 2, $size / 2, 0);
 
                 $mask = new Imagick(); // Create mask for circular avatar
                 $mask->newImage($size, $size, new ImagickPixel('transparent'));
@@ -229,7 +229,7 @@ class PosterHelper
 
             $newBio = $bio;
             if ($bio_max_width) {
-                $wrappedBio =  self::wrapText($background, $bioDraw, $bio, $bio_max_width, $bio_max_lines);
+                $wrappedBio = self::wrapText($background, $bioDraw, $bio, $bio_max_width, $bio_max_lines);
 
                 $newBio = $wrappedBio['text'];
             }
@@ -247,7 +247,7 @@ class PosterHelper
 
             $newTitle = $title;
             if ($title_max_width) {
-                $wrappedTitle =  self::wrapText($background, $titleDraw, $title, $title_max_width, $title_max_lines);
+                $wrappedTitle = self::wrapText($background, $titleDraw, $title, $title_max_width, $title_max_lines);
 
                 $newTitle = $wrappedTitle['text'];
             }
@@ -265,7 +265,7 @@ class PosterHelper
 
             $newContent = $content;
             if ($content_max_width) {
-                $wrappedContent =  self::wrapText($background, $contentDraw, $content, $content_max_width, $content_max_lines);
+                $wrappedContent = self::wrapText($background, $contentDraw, $content, $content_max_width, $content_max_lines);
 
                 $newContent = $wrappedContent['text'];
             }
@@ -370,7 +370,7 @@ class PosterHelper
         $chars = preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY);
 
         foreach ($chars as $char) {
-            $testLine = $line . $char;
+            $testLine = $line.$char;
             $metrics = $imagick->queryFontMetrics($draw, $testLine);
             $testWidth = $metrics['textWidth'];
 
