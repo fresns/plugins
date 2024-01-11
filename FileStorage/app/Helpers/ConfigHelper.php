@@ -111,7 +111,7 @@ class ConfigHelper
         ];
 
         $diskConfig = match ($configArr['driver']) {
-            default =>  config('filesystems.disks.public'),
+            default => config('filesystems.disks.public'),
             'local' => config('filesystems.disks.public'),
             'ftp' => [
                 'driver' => 'ftp',

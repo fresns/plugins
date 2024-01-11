@@ -53,9 +53,9 @@ class ConfigHelper
             /**
              * 账号基本信息，请从微信公众平台/开放平台获取.
              */
-            'app_id'  => $appId,        // AppID
-            'secret'  => $appSecret,    // AppSecret
-            'token'   => '',            // Token
+            'app_id' => $appId,        // AppID
+            'secret' => $appSecret,    // AppSecret
+            'token' => '',            // Token
             'aes_key' => '',            // EncodingAESKey，兼容与安全模式下请一定要填写！！！
 
             /**
@@ -65,7 +65,7 @@ class ConfigHelper
              * callback：OAuth授权完成后的回调页地址
              */
             'oauth' => [
-                'scopes'   => $scopes,
+                'scopes' => $scopes,
                 'redirect_url' => '',
             ],
 

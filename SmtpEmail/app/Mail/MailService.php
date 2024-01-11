@@ -28,17 +28,17 @@ class MailService
             $code = StrHelper::generateDigital();
             $expired = date('Y-m-d H:i:s', time() + 300);
             $data = [
-                'type'          => 1,
-                'account'       => $account,
-                'template_id'   => $templateId,
-                'code'          => $code,
-                'expired_at'    => $expired,
+                'type' => 1,
+                'account' => $account,
+                'template_id' => $templateId,
+                'code' => $code,
+                'expired_at' => $expired,
             ];
             $id = $model->insert($data);
 
-            return $id ? ['code'=>'000000', 'mailCode'=>$code, 'expired'=>$expired] : ['code'=>'51000', 'message'=>'insert error'];
+            return $id ? ['code' => '000000', 'mailCode' => $code, 'expired' => $expired] : ['code' => '51000', 'message' => 'insert error'];
         } catch (\Error $error) {
-            return ['code'=>'500000', 'message'=>$error->getMessage()];
+            return ['code' => '500000', 'message' => $error->getMessage()];
         }
     }
 
@@ -66,8 +66,8 @@ class MailService
             'name' => $from_name,
             'address' => $from_addr,
         ];
-        config(['mail.mailers.smtp'  =>  array_merge(config('mail.mailers.smtp'), $smtp)]);
-        config(['mail.from'  =>  array_merge(config('mail.from'), $from)]);
+        config(['mail.mailers.smtp' => array_merge(config('mail.mailers.smtp'), $smtp)]);
+        config(['mail.from' => array_merge(config('mail.from'), $from)]);
     }
 
     /**
