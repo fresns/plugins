@@ -1,7 +1,7 @@
 <p align="center"><a href="https://fresns.org" target="_blank"><img src="https://files.fresns.org/images/logo.png" width="300"></a></p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/Fresns-%5E2.0-orange" alt="Fresns">
+<img src="https://img.shields.io/badge/Fresns-3.x-orange" alt="Fresns">
 <img src="https://img.shields.io/badge/PluginManager-2.x-blueviolet" alt="PluginManager">
 <img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License">
 </p>
