@@ -16,8 +16,8 @@ class WebController
     {
         $params = $request->input();
 
-        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
-            'urlAuthorization' => $request->authorization,
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyAccessToken([
+            'accessToken' => $request->accessToken,
         ]);
 
         $headers = [];

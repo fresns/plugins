@@ -58,6 +58,12 @@ return new class extends Migration
             'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
             'fskey' => 'SubscribeExample',
             'cmdWord' => 'viewContent',
+            'subject' => SubscribeUtility::VIEW_TYPE_GEOTAG,
+        ],
+        [
+            'type' => SubscribeUtility::TYPE_VIEW_CONTENT,
+            'fskey' => 'SubscribeExample',
+            'cmdWord' => 'viewContent',
             'subject' => SubscribeUtility::VIEW_TYPE_POST,
         ],
         [

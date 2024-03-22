@@ -4,10 +4,8 @@
     "description": "Fresns official helper function test tool.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.1.1",
-    "scene": [
-        "tool"
-    ],
+    "version": "1.1.2",
+    "panelUsages": [],
     "accessPath": null,
     "settingsPath": null,
     "providers": [
