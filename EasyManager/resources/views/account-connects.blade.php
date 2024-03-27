@@ -29,7 +29,7 @@
                                 <img src="{{ $connect->connect_avatar }}" class="rounded-circle" width="20" height="20">
                             @endif
                         </td>
-                        <td><a href="https://marketplace.fresns.com/open-source/detail/{{ $connect->plugin_fskey }}" target="_blank">{{ $connect->plugin_fskey }}</a></td>
+                        <td><a href="https://marketplace.fresns.com/detail/{{ $connect->app_fskey }}" target="_blank">{{ $connect->app_fskey }}</a></td>
                         <td>{!! $connect->is_enabled ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-dash-lg text-secondary"></i>' !!}</td>
                     </tr>
                 @endforeach

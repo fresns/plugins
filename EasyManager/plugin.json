@@ -4,10 +4,8 @@
     "description": "Fresns official development of easy management plug-in.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.5.0",
-    "scene": [
-        "tool"
-    ],
+    "version": "2.0.0",
+    "panelUsages": [],
     "accessPath": null,
     "settingsPath": "/easy-manager",
     "providers": [

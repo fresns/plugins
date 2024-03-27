@@ -16,7 +16,7 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $postQuery = Post::with(['postAppend', 'author', 'group', 'hashtags', 'fileUsages']);
+        $postQuery = Post::with(['author', 'group', 'geotag', 'hashtags', 'fileUsages']);
 
         $postQuery->when($request->id, function ($query, $value) {
             $query->where('id', $value);
@@ -32,6 +32,10 @@ class PostController extends Controller
 
         $postQuery->when($request->groupId, function ($query, $value) {
             $query->where('group_id', $value);
+        });
+
+        $postQuery->when($request->geotagId, function ($query, $value) {
+            $query->where('geotag_id', $value);
         });
 
         $postQuery->when($request->hashtagId, function ($query, $value) {
@@ -65,7 +69,6 @@ class PostController extends Controller
         // site config
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'website_post_detail_path',
-            'site_url',
             'post_liker_count',
             'post_disliker_count',
             'post_follower_count',
@@ -75,7 +78,10 @@ class PostController extends Controller
             'comment_follower_count',
             'comment_blocker_count',
         ]);
-        $url = $configKeys['site_url'].'/'.$configKeys['website_post_detail_path'].'/';
+
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $url = $siteUrl.'/'.$configKeys['website_post_detail_path'].'/';
 
         return view('EasyManager::post', compact('posts', 'search', 'url'));
     }

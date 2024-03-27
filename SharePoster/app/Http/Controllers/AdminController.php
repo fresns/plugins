@@ -66,6 +66,23 @@ class AdminController extends Controller
         return view('SharePoster::hashtag', compact('config', 'background_url'));
     }
 
+    public function geotag()
+    {
+        $configModel = Config::where('item_key', 'shareposter_config')->first()?->item_value;
+
+        $config = $configModel['geotag'] ?? [];
+
+        $background_url = '/assets/SharePoster/geotag.jpg';
+
+        if ($config['background_path']) {
+            $disk = Storage::disk('public');
+
+            $background_url = $disk->url($config['background_path']);
+        }
+
+        return view('SharePoster::geotag', compact('config', 'background_url'));
+    }
+
     public function post()
     {
         $configModel = Config::where('item_key', 'shareposter_config')->first()?->item_value;

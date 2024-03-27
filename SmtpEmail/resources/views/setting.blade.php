@@ -108,7 +108,7 @@
                         <div class="input-group mt-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
                             <input type="email" class="form-control" id="testEmail" placeholder="name@example.com">
-                            <button type="button" class="btn btn-primary" id="testUrl" data-url="{{ route('fresnsemail.settings.test') }}" onclick="send_mail_test()">
+                            <button type="button" class="btn btn-primary" id="testSend" data-url="{{ route('fresnsemail.settings.test') }}" onclick="send_mail_test()">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
                                 @lang('SmtpEmail::fresns.testMailSend')
                             </button>
@@ -120,8 +120,16 @@
                             @lang('FsLang::panel.menu_systems') > @lang('FsLang::panel.sidebar_send') > @lang('FsLang::panel.sidebar_send_tab_templates')
                         </div>
                         <div class="input-group mt-3">
+                            <span class="input-group-text">@lang('FsLang::panel.site_logo')</span>
+                            <span class="form-control">{logo}</span>
+                        </div>
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">@lang('FsLang::panel.site_logo')</span>
+                            <span class="form-control">{icon}</span>
+                        </div>
+                        <div class="input-group mt-3">
                             <span class="input-group-text">@lang('FsLang::panel.site_name')</span>
-                            <span class="form-control">{sitename}</span>
+                            <span class="form-control">{name}</span>
                         </div>
                         <div class="input-group mt-3">
                             <span class="input-group-text">@lang('SmtpEmail::fresns.variableCode')</span>
@@ -150,39 +158,40 @@
     <script>
         function send_mail_test(){
             var email = $('#testEmail').val();
-            var url  = $('#testUrl').data('url');
+            var url  = $('#testSend').data('url');
+
             if(email == ''){
                 alert("please input email value.");
                 return false;
             }
-            $('#testUrl').attr('disabled',"true");
-            $('#testUrl').find(".spinner-border").show();
+
+            $('#testSend').prop('disabled', true);
+            $('#testSend').find('.spinner-border').show();
 
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: url,
                 data: {
                     email: email,
                     _token: '{{ csrf_token() }}',
                 },
                 cache: false,
-                dataType: "json",
+                dataType: 'json',
                 success: function(json) {
-                    if(json.code == '000000'){
-                        $('#testUrl').removeAttr("disabled");
-                        $('#testUrl').find(".spinner-border").hide();
-                        alert('Send successfully, please check');
-                    }else{
-                        $('#testUrl').removeAttr("disabled");
-                        $('#testUrl').find(".spinner-border").hide();
-                        alert('Send failed, please check the configuration');
+                    if (json.code == 0){
+                        alert('Send Successfully');
+                        return;
                     }
+
+                    alert('Send failed, please check the configuration');
                 },
                 error: function() {
-                    $('#testUrl').removeAttr("disabled");
-                    $('#testUrl').find(".spinner-border").hide();
                     alert('Service error, please confirm e-mail support SMTP');
-                }
+                },
+                complete: function () {
+                    $('#testSend').prop('disabled', false);
+                    $('#testSend').find(".spinner-border").hide();
+                },
             });
         }
     </script>

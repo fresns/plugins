@@ -4,8 +4,8 @@
     "description": "Generate sharing posters for content and user pages",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.1.0",
-    "scene": [],
+    "version": "1.2.0",
+    "panelUsages": [],
     "accessPath": null,
     "settingsPath": "/share-poster/admin",
     "providers": [

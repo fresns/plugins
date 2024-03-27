@@ -24,6 +24,7 @@ return [
     'user' => '用戶',
     'group' => '社團',
     'hashtag' => '話題',
+    'geotag' => '地理',
     'post' => '貼文',
     'comment' => '留言',
     'file' => '文件',

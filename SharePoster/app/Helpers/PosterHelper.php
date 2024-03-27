@@ -10,7 +10,7 @@ namespace Plugins\SharePoster\Helpers;
 
 use App\Helpers\ConfigHelper;
 use App\Helpers\FileHelper;
-use App\Helpers\LanguageHelper;
+use App\Helpers\StrHelper;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
@@ -91,16 +91,16 @@ class PosterHelper
         $url = null;
 
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
-            'site_url',
             'user_identifier',
             'website_user_detail_path',
             'website_group_detail_path',
             'website_hashtag_detail_path',
+            'website_geotag_detail_path',
             'website_post_detail_path',
             'website_comment_detail_path',
         ]);
 
-        $siteUrl = $configKeys['site_url'] ?? config('app.url');
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
 
         switch ($type) {
             case 'user':
@@ -123,8 +123,8 @@ class PosterHelper
 
             case 'group':
                 $avatar = FileHelper::fresnsFileUrlByTableColumn($model->cover_file_id, $model->cover_file_url);
-                $nickname = LanguageHelper::fresnsLanguageByTableId('groups', 'name', $model->id, $langTag) ?? $model->name;
-                $bio = LanguageHelper::fresnsLanguageByTableId('groups', 'description', $model->id, $langTag) ?? $model->description;
+                $nickname = StrHelper::languageContent($model->name, $langTag);
+                $bio = StrHelper::languageContent($model->description, $langTag);
                 $title = '';
                 $content = '';
                 $url = $siteUrl.'/'.$configKeys['website_group_detail_path'].'/'.$model->gid;
@@ -133,10 +133,19 @@ class PosterHelper
             case 'hashtag':
                 $avatar = FileHelper::fresnsFileUrlByTableColumn($model->cover_file_id, $model->cover_file_url);
                 $nickname = $model->name;
-                $bio = LanguageHelper::fresnsLanguageByTableId('hashtags', 'description', $model->id, $langTag) ?? $model->description;
+                $bio = StrHelper::languageContent($model->description, $langTag);
                 $title = '';
                 $content = '';
                 $url = $siteUrl.'/'.$configKeys['website_hashtag_detail_path'].'/'.$model->slug;
+                break;
+
+            case 'geotag':
+                $avatar = FileHelper::fresnsFileUrlByTableColumn($model->cover_file_id, $model->cover_file_url);
+                $nickname = StrHelper::languageContent($model->name, $langTag);
+                $bio = StrHelper::languageContent($model->description, $langTag);
+                $title = '';
+                $content = '';
+                $url = $siteUrl.'/'.$configKeys['website_geotag_detail_path'].'/'.$model->slug;
                 break;
 
             case 'post':
@@ -345,6 +354,26 @@ class PosterHelper
             }
 
             $background->compositeImage($qrCodeImage, Imagick::COMPOSITE_OVER, $qrcode_x_position, $qrcode_y_position);
+        }
+
+        // 知结社区
+        if ($type == 'user') {
+            $usernameTip = '下载知结 App，搜索 '.$profileFsid;
+            $usernameDraw = new ImagickDraw();
+            $usernameDraw->setFillColor('#5c5c5c');
+            $usernameDraw->setFont($font_path);
+            $usernameDraw->setFontSize(42);
+
+            // Calculate the width of the text
+            $usernameMetrics = $background->queryFontMetrics($usernameDraw, $usernameTip);
+            $usernameWidth = $usernameMetrics['textWidth'];
+
+            // Calculate the x position for centering
+            $backgroundWidth = $background->getImageWidth();
+
+            $username_x_position = ($backgroundWidth - $usernameWidth) / 2;
+
+            $background->annotateImage($usernameDraw, $username_x_position, 1790, 0, $usernameTip);
         }
 
         // 8. poster save

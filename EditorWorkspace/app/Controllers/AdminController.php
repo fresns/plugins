@@ -52,10 +52,12 @@ class AdminController extends Controller
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'user_identifier',
             'website_user_detail_path',
-            'site_url',
         ]);
 
-        $url = $configKeys['site_url'].'/'.$configKeys['website_user_detail_path'].'/';
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $url = $siteUrl.'/'.$configKeys['website_user_detail_path'].'/';
+
         $identifier = $configKeys['user_identifier'];
 
         return view('EditorWorkspace::admin.users', compact('users', 'url', 'identifier'));
@@ -87,7 +89,6 @@ class AdminController extends Controller
                 'item_key' => 'editor_workspace_accounts',
                 'item_value' => $accountIds,
                 'item_type' => 'array',
-                'item_tag' => 'EditorWorkspace',
                 'is_multilingual' => 0,
                 'is_api' => 0,
             ],
@@ -114,7 +115,6 @@ class AdminController extends Controller
                 'item_key' => 'editor_workspace_accounts',
                 'item_value' => $accountIds,
                 'item_type' => 'array',
-                'item_tag' => 'EditorWorkspace',
                 'is_multilingual' => 0,
                 'is_api' => 0,
             ],
@@ -156,8 +156,8 @@ class AdminController extends Controller
         }
 
         $typeInt = match ($type) {
-            'email' => 1,
-            'phone' => 2,
+            'email' => Account::CREATE_TYPE_EMAIL,
+            'phone' => Account::CREATE_TYPE_PHONE,
         };
 
         $file = $request->file('avatar_file');
@@ -198,7 +198,6 @@ class AdminController extends Controller
                 'item_key' => 'editor_workspace_accounts',
                 'item_value' => $accountIds,
                 'item_type' => 'array',
-                'item_tag' => 'EditorWorkspace',
                 'is_multilingual' => 0,
                 'is_api' => 0,
             ],
@@ -223,7 +222,7 @@ class AdminController extends Controller
                 return back()->with('failure', $uploadResp->getMessage());
             }
 
-            $fileId = PrimaryHelper::fresnsFileIdByFid($uploadResp->getData('fid'));
+            $fileId = PrimaryHelper::fresnsPrimaryId('file', $uploadResp->getData('fid'));
         }
 
         if ($request->bio || $fileId) {
@@ -285,7 +284,7 @@ class AdminController extends Controller
                 return back()->with('failure', $uploadResp->getMessage());
             }
 
-            $fileId = PrimaryHelper::fresnsFileIdByFid($uploadResp->getData('fid'));
+            $fileId = PrimaryHelper::fresnsPrimaryId('file', $uploadResp->getData('fid'));
         }
 
         if ($request->bio || $fileId) {

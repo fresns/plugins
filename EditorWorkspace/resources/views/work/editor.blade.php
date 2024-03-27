@@ -246,7 +246,7 @@
                 btn.prop('disabled', true);
                 if (0 === btn.children('.spinner-border').length) {
                     btn.prepend(
-                        '<span class="spinner-border spinner-border-sm mg-r-5 d-none" role="status" aria-hidden="true"></span> '
+                        '<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> '
                     );
                 }
                 btn.children('.spinner-border').removeClass('d-none');

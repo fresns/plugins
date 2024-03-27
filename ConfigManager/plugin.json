@@ -4,10 +4,8 @@
     "description": "Used to manage all configs datasheet configuration items, view, add, edit, and delete global configuration items.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.1",
-    "scene": [
-        "tool"
-    ],
+    "version": "1.1.0",
+    "panelUsages": [],
     "accessPath": null,
     "settingsPath": "/config-manager",
     "providers": [

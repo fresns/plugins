@@ -34,6 +34,9 @@
                     <a class="nav-link {{ Route::is('easy-manager.hashtag.*') ? 'active' : ''}}" href="{{ route('easy-manager.hashtag.index') }}">{{ __('EasyManager::fresns.hashtag') }}</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ Route::is('easy-manager.geotag.*') ? 'active' : ''}}" href="{{ route('easy-manager.geotag.index') }}">{{ __('EasyManager::fresns.geotag') }}</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ Route::is('easy-manager.post.*') ? 'active' : ''}}" href="{{ route('easy-manager.post.index') }}">{{ __('EasyManager::fresns.post') }}</a>
                 </li>
                 <li class="nav-item">

@@ -6,7 +6,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('easy-manager.home') }}">{{ __('EasyManager::fresns.name') }}</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('easy-manager.group.index') }}">{{ __('EasyManager::fresns.group') }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ __('FsLang::panel.button_config_permission') }}<span class="badge bg-secondary ms-2">{{ $group->getLangName($defaultLanguage) }}</span></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ __('FsLang::panel.button_config_permission') }}<span class="badge bg-secondary ms-2">{{ $group->getLangContent('name', $defaultLanguage) }}</span></li>
             </ol>
         </nav>
     </div>
@@ -26,16 +26,16 @@
                     </tr>
                 </thead>
                 <tbody id="customPermBox">
-                    @foreach ($permissions as $permission)
-                        <tr>
-                            <td><input type="text" class="form-control bg-light" name="editPermissions[permKey][]" value="{{ $permission['permKey'] }}" readonly></td>
-                            <td><input type="text" class="form-control {{ $permission['isCustom'] ? '' : 'bg-light' }}" name="editPermissions[permValue][]" value="{{ $permission['permValue'] }}" {{ $permission['isCustom'] ? '' : 'readonly' }}></td>
-                            <td>
-                                @if ($permission['isCustom'])
-                                    <button type="button" class="btn btn-link link-danger ms-1 fresns-link fs-7 delete-custom-perm">{{ __('FsLang::panel.button_delete') }}</button>
-                                @endif
-                            </td>
-                        </tr>
+                    @foreach ($permissions as $perm)
+                    <tr>
+                        <td><input type="text" class="form-control bg-light" name="editPermissions[permKey][]" value="{{ $perm['permKey'] }}" readonly></td>
+                        <td><input type="text" class="form-control {{ $perm['isCustom'] ? '' : 'bg-light' }}" name="editPermissions[permValue][]" value="{{ $perm['permValue'] }}" {{ $perm['isCustom'] ? '' : 'readonly' }}></td>
+                        <td>
+                            @if ($perm['isCustom'])
+                                <button type="button" class="btn btn-link link-danger ms-1 fresns-link fs-7 delete-custom-perm">{{ __('FsLang::panel.button_delete') }}</button>
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
                     <tr id="addCustomPermTr">
                         <td colspan="3" class="text-center">

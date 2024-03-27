@@ -34,7 +34,7 @@ class HashtagController extends Controller
             $query->where('type', $value);
         });
 
-        $hashtagQuery->when($request->hid, function ($query, $value) {
+        $hashtagQuery->when($request->htid, function ($query, $value) {
             $query->where('slug', $value);
         });
 
@@ -54,8 +54,8 @@ class HashtagController extends Controller
             'action' => route('easy-manager.hashtag.index'),
             'selects' => [
                 [
-                    'name' => 'HID',
-                    'value' => 'hid',
+                    'name' => 'HTID',
+                    'value' => 'htid',
                 ],
                 [
                     'name' => __('EasyManager::fresns.table_name'),
@@ -71,13 +71,15 @@ class HashtagController extends Controller
         // site config
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'website_hashtag_detail_path',
-            'site_url',
             'hashtag_liker_count',
             'hashtag_disliker_count',
             'hashtag_follower_count',
             'hashtag_blocker_count',
         ]);
-        $url = $configKeys['site_url'].'/'.$configKeys['website_hashtag_detail_path'].'/';
+
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $url = $siteUrl.'/'.$configKeys['website_hashtag_detail_path'].'/';
 
         return view('EasyManager::hashtag', compact('hashtags', 'search', 'url'));
     }
@@ -94,8 +96,7 @@ class HashtagController extends Controller
 
         $hashtag->save();
 
-        CacheHelper::clearDataCache('hashtag', $hashtag->slug, 'fresnsModel');
-        CacheHelper::clearDataCache('hashtag', $hashtag->slug, 'fresnsApiData');
+        CacheHelper::clearDataCache('hashtag', $hashtag->slug);
 
         return $this->updateSuccess();
     }

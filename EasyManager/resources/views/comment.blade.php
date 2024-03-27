@@ -10,6 +10,7 @@
                     <th scope="col">{{ __('EasyManager::fresns.table_post_pid') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_parent_cid') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_summary') }}</th>
+                    <th scope="col">{{ __('EasyManager::fresns.geotag') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.hashtag') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.file') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_author') }}</th>
@@ -101,9 +102,10 @@
                     <tr>
                         <th scope="row">{{ $comment->id }}</th>
                         <td><a href="{{ $url.$comment->cid }}" target="_blank">{{ $comment->cid }}</a></td>
-                        <td><a href="{{ route('easy-manager.post.index', ['pid' => $comment?->post?->pid]) }}">{{ $comment?->post?->pid }}</a></td>
-                        <td><a href="{{ route('easy-manager.comment.index', ['cid' => $comment?->parentComment?->cid]) }}">{{ $comment?->parentComment?->cid }}</a></td>
+                        <td><a href="{{ route('easy-manager.post.index', ['pid' => $comment->post?->pid]) }}">{{ $comment->post?->pid }}</a></td>
+                        <td><a href="{{ route('easy-manager.comment.index', ['cid' => $comment->parentComment?->cid]) }}">{{ $comment->parentComment?->cid }}</a></td>
                         <td>{{ Str::limit(strip_tags($comment->content), 30) }}</td>
+                        <td><a href="{{ route('easy-manager.geotag.index', ['id' => $comment->geotag_id]) }}">{{ $comment->geotag?->getLangContent('name', $defaultLanguage) }}</a></td>
                         <td>
                             @if (count($comment->hashtags) > 0)
                                 <a href="{{ route('easy-manager.hashtag.index', ['ids' => json_encode(collect($comment->hashtags)->pluck('file_id'))]) }}">

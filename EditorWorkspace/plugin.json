@@ -4,11 +4,11 @@
     "description": "With this extension, editors can publish content directly from the client as a specified user.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.4",
-    "scene": [
+    "version": "1.1.0",
+    "panelUsages": [
         "extendUser"
     ],
-    "accessPath": "/editor-workspace/work?authorization={authorization}&postMessageKey={postMessageKey}",
+    "accessPath": "/editor-workspace/work?accessToken={accessToken}&postMessageKey={postMessageKey}",
     "settingsPath": "/editor-workspace/admin",
     "providers": [
         "Plugins\\EditorWorkspace\\Providers\\EditorWorkspaceServiceProvider"

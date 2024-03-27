@@ -25,5 +25,5 @@ Fresns official development of the SMTP sending method of mail plugin.
 ### Command Word
 
 - `sendCode`
-    - Supported variable names: `{sitename}` `{code}` `{time}`
+    - Supported variable names: `{logo}` `{icon}` `{name}` `{code}` `{time}`
 - `sendEmail`

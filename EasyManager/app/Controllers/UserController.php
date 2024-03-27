@@ -84,11 +84,13 @@ class UserController extends Controller
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'user_identifier',
             'website_user_detail_path',
-            'site_url',
             'site_mode',
         ]);
 
-        $url = $configKeys['site_url'].'/'.$configKeys['website_user_detail_path'].'/';
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $url = $siteUrl.'/'.$configKeys['website_user_detail_path'].'/';
+
         $identifier = $configKeys['user_identifier'];
 
         $roles = Role::get();
@@ -123,12 +125,26 @@ class UserController extends Controller
             ]);
         }
 
+        $role = Role::where('rid', $request->rid)->first();
+
+        if (empty($role)) {
+            return back()->with('failure', __('FsLang::tips.createFailure'));
+        }
+
+        $restoreRoleId = null;
+
+        $restoreRole = Role::where('rid', $request->restore_role_rid)->first();
+
+        if ($restoreRole) {
+            $restoreRoleId = $restoreRole->id;
+        }
+
         UserRole::create([
             'user_id' => $user->id,
-            'role_id' => $request->roleId,
+            'role_id' => $role->id,
             'is_main' => $request->is_main,
             'expired_at' => $request->expired_at,
-            'restore_role_id' => $request->restore_role_id ? $request->restore_role_id : null,
+            'restore_role_id' => $restoreRoleId,
         ]);
 
         CacheHelper::forgetFresnsUser($user->id, $user->uid);
@@ -136,15 +152,19 @@ class UserController extends Controller
         return $this->createSuccess();
     }
 
-    public function deleteRole(int $id)
+    public function deleteRole(int $uid, string $rid)
     {
-        $userRole = UserRole::where('id', $id)->first();
+        $user = User::where('uid', $uid)->first();
 
-        $user = User::where('id', $userRole->user_id)->first();
+        $role = Role::where('rid', $rid)->first();
+
+        if (empty($user) || empty($role)) {
+            return back()->with('failure', __('FsLang::tips.deleteFailure'));
+        }
+
+        UserRole::where('user_id', $user->id)->where('role_id', $role->id)->delete();
 
         CacheHelper::forgetFresnsUser($user->id, $user->uid);
-
-        $userRole->delete();
 
         return $this->deleteSuccess();
     }

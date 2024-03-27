@@ -5,7 +5,7 @@
     </div>
     <div class="col-5">
         <div class="input-group mt-2 justify-content-lg-end px-1" role="group">
-            <button type="button" class="btn btn-primary edit-config" data-optional-languages="{{ json_encode($optionalLanguages) }}"><i class="bi bi-plus-circle-dotted"></i> {{ __('FsLang::panel.button_add') }}</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-plus-circle-dotted"></i> {{ __('FsLang::panel.button_add') }}</button>
         </div>
     </div>
 </div>

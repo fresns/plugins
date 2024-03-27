@@ -4,8 +4,8 @@
     "description": "Counting the number of days users are online",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.2",
-    "scene": [],
+    "version": "1.1.0",
+    "panelUsages": [],
     "accessPath": null,
     "settingsPath": "/online-days",
     "providers": [

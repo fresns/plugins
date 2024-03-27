@@ -6,8 +6,9 @@
             <thead>
                 <tr class="table-info">
                     <th scope="col">ID</th>
-                    <th scope="col">GID</th>
+                    <th scope="col">GTID</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_name') }}</th>
+                    <th scope="col">{{ __('EasyManager::fresns.table_type') }}</th>
                     <th scope="col">
                         {{ __('EasyManager::fresns.table_posts') }}
                         @if (request('orderBy') == 'post_count' && request('orderDirection') == 'desc')
@@ -48,29 +49,52 @@
                             <a href="{{ request()->fullUrlWithQuery(['orderBy' => 'comment_digest_count', 'orderDirection' => 'desc']) }}" class="link-secondary"><i class="bi bi-caret-down"></i></a>
                         @endif
                     </th>
+                    <th scope="col">
+                        {{ __('EasyManager::fresns.table_create_time') }}
+                        @if (request('orderBy') == 'id' && request('orderDirection') == 'desc' || empty(request('orderBy')))
+                            <a href="{{ request()->fullUrlWithQuery(['orderBy' => 'id', 'orderDirection' => 'asc']) }}" class="link-dark"><i class="bi bi-caret-down-fill"></i></a>
+                        @elseif (request('orderBy') == 'id' && request('orderDirection') == 'asc')
+                            <a href="{{ request()->fullUrlWithQuery(['orderBy' => 'id', 'orderDirection' => 'desc']) }}" class="link-dark"><i class="bi bi-caret-up-fill"></i></a>
+                        @else
+                            <a href="{{ request()->fullUrlWithQuery(['orderBy' => 'id', 'orderDirection' => 'asc']) }}" class="link-secondary"><i class="bi bi-caret-up"></i></a>
+                        @endif
+                    </th>
                     <th scope="col">{{ __('EasyManager::fresns.table_options') }}</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($groups as $group)
+                @foreach ($geotags as $geotag)
                     <tr>
-                        <th scope="row">{{ $group->id }}</th>
-                        <td><a href="{{ $url.$group->gid }}" target="_blank">{{ $group->gid }}</a></td>
-                        <td>{{ $group->getLangContent('name', $defaultLanguage) }}</td>
-                        <td><a href="{{ route('easy-manager.post.index', ['groupId' => $group->id]) }}">{{ $group->post_count }}</a></td>
-                        <td>{{ $group->post_digest_count }}</td>
-                        <td><a href="{{ route('easy-manager.comment.index', ['groupId' => $group->id]) }}">{{ $group->comment_count }}</a></td>
-                        <td>{{ $group->comment_digest_count }}</td>
+                        <th scope="row">{{ $geotag->id }}</th>
+                        <td><a href="{{ $url.$geotag->gtid }}" target="_blank">{{ $geotag->gtid }}</a></td>
+                        <td>{{ $geotag->getLangContent('name', $locale) }}</td>
+                        <td><a href="{{ route('easy-manager.geotag.index', ['type' => $geotag->type]) }}">{{ $geotag->type }}</a></td>
+                        <td><a href="{{ route('easy-manager.post.index', ['geotagId' => $geotag->id]) }}">{{ $geotag->post_count }}</a></td>
+                        <td>{{ $geotag->post_digest_count }}</td>
+                        <td><a href="{{ route('easy-manager.comment.index', ['geotagId' => $geotag->id]) }}">{{ $geotag->comment_count }}</a></td>
+                        <td>{{ $geotag->comment_digest_count }}</td>
+                        <td>{{ $geotag->created_at }}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-primary btn-sm me-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editGroup"
-                                data-name="{{ $group->getLangContent('name', $defaultLanguage) }}"
-                                data-action="{{ route('easy-manager.group.update', $group) }}"
-                                data-params="{{ $group->toJson() }}">
-                                {{ __('EasyManager::fresns.button_edit') }}
-                            </button>
-                            <a class="btn btn-outline-primary btn-sm" href="{{ route('easy-manager.group.edit.permissions', ['groupId' => $group->id]) }}" role="button">{{ __('FsLang::panel.button_config_permission') }}</a>
+                            <form action="{{ route('easy-manager.geotag.update', $geotag) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <button type="button" class="btn btn-outline-primary btn-sm me-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editGeotag"
+                                    data-name="{{ $geotag->getLangContent('name', $defaultLanguage) }}"
+                                    data-action="{{ route('easy-manager.geotag.update', $geotag) }}"
+                                    data-type="{{ $geotag->type }}">
+                                    {{ __('EasyManager::fresns.button_edit') }}
+                                </button>
+
+                                @if ($geotag->is_enabled)
+                                    <input type="hidden" name="is_enabled" value="0"/>
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('EasyManager::fresns.button_deactivate') }}</button>
+                                @else
+                                    <input type="hidden" name="is_enabled" value="1"/>
+                                    <button type="submit" class="btn btn-outline-primary btn-sm">{{ __('EasyManager::fresns.button_activate') }}</button>
+                                @endif
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -79,11 +103,11 @@
     </div>
 
     <div class="py-3 d-flex justify-content-center">
-        {{ $groups->appends(request()->all())->links() }}
+        {{ $geotags->appends(request()->all())->links() }}
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade name-lang-parent" id="editGroup" tabindex="-1" aria-labelledby="editGroup" aria-hidden="true">
+    <div class="modal fade name-lang-parent" id="editGeotag" tabindex="-1" aria-labelledby="editGeotag" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,9 +119,19 @@
                         @csrf
                         @method('put')
                         <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label">GID</label>
+                            <label class="col-sm-3 col-form-label">{{ __('EasyManager::fresns.table_type') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="gid">
+                                <select class="form-select" name="type">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -113,7 +147,7 @@
 
 @push('script')
     <script>
-        $('#editGroup').on('show.bs.modal', function (e) {
+        $('#editGeotag').on('show.bs.modal', function (e) {
             if ($(this).data('is_back')) {
                 return;
             }
@@ -121,17 +155,17 @@
             let button = $(e.relatedTarget);
             let name = button.data('name');
             let action = button.data('action');
-            let params = button.data('params');
+            let type = button.data('type');
 
             $(this).parent('form').trigger('reset');
 
-            if (! params) {
+            if (! type) {
                 return;
             }
 
             $(this).find('.modal-title').text(name);
             $(this).find('form').attr('action', action);
-            $(this).find('input[name=gid]').val(params.gid);
+            $(this).find('select[name=type]').val(type);
         });
     </script>
 @endpush

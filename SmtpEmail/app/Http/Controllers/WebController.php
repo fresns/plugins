@@ -36,7 +36,7 @@ class WebController extends Controller
             'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
 
-        $locale = \request()->cookie('panel_lang');
+        $locale = \request()->cookie('fresns_panel_lang');
 
         return view('SmtpEmail::setting', compact('content', 'version', 'marketUrl', 'locale'));
     }
@@ -62,7 +62,6 @@ class WebController extends Controller
             $fresnsConfigs->item_key = $key;
             $fresnsConfigs->item_value = $value ?: '';
             $fresnsConfigs->item_type = 'string';
-            $fresnsConfigs->item_tag = 'SmtpEmail';
             $fresnsConfigs->saveOrFail();
         });
 
@@ -90,34 +89,36 @@ class WebController extends Controller
         $validator = Validator::make($request->post(), [
             'email' => 'required|email',
         ]);
+
         if ($validator->fails()) {
             return response()->json([
-                'code' => '200000',
+                'code' => 20000,
                 'message' => $validator->errors()->all()[0],
             ]);
         }
 
         try {
-            $input = [
+            $wordBody = [
                 'email' => $email,
                 'title' => 'Fresns test email',
                 'content' => 'This is a Fresns software testing email',
             ];
-            $fresnsResp = \FresnsCmdWord::plugin('SmtpEmail')->sendEmail($input);
+            $fresnsResp = \FresnsCmdWord::plugin('SmtpEmail')->sendEmail($wordBody);
+
             if ($fresnsResp->isErrorResponse()) {
-                return $fresnsResp->errorResponse();
+                return $fresnsResp->getErrorResponse();
             }
         } catch (\Exception $exception) {
             return [
-                'code' => '500500',
+                'code' => 20000,
                 'message' => $exception->getMessage(),
                 'data' => [],
             ];
         }
 
         return [
-            'code' => '000000',
-            'message' => '',
+            'code' => 0,
+            'message' => 'ok',
             'data' => [],
         ];
     }

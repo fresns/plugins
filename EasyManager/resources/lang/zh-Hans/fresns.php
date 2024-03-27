@@ -24,6 +24,7 @@ return [
     'user' => '用户',
     'group' => '小组',
     'hashtag' => '话题',
+    'geotag' => '地理',
     'post' => '帖子',
     'comment' => '评论',
     'file' => '文件',

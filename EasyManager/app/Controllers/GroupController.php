@@ -62,13 +62,15 @@ class GroupController extends Controller
         // site config
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'website_group_detail_path',
-            'site_url',
             'group_liker_count',
             'group_disliker_count',
             'group_follower_count',
             'group_blocker_count',
         ]);
-        $url = $configKeys['site_url'].'/'.$configKeys['website_group_detail_path'].'/';
+
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $url = $siteUrl.'/'.$configKeys['website_group_detail_path'].'/';
 
         return view('EasyManager::group', compact('groups', 'search', 'url'));
     }
@@ -87,8 +89,7 @@ class GroupController extends Controller
         $group->gid = $request->gid;
         $group->save();
 
-        CacheHelper::forgetFresnsKey('fresns_guest_all_groups', 'fresnsGroupData');
-        CacheHelper::forgetFresnsTag('fresnsGroupData');
+        CacheHelper::forgetFresnsTag('fresnsGroups');
 
         return $this->updateSuccess();
     }
@@ -100,6 +101,8 @@ class GroupController extends Controller
         $permissions = [];
         foreach ($group->permissions as $permKey => $permValue) {
             $fresnsKeys = [
+                'private_whitelist_roles',
+                'can_publish',
                 'publish_post',
                 'publish_post_roles',
                 'publish_post_review',
@@ -113,7 +116,7 @@ class GroupController extends Controller
                 $isCustom = false;
             }
 
-            if ($permKey == 'publish_post_roles' || $permKey == 'publish_comment_roles') {
+            if ($permKey == 'private_whitelist_roles' || $permKey == 'publish_post_roles' || $permKey == 'publish_comment_roles') {
                 $permValue = json_encode($permValue);
             }
 
@@ -160,6 +163,8 @@ class GroupController extends Controller
             $newPermissions[$permKey] = $permValue;
         }
 
+        $newPermissions['private_whitelist_roles'] = $permissions['private_whitelist_roles'];
+        $newPermissions['can_publish'] = $permissions['can_publish'];
         $newPermissions['publish_post'] = $permissions['publish_post'];
         $newPermissions['publish_post_roles'] = $permissions['publish_post_roles'] ?? [];
         $newPermissions['publish_post_review'] = (bool) ($permissions['publish_post_review'] ?? 0);
@@ -170,7 +175,7 @@ class GroupController extends Controller
         $group->permissions = $newPermissions;
         $group->save();
 
-        CacheHelper::forgetFresnsMultilingual("fresns_api_group_{$group->gid}", 'fresnsGroupData');
+        CacheHelper::forgetFresnsMultilingual("fresns_detail_group_{$group->id}", 'fresnsGroups');
         CacheHelper::forgetFresnsModel('group', $group->gid);
 
         return $this->updateSuccess();

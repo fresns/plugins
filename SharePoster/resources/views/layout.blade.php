@@ -42,6 +42,9 @@
                                 <a class="nav-link @if (Route::is('share-poster.admin.hashtag')) active @endif" href="{{ route('share-poster.admin.hashtag') }}" role="button">{{ __('FsLang::panel.hashtag') }}</a>
                             </li>
                             <li class="nav-item" role="presentation">
+                                <a class="nav-link @if (Route::is('share-poster.admin.geotag')) active @endif" href="{{ route('share-poster.admin.geotag') }}" role="button">{{ __('FsLang::panel.geotag') }}</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
                                 <a class="nav-link @if (Route::is('share-poster.admin.post')) active @endif" href="{{ route('share-poster.admin.post') }}" role="button">{{ __('FsLang::panel.post') }}</a>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -97,7 +100,7 @@
                 btn.prop('disabled', true);
                 if (0 === btn.children('.spinner-border').length) {
                     btn.prepend(
-                        '<span class="spinner-border spinner-border-sm mg-r-5 d-none" role="status" aria-hidden="true"></span> '
+                        '<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> '
                     );
                 }
                 btn.children('.spinner-border').removeClass('d-none');

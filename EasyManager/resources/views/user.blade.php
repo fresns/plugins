@@ -81,7 +81,7 @@
                         </td>
                         <td>
                             @if ($user->profile?->main_role)
-                                <a href="#user{{ $user->profile->id }}RolesModal" data-bs-toggle="modal">{{ $user->profile?->main_role?->getLangName($defaultLanguage) }}</a>
+                                <a href="#user{{ $user->profile->id }}RolesModal" data-bs-toggle="modal">{{ $user->profile?->main_role?->getLangContent('name', $defaultLanguage) }}</a>
                             @else
                                 <a href="#user{{ $user->profile->id }}RolesModal" data-bs-toggle="modal" class="link-secondary">Null</a>
                             @endif
@@ -111,19 +111,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($user->profile->getUserRoles($defaultLanguage) as $role)
-                                                        <tr id="{{ $role['id'] }}">
+                                                    @foreach($user->profile->getUserRolesFullInfo($defaultLanguage) as $role)
+                                                        <tr id="{{ $role['rid'] }}">
                                                             <th scope="row">{{ $role['rid'] }}</th>
                                                             <td>{{ $role['name'] }}</td>
                                                             <td>{!! $role['isMain'] ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-dash-lg text-secondary"></i>' !!}</td>
                                                             <td>{{ $role['expiryDateTime'] }}</td>
-                                                            <td>{{ $role['restoreRoleName'] }}</td>
+                                                            <td>{{ $role['restoreRole'] ? $role['restoreRole']['name'] : '' }}</td>
                                                             <td class="text-center">
-                                                                <form action="{{ route('easy-manager.user.delete.role', ['id' => $role['id']]) }}" method="post">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <button type="submit" class="btn btn-link link-danger btn-sm">{{ __('EasyManager::fresns.button_delete') }}</button>
-                                                                </form>
+                                                                @if (count($user->profile->getUserRolesFullInfo($defaultLanguage)) > 1)
+                                                                    <form action="{{ route('easy-manager.user.delete.role', ['uid' => $user->profile->uid, 'rid' => $role['rid']]) }}" method="post">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <button type="submit" class="btn btn-link link-danger btn-sm">{{ __('EasyManager::fresns.button_delete') }}</button>
+                                                                    </form>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -201,10 +203,10 @@
                         <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label">{{ __('EasyManager::fresns.table_role') }}</label>
                             <div class="col-sm-9">
-                                <select class="form-select" name="roleId">
+                                <select class="form-select" name="rid">
                                     <option selected>{{ __('EasyManager::fresns.select_box_tip_role') }}</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->getLangName($defaultLanguage) }}</option>
+                                        <option value="{{ $role->rid }}">{{ $role->getLangContent('name', $defaultLanguage) }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -231,10 +233,10 @@
                         <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label">{{ __('EasyManager::fresns.table_restore_role_after') }}</label>
                             <div class="col-sm-9">
-                                <select class="form-select" name="restore_role_id">
+                                <select class="form-select" name="restore_role_rid">
                                     <option selected value="0">-</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->getLangName($defaultLanguage) }}</option>
+                                        <option value="{{ $role->rid }}">{{ $role->getLangContent('name', $defaultLanguage) }}</option>
                                     @endforeach
                                 </select>
                             </div>

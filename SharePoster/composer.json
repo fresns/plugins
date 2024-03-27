@@ -16,6 +16,7 @@
         }
     },
     "require": {
+        "ext-imagick": "*",
         "endroid/qr-code": "^4.8"
     }
 }

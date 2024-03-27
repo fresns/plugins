@@ -53,105 +53,15 @@
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/jquery.min.js"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                accept: 'application/json',
-            },
-            crossDomain: true,
-            xhrFields: {
-                withCredentials: true,
-            },
-        });
-
-        /* Tooltips */
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-
         // set timeout toast hide
         const setTimeoutToastHide = () => {
             $('.toast.show').each((k, v) => {
                 setTimeout(function () {
                     $(v).hide();
-                }, 1500);
+                }, 2000);
             });
         };
         setTimeoutToastHide();
-
-        // tips
-        window.tips = function (message, code = 200) {
-            let html = `<div aria-live="polite" aria-atomic="true" class="position-fixed top-50 start-50 translate-middle" style="z-index:99">
-                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                            <img src="/static/images/icon.png" width="20px" height="20px" class="rounded me-2" alt="Fresns">
-                            <strong class="me-auto">Fresns</strong>
-                            <small>${code}</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                    <div class="toast-body">${message}</div>
-                </div>
-            </div>`;
-            $('div.fresns-tips').prepend(html);
-            setTimeoutToastHide();
-        };
-
-        // SearchBox
-        var select = document.getElementById('inputNameSelect');
-        var button = document.getElementById('inputNameSelectBtn');
-        var input = document.getElementById('inputName');
-
-        select && select.addEventListener('click', function(event) {
-            var target = event.target;
-            if (target.tagName === 'A') {
-                input.name = target.getAttribute('data-value');
-                button.innerHTML = target.getAttribute('data-name');
-            }
-        });
-
-        // config edit
-        $(function() {
-            $('.ajax-form').submit(function(event) {
-                event.preventDefault();
-                $('.ajax-form button[type="submit"]').prop('disabled', true);
-
-                $.ajax({
-                    method: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: new FormData($(this)[0]),
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        console.log(response);
-
-                        $('.ajax-form button[type="submit"]').prop('disabled', false);
-                        window.tips(response.err_msg)
-
-                        if (response.code == 200) {
-                            location.reload();
-                        }
-                    },
-                    error: function(error) {
-                        console.error(error);
-                        window.tips(error.responseJSON.message || error.responseJSON.err_msg || 'Unknown Error')
-                        $('.ajax-form button[type="submit"] span').remove();
-                        $('.ajax-form button[type="submit"]').prop('disabled', false);
-                    },
-                });
-            });
-        });
-
-        $('.delete-button').click(function () {
-            $('#deleteConfirm').data('button', $(this));
-            $('#deleteConfirm').modal('show');
-            return false;
-        });
-
-        $('#deleteSubmit').click(function () {
-            let button = $('#deleteConfirm').data('button');
-            button.parent('form').submit();
-            $('#deleteConfirm').modal('hide');
-        });
     </script>
     @stack('script')
 </body>

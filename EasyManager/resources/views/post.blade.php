@@ -9,6 +9,7 @@
                     <th scope="col">PID</th>
                     <th scope="col">{{ __('EasyManager::fresns.group') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_summary') }}</th>
+                    <th scope="col">{{ __('EasyManager::fresns.geotag') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.hashtag') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.file') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_is_allow') }}</th>
@@ -101,8 +102,9 @@
                     <tr>
                         <th scope="row">{{ $post->id }}</th>
                         <td><a href="{{ $url.$post->pid }}" target="_blank">{{ $post->pid }}</a></td>
-                        <td><a href="{{ route('easy-manager.group.index', ['id' => $post?->group?->id]) }}">{{ $post?->group?->getLangName($defaultLanguage) }}</a></td>
+                        <td><a href="{{ route('easy-manager.group.index', ['id' => $post->group?->id]) }}">{{ $post->group?->getLangContent('name', $defaultLanguage) }}</a></td>
                         <td>{{ $post->title ?? Str::limit(strip_tags($post->content), 30) }}</td>
+                        <td><a href="{{ route('easy-manager.geotag.index', ['id' => $post->geotag_id]) }}">{{ $post->geotag?->getLangContent('name', $defaultLanguage) }}</a></td>
                         <td>
                             @if (count($post->hashtags) > 0)
                                 <a href="{{ route('easy-manager.hashtag.index', ['ids' => json_encode(collect($post->hashtags)->pluck('file_id'))]) }}">
@@ -118,10 +120,10 @@
                             @endif
                         </td>
                         <td>
-                            @if ($post->postAppend->is_allow)
-                                {{ __('EasyManager::fresns.option_no') }}
-                            @else
+                            @if ($post->permissions['readConfig']['isReadLocked'] ?? false)
                                 {{ __('EasyManager::fresns.option_yes') }}
+                            @else
+                                {{ __('EasyManager::fresns.option_no') }}
                             @endif
                         </td>
                         <td>

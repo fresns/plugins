@@ -24,6 +24,7 @@ Route::name('admin.')->prefix('admin')->middleware(['panel', 'panelAuth'])->grou
     Route::get('/', [AdminController::class, 'index'])->name('index'); // user
     Route::get('group', [AdminController::class, 'group'])->name('group');
     Route::get('hashtag', [AdminController::class, 'hashtag'])->name('hashtag');
+    Route::get('geotag', [AdminController::class, 'geotag'])->name('geotag');
     Route::get('post', [AdminController::class, 'post'])->name('post');
     Route::get('comment', [AdminController::class, 'comment'])->name('comment');
     Route::get('font', [AdminController::class, 'font'])->name('font');

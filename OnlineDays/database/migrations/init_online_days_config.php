@@ -23,7 +23,6 @@ return new class extends Migration
             'item_key' => 'online_days_extcredits_id',
             'item_value' => null,
             'item_type' => 'number',
-            'item_tag' => 'OnlineDays',
         ],
     ];
 

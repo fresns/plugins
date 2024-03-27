@@ -16,7 +16,7 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
-        $commentQuery = Comment::with(['commentAppend', 'parentComment', 'author', 'post', 'hashtags', 'fileUsages']);
+        $commentQuery = Comment::with(['parentComment', 'author', 'post', 'geotag', 'hashtags', 'fileUsages']);
 
         $commentQuery->when($request->id, function ($query, $value) {
             $query->where('id', $value);
@@ -40,6 +40,10 @@ class CommentController extends Controller
 
         $commentQuery->when($request->groupId, function ($query, $value) {
             $query->whereRelation('post', 'group_id', $value);
+        });
+
+        $commentQuery->when($request->geotagId, function ($query, $value) {
+            $query->where('geotag_id', $value);
         });
 
         $commentQuery->when($request->hashtagId, function ($query, $value) {
@@ -73,13 +77,15 @@ class CommentController extends Controller
         // site config
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
             'website_comment_detail_path',
-            'site_url',
             'comment_liker_count',
             'comment_disliker_count',
             'comment_follower_count',
             'comment_blocker_count',
         ]);
-        $url = $configKeys['site_url'].'/'.$configKeys['website_comment_detail_path'].'/';
+
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $url = $siteUrl.'/'.$configKeys['website_comment_detail_path'].'/';
 
         return view('EasyManager::comment', compact('comments', 'search', 'url'));
     }

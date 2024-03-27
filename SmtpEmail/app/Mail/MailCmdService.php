@@ -10,53 +10,98 @@ namespace Plugins\SmtpEmail\Mail;
 
 use App\Helpers\ConfigHelper;
 use App\Helpers\DateHelper;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class MailCmdService
 {
-    public function sendCode($input)
+    public function sendCode($wordBody)
     {
         try {
-            $codeRes = MailService::makeMailCode($input['account'], $input['templateId']);
-            if ($codeRes['code'] != '000000') {
-                return ['code' => 1002, 'message' => 'Data does not exist', 'data' => []];
+            $codeRes = MailService::makeMailCode($wordBody['account'], $wordBody['templateId']);
+            if ($codeRes['code'] != 0) {
+                return [
+                    'code' => 10001,
+                    'message' => 'Data does not exist',
+                    'data' => [],
+                ];
             }
-            $code = $codeRes['mailCode'];
-            $sitename = ConfigHelper::fresnsConfigByItemKey('site_name', $input['langTag']);
-            $template = MailService::getTemplateValue($input['templateId'], $input['langTag']);
+
+            $template = MailService::getTemplateValue($wordBody['templateId'], $wordBody['langTag']);
+
             if (empty($template) || empty($template['title']) || empty($template['content'])) {
-                return ['code' => 1002, 'message' => 'Data does not exist', 'data' => []];
+                return [
+                    'code' => 10001,
+                    'message' => 'Data does not exist',
+                    'data' => [],
+                ];
             }
 
-            $datetime = date('Y-m-d H:i:s', time());
-            $time = DateHelper::fresnsDateTimeByTimezone($datetime, null, $input['langTag']);
+            $siteLogo = ConfigHelper::fresnsConfigFileUrlByItemKey('site_logo');
+            $siteIcon = ConfigHelper::fresnsConfigFileUrlByItemKey('site_icon');
+            $siteName = ConfigHelper::fresnsConfigByItemKey('site_name', $wordBody['langTag']);
+            $code = $codeRes['data']['emailCode'];
+            $time = DateHelper::fresnsFormatConversion(now(), $wordBody['langTag']);
 
-            $title = MailService::getTitle($template['title'], $sitename);
-            $content = MailService::getContent($template['content'], $sitename, $code, $time);
+            $title = Str::replace('{name}', $siteName, $template['title']);
+            $title = Str::replace('{code}', $code, $title);
+            $title = Str::replace('{time}', $time, $title);
 
-            Log::info('Email Params: ', [$input, $title, $content]);
+            $content = Str::replace('{logo}', $siteLogo, $template['content']);
+            $content = Str::replace('{icon}', $siteIcon, $content);
+            $content = Str::replace('{name}', $siteName, $content);
+            $content = Str::replace('{code}', $code, $content);
+            $content = Str::replace('{time}', $time, $content);
 
             MailService::initMailSetting();
-            Mail::to($input['account'])->send(new MailSend($title, $content));
 
-            return ['code' => 0, 'message' => 'ok', 'data' => []];
+            Mail::to($wordBody['account'])->send(new MailSend($title, $content));
+
+            return [
+                'code' => 0,
+                'message' => 'ok',
+                'data' => [],
+            ];
         } catch (\Error $error) {
-            return ['code' => 50000, 'message' => $error->getMessage(), 'data' => []];
+            return [
+                'code' => 10000,
+                'message' => $error->getMessage(),
+                'data' => [],
+            ];
         }
     }
 
-    public function sendEmail($input)
+    public function sendEmail($wordBody)
     {
         try {
-            Log::info('Email Params: ', $input);
+            $siteLogo = ConfigHelper::fresnsConfigFileUrlByItemKey('site_logo');
+            $siteIcon = ConfigHelper::fresnsConfigFileUrlByItemKey('site_icon');
+            $siteName = ConfigHelper::fresnsConfigByItemKey('site_name', $wordBody['langTag']);
+            $time = DateHelper::fresnsFormatConversion(now(), $wordBody['langTag']);
+
+            $title = Str::replace('{name}', $siteName, $wordBody['title']);
+            $title = Str::replace('{time}', $time, $title);
+
+            $content = Str::replace('{logo}', $siteLogo, $wordBody['content']);
+            $content = Str::replace('{icon}', $siteIcon, $content);
+            $content = Str::replace('{name}', $siteName, $content);
+            $content = Str::replace('{time}', $time, $content);
 
             MailService::initMailSetting();
-            Mail::to($input['email'])->send(new MailSend($input['title'], $input['content']));
 
-            return ['code' => 0, 'message' => 'ok', 'data' => []];
+            Mail::to($wordBody['email'])->send(new MailSend($title, $content));
+
+            return [
+                'code' => 0,
+                'message' => 'ok',
+                'data' => [],
+            ];
         } catch (\Error $error) {
-            return ['code' => 50000, 'message' => $error->getMessage(), 'data' => []];
+            return [
+                'code' => 10000,
+                'message' => $error->getMessage(),
+                'data' => [],
+            ];
         }
     }
 }

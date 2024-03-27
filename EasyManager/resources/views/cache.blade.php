@@ -21,17 +21,15 @@
                             <li><a class="dropdown-item" href="{{ route('easy-manager.cache.index') }}">{{ __('EasyManager::fresns.option_all') }}</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'System']) }}">System</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Config']) }}">Config</a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'CodeMessage']) }}">CodeMessage</a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Language']) }}">Language</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Model']) }}">Model</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Account']) }}">Account</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'User']) }}">User</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Group']) }}">Group</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Hashtag']) }}">Hashtag</a></li>
+                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Geotag']) }}">Geotag</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Post']) }}">Post</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Comment']) }}">Comment</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Extension']) }}">Extension</a></li>
-                            <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'ApiData']) }}">ApiData</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Plugin']) }}">Plugin</a></li>
                             <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['type' => 'Web']) }}">Web</a></li>
                         </ul>

@@ -27,7 +27,7 @@ class CmdWordService
         }
 
         $uid = $wordBody['headers']['x-fresns-uid'] ?? null;
-        $userId = PrimaryHelper::fresnsUserIdByUidOrUsername($uid);
+        $userId = PrimaryHelper::fresnsPrimaryId('user', $uid);
 
         if (empty($uid) || empty($userId)) {
             return $this->failure(21008);

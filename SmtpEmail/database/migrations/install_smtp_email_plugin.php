@@ -16,43 +16,36 @@ return new class extends Migration
             'item_key' => 'fresnsemail_smtp_host',
             'item_value' => '',
             'item_type' => 'string',
-            'item_tag' => 'SmtpEmail',
         ],
         [
             'item_key' => 'fresnsemail_smtp_port',
             'item_value' => '',
             'item_type' => 'number',
-            'item_tag' => 'SmtpEmail',
         ],
         [
             'item_key' => 'fresnsemail_smtp_username',
             'item_value' => '',
             'item_type' => 'string',
-            'item_tag' => 'SmtpEmail',
         ],
         [
             'item_key' => 'fresnsemail_smtp_password',
             'item_value' => '',
             'item_type' => 'string',
-            'item_tag' => 'fresnsemail',
         ],
         [
             'item_key' => 'fresnsemail_verify_type',
             'item_value' => '',
             'item_type' => 'string',
-            'item_tag' => 'SmtpEmail',
         ],
         [
             'item_key' => 'fresnsemail_from_mail',
             'item_value' => '',
             'item_type' => 'string',
-            'item_tag' => 'SmtpEmail',
         ],
         [
             'item_key' => 'fresnsemail_from_name',
             'item_value' => '',
             'item_type' => 'string',
-            'item_tag' => 'SmtpEmail',
         ],
     ];
 

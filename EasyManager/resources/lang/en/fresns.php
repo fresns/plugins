@@ -24,6 +24,7 @@ return [
     'user' => 'User',
     'group' => 'Group',
     'hashtag' => 'Hashtag',
+    'geotag' => 'Geotag',
     'post' => 'Post',
     'comment' => 'Comment',
     'file' => 'File',

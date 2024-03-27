@@ -43,7 +43,7 @@
                         </td>
                         <td>
                             @if ($user?->main_role)
-                                {{ $user?->main_role?->getLangName($defaultLanguage) }}
+                                {{ $user?->main_role?->getLangContent('name', $defaultLanguage) }}
                             @else
                                 Null
                             @endif

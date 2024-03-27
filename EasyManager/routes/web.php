@@ -12,6 +12,7 @@ use Plugins\EasyManager\Controllers\CacheController;
 use Plugins\EasyManager\Controllers\CmdWordController;
 use Plugins\EasyManager\Controllers\CommentController;
 use Plugins\EasyManager\Controllers\FileController;
+use Plugins\EasyManager\Controllers\GeotagController;
 use Plugins\EasyManager\Controllers\GroupController;
 use Plugins\EasyManager\Controllers\HashtagController;
 use Plugins\EasyManager\Controllers\HomeController;
@@ -42,7 +43,7 @@ Route::prefix('easy-manager')->name('easy-manager.')->middleware(['panel', 'pane
     ]);
 
     Route::post('user-role/{uid}', [UserController::class, 'storeRole'])->name('user.store.role');
-    Route::delete('user-role/{id}', [UserController::class, 'deleteRole'])->name('user.delete.role');
+    Route::delete('user-role/{uid}/{rid}', [UserController::class, 'deleteRole'])->name('user.delete.role');
 
     Route::resource('group', GroupController::class)->only([
         'index', 'update', 'destroy',
@@ -51,6 +52,10 @@ Route::prefix('easy-manager')->name('easy-manager.')->middleware(['panel', 'pane
     Route::put('group/permissions/{groupId}', [GroupController::class, 'groupUpdatePermissions'])->name('group.update.permissions');
 
     Route::resource('hashtag', HashtagController::class)->only([
+        'index', 'update', 'destroy',
+    ]);
+
+    Route::resource('geotag', GeotagController::class)->only([
         'index', 'update', 'destroy',
     ]);
 

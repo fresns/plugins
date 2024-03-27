@@ -13,10 +13,10 @@ use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
 use App\Helpers\FileHelper;
 use App\Models\Account;
+use App\Models\AppUsage;
 use App\Models\Config;
 use App\Models\File;
 use App\Models\FileUsage;
-use App\Models\PluginUsage;
 use App\Models\Post;
 use App\Utilities\ConfigUtility;
 use Illuminate\Http\JsonResponse;
@@ -28,9 +28,9 @@ class WorkController extends Controller
 {
     public function index(Request $request)
     {
-        // check url authorization
-        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
-            'urlAuthorization' => $request->authorization,
+        // check access token
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyAccessToken([
+            'accessToken' => $request->accessToken,
             'userLogin' => true,
         ]);
 
@@ -46,7 +46,7 @@ class WorkController extends Controller
         // verify the right to use
         $wordBody = [
             'fskey' => 'EditorWorkspace',
-            'type' => PluginUsage::TYPE_FEATURE,
+            'type' => AppUsage::TYPE_FEATURE,
             'uid' => $headers['uid'],
         ];
         $permResp = \FresnsCmdWord::plugin('Fresns')->checkExtendPerm($wordBody);
@@ -101,7 +101,7 @@ class WorkController extends Controller
             'publish_post_name',
         ]);
         $fileAccept = FileHelper::fresnsFileAcceptByType();
-        $fsLang = ConfigHelper::fresnsConfigByItemKey('language_pack_contents', $headers['langTag']);
+        $fsLang = ConfigHelper::fresnsConfigLanguagePack($headers['langTag']);
 
         $groupCategories = static::groupCategories();
 
@@ -127,11 +127,12 @@ class WorkController extends Controller
     public static function groupCategories(): array
     {
         $query = [
+            'topGroups' => 1,
             'pageSize' => 100,
             'page' => 1,
         ];
 
-        $request = Request::create('/api/v2/group/categories', 'GET', $query);
+        $request = Request::create('/api/fresns/v1/group/list', 'GET', $query);
 
         $apiController = new GroupController();
         $response = $apiController->categories($request);
@@ -152,7 +153,7 @@ class WorkController extends Controller
             'page' => $request->page ?? 1,
         ];
 
-        $internalRequest = Request::create('/api/v2/group/list', 'GET', $query);
+        $internalRequest = Request::create('/api/fresns/v1/group/list', 'GET', $query);
 
         $request->headers->set('X-Fresns-Uid', $uid);
 
@@ -220,7 +221,7 @@ class WorkController extends Controller
         $fresnsResp = \FresnsCmdWord::plugin('Fresns')->contentQuickPublish($wordBody);
 
         if ($fresnsResp->isErrorResponse()) {
-            return $fresnsResp->errorResponse();
+            return $fresnsResp->getErrorResponse();
         }
 
         // upload file

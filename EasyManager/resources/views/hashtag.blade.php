@@ -6,7 +6,7 @@
             <thead>
                 <tr class="table-info">
                     <th scope="col">ID</th>
-                    <th scope="col">HID</th>
+                    <th scope="col">HTID</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_name') }}</th>
                     <th scope="col">{{ __('EasyManager::fresns.table_type') }}</th>
                     <th scope="col">

@@ -8,12 +8,11 @@
 
 namespace Plugins\SharePoster\Http\Controllers;
 
-use App\Exceptions\ApiException;
+use App\Fresns\Api\Exceptions\ResponseException;
 use App\Fresns\Api\Traits\ApiHeaderTrait;
 use App\Fresns\Api\Traits\ApiResponseTrait;
 use App\Helpers\ConfigHelper;
 use App\Helpers\PrimaryHelper;
-use App\Helpers\StrHelper;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -43,7 +42,7 @@ class ApiController extends Controller
         }
 
         if (empty($model)) {
-            throw new ApiException(30002);
+            throw new ResponseException(30002);
         }
 
         $configArr = ConfigHelper::fresnsConfigByItemKey('shareposter_config');
@@ -56,7 +55,7 @@ class ApiController extends Controller
             $url = PosterHelper::generatePoster($type, $model, $langTag);
 
             if (empty($url)) {
-                throw new ApiException(32302);
+                throw new ResponseException(32302);
             }
 
             return $this->success([
@@ -78,7 +77,7 @@ class ApiController extends Controller
         }
 
         if (empty($url)) {
-            throw new ApiException(32302);
+            throw new ResponseException(32302);
         }
 
         return $this->success([
