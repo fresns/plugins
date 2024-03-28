@@ -244,10 +244,8 @@
             $(document).on('submit', 'form', function () {
                 var btn = $(this).find('button[type="submit"]');
                 btn.prop('disabled', true);
-                if (0 === btn.children('.spinner-border').length) {
-                    btn.prepend(
-                        '<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> '
-                    );
+                if (btn.children('.spinner-border').length == 0) {
+                    btn.prepend('<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> ');
                 }
                 btn.children('.spinner-border').removeClass('d-none');
             });
