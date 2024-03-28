@@ -1,9 +1,8 @@
 @extends('TitleIcons::commons.fresns')
 
+@use('App\Helpers\FileHelper')
+
 @section('content')
-    @php
-        use \App\Helpers\FileHelper;
-    @endphp
     <div class="table-responsive">
         <table class="table table-hover align-middle text-nowrap">
             <thead>
@@ -21,8 +20,8 @@
                 @foreach ($operations as $operation)
                     <tr>
                         <th scope="row">{{ $operation->id }}</th>
-                        <td>{{ $operation->getLangName($defaultLanguage) }}</td>
-                        <td>{{ $operation->getLangDescription($defaultLanguage) }}</td>
+                        <td>{{ $operation->getLangContent('name', $defaultLanguage) }}</td>
+                        <td>{{ $operation->getLangContent('description', $defaultLanguage) }}</td>
                         <td>
                             @php
                                 $imageUrl = FileHelper::fresnsFileUrlByTableColumn($operation->image_file_id, $operation->image_file_url);
@@ -34,8 +33,8 @@
                             <button type="button" class="btn btn-outline-primary btn-sm float-start me-2"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editOperation"
-                                data-name="{{ $operation->getLangName($defaultLanguage) }}"
-                                data-description="{{ $operation->getLangDescription($defaultLanguage) }}"
+                                data-name="{{ $operation->getLangContent('name', $defaultLanguage) }}"
+                                data-description="{{ $operation->getLangContent('description', $defaultLanguage) }}"
                                 data-action="{{ route('title-icons.admin.update', $operation) }}"
                                 data-params="{{ $operation->toJson() }}">{{ __('FsLang::panel.button_edit') }}</button>
 
@@ -59,9 +58,6 @@
     <form action="" method="post" class="check-names" enctype="multipart/form-data">
         @csrf
         @method('put')
-
-        <input type="hidden" name="update_name">
-        <input type="hidden" name="update_description">
 
         <!-- Modal -->
         <div class="modal fade" id="editOperation" tabindex="-1" aria-labelledby="editOperation" aria-hidden="true">
@@ -359,21 +355,15 @@
                 return;
             }
 
-            if (params.names) {
-                params.names.map((name, index) => {
-                    $(this)
-                        .parent('form')
-                        .find("input[name='names[" + name.lang_tag + "]'")
-                        .val(name.lang_content);
+            if (params.name) {
+                Object.entries(params.name).forEach(([langTag, value]) => {
+                    $(this).parent('form').find("input[name='names[" + langTag + "]'").val(value);
                 });
             }
 
-            if (params.descriptions) {
-                params.descriptions.map((description, index) => {
-                    $(this)
-                        .parent('form')
-                        .find("textarea[name='descriptions[" + description.lang_tag + "]'")
-                        .val(description.lang_content);
+            if (params.description) {
+                Object.entries(params.name).forEach(([langTag, value]) => {
+                    $(this).parent('form').find("textarea[name='descriptions[" + langTag + "]'").val(value);
                 });
             }
 
@@ -386,10 +376,7 @@
                 form.find('.inputUrl').val('');
             }
 
-            form
-                .find('input:radio[name=is_enabled][value="' + params.is_enabled + '"]')
-                .prop('checked', true)
-                .click();
+            form.find('input:radio[name=is_enabled][value="' + params.is_enabled + '"]').prop('checked', true).click();
         });
     </script>
 @endpush

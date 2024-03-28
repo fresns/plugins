@@ -22,7 +22,6 @@ return new class extends Migration
             'item_key' => 'portal_editor_auto',
             'item_value' => 'true',
             'item_type' => 'boolean',
-            'item_tag' => 'PortalEditor',
         ],
     ];
 

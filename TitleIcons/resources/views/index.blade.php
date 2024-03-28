@@ -1,10 +1,8 @@
 @extends('TitleIcons::commons.layout')
 
-@section('content')
-    @php
-        use \App\Helpers\FileHelper;
-    @endphp
+@use('App\Helpers\FileHelper')
 
+@section('content')
     <div class="m-3">
         @if ($type == 'post')
             <a class="btn btn-danger btn-sm px-4" href="{{ route('title-icons.edit.post.title.icon', [
@@ -34,8 +32,8 @@
         <tbody>
             @foreach ($titles as $title)
                 <tr>
-                    <td>{{ $title->getLangName($defaultLanguage) }}</td>
-                    <td>{{ $title->getLangDescription($defaultLanguage) }}</td>
+                    <td>{{ $title->getLangContent('name', $defaultLanguage) }}</td>
+                    <td>{{ $title->getLangContent('description', $defaultLanguage) }}</td>
                     <td>
                         @php
                             $imageUrl = FileHelper::fresnsFileUrlByTableColumn($title->image_file_id, $title->image_file_url);

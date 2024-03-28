@@ -4,14 +4,14 @@
     "description": "Fresns official development of easy to manage menu.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.5.5",
-    "scene": [
+    "version": "2.0.0",
+    "panelUsages": [
         "extendManage"
     ],
-    "accessPath": "/admin-menu?authorization={authorization}&type={type}&scene={scene}&callbackKey={postMessageKey}&uid={uid}&pid={pid}&cid={cid}",
+    "accessPath": "/admin-menu?accessToken={accessToken}&callbackKey={postMessageKey}&viewType={viewType}&uid={uid}&pid={pid}&cid={cid}",
     "settingsPath": null,
     "providers": [
-        "Plugins\\AdminMenu\\Providers\\AdminMenuServiceProvider"
+        "Plugins\\AdminMenu\\Providers\\PluginServiceProvider"
     ],
     "autoloadFiles": [],
     "aliases": {}

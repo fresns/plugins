@@ -23,7 +23,7 @@
 
     <div class="mx-3 py-2">
         @foreach($data['hashtags'] as $hashtag)
-            <a href="{{ $urlArr['hashtagDetail'].$hashtag['hid'] }}" class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill text-decoration-none mb-3 me-2 fs-6">{{ $hashtag['hname'] }}</a>
+            <a href="{{ $urlArr['hashtagDetail'].$hashtag['htid'] }}" class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill text-decoration-none mb-3 me-2 fs-6">{{ $hashtag['name'] }}</a>
         @endforeach
     </div>
 </div>

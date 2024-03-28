@@ -9,8 +9,8 @@
 namespace Plugins\PortalEditor\Controllers;
 
 use App\Helpers\CacheHelper;
+use App\Helpers\StrHelper;
 use App\Models\Config;
-use App\Models\Language;
 use Illuminate\Http\Request;
 
 class EditController extends Controller
@@ -51,11 +51,9 @@ class EditController extends Controller
         $name = $platforms[$key]['name'] ?? null;
         $lang = $langMenus[$langKey] ?? null;
 
-        $portal = Language::where('table_name', 'configs')
-            ->where('table_column', 'item_value')
-            ->where('table_key', "portal_{$id}")
-            ->where('lang_tag', $langTag)
-            ->first()?->lang_content ?? null;
+        $portalContent = $configs->where('item_key', "portal_{$id}")->first()?->item_value ?? [];
+
+        $portal = StrHelper::languageContent($portalContent, $langTag);
 
         return view('PortalEditor::edit', compact('id', 'langTag', 'name', 'lang', 'portal'));
     }
@@ -67,29 +65,30 @@ class EditController extends Controller
         }
 
         $itemKey = "portal_{$id}";
+        $config = Config::withTrashed()->where('item_key', $itemKey)->first();
 
-        Config::withTrashed()->updateOrCreate([
-            'item_key' => $itemKey,
-        ], [
-            'item_value' => null,
-            'item_type' => 'string',
-            'item_tag' => 'client',
-            'is_multilingual' => 1,
-            'is_custom' => 1,
-            'is_api' => 1,
-            'deleted_at' => null,
-        ]);
+        if (! $config) {
+            $config = new Config();
 
-        Language::withTrashed()->updateOrCreate([
-            'table_name' => 'configs',
-            'table_column' => 'item_value',
-            'table_key' => $itemKey,
-            'lang_tag' => $langTag,
-        ], [
-            'table_id' => null,
-            'lang_content' => $request->content,
-            'deleted_at' => null,
-        ]);
+            $config->fill([
+                'item_key' => $itemKey,
+                'item_type' => 'object',
+                'is_multilingual' => 1,
+                'is_custom' => 1,
+                'is_api' => 1,
+            ]);
+        }
+
+        $itemValue = $config->item_value;
+        $itemValue[$langTag] = $request->content;
+
+        $config->item_value = $itemValue;
+        $config->item_type = 'object';
+        $config->is_multilingual = 1;
+        $config->is_custom = 1;
+        $config->is_api = 1;
+        $config->deleted_at = null;
+        $config->save();
 
         CacheHelper::forgetFresnsConfigs($itemKey);
 

@@ -14,7 +14,6 @@ use App\Fresns\Api\Http\Controllers\UserController;
 use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
 use App\Models\Config;
-use App\Models\Language;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -36,8 +35,7 @@ class CmdWordService
             'item_key' => 'portal_4',
         ], [
             'item_value' => null,
-            'item_type' => 'string',
-            'item_tag' => 'client',
+            'item_type' => 'object',
             'is_multilingual' => 1,
             'is_custom' => 1,
             'is_api' => 1,
@@ -84,7 +82,7 @@ class CmdWordService
         $postApiController = new PostController();
 
         // sticky result
-        $stickyRequest = Request::create('/api/v2/post/list', 'GET', [
+        $stickyRequest = Request::create('/api/fresns/v1/post/list', 'GET', [
             'stickyState' => 3,
         ]);
         $stickyResponse = $postApiController->list($stickyRequest);
@@ -98,9 +96,9 @@ class CmdWordService
 
         // Query Config
         $queryConfig = [
-            'user' => ConfigHelper::fresnsConfigByItemKey('menu_user_query_config'),
-            'hashtag' => ConfigHelper::fresnsConfigByItemKey('menu_hashtag_query_config'),
-            'post' => ConfigHelper::fresnsConfigByItemKey('menu_post_list_query_config'),
+            'user' => ConfigHelper::fresnsConfigByItemKey('channel_user_query_config'),
+            'hashtag' => ConfigHelper::fresnsConfigByItemKey('channel_hashtag_query_config'),
+            'post' => ConfigHelper::fresnsConfigByItemKey('channel_post_list_query_config'),
         ];
 
         // post list
@@ -113,7 +111,7 @@ class CmdWordService
             }
         }
 
-        $postRequest = Request::create('/api/v2/post/list', 'GET', $postParams);
+        $postRequest = Request::create('/api/fresns/v1/post/list', 'GET', $postParams);
         $postResponse = $postApiController->list($postRequest);
 
         if (is_array($postResponse)) {
@@ -135,7 +133,7 @@ class CmdWordService
             }
         }
 
-        $userRequest = Request::create('/api/v2/user/list', 'GET', $userParams);
+        $userRequest = Request::create('/api/fresns/v1/user/list', 'GET', $userParams);
         $userResponse = $userApiController->list($userRequest);
 
         if (is_array($userResponse)) {
@@ -157,7 +155,7 @@ class CmdWordService
             }
         }
 
-        $hashtagRequest = Request::create('/api/v2/hashtag/list', 'GET', $hashtagParams);
+        $hashtagRequest = Request::create('/api/fresns/v1/hashtag/list', 'GET', $hashtagParams);
         $hashtagResponse = $hashtagApiController->list($hashtagRequest);
 
         if (is_array($hashtagResponse)) {
@@ -177,10 +175,11 @@ class CmdWordService
 
     public static function titleArr(string $langTag): array
     {
-        $fsLang = ConfigHelper::fresnsConfigApiByItemKey('language_pack_contents', $langTag);
-        $menuHashtagName = ConfigHelper::fresnsConfigApiByItemKey('menu_hashtag_name', $langTag);
-        $menuUserName = ConfigHelper::fresnsConfigApiByItemKey('menu_user_name', $langTag);
-        $menuPostListName = ConfigHelper::fresnsConfigApiByItemKey('menu_post_list_name', $langTag);
+        $fsLang = ConfigHelper::fresnsConfigLanguagePack($langTag);
+
+        $menuHashtagName = ConfigHelper::fresnsConfigByItemKey('channel_hashtag_name', $langTag);
+        $menuUserName = ConfigHelper::fresnsConfigByItemKey('channel_user_name', $langTag);
+        $menuPostListName = ConfigHelper::fresnsConfigByItemKey('channel_post_list_name', $langTag);
 
         return [
             'sticky' => $fsLang['contentSticky'],
@@ -194,7 +193,6 @@ class CmdWordService
     public static function urlArr(string $langTag): array
     {
         $configKeys = ConfigHelper::fresnsConfigByItemKeys([
-            'site_url',
             'website_user_path',
             'website_post_path',
             'website_hashtag_path',
@@ -202,31 +200,33 @@ class CmdWordService
             'website_post_detail_path',
             'website_hashtag_detail_path',
             'default_language',
-            'menu_user_status',
-            'menu_hashtag_status',
-            'menu_post_list_status',
+            'channel_user_status',
+            'channel_hashtag_status',
+            'channel_post_list_status',
         ]);
 
-        $userUrl = $configKeys['site_url'].'/'.$langTag.'/'.$configKeys['website_user_path'];
-        $hashtagUrl = $configKeys['site_url'].'/'.$langTag.'/'.$configKeys['website_hashtag_path'];
-        $postUrl = $configKeys['site_url'].'/'.$langTag.$configKeys['website_post_path'].'/list';
-        $userDetailUrl = $configKeys['site_url'].'/'.$langTag.'/'.$configKeys['website_user_detail_path'].'/';
-        $hashtagDetailUrl = $configKeys['site_url'].'/'.$langTag.'/'.$configKeys['website_hashtag_detail_path'].'/';
-        $postDetailUrl = $configKeys['site_url'].'/'.$langTag.'/'.$configKeys['website_post_detail_path'].'/';
+        $siteUrl = ConfigHelper::fresnsSiteUrl();
+
+        $userUrl = $siteUrl.'/'.$langTag.'/'.$configKeys['website_user_path'];
+        $hashtagUrl = $siteUrl.'/'.$langTag.'/'.$configKeys['website_hashtag_path'];
+        $postUrl = $siteUrl.'/'.$langTag.$configKeys['website_post_path'].'/list';
+        $userDetailUrl = $siteUrl.'/'.$langTag.'/'.$configKeys['website_user_detail_path'].'/';
+        $hashtagDetailUrl = $siteUrl.'/'.$langTag.'/'.$configKeys['website_hashtag_detail_path'].'/';
+        $postDetailUrl = $siteUrl.'/'.$langTag.'/'.$configKeys['website_post_detail_path'].'/';
 
         if ($configKeys['default_language'] == $langTag) {
-            $userUrl = $configKeys['site_url'].'/'.$configKeys['website_user_path'];
-            $hashtagUrl = $configKeys['site_url'].'/'.$configKeys['website_hashtag_path'];
-            $postUrl = $configKeys['site_url'].'/'.$configKeys['website_post_path'].'/list';
-            $userDetailUrl = $configKeys['site_url'].'/'.$configKeys['website_user_detail_path'].'/';
-            $hashtagDetailUrl = $configKeys['site_url'].'/'.$configKeys['website_hashtag_detail_path'].'/';
-            $postDetailUrl = $configKeys['site_url'].'/'.$configKeys['website_post_detail_path'].'/';
+            $userUrl = $siteUrl.'/'.$configKeys['website_user_path'];
+            $hashtagUrl = $siteUrl.'/'.$configKeys['website_hashtag_path'];
+            $postUrl = $siteUrl.'/'.$configKeys['website_post_path'].'/list';
+            $userDetailUrl = $siteUrl.'/'.$configKeys['website_user_detail_path'].'/';
+            $hashtagDetailUrl = $siteUrl.'/'.$configKeys['website_hashtag_detail_path'].'/';
+            $postDetailUrl = $siteUrl.'/'.$configKeys['website_post_detail_path'].'/';
         }
 
         return [
-            'user' => $configKeys['menu_user_status'] ? $userUrl : null,
-            'hashtag' => $configKeys['menu_hashtag_status'] ? $hashtagUrl : null,
-            'post' => $configKeys['menu_post_list_status'] ? $postUrl : null,
+            'user' => $configKeys['channel_user_status'] ? $userUrl : null,
+            'hashtag' => $configKeys['channel_hashtag_status'] ? $hashtagUrl : null,
+            'post' => $configKeys['channel_post_list_status'] ? $postUrl : null,
             'userDetail' => $userDetailUrl,
             'hashtagDetail' => $hashtagDetailUrl,
             'postDetail' => $postDetailUrl,
@@ -235,15 +235,31 @@ class CmdWordService
 
     public static function saveHtml(string $langTag, mixed $html): void
     {
-        Language::withTrashed()->updateOrCreate([
-            'table_name' => 'configs',
-            'table_column' => 'item_value',
-            'table_key' => 'portal_4',
-            'lang_tag' => $langTag,
-        ], [
-            'table_id' => null,
-            'lang_content' => $html,
-            'deleted_at' => null,
-        ]);
+        $config = Config::withTrashed()->where('item_key', 'portal_4')->first();
+
+        if (! $config) {
+            $config = new Config();
+
+            $config->fill([
+                'item_key' => 'portal_4',
+                'item_type' => 'object',
+                'is_multilingual' => 1,
+                'is_custom' => 1,
+                'is_api' => 1,
+            ]);
+        }
+
+        $itemValue = $config->item_value;
+        $itemValue[$langTag] = $html;
+
+        $config->item_value = $itemValue;
+        $config->item_type = 'object';
+        $config->is_multilingual = 1;
+        $config->is_custom = 1;
+        $config->is_api = 1;
+        $config->deleted_at = null;
+        $config->save();
+
+        CacheHelper::forgetFresnsConfigs('portal_4');
     }
 }

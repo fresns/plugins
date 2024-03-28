@@ -4,8 +4,8 @@
     "description": "Edit the portal content code directly.",
     "author": "Fresns",
     "authorLink": "https://fresns.org",
-    "version": "1.0.3",
-    "scene": [],
+    "version": "1.1.0",
+    "panelUsages": [],
     "accessPath": null,
     "settingsPath": "/portal-editor",
     "providers": [

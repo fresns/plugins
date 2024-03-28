@@ -18,56 +18,56 @@ return new class extends Migration
             'style' => 'success',
             'name' => 'Available',
             'image_file_url' => '/assets/TitleIcons/operations/available.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'success',
             'name' => 'Completed',
             'image_file_url' => '/assets/TitleIcons/operations/completed.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'secondary',
             'name' => 'Duplicate',
             'image_file_url' => '/assets/TitleIcons/operations/duplicate.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'secondary',
             'name' => 'Wontfix',
             'image_file_url' => '/assets/TitleIcons/operations/wontfix.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'info',
             'name' => 'Invalid',
             'image_file_url' => '/assets/TitleIcons/operations/invalid.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'primary',
             'name' => 'Planned',
             'image_file_url' => '/assets/TitleIcons/operations/planned.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'primary',
             'name' => 'In-Progress',
             'image_file_url' => '/assets/TitleIcons/operations/in-progress.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ], [
             'type' => Operation::TYPE_DIVERSIFY_IMAGE,
             'code' => 'title',
             'style' => 'warning',
             'name' => 'Reward',
             'image_file_url' => '/assets/TitleIcons/operations/reward.png',
-            'plugin_fskey' => 'TitleIcons',
+            'app_fskey' => 'TitleIcons',
         ],
     ];
 
@@ -86,7 +86,7 @@ return new class extends Migration
         $this->process(function ($item) {
             Operation::updateOrCreate([
                 'name' => $item['name'],
-                'plugin_fskey' => $item['plugin_fskey'],
+                'app_fskey' => $item['app_fskey'],
             ], $item);
         });
     }

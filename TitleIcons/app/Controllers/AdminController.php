@@ -11,7 +11,6 @@ namespace Plugins\TitleIcons\Controllers;
 use App\Helpers\PrimaryHelper;
 use App\Models\File;
 use App\Models\FileUsage;
-use App\Models\Language;
 use App\Models\Operation;
 use Illuminate\Http\Request;
 
@@ -31,16 +30,16 @@ class AdminController extends Controller
         $operation->type = Operation::TYPE_DIVERSIFY_IMAGE;
         $operation->code = 'title';
         $operation->style = 'primary';
-        $operation->name = $request->names[$this->defaultLanguage] ?? (current(array_filter($request->names)) ?: '');
-        $operation->description = $request->descriptions[$this->defaultLanguage] ?? (current(array_filter($request->descriptions)) ?: '');
+        $operation->name = $request->names;
+        $operation->description = $request->descriptions;
         $operation->image_file_url = $request->image_file_url;
         $operation->is_enabled = $request->is_enabled;
-        $operation->plugin_fskey = 'TitleIcons';
+        $operation->app_fskey = 'TitleIcons';
         $operation->save();
 
         if ($request->file('image_file')) {
             $wordBody = [
-                'usageType' => FileUsage::TYPE_OPERATION,
+                'usageType' => FileUsage::TYPE_SYSTEM,
                 'platformId' => 4,
                 'tableName' => 'operations',
                 'tableColumn' => 'image_file_id',
@@ -52,65 +51,11 @@ class AdminController extends Controller
             if ($fresnsResp->isErrorResponse()) {
                 return back()->with('failure', $fresnsResp->getMessage());
             }
-            $fileId = PrimaryHelper::fresnsFileIdByFid($fresnsResp->getData('fid'));
+            $fileId = PrimaryHelper::fresnsPrimaryId('file', $fresnsResp->getData('fid'));
 
             $operation->image_file_id = $fileId;
             $operation->image_file_url = null;
             $operation->save();
-        }
-
-        if ($request->update_name) {
-            foreach ($request->names as $langTag => $content) {
-                $language = Language::tableName('operations')
-                    ->where('table_id', $operation->id)
-                    ->where('table_column', 'name')
-                    ->where('lang_tag', $langTag)
-                    ->first();
-
-                if (! $language) {
-                    // create but no content
-                    if (! $content) {
-                        continue;
-                    }
-                    $language = new Language();
-                    $language->fill([
-                        'table_name' => 'operations',
-                        'table_column' => 'name',
-                        'table_id' => $operation->id,
-                        'lang_tag' => $langTag,
-                    ]);
-                }
-
-                $language->lang_content = $content;
-                $language->save();
-            }
-        }
-
-        if ($request->update_description) {
-            foreach ($request->descriptions as $langTag => $content) {
-                $language = Language::tableName('operations')
-                    ->where('table_id', $operation->id)
-                    ->where('table_column', 'description')
-                    ->where('lang_tag', $langTag)
-                    ->first();
-
-                if (! $language) {
-                    // create but no content
-                    if (! $content) {
-                        continue;
-                    }
-                    $language = new Language();
-                    $language->fill([
-                        'table_name' => 'operations',
-                        'table_column' => 'description',
-                        'table_id' => $operation->id,
-                        'lang_tag' => $langTag,
-                    ]);
-                }
-
-                $language->lang_content = $content;
-                $language->save();
-            }
         }
 
         return $this->createSuccess();
@@ -123,16 +68,17 @@ class AdminController extends Controller
         $operation->type = Operation::TYPE_DIVERSIFY_IMAGE;
         $operation->code = 'title';
         $operation->style = 'primary';
-        $operation->name = $request->names[$this->defaultLanguage] ?? (current(array_filter($request->names)) ?: '');
-        $operation->description = $request->descriptions[$this->defaultLanguage] ?? (current(array_filter($request->descriptions)) ?: '');
+        $operation->name = $request->names;
+        $operation->description = $request->descriptions;
         $operation->image_file_url = $request->image_file_url;
         $operation->is_enabled = $request->is_enabled;
-        $operation->plugin_fskey = 'TitleIcons';
+        $operation->app_fskey = 'TitleIcons';
+
         $operation->save();
 
         if ($request->file('image_file')) {
             $wordBody = [
-                'usageType' => FileUsage::TYPE_OPERATION,
+                'usageType' => FileUsage::TYPE_SYSTEM,
                 'platformId' => 4,
                 'tableName' => 'operations',
                 'tableColumn' => 'image_file_id',
@@ -144,65 +90,11 @@ class AdminController extends Controller
             if ($fresnsResp->isErrorResponse()) {
                 return back()->with('failure', $fresnsResp->getMessage());
             }
-            $fileId = PrimaryHelper::fresnsFileIdByFid($fresnsResp->getData('fid'));
+            $fileId = PrimaryHelper::fresnsPrimaryId('file', $fresnsResp->getData('fid'));
 
             $operation->image_file_id = $fileId;
             $operation->image_file_url = null;
             $operation->save();
-        }
-
-        if ($request->update_name) {
-            foreach ($request->names as $langTag => $content) {
-                $language = Language::tableName('operations')
-                    ->where('table_id', $operation->id)
-                    ->where('table_column', 'name')
-                    ->where('lang_tag', $langTag)
-                    ->first();
-
-                if (! $language) {
-                    // create but no content
-                    if (! $content) {
-                        continue;
-                    }
-                    $language = new Language();
-                    $language->fill([
-                        'table_name' => 'operations',
-                        'table_column' => 'name',
-                        'table_id' => $operation->id,
-                        'lang_tag' => $langTag,
-                    ]);
-                }
-
-                $language->lang_content = $content;
-                $language->save();
-            }
-        }
-
-        if ($request->update_description) {
-            foreach ($request->descriptions as $langTag => $content) {
-                $language = Language::tableName('operations')
-                    ->where('table_id', $operation->id)
-                    ->where('table_column', 'description')
-                    ->where('lang_tag', $langTag)
-                    ->first();
-
-                if (! $language) {
-                    // create but no content
-                    if (! $content) {
-                        continue;
-                    }
-                    $language = new Language();
-                    $language->fill([
-                        'table_name' => 'operations',
-                        'table_column' => 'description',
-                        'table_id' => $operation->id,
-                        'lang_tag' => $langTag,
-                    ]);
-                }
-
-                $language->lang_content = $content;
-                $language->save();
-            }
         }
 
         return $this->updateSuccess();

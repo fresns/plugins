@@ -11,10 +11,10 @@ namespace Plugins\TitleIcons\Controllers;
 use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
 use App\Helpers\PrimaryHelper;
+use App\Models\AppUsage;
 use App\Models\Comment;
 use App\Models\Operation;
 use App\Models\OperationUsage;
-use App\Models\PluginUsage;
 use App\Models\Post;
 use App\Utilities\ConfigUtility;
 use App\Utilities\PermissionUtility;
@@ -27,8 +27,8 @@ class WebController extends Controller
     public function index(Request $request)
     {
         // Validate path credentials
-        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyUrlAuthorization([
-            'urlAuthorization' => $request->authorization,
+        $fresnsResp = \FresnsCmdWord::plugin('Fresns')->verifyAccessToken([
+            'accessToken' => $request->accessToken,
             'userLogin' => true,
         ]);
 
@@ -41,17 +41,6 @@ class WebController extends Controller
             return view('TitleIcons::tips', [
                 'code' => $fresnsResp->getCode(),
                 'message' => $fresnsResp->getMessage(),
-                'data' => [
-                    'postMessageKey' => $postMessageKey,
-                ],
-            ]);
-        }
-
-        // Determining mandatory parameters
-        if (! $request->scene) {
-            return view('TitleIcons::tips', [
-                'code' => 30001,
-                'message' => ConfigUtility::getCodeMessage(30001, 'Fresns', $langTag),
                 'data' => [
                     'postMessageKey' => $postMessageKey,
                 ],
@@ -80,8 +69,8 @@ class WebController extends Controller
         }
 
         // Verify entitlement to use
-        $userId = PrimaryHelper::fresnsUserIdByUidOrUsername($fresnsResp->getData('uid'));
-        $checkPerm = PermissionUtility::checkExtendPerm('TitleIcons', PluginUsage::TYPE_MANAGE, $groupId, $userId);
+        $userId = PrimaryHelper::fresnsPrimaryId('user', $fresnsResp->getData('uid'));
+        $checkPerm = PermissionUtility::checkExtendPerm('TitleIcons', AppUsage::TYPE_MANAGE, $groupId, $userId);
         if (! $checkPerm) {
             return view('TitleIcons::tips', [
                 'code' => 35301,
@@ -92,7 +81,7 @@ class WebController extends Controller
             ]);
         }
 
-        $fsLang = ConfigHelper::fresnsConfigByItemKey('language_pack_contents', $langTag);
+        $fsLang = ConfigHelper::fresnsConfigLanguagePack($langTag);
 
         $cacheData = $fresnsResp->getData();
         $cacheData['postMessageKey'] = $postMessageKey;
@@ -168,11 +157,11 @@ class WebController extends Controller
                 'usage_type' => OperationUsage::TYPE_POST,
                 'usage_id' => $post->id,
                 'operation_id' => $request->operationId,
-                'plugin_fskey' => 'TitleIcons',
+                'app_fskey' => 'TitleIcons',
             ]);
         }
 
-        CacheHelper::clearDataCache('post', $request->pid, 'fresnsApiData');
+        CacheHelper::clearDataCache('post', $request->pid);
 
         $wordBody = [
             'pid' => $request->pid,
@@ -254,11 +243,11 @@ class WebController extends Controller
                 'usage_type' => OperationUsage::TYPE_COMMENT,
                 'usage_id' => $comment->id,
                 'operation_id' => $request->operationId,
-                'plugin_fskey' => 'TitleIcons',
+                'app_fskey' => 'TitleIcons',
             ]);
         }
 
-        CacheHelper::clearDataCache('comment', $request->cid, 'fresnsApiData');
+        CacheHelper::clearDataCache('comment', $request->cid);
 
         $wordBody = [
             'cid' => $request->cid,

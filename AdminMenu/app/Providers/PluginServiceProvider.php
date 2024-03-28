@@ -10,14 +10,13 @@ namespace Plugins\AdminMenu\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AdminMenuServiceProvider extends ServiceProvider
+class PluginServiceProvider extends ServiceProvider
 {
     /**
      * Boot the application events.
      */
     public function boot(): void
     {
-        $this->registerTranslations();
         $this->registerViews();
     }
 
@@ -27,14 +26,6 @@ class AdminMenuServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
-    }
-
-    /**
-     * Register translations.
-     */
-    public function registerTranslations(): void
-    {
-        $this->loadTranslationsFrom(dirname(__DIR__, 2).'/resources/lang', 'AdminMenu');
     }
 
     /**

@@ -26,7 +26,7 @@ class Controller extends BaseController
         $version = PluginHelper::fresnsPluginVersionByFskey('TitleIcons');
         View::share('version', $version);
 
-        $locale = \request()->cookie('panel_lang');
+        $locale = \request()->cookie('fresns_panel_lang');
         $this->locale = $locale;
         View::share('locale', $locale);
 
