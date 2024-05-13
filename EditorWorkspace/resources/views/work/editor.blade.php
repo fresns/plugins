@@ -5,7 +5,7 @@
         <form class="form-post-box mt-2" action="{{ route('editor-workspace.work.quick.publish') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="authUlid" value="{{ $authUlid }}">
-            <input type="hidden" name="postGid" value="">
+            <input type="hidden" name="gid" value="">
 
             @if ($fsConfigs['post_editor_group'])
                 <div class="shadow-sm">
@@ -28,8 +28,8 @@
                     {{-- <div class="collapse @if ($fsConfigs['post_editor_title_view'] == 1) show @endif" id="quickTitleCollapse"> --}}
                     <div class="collapse show" id="quickTitleCollapse">
                         <input type="text" class="form-control form-control-lg rounded-0 border-0 ps-2"
-                            name="postTitle"
-                            placeholder="{{ $fsLang['editorTitle'] }} (@if ($fsConfigs['post_editor_title_required']) {{ $fsLang['editorRequired'] }} @else {{ $fsLang['editorOptional'] }} @endif)"
+                            name="title"
+                            placeholder="{{ $fsLang['editorTitle'] }} (@if ($fsConfigs['post_editor_title_required']) {{ $fsLang['required'] }} @else {{ $fsLang['optional'] }} @endif)"
                             maxlength="{{ $fsConfigs['post_editor_title_length'] }}"
                             @if ($fsConfigs['post_editor_title_required']) required @endif >
                         <hr>
@@ -111,19 +111,19 @@
                             @endif
 
                             {{-- Group Categories --}}
-                            @foreach($groupCategories as $groupCategory)
+                            @foreach($topGroups as $groupCategory)
                                 <button class="nav-link group-categories" data-page-size=15 data-page=1 data-action="{{ route('editor-workspace.work.groups', ['gid' => $groupCategory['gid']]) }}" id="v-pills-{{ $groupCategory['gid'] }}-post-box-tab" data-bs-toggle="pill" data-bs-target="#v-pills-{{ $groupCategory['gid'] }}-post-box" type="button" role="tab" aria-controls="v-pills-{{ $groupCategory['gid'] }}-post-box" aria-selected="false">
                                     @if ($groupCategory['cover'])
                                         <img src="{{ $groupCategory['cover'] }}" loading="lazy" height="20">
                                     @endif
-                                    {{ $groupCategory['gname'] }}
+                                    {{ $groupCategory['name'] }}
                                 </button>
                             @endforeach
                         </div>
 
                         <div class="tab-content" id="v-pills-post-box-tabContent" style="width:70%;">
                             {{-- Group --}}
-                            @foreach($groupCategories as $groupCategory)
+                            @foreach($topGroups as $groupCategory)
                                 <div class="tab-pane fade" id="v-pills-{{ $groupCategory['gid'] }}-post-box" role="tabpanel" aria-labelledby="v-pills-{{ $groupCategory['gid'] }}-post-box-tab" tabindex="0">
                                     <div class="list-group"></div>
                                     <div class="list-group-addmore text-center my-3"></div>
@@ -164,9 +164,9 @@
 
             function postBoxSelectGroup(obj) {
                 var gid = $(obj).data('gid');
-                var gname = $(obj).text();
-                $('#createModal #post-box-group').text(gname);
-                $("#createModal input[name='postGid']").val(gid);
+                var name = $(obj).text();
+                $('#createModal #post-box-group').text(name);
+                $("#createModal input[name='gid']").val(gid);
             }
 
             function boxAjaxGetGroupList(action, pageSize = 15, page = 1){
@@ -190,7 +190,7 @@
                             if (list.cover) {
                                 html += '<img src="' + list.cover + '" height="20" class="me-1">';
                             }
-                            html += list.gname + '</a>'
+                            html += list.name + '</a>'
                         });
                     }
 
@@ -235,7 +235,7 @@
 
                 $("#post-box-not-select-group").on('click', function (){
                     $('#createModal #post-box-group').text("{{ $fsLang['editorNoSelectGroup'] }}");
-                    $("#createModal input[name='postGid']").val("");
+                    $("#createModal input[name='gid']").val("");
                 })
             });
 

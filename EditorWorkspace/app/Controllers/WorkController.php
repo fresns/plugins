@@ -103,7 +103,7 @@ class WorkController extends Controller
         $fileAccept = FileHelper::fresnsFileAcceptByType();
         $fsLang = ConfigHelper::fresnsConfigLanguagePack($headers['langTag']);
 
-        $groupCategories = static::groupCategories();
+        $topGroups = static::topGroups();
 
         // users
         $accountConfig = Config::where('item_key', 'editor_workspace_accounts')->first();
@@ -121,10 +121,10 @@ class WorkController extends Controller
             $users = $users->merge($account->users);
         }
 
-        return view('EditorWorkspace::work.editor', compact('authUlid', 'headers', 'fsConfigs', 'fileAccept', 'fsLang', 'groupCategories', 'users'));
+        return view('EditorWorkspace::work.editor', compact('authUlid', 'headers', 'fsConfigs', 'fileAccept', 'fsLang', 'topGroups', 'users'));
     }
 
-    public static function groupCategories(): array
+    public static function topGroups(): array
     {
         $query = [
             'topGroups' => 1,
@@ -135,7 +135,7 @@ class WorkController extends Controller
         $request = Request::create('/api/fresns/v1/group/list', 'GET', $query);
 
         $apiController = new GroupController();
-        $response = $apiController->categories($request);
+        $response = $apiController->list($request);
 
         $resultContent = $response->getContent();
         $result = json_decode($resultContent, true);
@@ -205,16 +205,10 @@ class WorkController extends Controller
         $wordBody = [
             'uid' => $uid,
             'type' => 1,
-            'postQuotePid' => $request->postQuotePid,
-            'postGid' => $request->postGid,
-            'postTitle' => $request->postTitle,
-            'postIsCommentDisabled' => $request->postIsCommentDisabled,
-            'postIsCommentPrivate' => $request->postIsCommentPrivate,
+            'gid' => $request->gid,
+            'title' => $request->title,
             'content' => $request->content,
             'isMarkdown' => $request->isMarkdown,
-            'map' => $request->map,
-            'extends' => $request->extends,
-            'archives' => $request->archives,
             'requireReview' => false,
         ];
 
