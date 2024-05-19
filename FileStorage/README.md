@@ -13,14 +13,14 @@ The official File Storage service plugin developed by Fresns. Supports local, ft
 
 | Storage Settings | Local | FTP | SFTP |
 | --- | --- | --- | --- |
-| Secret ID |  | username | username |
-| Secret Key |  | password | password |
-| Bucket Name |  | ftp host | ftp host |
-| Bucket Region |  | ftp port `Default is 21` | sftp port `Default is 22` |
-| Bucket Endpoint |  |  |  |
+| Secret ID | `non-use` | username | username |
+| Secret Key | `non-use` | password | password |
+| Bucket Name | `non-use` | ftp host | ftp host |
+| Bucket Region | `non-use` | ftp port `Default is 21` | sftp port `Default is 22` |
+| Bucket Endpoint | `non-use` | `non-use` | `non-use` |
 | Access Domain | System URL of the main program | ftp URL | sftp URL |
 | Filesystem Disk | `local` | `local` or `remote` | `local` or `remote` |
-| Temporary URL Function | Only the expiration date needs to be configured, the temporary url key is not used |
+| Temporary URL Key | Enable temporary URLs, leave this configuration empty, it's not used. |
 | Image processing location | `name-end` | `name-end` | `name-end` |
 
 - Image processing libraries: The `Imagick` library is recommended. By default PHP already has the GD library installed, if you use Imagick you need to install this PHP extension.

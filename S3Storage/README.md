@@ -19,5 +19,6 @@ S3 storage, available from any storage service that supports the S3 protocol.
 | Bucket Name | AWS_BUCKET |
 | Bucket Region | AWS_DEFAULT_REGION |
 | Bucket Endpoint | AWS_URL or AWS_ENDPOINT |
-| Access Domain | AWS_URL |
+| Access Domain | AWS_URL or Other Access Domain |
 | Filesystem Disk | `remote` |
+| Temporary URL Key | Enable temporary URLs, leave this configuration empty, it's not used. |
