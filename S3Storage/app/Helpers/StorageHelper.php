@@ -28,8 +28,8 @@ class StorageHelper
             'secret' => $configs['secretKey'],
             'region' => $configs['bucketRegion'],
             'bucket' => $configs['bucketName'],
-            'url' => $configs['bucketDomain'],
-            'endpoint' => $configs['antiLinkKey'] ?? $configs['bucketDomain'],
+            'url' => $configs['accessDomain'],
+            'endpoint' => $configs['bucketEndpoint'],
             'use_path_style_endpoint' => false,
             'throw' => false,
         ];
@@ -48,7 +48,7 @@ class StorageHelper
         ]);
     }
 
-    // get anti link url
+    // get temporary url
     public static function fileUrl(?File $file, ?string $type = null): ?string
     {
         if (empty($file)) {
@@ -56,8 +56,8 @@ class StorageHelper
         }
 
         $storageConfig = FileHelper::fresnsFileStorageConfigByType($file->type);
-        $antiLinkKey = $storageConfig['antiLinkKey'];
-        $antiLinkExpire = $storageConfig['antiLinkExpire'] ?? 30;
+        $temporaryUrlKey = $storageConfig['temporaryUrlKey'];
+        $temporaryUrlExpiration = $storageConfig['temporaryUrlExpiration'] ?? 30;
 
         StorageHelper::buildDisk($file->type);
 
@@ -76,7 +76,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $newFilePath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -93,7 +93,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $newFilePath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -110,7 +110,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $newFilePath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -127,7 +127,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $newFilePath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -144,7 +144,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $newFilePath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -158,7 +158,7 @@ class StorageHelper
                 ]);
                 $videoPosterPath = $file->video_poster_path;
 
-                $fileUrl = $videoPosterPath ? StrHelper::qualifyUrl($videoPosterPath, $storageConfig['bucketDomain']) : null;
+                $fileUrl = $videoPosterPath ? StrHelper::qualifyUrl($videoPosterPath, $storageConfig['accessDomain']) : null;
                 break;
 
             case 'audioUrl':
@@ -171,7 +171,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $newFilePath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -187,7 +187,7 @@ class StorageHelper
 
                 $fileUrl = Storage::temporaryUrl(
                     $fileOriginalPath,
-                    now()->addMinutes($antiLinkExpire),
+                    now()->addMinutes($temporaryUrlExpiration),
                     [
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
@@ -218,9 +218,9 @@ class StorageHelper
 
             $fileInfo = $fileModel->getFileInfo();
 
-            // anti link
+            // temporary url
             $configs = FileHelper::fresnsFileStorageConfigByType($fileModel->type);
-            if ($configs['antiLinkStatus']) {
+            if ($configs['temporaryUrlStatus']) {
                 $urlKeys = [
                     'imageConfigUrl', 'imageRatioUrl', 'imageSquareUrl', 'imageBigUrl',
                     'videoUrl', 'videoPosterUrl',

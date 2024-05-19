@@ -4,7 +4,7 @@
     "description": "S3 storage, available from any storage service that supports the S3 protocol.",
     "author": "Fresns",
     "website": "https://fresns.org",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "providers": [
         "Plugins\\S3Storage\\Providers\\PluginServiceProvider",
         "Plugins\\S3Storage\\Providers\\CmdWordServiceProvider"

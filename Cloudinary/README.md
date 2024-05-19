@@ -19,7 +19,8 @@ Store objects to Cloudinary service providers.
 | Secret Key | API Secret | `NRTJiUPLY8f-E9oJtky_8UP2qMU` |
 | Bucket Name | Cloud Name | `fresns` |
 | Bucket Region | Delivery Type | `upload` |
-| Bucket Domain | https://res.cloudinary.com/`<cloud_name>`/`<asset_type>`/`<delivery_type>` | `https://res.cloudinary.com/fresns/image/upload/`<br>`https://res.cloudinary.com/fresns/video/upload/`<br>`https://res.cloudinary.com/fresns/raw/upload/` |
+| Bucket Endpoint |  |  |
+| Access Domain | https://res.cloudinary.com/`<cloud_name>`/`<asset_type>`/`<delivery_type>` | `https://res.cloudinary.com/fresns/image/upload/`<br>`https://res.cloudinary.com/fresns/video/upload/`<br>`https://res.cloudinary.com/fresns/raw/upload/` |
 | Filesystem Disk | `remote` |
 
 - **asset_type**

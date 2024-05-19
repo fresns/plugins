@@ -13,13 +13,14 @@ The official File Storage service plugin developed by Fresns. Supports local, ft
 
 | Storage Settings | Local | FTP | SFTP |
 | --- | --- | --- | --- |
-| Secret ID | `Useless, feel free to fill in, but do not leave blank` | username | username |
-| Secret Key | `Useless, feel free to fill in, but do not leave blank` | password | password |
-| Bucket Name | `Useless, feel free to fill in, but do not leave blank` | ftp host | ftp host |
-| Bucket Region | `Useless, feel free to fill in, but do not leave blank` | ftp port `Default is 21` | sftp port `Default is 22` |
-| Bucket Domain | System URL of the main program | ftp URL | sftp URL |
+| Secret ID |  | username | username |
+| Secret Key |  | password | password |
+| Bucket Name |  | ftp host | ftp host |
+| Bucket Region |  | ftp port `Default is 21` | sftp port `Default is 22` |
+| Bucket Endpoint |  |  |  |
+| Access Domain | System URL of the main program | ftp URL | sftp URL |
 | Filesystem Disk | `local` | `local` or `remote` | `local` or `remote` |
-| Anti-theft chain function | Only the expiration date needs to be configured, the anti-theft chain key is not used |
+| Temporary URL Function | Only the expiration date needs to be configured, the temporary url key is not used |
 | Image processing location | `name-end` | `name-end` | `name-end` |
 
 - Image processing libraries: The `Imagick` library is recommended. By default PHP already has the GD library installed, if you use Imagick you need to install this PHP extension.

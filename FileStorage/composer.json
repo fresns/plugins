@@ -16,8 +16,8 @@
         }
     },
     "require": {
-        "league/flysystem-ftp": "^3.25",
+        "league/flysystem-ftp": "^3.27",
         "league/flysystem-sftp-v3": "^3.26",
-        "intervention/image": "^3.5"
+        "intervention/image": "^3.6"
     }
 }

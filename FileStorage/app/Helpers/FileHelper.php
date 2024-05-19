@@ -16,7 +16,7 @@ use App\Models\File;
 
 class FileHelper
 {
-    // get anti link token
+    // get temporary url token
     public static function token(string $fid, ?int $time = null, ?string $type = null): string
     {
         $time = $time ?: time();
@@ -26,7 +26,7 @@ class FileHelper
         return md5($key);
     }
 
-    // get anti link url
+    // get temporary url
     public static function url(string $fileIdOrFid, ?string $type = null): string
     {
         if (StrHelper::isPureInt($fileIdOrFid)) {
@@ -61,12 +61,12 @@ class FileHelper
 
         $config = FresnsFileHelper::fresnsFileStorageConfigByType($fileType);
 
-        $time = now()->addMinutes($config['antiLinkExpire'])->timestamp;
+        $time = now()->addMinutes($config['temporaryUrlExpiration'])->timestamp;
         $token = FileHelper::token($fid, $time, $urlType);
 
         $path = "/api/file-storage/file?fid={$fid}&token={$token}&time={$time}&type={$urlType}";
 
-        return StrHelper::qualifyUrl($path, $config['bucketDomain']);
+        return StrHelper::qualifyUrl($path, $config['accessDomain']);
     }
 
     // get file info

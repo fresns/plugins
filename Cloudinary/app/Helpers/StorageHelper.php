@@ -40,7 +40,7 @@ class StorageHelper
         return $string;
     }
 
-    // get anti link url
+    // get temporary url
     public static function fileUrl(?File $file, ?string $type = null): ?string
     {
         if (empty($file)) {
@@ -48,8 +48,8 @@ class StorageHelper
         }
 
         $storageConfig = FileHelper::fresnsFileStorageConfigByType($file->type);
-        $antiLinkKey = $storageConfig['antiLinkKey'];
-        $antiLinkExpire = $storageConfig['antiLinkExpire'] ?? 30;
+        $temporaryUrlKey = $storageConfig['temporaryUrlKey'];
+        $temporaryUrlExpiration = $storageConfig['temporaryUrlExpiration'] ?? 30;
 
         StorageHelper::buildDisk($file->type);
 
@@ -62,7 +62,7 @@ class StorageHelper
             default => 'raw',
         };
 
-        $tenMinutesLater = time() + $antiLinkExpire * 60;
+        $tenMinutesLater = time() + $temporaryUrlExpiration * 60;
 
         // https://cloudinary.com/documentation/image_upload_api_reference#generate_archive_optional_parameters
         $fileUrl = null;
@@ -138,7 +138,7 @@ class StorageHelper
                     'video_poster_parameter',
                 ]);
                 // $videoPosterPath = $file->video_poster_path ?: $publicId.'.jpg';
-                // $fileUrl = StrHelper::qualifyUrl($videoPosterPath, $storageConfig['bucketDomain']);
+                // $fileUrl = StrHelper::qualifyUrl($videoPosterPath, $storageConfig['accessDomain']);
 
                 $fileUrl = Cloudinary::uploadApi()->privateDownloadUrl($publicId, 'jpg', [
                     'resource_type' => 'image',
@@ -195,9 +195,9 @@ class StorageHelper
 
             $fileInfo = $fileModel->getFileInfo();
 
-            // anti link
+            // temporary url
             $configs = FileHelper::fresnsFileStorageConfigByType($fileModel->type);
-            if ($configs['antiLinkStatus']) {
+            if ($configs['temporaryUrlStatus']) {
                 $urlKeys = [
                     'imageConfigUrl', 'imageRatioUrl', 'imageSquareUrl', 'imageBigUrl',
                     'videoUrl', 'videoPosterUrl',

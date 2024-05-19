@@ -8,9 +8,9 @@
 
 namespace Plugins\S3Storage\Services;
 
-use App\Fresns\Words\File\DTO\GetAntiLinkFileInfoDTO;
-use App\Fresns\Words\File\DTO\GetAntiLinkFileInfoListDTO;
-use App\Fresns\Words\File\DTO\GetAntiLinkFileOriginalUrlDTO;
+use App\Fresns\Words\File\DTO\GetTemporaryUrlFileInfoDTO;
+use App\Fresns\Words\File\DTO\GetTemporaryUrlFileInfoListDTO;
+use App\Fresns\Words\File\DTO\GetTemporaryUrlOfOriginalFileDTO;
 use App\Fresns\Words\File\DTO\GetUploadTokenDTO;
 use App\Fresns\Words\File\DTO\LogicalDeletionFilesDTO;
 use App\Fresns\Words\File\DTO\PhysicalDeletionFilesDTO;
@@ -92,20 +92,20 @@ class CmdWordService
         return $this->success($fileInfo);
     }
 
-    // getAntiLinkFileInfo
-    public function getAntiLinkFileInfo($wordBody)
+    // getTemporaryUrlFileInfo
+    public function getTemporaryUrlFileInfo($wordBody)
     {
-        $dtoWordBody = new GetAntiLinkFileInfoDTO($wordBody);
+        $dtoWordBody = new GetTemporaryUrlFileInfoDTO($wordBody);
 
         $fileInfo = StorageHelper::fileInfo($dtoWordBody->fileIdOrFid);
 
         return $this->success($fileInfo);
     }
 
-    // getAntiLinkFileInfoList
-    public function getAntiLinkFileInfoList($wordBody)
+    // getTemporaryUrlFileInfoList
+    public function getTemporaryUrlFileInfoList($wordBody)
     {
-        $dtoWordBody = new GetAntiLinkFileInfoListDTO($wordBody);
+        $dtoWordBody = new GetTemporaryUrlFileInfoListDTO($wordBody);
 
         $data = [];
         foreach ($dtoWordBody->fileIdsOrFids as $id) {
@@ -115,10 +115,10 @@ class CmdWordService
         return $this->success($data);
     }
 
-    // getAntiLinkFileOriginalUrl
-    public function getAntiLinkFileOriginalUrl($wordBody)
+    // getTemporaryUrlOfOriginalFile
+    public function getTemporaryUrlOfOriginalFile($wordBody)
     {
-        $dtoWordBody = new GetAntiLinkFileOriginalUrlDTO($wordBody);
+        $dtoWordBody = new GetTemporaryUrlOfOriginalFileDTO($wordBody);
 
         if (StrHelper::isPureInt($dtoWordBody->fileIdOrFid)) {
             $file = PrimaryHelper::fresnsModelById('file', $dtoWordBody->fileIdOrFid);
