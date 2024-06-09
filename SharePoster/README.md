@@ -11,8 +11,8 @@
 
 | Parameter Name | Type | Required | Description |
 | --- | --- | --- | --- |
-| type | String | **required** | `user`,`group`,`hashtag`,`post`,`comment` |
-| fsid | String | **required** | uid or username, gid, hid, pid, cid |
+| type | String | **required** | `user`,`group`,`hashtag`,`geotag`,`post`,`comment` |
+| fsid | String | **required** | uid or username, gid, htid, gtid, pid, cid |
 | langTag | String | *optional* | If no parameters are passed, the header value is used. |
 
 ## Configuration Item
@@ -101,6 +101,45 @@
         "qrcode_bottom_margin": 0
     },
     "hashtag": {
+        "background_path": "",
+        "cache": true,
+        "avatar_size": 296,
+        "avatar_circle": false,
+        "avatar_x_position": 474,
+        "avatar_y_position": 170,
+        "nickname_color": "#414141",
+        "nickname_font_size": 62,
+        "nickname_x_center": true,
+        "nickname_x_position": 0,
+        "nickname_y_position": 600,
+        "bio_color": "#7c7c7c",
+        "bio_font_size": 44,
+        "bio_x_position": 280,
+        "bio_y_position": 720,
+        "bio_max_width": 670,
+        "bio_max_lines": 6,
+        "bio_line_spacing": 12,
+        "title_color": null,
+        "title_font_size": 0,
+        "title_x_center": false,
+        "title_x_position": 0,
+        "title_y_position": 0,
+        "title_max_width": 0,
+        "title_max_lines": 0,
+        "title_line_spacing": 0,
+        "content_color": null,
+        "content_font_size": 0,
+        "content_x_position": 0,
+        "content_y_position": 0,
+        "content_max_width": 0,
+        "content_max_lines": 0,
+        "content_line_spacing": 0,
+        "qrcode_size": 220,
+        "qrcode_x_position": 750,
+        "qrcode_y_position": 1140,
+        "qrcode_bottom_margin": 0
+    },
+    "geotag": {
         "background_path": "",
         "cache": true,
         "avatar_size": 296,
