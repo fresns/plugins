@@ -4,7 +4,7 @@
     "description": "Generate sharing posters for content and user pages",
     "author": "Fresns",
     "website": "https://fresns.org",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "providers": [
         "Plugins\\SharePoster\\Providers\\SharePosterServiceProvider"
     ],

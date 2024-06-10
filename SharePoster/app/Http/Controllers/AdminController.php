@@ -23,7 +23,7 @@ class AdminController extends Controller
 
         $background_url = '/assets/SharePoster/user.jpg';
 
-        if ($config['background_path']) {
+        if ($config['background_path'] ?? null) {
             $disk = Storage::disk('public');
 
             $background_url = $disk->url($config['background_path']);
@@ -40,7 +40,7 @@ class AdminController extends Controller
 
         $background_url = '/assets/SharePoster/group.jpg';
 
-        if ($config['background_path']) {
+        if ($config['background_path'] ?? null) {
             $disk = Storage::disk('public');
 
             $background_url = $disk->url($config['background_path']);
@@ -57,7 +57,7 @@ class AdminController extends Controller
 
         $background_url = '/assets/SharePoster/hashtag.jpg';
 
-        if ($config['background_path']) {
+        if ($config['background_path'] ?? null) {
             $disk = Storage::disk('public');
 
             $background_url = $disk->url($config['background_path']);
@@ -74,7 +74,7 @@ class AdminController extends Controller
 
         $background_url = '/assets/SharePoster/geotag.jpg';
 
-        if ($config['background_path']) {
+        if ($config['background_path'] ?? null) {
             $disk = Storage::disk('public');
 
             $background_url = $disk->url($config['background_path']);
@@ -91,7 +91,7 @@ class AdminController extends Controller
 
         $background_url = '/assets/SharePoster/post.jpg';
 
-        if ($config['background_path']) {
+        if ($config['background_path'] ?? null) {
             $disk = Storage::disk('public');
 
             $background_url = $disk->url($config['background_path']);
@@ -108,7 +108,7 @@ class AdminController extends Controller
 
         $background_url = '/assets/SharePoster/comment.jpg';
 
-        if ($config['background_path']) {
+        if ($config['background_path'] ?? null) {
             $disk = Storage::disk('public');
 
             $background_url = $disk->url($config['background_path']);
