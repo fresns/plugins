@@ -37,43 +37,30 @@ class CmdWordService
         $cacheTags = ['fresnsPlugins', 'pluginOnlineDays'];
 
         $userCache = CacheHelper::get($cacheKey, $cacheTags);
-        if (empty($userCache)) {
-            // Get the current date and time
-            $currentDateTime = new \DateTime();
 
-            // Get the end of day date time
-            $endOfDay = clone $currentDateTime;
-            $endOfDay->setTime(23, 59, 59);
-
-            // Calculating the remaining time interval
-            $remainingTime = $currentDateTime->diff($endOfDay);
-
-            // Get the number of hours and minutes of time left
-            $remainingHours = $remainingTime->h;
-            $remainingMinutes = $remainingTime->i;
-
-            // Use the remaining time to set the validity of the cache
-            $cacheExpiration = now()->addHours($remainingHours)->addMinutes($remainingMinutes);
-
-            // Have you recorded today
-            $todayLog = UserExtcreditsLog::where('user_id', $userId)->where('extcredits_id', $extcreditsId)->whereDate('created_at', date('Y-m-d'))->first();
-
-            if ($todayLog) {
-                CacheHelper::put(now(), $cacheKey, $cacheTags, $cacheExpiration, 10);
-
-                return $this->success();
-            }
-
-            $extWordBody = [
-                'uid' => $uid,
-                'extcreditsId' => $extcreditsId,
-                'fskey' => 'OnlineDays',
-                'operation' => 'increment',
-            ];
-            \FresnsCmdWord::plugin('Fresns')->setUserExtcredits($extWordBody);
-
-            CacheHelper::put(now(), $cacheKey, $cacheTags, $cacheExpiration, 10);
+        if ($userCache) {
+            return $this->success();
         }
+
+        // Record in the cache that the operation is done
+        $cacheExpiration = now()->endOfDay();  // Set cache to expire at the end of the day
+        CacheHelper::put(now(), $cacheKey, $cacheTags, $cacheExpiration, 10);
+
+        // Check if there's already a log entry for today
+        $todayLogExists = UserExtcreditsLog::where('user_id', $userId)->where('extcredits_id', $extcreditsId)->whereDate('created_at', date('Y-m-d'))->exists();
+
+        if ($todayLogExists) {
+            return $this->success();
+        }
+
+        // If no log entry, proceed to log the credits
+        $extWordBody = [
+            'uid' => $uid,
+            'extcreditsId' => $extcreditsId,
+            'fskey' => 'OnlineDays',
+            'operation' => 'increment',
+        ];
+        \FresnsCmdWord::plugin('Fresns')->setUserExtcredits($extWordBody);
 
         return $this->success();
     }
