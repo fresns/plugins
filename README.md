@@ -18,6 +18,10 @@ Fresns is a free and open source social network service software, a general-purp
 - Extensions developers should read the [extension documentation](https://fresns.org/extensions/) and [database structure](https://fresns.org/database/).
 - For client developers (web or app), please read the [API reference](https://fresns.org/api/) documentation.
 
+## Sponsors
+
+Fresns is an Apache-2.0-licensed open source project with its ongoing development made possible entirely by the support of these awesome backers. If you'd like to join them, please consider [sponsoring Fresns development](https://github.com/sponsors/fresns).
+
 ## Contributing
 
 Thank you for considering contributing to the Fresns core library! The contribution guide can be found in the [Fresns documentation](https://fresns.org/community/join.html).
