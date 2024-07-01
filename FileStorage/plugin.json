@@ -4,7 +4,7 @@
     "description": "The official File Storage service plugin developed by Fresns. Supports local, ftp and sftp storage methods.",
     "author": "Fresns",
     "website": "https://fresns.org",
-    "version": "1.6.0",
+    "version": "1.6.1",
     "providers": [
         "Plugins\\FileStorage\\Providers\\FileStorageServiceProvider",
         "Plugins\\FileStorage\\Providers\\CmdWordServiceProvider"

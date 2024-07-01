@@ -64,6 +64,11 @@ class CmdWordService
     {
         $dtoWordBody = new UploadFileDTO($wordBody);
 
+        $configs = FileHelper::fresnsFileStorageConfigByType($dtoWordBody->type);
+        if (! $configs['storageConfigStatus']) {
+            return $this->failure(32105, ConfigUtility::getCodeMessage(32105));
+        }
+
         $diskConfig = StorageHelper::diskConfig($dtoWordBody->type);
 
         $bodyInfo = [
@@ -83,11 +88,11 @@ class CmdWordService
 
         $fileModel = FileUtility::uploadFile($bodyInfo, $diskConfig, $dtoWordBody->file);
 
-        $fileInfo = FileHelper::fresnsFileInfoById($fileModel->fid, $bodyInfo);
-
-        if (empty($fileInfo)) {
-            return $this->failure(32104, ConfigUtility::getCodeMessage(32104));
+        if (empty($fileModel)) {
+            return $this->failure(37600, ConfigUtility::getCodeMessage(37600));
         }
+
+        $fileInfo = FileHelper::fresnsFileInfoById($fileModel->fid, $bodyInfo);
 
         return $this->success($fileInfo);
     }

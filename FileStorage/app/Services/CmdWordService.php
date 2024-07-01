@@ -62,6 +62,10 @@ class CmdWordService
 
         $fileModel = FileUtility::uploadFile($bodyInfo, $diskConfig, $dtoWordBody->file);
 
+        if (empty($fileModel)) {
+            return $this->failure(37600, ConfigUtility::getCodeMessage(37600));
+        }
+
         if ($bodyInfo['type'] == File::TYPE_IMAGE) {
             TranscodeHelper::imageProcessing($dtoWordBody->file, $fileModel);
         }

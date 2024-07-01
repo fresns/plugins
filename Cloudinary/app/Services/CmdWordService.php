@@ -44,6 +44,11 @@ class CmdWordService
     {
         $dtoWordBody = new UploadFileDTO($wordBody);
 
+        $config = FileHelper::fresnsFileStorageConfigByType($dtoWordBody->type);
+        if (! $config['storageConfigStatus']) {
+            return $this->failure(32105, ConfigUtility::getCodeMessage(32105));
+        }
+
         StorageHelper::buildDisk($dtoWordBody->type);
         $storePath = FileHelper::fresnsFileStoragePath($dtoWordBody->type, $dtoWordBody->usageType);
 
@@ -59,9 +64,6 @@ class CmdWordService
             FileUsage::TYPE_App => 'apps',
             default => 'others',
         };
-
-        $config = FileHelper::fresnsFileStorageConfigByType($dtoWordBody->type);
-
         // https://cloudinary.com/documentation/image_upload_api_reference#upload_optional_parameters
         $options = [
             'type' => $config['bucketRegion'] ?? 'upload', // upload, private and authenticated
@@ -146,11 +148,11 @@ class CmdWordService
 
         $fileModel = FileUtility::uploadFileInfo($dtoWordBody->file, $fileInfo, $usageInfo);
 
-        $apiFileInfo = FileHelper::fresnsFileInfoById($fileModel->fid, $usageInfo);
-
-        if (empty($apiFileInfo)) {
-            return $this->failure(32104, ConfigUtility::getCodeMessage(32104));
+        if (empty($fileModel)) {
+            return $this->failure(37600, ConfigUtility::getCodeMessage(37600));
         }
+
+        $apiFileInfo = FileHelper::fresnsFileInfoById($fileModel->fid, $usageInfo);
 
         return $this->success($apiFileInfo);
     }
