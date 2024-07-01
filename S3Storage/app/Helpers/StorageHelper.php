@@ -31,7 +31,7 @@ class StorageHelper
             'url' => $configs['accessDomain'],
             'endpoint' => $configs['bucketEndpoint'],
             'use_path_style_endpoint' => false,
-            'throw' => false,
+            'throw' => true,
         ];
 
         return $diskConfig;
