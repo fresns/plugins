@@ -62,6 +62,7 @@ class StorageHelper
         StorageHelper::buildDisk($file->type);
 
         $fileName = $file->name;
+        $fileMime = $file->mime;
         $filePath = $file->path;
 
         $fileUrl = null;
@@ -78,6 +79,7 @@ class StorageHelper
                     $newFilePath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
@@ -95,6 +97,7 @@ class StorageHelper
                     $newFilePath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
@@ -112,6 +115,7 @@ class StorageHelper
                     $newFilePath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
@@ -129,6 +133,7 @@ class StorageHelper
                     $newFilePath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
@@ -146,6 +151,7 @@ class StorageHelper
                     $newFilePath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
@@ -173,6 +179,7 @@ class StorageHelper
                     $newFilePath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
@@ -189,6 +196,7 @@ class StorageHelper
                     $fileOriginalPath,
                     now()->addMinutes($temporaryUrlExpiration),
                     [
+                        'ResponseContentType' => $fileMime,
                         'ResponseContentDisposition' => "attachment; filename={$fileName}",
                     ]
                 );
