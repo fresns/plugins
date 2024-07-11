@@ -80,6 +80,9 @@ class MailService
         config(['mail.default' => 'smtp']);
         config(['mail.mailers.smtp' => array_merge(config('mail.mailers.smtp'), $smtp)]);
         config(['mail.from' => array_merge(config('mail.from'), $from)]);
+
+        putenv('SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt');
+        putenv('SSL_CERT_DIR=/etc/ssl/certs/');
     }
 
     public static function getTemplateValue($templateId, $langTag): ?array
