@@ -176,7 +176,30 @@ class PosterHelper
 
         // 2. user avatar
         if ($avatar && $avatar_x_position && $avatar_y_position) {
-            $avatarImagick = new Imagick($avatar);
+            try {
+                $avatarImagick = new Imagick($avatar);
+            } catch (\Exception $error) {
+                $directory = public_path('temp-files/share-poster/');
+
+                if (! file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+
+                $path = parse_url($avatar, PHP_URL_PATH);
+
+                $info = pathinfo($path);
+
+                $extension = $info['extension'];
+
+                $localPath = public_path('temp-files/share-poster/avatar.'.$extension);
+
+                putenv('SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt');
+                putenv('SSL_CERT_DIR=/etc/ssl/certs/');
+
+                file_put_contents($localPath, file_get_contents($avatar));
+
+                $avatarImagick = new Imagick($localPath);
+            }
 
             $size = $avatarImagick->getImageWidth(); // Get avatar width and height
 
@@ -356,26 +379,6 @@ class PosterHelper
             $background->compositeImage($qrCodeImage, Imagick::COMPOSITE_OVER, $qrcode_x_position, $qrcode_y_position);
         }
 
-        // 知结社区
-        if ($type == 'user') {
-            $usernameTip = '下载知结 App，搜索 '.$profileFsid;
-            $usernameDraw = new ImagickDraw();
-            $usernameDraw->setFillColor('#5c5c5c');
-            $usernameDraw->setFont($font_path);
-            $usernameDraw->setFontSize(42);
-
-            // Calculate the width of the text
-            $usernameMetrics = $background->queryFontMetrics($usernameDraw, $usernameTip);
-            $usernameWidth = $usernameMetrics['textWidth'];
-
-            // Calculate the x position for centering
-            $backgroundWidth = $background->getImageWidth();
-
-            $username_x_position = ($backgroundWidth - $usernameWidth) / 2;
-
-            $background->annotateImage($usernameDraw, $username_x_position, 1790, 0, $usernameTip);
-        }
-
         // 8. poster save
         $backgroundString = $background->getImageBlob();
 
@@ -456,7 +459,7 @@ class PosterHelper
     // getPosterPath
     public static function getPosterPath(string $type, mixed $model): string
     {
-        $directoryPath = "share-poster/{$type}/{YYYYMM}/{DD}/";
+        $directoryPath = "temp-files/share-poster/{$type}/{YYYYMM}/{DD}/";
 
         $replaceUseTypeDir = str_replace(
             ['{YYYYMM}', '{DD}'],
