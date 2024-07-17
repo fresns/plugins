@@ -27,14 +27,14 @@
                         <td>
                             <span class="badge bg-light text-dark"><i class="bi bi-envelope"></i>
                                 @if ($account->email)
-                                    {{ $account->secret_email }}
+                                    {{ StrHelper::maskEmail($account->email) }}
                                 @else
                                     None
                                 @endif
                             </span>
                             <span class="badge bg-light text-dark"><i class="bi bi-phone"></i>
-                                @if ($account->pure_phone)
-                                    +{{ $account->country_code }} {{ $account->secret_pure_phone }}
+                                @if ($account->phone)
+                                    +{{ $account->country_calling_code }} {{ StrHelper::maskNumber($account->getPurePhone()) }}
                                 @else
                                     None
                                 @endif
@@ -134,9 +134,9 @@
                                     <div class="collapse account_phone" aria-labelledby="account_phone" data-bs-parent="#accordionAccount">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text text-danger">* Phone</span>
-                                            <select class="form-select" name="country_code">
-                                                @foreach ($countryCode['send_sms_supported_codes'] as $code)
-                                                    <option @if ($countryCode['send_sms_default_code'] == $code) selected @endif value="{{ $code }}">+{{ $code }}</option>
+                                            <select class="form-select" name="country_calling_code">
+                                                @foreach ($countryCallingCode['send_sms_supported_codes'] as $code)
+                                                    <option @if ($countryCallingCode['send_sms_default_code'] == $code) selected @endif value="{{ $code }}">+{{ $code }}</option>
                                                 @endforeach
                                             </select>
                                             <input type="number" name="phone" class="form-control w-50">

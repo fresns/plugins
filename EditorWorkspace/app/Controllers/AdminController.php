@@ -31,12 +31,12 @@ class AdminController extends Controller
             $accounts = Account::with(['users'])->whereIn('id', $accountIds)->get();
         }
 
-        $countryCode = ConfigHelper::fresnsConfigByItemKeys([
+        $countryCallingCode = ConfigHelper::fresnsConfigByItemKeys([
             'send_sms_default_code',
             'send_sms_supported_codes',
         ]);
 
-        return view('EditorWorkspace::admin.index', compact('accounts', 'countryCode'));
+        return view('EditorWorkspace::admin.index', compact('accounts', 'countryCallingCode'));
     }
 
     public function users(Request $request)
@@ -143,10 +143,10 @@ class AdminController extends Controller
             return back()->with('failure', 'Missing account email or phone');
         }
 
-        $country_code = $request->country_code;
+        $country_calling_code = $request->country_calling_code;
 
-        if ($type == 'phone' && empty($country_code)) {
-            return back()->with('failure', 'Missing country code');
+        if ($type == 'phone' && empty($country_calling_code)) {
+            return back()->with('failure', 'Missing country calling code');
         }
 
         $nickname = $request->nickname;
@@ -165,7 +165,7 @@ class AdminController extends Controller
         $wordBody = [
             'type' => $typeInt,
             'account' => $account,
-            'countryCode' => $country_code,
+            'countryCallingCode' => $country_calling_code,
             'password' => $request->password,
             'createUser' => true,
             'userInfo' => [

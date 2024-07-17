@@ -36,7 +36,7 @@ class AccountController extends Controller
         });
 
         $accountQuery->when($request->phone, function ($query, $value) {
-            $query->where('pure_phone', $value);
+            $query->where('phone', $value);
         });
 
         $accountQuery->when($request->wait_delete, function ($query, $value) {

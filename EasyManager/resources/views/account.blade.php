@@ -34,7 +34,7 @@
                         <th scope="row">{{ $account->id }}</th>
                         <td>{{ $account->aid }} {!! $account->is_verify ? '<i class="bi bi-patch-check-fill text-primary"></i>' : '' !!}</td>
                         <td>{{ $account->type }}</td>
-                        <td>{{ $account->country_code ? '+'.$account->country_code : '' }} {{ $account->pure_phone }}</td>
+                        <td>{{ $account->phone ? '+'.$account->country_calling_code : '' }} {{ $account->getPurePhone() }}</td>
                         <td>{{ $account->email }}</td>
                         <td>{{ $account->wallet->balance }}</td>
                         <td><a href="{{ route('easy-manager.account.connects', ['accountId' => $account->id]) }}"><span class="badge rounded-pill {{ count($account->connects) ? 'text-bg-primary' : 'text-bg-light fw-normal' }}">{{ count($account->connects) }}</span></a></td>
