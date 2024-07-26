@@ -1,5 +1,7 @@
 @extends('EditorWorkspace::commons.fresns')
 
+@use('App\Helpers\StrHelper')
+
 @section('content')
     <div class="alert alert-light mx-4" role="alert">
         {{ __('EditorWorkspace::fresns.account_desc') }}
