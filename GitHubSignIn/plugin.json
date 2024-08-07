@@ -1,0 +1,18 @@
+{
+    "fskey": "GitHubSignIn",
+    "name": "GitHub Sign in",
+    "description": "Fresns official plugin for GitHub Sign in",
+    "author": "Fresns",
+    "website": "https://fresns.org",
+    "version": "1.0.0",
+    "providers": [
+        "Plugins\\GitHubSignIn\\Providers\\PluginServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {},
+    "panelUsages": [
+        "accountConnect"
+    ],
+    "accessPath": "/github-signin/index?accessToken={accessToken}&connectPlatformId={connectPlatformId}&redirectURL={redirectUrl}",
+    "settingsPath": "/github-signin/admin"
+}
