@@ -56,19 +56,18 @@ class MailService
     // replace config from db setting
     public static function initMailSetting(): void
     {
+        $scheme = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_scheme') ?? 'smtp';
         $host = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_host');
         $port = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_port') ?? 25;
         $user = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_username');
         $pass = ConfigHelper::fresnsConfigByItemKey('fresnsemail_smtp_password');
-        $type = ConfigHelper::fresnsConfigByItemKey('fresnsemail_verify_type');
         $from_addr = ConfigHelper::fresnsConfigByItemKey('fresnsemail_from_mail');
         $from_name = ConfigHelper::fresnsConfigByItemKey('fresnsemail_from_name');
 
         $smtp = [
-            'transport' => 'smtp',
+            'scheme' => $scheme,
             'host' => $host,
             'port' => (int) $port,
-            'encryption' => $type ?? 'tls',
             'username' => $user,
             'password' => $pass,
         ];

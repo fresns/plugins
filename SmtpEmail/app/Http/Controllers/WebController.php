@@ -27,11 +27,11 @@ class WebController extends Controller
         $marketUrl = AppUtility::MARKETPLACE_URL.'/open-source';
 
         $content = Config::query()->whereIn('item_key', [
+            'fresnsemail_smtp_scheme',
             'fresnsemail_smtp_host',
             'fresnsemail_smtp_port',
             'fresnsemail_smtp_username',
             'fresnsemail_smtp_password',
-            'fresnsemail_verify_type',
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ])->pluck('item_value', 'item_key');
@@ -50,11 +50,11 @@ class WebController extends Controller
     public function postSettings(Request $request)
     {
         collect($request->only([
+            'fresnsemail_smtp_scheme',
             'fresnsemail_smtp_host',
             'fresnsemail_smtp_port',
             'fresnsemail_smtp_username',
             'fresnsemail_smtp_password',
-            'fresnsemail_verify_type',
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ]))->each(function (?string $value, string $key) {
@@ -66,11 +66,11 @@ class WebController extends Controller
         });
 
         $keys = [
+            'fresnsemail_smtp_scheme',
             'fresnsemail_smtp_host',
             'fresnsemail_smtp_port',
             'fresnsemail_smtp_username',
             'fresnsemail_smtp_password',
-            'fresnsemail_verify_type',
             'fresnsemail_from_mail',
             'fresnsemail_from_name',
         ];

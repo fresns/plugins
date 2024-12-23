@@ -21,8 +21,9 @@ return [
     'menuTest' => '테스트 보내기',
     'menuVariable' => '지원되는 변수 이름',
 
+    'smtpIntro' => '메일을 보내는 잘못된 구성으로 인해 서버 시간이 초과됩니다.',
+
     'smtpHost' => 'SMTP 호스트',
-    'smtpHostIntro' => '메일을 보내는 잘못된 구성으로 인해 서버 시간이 초과됩니다.',
     'smtpPort' => 'SMTP 포트',
     'smtpPortIntro' => '서버 보안 그룹 "공개 네트워크 아웃바운드"는 이 TCP 포트를 열어야 합니다.',
     'smtpUser' => 'SMTP 사용자 이름',

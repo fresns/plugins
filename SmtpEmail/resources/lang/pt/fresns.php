@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Envio de testes',
     'menuVariable' => 'Nomes de variáveis suportadas',
 
+    'smtpIntro' => 'A entrega de correio configurado incorrectamente fará com que o servidor fique sem tempo',
+
     'smtpHost' => 'Hospedeiro SMTP',
-    'smtpHostIntro' => 'A entrega de correio configurado incorrectamente fará com que o servidor fique sem tempo',
     'smtpPort' => 'Porto SMTP',
     'smtpPortIntro' => 'O seu grupo de segurança de servidor "Public Outbound" precisa de estar aberto para esta porta TCP',
     'smtpUser' => 'Nome de utilizador SMTP',

@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Tes Kirim',
     'menuVariable' => 'Nama variabel yang didukung',
 
+    'smtpIntro' => 'Konfigurasi yang salah untuk mengirim email akan menyebabkan server kehabisan waktu',
+
     'smtpHost' => 'Tuan Rumah SMTP',
-    'smtpHostIntro' => 'Konfigurasi yang salah untuk mengirim email akan menyebabkan server kehabisan waktu',
     'smtpPort' => 'Pelabuhan SMTP',
     'smtpPortIntro' => 'Grup keamanan server Anda "keluar jaringan publik" perlu membuka port TCP ini',
     'smtpUser' => 'Nama Pengguna SMTP',

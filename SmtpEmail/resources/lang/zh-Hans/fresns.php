@@ -21,8 +21,9 @@ return [
     'menuTest' => '发信测试',
     'menuVariable' => '支持的变量名',
 
+    'smtpIntro' => '错误的配置发送邮件会导致服务器超时',
+
     'smtpHost' => 'SMTP 服务器',
-    'smtpHostIntro' => '错误的配置发送邮件会导致服务器超时',
     'smtpPort' => 'SMTP 端口',
     'smtpPortIntro' => '你的服务器安全组“出站规则”需开放该 TCP 端口',
     'smtpUser' => 'SMTP 用户名',

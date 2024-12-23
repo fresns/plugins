@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Test Senden',
     'menuVariable' => 'Unterstützte Variablennamen',
 
+    'smtpIntro' => 'Eine falsch konfigurierte E-Mail-Zustellung führt zu einer Zeitüberschreitung des Servers',
+
     'smtpHost' => 'SMTP-Host',
-    'smtpHostIntro' => 'Eine falsch konfigurierte E-Mail-Zustellung führt zu einer Zeitüberschreitung des Servers',
     'smtpPort' => 'SMTP-Anschluss',
     'smtpPortIntro' => 'Ihre Server-Sicherheitsgruppe "Public Outbound" muss für diesen TCP-Port geöffnet sein',
     'smtpUser' => 'SMTP-Benutzername',

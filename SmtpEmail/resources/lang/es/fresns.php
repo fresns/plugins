@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Prueba de envío',
     'menuVariable' => 'Nombres de variables admitidos',
 
+    'smtpIntro' => 'Una configuración incorrecta de la entrega de correo hará que el servidor se quede sin tiempo de espera',
+
     'smtpHost' => 'Host SMTP',
-    'smtpHostIntro' => 'Una configuración incorrecta de la entrega de correo hará que el servidor se quede sin tiempo de espera',
     'smtpPort' => 'Puerto SMTP',
     'smtpPortIntro' => 'El grupo de seguridad de su servidor "Public Outbound" debe estar abierto para este puerto TCP',
     'smtpUser' => 'Nombre de usuario SMTP',

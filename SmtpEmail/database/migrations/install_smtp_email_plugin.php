@@ -13,6 +13,11 @@ return new class extends Migration
 {
     protected $fresnsConfigItems = [
         [
+            'item_key' => 'fresnsemail_smtp_scheme',
+            'item_value' => 'smtp',
+            'item_type' => 'string',
+        ],
+        [
             'item_key' => 'fresnsemail_smtp_host',
             'item_value' => '',
             'item_type' => 'string',
@@ -29,11 +34,6 @@ return new class extends Migration
         ],
         [
             'item_key' => 'fresnsemail_smtp_password',
-            'item_value' => '',
-            'item_type' => 'string',
-        ],
-        [
-            'item_key' => 'fresnsemail_verify_type',
             'item_value' => '',
             'item_type' => 'string',
         ],

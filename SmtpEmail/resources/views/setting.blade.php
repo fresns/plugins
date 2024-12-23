@@ -53,9 +53,18 @@
                             </div>
                             {{-- Email Config --}}
                             <div class="row mb-4">
+                                <label class="col-lg-2 col-form-label text-lg-end">SMTP Scheme:</label>
+                                <div class="col-lg-5">
+                                    <select class="form-select" name="fresnsemail_smtp_scheme">
+                                        <option value="smtp" @if(($content['fresnsemail_smtp_scheme'] ?? 'smtp') == 'smtp') selected @endif>smtp</option>
+                                        <option value="smtps" @if(($content['fresnsemail_smtp_scheme'] ?? 'smtp') == 'smtps') selected @endif>smtps</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('SmtpEmail::fresns.smtpIntro')</div>
+                            </div>
+                            <div class="row mb-4">
                                 <label class="col-lg-2 col-form-label text-lg-end">@lang('SmtpEmail::fresns.smtpHost'):</label>
                                 <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_smtp_host" placeholder="smtp.example.com" value="{{ old("fresnsemail_smtp_host", $content['fresnsemail_smtp_host'] ?? '') }}" ></div>
-                                <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('SmtpEmail::fresns.smtpHostIntro')</div>
                             </div>
                             <div class="row mb-4">
                                 <label class="col-lg-2 col-form-label text-lg-end">@lang('SmtpEmail::fresns.smtpPort'):</label>
@@ -71,17 +80,6 @@
                                 <label class="col-lg-2 col-form-label text-lg-end">@lang('SmtpEmail::fresns.smtpPassword'):</label>
                                 <div class="col-lg-5"><input type="text" class="form-control" name="fresnsemail_smtp_password" placeholder="Password" value="{{ old("fresnsemail_smtp_password", $content['fresnsemail_smtp_password'] ?? '') }}" ></div>
                                 <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('SmtpEmail::fresns.smtpPasswordIntro')</div>
-                            </div>
-                            <div class="row mb-4">
-                                <label class="col-lg-2 col-form-label text-lg-end">@lang('SmtpEmail::fresns.smtpVerifyType'):</label>
-                                <div class="col-lg-5">
-                                    <select class="form-select" name="fresnsemail_verify_type">
-                                        <option value="" @if($content['fresnsemail_verify_type'] == '') selected @endif>Null</option>
-                                        <option value="tls" @if($content['fresnsemail_verify_type'] == 'tls') selected @endif>tls</option>
-                                        <option value="ssl" @if($content['fresnsemail_verify_type'] == 'ssl') selected @endif>ssl</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-5 form-text pt-1"><i class="bi bi-info-circle"></i> @lang('SmtpEmail::fresns.smtpVerifyTypeIntro')</div>
                             </div>
                             <div class="row mb-4">
                                 <label class="col-lg-2 col-form-label text-lg-end">@lang('SmtpEmail::fresns.smtpFromMail'):</label>

@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Test Send',
     'menuVariable' => 'Supported Variable Names',
 
+    'smtpIntro' => 'Incorrectly configured sending emails can cause server timeouts',
+
     'smtpHost' => 'SMTP Host',
-    'smtpHostIntro' => 'Incorrectly configured sending emails can cause server timeouts',
     'smtpPort' => 'SMTP Port',
     'smtpPortIntro' => 'Your server security group "Outbound Rules" needs to open this TCP port',
     'smtpUser' => 'SMTP Username',

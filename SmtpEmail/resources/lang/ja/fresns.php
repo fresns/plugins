@@ -21,8 +21,9 @@ return [
     'menuTest' => '送信テスト',
     'menuVariable' => '対応する変数名',
 
+    'smtpIntro' => 'メール配信の設定が正しくないと、サーバーがタイムアウトしてしまう',
+
     'smtpHost' => 'SMTPホスト',
-    'smtpHostIntro' => 'メール配信の設定が正しくないと、サーバーがタイムアウトしてしまう',
     'smtpPort' => 'SMTPポート',
     'smtpPortIntro' => 'サーバーのセキュリティグループ「Public Outbound」が、このTCPポートに対してオープンである必要があります。',
     'smtpUser' => 'SMTPユーザー名',

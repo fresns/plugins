@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Test d\'envoi',
     'menuVariable' => 'Noms de variables pris en charge',
 
+    'smtpIntro' => 'Une configuration incorrecte de la distribution du courrier entraînera une perte de temps pour le serveur.',
+
     'smtpHost' => 'Hôte SMTP',
-    'smtpHostIntro' => 'Une configuration incorrecte de la distribution du courrier entraînera une perte de temps pour le serveur.',
     'smtpPort' => 'Port SMTP',
     'smtpPortIntro' => 'Le groupe de sécurité de votre serveur "Public Outbound" doit être ouvert pour ce port TCP.',
     'smtpUser' => 'Nom d\'utilisateur SMTP',

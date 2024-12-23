@@ -21,8 +21,9 @@ return [
     'menuTest' => 'Test di invio',
     'menuVariable' => 'Nomi di variabili supportati',
 
+    'smtpIntro' => 'La consegna della posta configurata in modo non corretto causerà il time out del server',
+
     'smtpHost' => 'Host SMTP',
-    'smtpHostIntro' => 'La consegna della posta configurata in modo non corretto causerà il time out del server',
     'smtpPort' => 'Porta SMTP',
     'smtpPortIntro' => 'Il vostro gruppo di sicurezza del server "Public Outbound" deve essere aperto per questa porta TCP',
     'smtpUser' => 'Nome utente SMTP',

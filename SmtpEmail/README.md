@@ -11,14 +11,11 @@ Fresns official development of the SMTP sending method of mail plugin.
 
 ### Config table key name
 
+- SMTP Scheme `fresnsemail_smtp_scheme`
 - SMTP Host `fresnsemail_smtp_host`
 - SMTP Port `fresnsemail_smtp_port`
 - SMTP User `fresnsemail_smtp_username`
 - SMTP Password `fresnsemail_smtp_password`
-- SMTP Verify Type `fresnsemail_verify_type`
-    - Null
-    - TLS
-    - SSL
 - Sender Email `fresnsemail_from_mail`
 - Sender Name `fresnsemail_from_name`
 
