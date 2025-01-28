@@ -12,10 +12,10 @@ use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
 use App\Helpers\PrimaryHelper;
 use App\Models\Comment;
-use App\Models\Hashtag;
-use App\Models\Post;
 use App\Models\File;
 use App\Models\FileUsage;
+use App\Models\Hashtag;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HashtagController extends Controller
