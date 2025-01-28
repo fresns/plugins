@@ -56,7 +56,17 @@
                     <tr>
                         <th scope="row">{{ $group->id }}</th>
                         <td><a href="{{ $url.$group->gid }}" target="_blank">{{ $group->gid }}</a></td>
-                        <td>{{ $group->getLangContent('name', $defaultLanguage) }}</td>
+                        <td>
+                            @if ($group->getCoverUrl())
+                                <img src="{{ $group->getCoverUrl() }}" width="24" height="24">
+                            @endif
+
+                            {{ $group->getLangContent('name', $defaultLanguage) }}
+
+                            @if ($group->is_recommend)
+                                <span class="badge rounded-pill text-bg-warning fs-9">{{ __('FsLang::panel.recommend') }}</span>
+                            @endif
+                        </td>
                         <td><a href="{{ route('easy-manager.post.index', ['groupId' => $group->id]) }}">{{ $group->post_count }}</a></td>
                         <td>{{ $group->post_digest_count }}</td>
                         <td><a href="{{ route('easy-manager.comment.index', ['groupId' => $group->id]) }}">{{ $group->comment_count }}</a></td>

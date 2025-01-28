@@ -10,9 +10,12 @@ namespace Plugins\EasyManager\Controllers;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
+use App\Helpers\PrimaryHelper;
 use App\Models\Comment;
 use App\Models\Hashtag;
 use App\Models\Post;
+use App\Models\File;
+use App\Models\FileUsage;
 use Illuminate\Http\Request;
 
 class HashtagController extends Controller
@@ -92,6 +95,30 @@ class HashtagController extends Controller
 
         if ($request->has('is_enabled')) {
             $hashtag->is_enabled = $request->is_enabled;
+        }
+
+        $hashtag->cover_file_url = $request->cover_file_url;
+
+        if ($request->file('cover_file')) {
+            $wordBody = [
+                'usageType' => FileUsage::TYPE_SYSTEM,
+                'platformId' => 4,
+                'tableName' => 'hashtags',
+                'tableColumn' => 'cover_file_id',
+                'tableId' => $hashtag->id,
+                'type' => File::TYPE_IMAGE,
+                'file' => $request->file('cover_file'),
+            ];
+            $fresnsResp = \FresnsCmdWord::plugin('Fresns')->uploadFile($wordBody);
+
+            if ($fresnsResp->isErrorResponse()) {
+                return back()->with('failure', $fresnsResp->getMessage());
+            }
+
+            $fileId = PrimaryHelper::fresnsPrimaryId('file', $fresnsResp->getData('fid'));
+
+            $hashtag->cover_file_id = $fileId;
+            $hashtag->cover_file_url = null;
         }
 
         $hashtag->save();

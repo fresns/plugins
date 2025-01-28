@@ -67,7 +67,13 @@
                     <tr>
                         <th scope="row">{{ $hashtag->id }}</th>
                         <td><a href="{{ $url.$hashtag->slug }}" target="_blank">{{ $hashtag->slug }}</a></td>
-                        <td>{{ $hashtag->name }}</td>
+                        <td>
+                            @if ($hashtag->getCoverUrl())
+                                <img src="{{ $hashtag->getCoverUrl() }}" width="24" height="24">
+                            @endif
+
+                            {{ $hashtag->name }}
+                        </td>
                         <td><a href="{{ route('easy-manager.hashtag.index', ['type' => $hashtag->type]) }}">{{ $hashtag->type }}</a></td>
                         <td><a href="{{ route('easy-manager.post.index', ['hashtagId' => $hashtag->id]) }}">{{ $hashtag->post_count }}</a></td>
                         <td>{{ $hashtag->post_digest_count }}</td>
@@ -115,7 +121,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="mb-3 row">
@@ -134,6 +140,22 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">{{ __('FsLang::panel.table_icon') }}</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <button class="btn btn-outline-secondary dropdown-toggle showSelectTypeName" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="showIcon">{{ __('FsLang::panel.button_image_upload') }}</button>
+                                    <ul class="dropdown-menu selectInputType">
+                                        <li data-name="inputFile"><a class="dropdown-item" href="#">{{ __('FsLang::panel.button_image_upload') }}</a></li>
+                                        <li data-name="inputUrl"><a class="dropdown-item" href="#">{{ __('FsLang::panel.button_image_input') }}</a></li>
+                                    </ul>
+                                    <input type="file" class="form-control inputFile" name="cover_file" accept=".png,.gif,.jpg,.jpeg,image/png,image/apng,image/vnd.mozilla.apng,image/gif,image/jpeg,image/pjpeg,image/jpeg,image/pjpeg">
+                                    <input type="text" class="form-control inputUrl" name="cover_file_url" style="display:none;">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9"><button type="submit" class="btn btn-primary">{{ __('EasyManager::fresns.button_save') }}</button></div>
@@ -148,24 +170,35 @@
 @push('script')
     <script>
         $('#editHashtag').on('show.bs.modal', function (e) {
-            if ($(this).data('is_back')) {
-                return;
-            }
-
             let button = $(e.relatedTarget);
             let name = button.data('name');
             let action = button.data('action');
             let params = button.data('params');
 
-            $(this).parent('form').trigger('reset');
+            let form = $(this).find('form');
 
-            if (! params) {
+            form.attr('action', action);
+            form.trigger('reset');
+
+            $('.showSelectTypeName').text("{{ __('FsLang::panel.button_image_upload') }}"); //FsLang
+            $('.inputUrl').hide();
+            $('.inputFile').show();
+
+            if (!params) {
                 return;
             }
 
-            $(this).find('.modal-title').text(name);
-            $(this).find('form').attr('action', action);
-            $(this).find('select[name=type]').val(params.type);
+            form.find('.modal-title').text(name);
+            form.find('select[name=type]').val(params.type);
+
+            if (params.cover_file_url) {
+                form.find('input[name=cover_file_url]').val(params.cover_file_url);
+                form.find('input[name=cover_file_url]').removeAttr('style');
+                $('#showIcon').text("{{ __('FsLang::panel.button_image_input') }}"); //FsLang
+                form.find('input[name=cover_file]').css('display', 'none');
+            } else {
+                form.find('input[name=cover_file_url]').val('');
+            }
         });
     </script>
 @endpush

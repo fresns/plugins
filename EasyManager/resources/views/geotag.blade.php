@@ -67,7 +67,13 @@
                     <tr>
                         <th scope="row">{{ $geotag->id }}</th>
                         <td><a href="{{ $url.$geotag->gtid }}" target="_blank">{{ $geotag->gtid }}</a></td>
-                        <td>{{ $geotag->getLangContent('name', $locale) }}</td>
+                        <td>
+                            @if ($geotag->getCoverUrl())
+                                <img src="{{ $geotag->getCoverUrl() }}" width="24" height="24">
+                            @endif
+
+                            {{ $geotag->getLangContent('name', $locale) }}
+                        </td>
                         <td><a href="{{ route('easy-manager.geotag.index', ['type' => $geotag->type]) }}">{{ $geotag->type }}</a></td>
                         <td><a href="{{ route('easy-manager.post.index', ['geotagId' => $geotag->id]) }}">{{ $geotag->post_count }}</a></td>
                         <td>{{ $geotag->post_digest_count }}</td>
@@ -83,7 +89,8 @@
                                     data-bs-target="#editGeotag"
                                     data-name="{{ $geotag->getLangContent('name', $defaultLanguage) }}"
                                     data-action="{{ route('easy-manager.geotag.update', $geotag) }}"
-                                    data-type="{{ $geotag->type }}">
+                                    data-type="{{ $geotag->type }}"
+                                    data-cover-file-url="{{ $geotag->cover_file_url }}">
                                     {{ __('EasyManager::fresns.button_edit') }}
                                 </button>
 
@@ -134,6 +141,22 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">{{ __('FsLang::panel.table_icon') }}</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <button class="btn btn-outline-secondary dropdown-toggle showSelectTypeName" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="showIcon">{{ __('FsLang::panel.button_image_upload') }}</button>
+                                    <ul class="dropdown-menu selectInputType">
+                                        <li data-name="inputFile"><a class="dropdown-item" href="#">{{ __('FsLang::panel.button_image_upload') }}</a></li>
+                                        <li data-name="inputUrl"><a class="dropdown-item" href="#">{{ __('FsLang::panel.button_image_input') }}</a></li>
+                                    </ul>
+                                    <input type="file" class="form-control inputFile" name="cover_file" accept=".png,.gif,.jpg,.jpeg,image/png,image/apng,image/vnd.mozilla.apng,image/gif,image/jpeg,image/pjpeg,image/jpeg,image/pjpeg">
+                                    <input type="text" class="form-control inputUrl" name="cover_file_url" style="display:none;">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-9"><button type="submit" class="btn btn-primary">{{ __('EasyManager::fresns.button_save') }}</button></div>
@@ -156,16 +179,32 @@
             let name = button.data('name');
             let action = button.data('action');
             let type = button.data('type');
+            let cover_file_url = button.data('cover-file-url');
 
-            $(this).parent('form').trigger('reset');
+            let form = $(this).find('form');
 
-            if (! type) {
+            form.attr('action', action);
+            form.trigger('reset');
+
+            $('.showSelectTypeName').text("{{ __('FsLang::panel.button_image_upload') }}"); //FsLang
+            $('.inputUrl').hide();
+            $('.inputFile').show();
+
+            if (!type && !cover_file_url) {
                 return;
             }
 
-            $(this).find('.modal-title').text(name);
-            $(this).find('form').attr('action', action);
-            $(this).find('select[name=type]').val(type);
+            form.find('.modal-title').text(name);
+            form.find('select[name=type]').val(type);
+
+            if (cover_file_url) {
+                form.find('input[name=cover_file_url]').val(cover_file_url);
+                form.find('input[name=cover_file_url]').removeAttr('style');
+                $('#showIcon').text("{{ __('FsLang::panel.button_image_input') }}"); //FsLang
+                form.find('input[name=cover_file]').css('display', 'none');
+            } else {
+                form.find('input[name=cover_file_url]').val('');
+            }
         });
     </script>
 @endpush

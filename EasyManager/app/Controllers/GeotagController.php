@@ -10,7 +10,10 @@ namespace Plugins\EasyManager\Controllers;
 
 use App\Helpers\CacheHelper;
 use App\Helpers\ConfigHelper;
+use App\Helpers\PrimaryHelper;
 use App\Models\Comment;
+use App\Models\File;
+use App\Models\FileUsage;
 use App\Models\Geotag;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -92,6 +95,30 @@ class GeotagController extends Controller
 
         if ($request->has('is_enabled')) {
             $geotag->is_enabled = $request->is_enabled;
+        }
+
+        $geotag->cover_file_url = $request->cover_file_url;
+
+        if ($request->file('cover_file')) {
+            $wordBody = [
+                'usageType' => FileUsage::TYPE_SYSTEM,
+                'platformId' => 4,
+                'tableName' => 'hashtags',
+                'tableColumn' => 'cover_file_id',
+                'tableId' => $geotag->id,
+                'type' => File::TYPE_IMAGE,
+                'file' => $request->file('cover_file'),
+            ];
+            $fresnsResp = \FresnsCmdWord::plugin('Fresns')->uploadFile($wordBody);
+
+            if ($fresnsResp->isErrorResponse()) {
+                return back()->with('failure', $fresnsResp->getMessage());
+            }
+
+            $fileId = PrimaryHelper::fresnsPrimaryId('file', $fresnsResp->getData('fid'));
+
+            $geotag->cover_file_id = $fileId;
+            $geotag->cover_file_url = null;
         }
 
         $geotag->save();

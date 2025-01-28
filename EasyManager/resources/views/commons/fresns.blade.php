@@ -115,6 +115,18 @@
             button.parent('form').submit();
             $('#deleteConfirm').modal('hide');
         });
+
+        // selectInputType
+        $('.selectInputType li').click(function () {
+            let inputName = $(this).data('name');
+
+            $(this).parent().siblings('.showSelectTypeName').text($(this).text());
+            $(this).parent().siblings('input').css('display', 'none');
+            $(this)
+                .parent()
+                .siblings('.' + inputName)
+                .removeAttr('style');
+        });
     </script>
     @stack('script')
 </body>
