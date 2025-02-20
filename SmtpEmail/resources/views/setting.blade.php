@@ -150,10 +150,25 @@
         </div>
     </footer>
 
+    <div class="fresns-tips">
+        @include('FsView::commons.tips')
+    </div>
+
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/jquery.min.js"></script>
 
     <script>
+        // set timeout toast hide
+        const setTimeoutToastHide = () => {
+            $('.toast.show').each((k, v) => {
+                setTimeout(function () {
+                    $(v).hide();
+                }, 1500);
+            });
+        };
+        setTimeoutToastHide();
+
+        // send_mail_test
         function send_mail_test(){
             var email = $('#testEmail').val();
             var url  = $('#testSend').data('url');
