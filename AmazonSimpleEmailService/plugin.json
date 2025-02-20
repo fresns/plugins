@@ -1,0 +1,19 @@
+{
+    "fskey": "AmazonSimpleEmailService",
+    "name": "Amazon SES",
+    "description": "Email Sending Service Based on Amazon Simple Email Service (SES)",
+    "author": "Fresns",
+    "website": "https://fresns.org",
+    "version": "1.0.0",
+    "providers": [
+        "Plugins\\AmazonSimpleEmailService\\Providers\\AmazonSimpleEmailServiceServiceProvider",
+        "Plugins\\AmazonSimpleEmailService\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": {},
+    "panelUsages": [
+        "sendEmail"
+    ],
+    "accessPath": null,
+    "settingsPath": "/amazon-ses/settings"
+}

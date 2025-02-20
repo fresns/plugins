@@ -1,0 +1,34 @@
+<?php
+
+/*
+ * Fresns (https://fresns.org)
+ * Copyright (C) 2021-Present Jevan Tang
+ * Released under the Apache-2.0 License.
+ */
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fresns Email Language Lines
+    |--------------------------------------------------------------------------
+    */
+
+    'menuConfig' => '郵箱配置',
+    'menuTest' => '发信测试',
+    'menuVariable' => '支持的變量名',
+
+    'smtpIntro' => '錯誤的配置發送郵件會導致服務器超時',
+
+    'smtpFromMail' => '發件人郵箱',
+    'smtpFromMailIntro' => '發信身份的郵箱',
+    'smtpFromName' => '發件人名稱',
+    'smtpFromNameIntro' => '品牌名或者公司名',
+    'settingButton' => '保存',
+
+    'testMailDesc' => '保存郵箱配置後，在此輸入收件郵箱，測試發送。',
+    'testMailSend' => '確認發送',
+
+    'variableCode' => '驗證碼',
+    'variableTime' => '發信時間',
+];
